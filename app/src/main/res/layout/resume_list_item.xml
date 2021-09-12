@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:background="@color/background"
+    tools:context=".EMP.EMP_ViewResume">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cardview_shape"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/file_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/resume_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.217" />
+
+
+        <TextView
+            android:id="@+id/fullName"
+            android:layout_width="234dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:text="Resume of Applicant"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.113"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/editFirstName"
+            android:layout_width="234dp"
+            android:layout_height="19dp"
+            android:layout_below="@+id/fullName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:ellipsize="end"
+            android:fontFamily="@font/open_sans_regular"
+            android:maxLines="1"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/lblEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toBottomOf="@+id/fullName"
+            app:layout_constraintVertical_bias="0.051" />
+
+        <TextView
+            android:id="@+id/lblEmail"
+            android:layout_width="234dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="32dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:text="Email"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toTopOf="@id/editFirstName" />
+
+
+        <TextView
+            android:id="@+id/editEmail"
+            android:layout_width="234dp"
+            android:layout_height="19dp"
+            android:layout_below="@+id/fullName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:ellipsize="end"
+            android:fontFamily="@font/open_sans_regular"
+            android:maxLines="1"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toBottomOf="@+id/lblEmail"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <TextView
+            android:id="@+id/lblContact"
+            android:layout_width="78dp"
+            android:layout_height="7dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:text="Contact"
+            android:textColor="@color/textColor"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.136"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toTopOf="@id/editEmail" />
+
+        <TextView
+            android:id="@+id/editContact"
+            android:layout_width="234dp"
+            android:layout_height="19dp"
+            android:layout_below="@+id/fullName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:ellipsize="end"
+            android:fontFamily="@font/open_sans_regular"
+            android:maxLines="1"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toBottomOf="@+id/lblContact"
+            app:layout_constraintVertical_bias="0.051" />
+
+        <TextView
+            android:id="@+id/editResume"
+            android:layout_width="50dp"
+            android:layout_height="10dp"
+            android:layout_below="@+id/editContact"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@+id/file_icon"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/file_icon"
+            app:layout_constraintTop_toBottomOf="@+id/editContact" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/background" >
+    </View>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,34 @@
+
+<resources>
+
+
+    <string-array name="primary_skills1">
+    <item>None</item>
+    <item>Sales</item>
+    <item>IT</item>
+    <item>Education</item>
+    </string-array>
+
+
+    <string-array name="Sales1">
+        <item>Sales</item>
+        <item>Sales2</item>
+    </string-array>
+
+
+    <string-array name="IT1">
+        <item>Software</item>
+        <item>Hardware</item>
+    </string-array>
+
+
+    <string-array name="Education1">
+        <item>Communication</item>
+        <item>Creativity</item>
+        <item>Management</item>
+        <item>Patience</item>
+        <item>Enthusiasm</item>
+        <item>Interpersonal</item>
+    </string-array>
+
+</resources>

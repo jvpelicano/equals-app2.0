@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/nav_home_emp"
+        android:title="@string/home_emp"
+        android:icon="@mipmap/home"/>
+
+        <item android:id="@+id/nav_logo"
+            android:title="Company Logo"
+            android:icon="@drawable/complogo"/>
+
+        <item android:id="@+id/nav_profile_emp"
+            android:title="@string/profile_emp"
+            android:icon="@mipmap/profile"/>
+
+
+
+    <item android:id="@+id/nav_post_job_emp"
+        android:title="@string/post_job_emp"
+        android:icon="@mipmap/post_job"/>
+
+    <item android:id="@+id/nav_manage_job_emp"
+        android:title="@string/manage_jobs_emp"
+        android:icon="@mipmap/manage_jobs"/>
+
+
+    </group>
+    <item android:title="Learn More">
+        <menu>
+            <item android:id="@+id/nav_website_emp"
+                android:title="@string/website_emp"
+                android:icon="@mipmap/website"/>
+
+            <item android:id="@+id/nav_logout_emp"
+                android:title="@string/logout_emp"
+                android:icon="@mipmap/logout"/>
+        </menu>
+    </item>
+</menu>

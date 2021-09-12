@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="PWD.PWD_LoginActivity">
+
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/logo"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center_horizontal" />
+
+
+
+        <Button
+            android:id="@+id/buttonSignin_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Log In as PWD Applicant"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:background="@drawable/btn_login_effect"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/buttonSignin_emp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/btn_login_effect"
+            android:textColor="@color/white"
+            android:text="Log In as Employer"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:textAllCaps="false" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

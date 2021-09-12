@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.philcode.equals">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/appicon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/appicon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name="com.philcode.equals.SplashActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.philcode.equals.PWD.PWD_AvailableJobs_1_All"
+            android:label="Available Jobs"/>
+        <activity
+            android:name="com.philcode.equals.PWD.PWD_AvailableJobs_2_OrthopedicDisability"
+            android:label="Orthopedic Disability Jobs"/>
+        <activity
+            android:name="com.philcode.equals.PWD.PWD_AvailableJobs_4_HearingDisability"
+            android:label="@string/hearing_disability"/>
+        <activity
+            android:name="com.philcode.equals.PWD.PWD_AvailableJobs_3_VisualDisability"
+            android:label="@string/visual_disability"/>
+
+        <activity
+            android:name="com.philcode.equals.PWD.PWD_AvailableJobs_5_MoreDisability"
+            android:label="Other Disability"/>
+        <activity android:name="com.philcode.equals.PWD.PWD_RegisterActivity"/>
+        <activity android:name="com.philcode.equals.PWD.PWD_LoginActivity"/>
+        <activity android:name="com.philcode.equals.PWD.a_PWDContentMainActivity"/>
+        <activity android:name="com.philcode.equals.PWD.PWD_ForgotpassActivity" />
+        <activity android:name="com.philcode.equals.PWD.PWD_EditProfile"/>
+        <activity android:name="com.philcode.equals.PWD.PWD_EditProfile2"/>
+        <activity android:name="com.philcode.equals.PWD.PWD_EditProfile3"/>
+
+
+        <activity android:name="com.philcode.equals.EMP.a_EmployeeContentMainActivity"/>
+        <activity android:name="com.philcode.equals.PrivacyPolicyPDFViewer"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_ManageJobs"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_ViewResume"/>
+        <activity android:name="com.philcode.equals.EMP.Emp_PostJob"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_ManageJobs_Information"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_ManageJobs_MyAdapter"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_AvailableJobs_View"/>
+        <activity android:name="com.philcode.equals.EMP.ForgotpassActivity_emp"/>
+        <activity android:name="com.philcode.equals.EMP.LoginActivity_emp"/>
+        <activity android:name="com.philcode.equals.EMP.RegisterActivity_emp"/>
+        <activity android:name="com.philcode.equals.EMP.EMP_EditProfile_Activity"/>
+
+        <activity android:name="com.philcode.equals.SelectionScreenActivity"/>
+
+        <activity android:name="com.philcode.equals.PWD.PWD_AvailableJobs_View" />
+        <activity android:name=".LoadingActivityPWD" />
+        <activity android:name=".LoadingActivityEMP" />
+        <activity android:name=".EMP.EMP_FillUpInformation_ProfilePicture" />
+        <activity android:name=".EMP.EMP_Profile" />
+        <activity android:name=".Home_View"
+            android:parentActivityName=".PWD.a_PWDContentMainActivity"/>
+        <activity android:name=".PWD.PWD_RegisterActivity3" />
+        <activity android:name=".PWD.PWD_RegisterActivity2" />
+        <activity android:name=".PWD.PWD_EditProfile_ViewActivity" />
+
+        <activity android:name=".EMP.EMP_ViewPotential_All"
+            android:label="Potential Applicants"/>
+        <activity android:name=".EMP.EMP_ViewPotential_View" />
+        <activity android:name=".EMP.EMP_ChangeProfile_Activity" />
+        <activity android:name=".EMP.EMP_ChangeLogo" />
+
+    </application>
+
+</manifest>
