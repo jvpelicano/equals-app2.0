@@ -918,6 +918,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String ImageUploadId = databaseReference.push().getKey();
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
+                                    databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
                                 }
                             });
                             startActivity(intent);
