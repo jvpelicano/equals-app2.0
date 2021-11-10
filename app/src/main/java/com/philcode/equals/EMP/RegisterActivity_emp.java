@@ -452,26 +452,25 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                     checkPrivacy.requestFocus();
                     Toast.makeText(RegisterActivity_emp.this, "Please confirm that you have read the Equals Privacy Policy", Toast.LENGTH_LONG).show();
                     return;
-                } else {
-
+                } else{
+                    //re-structured to create user first, get user ID use uID to name the image. ----------------------------------------------------------------------------------
                     final ProgressDialog progressDialog = new ProgressDialog(this);
                     progressDialog.show();
                     progressDialog.setCancelable(false);
-                    final StorageReference ref = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(filePath));
-                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String userId = user.getUid();
+                            final StorageReference ref = storageReference.child("Employee_IDs").child(userId);
+                            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-
-                                    progressDialog.dismiss();
-                                    final String empValidID = task.getResult().toString();
-
-                                    final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity_emp.this, new OnCompleteListener<AuthResult>() {
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            progressDialog.dismiss();
+                                            final String empValidID = task.getResult().toString();
                                             if (task.isSuccessful()) {
                                                 firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
@@ -497,24 +496,11 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                         }
                                     });
                                 }
-                                // }
                             });
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity_emp.this, "Failed:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Loading " + (int) progress + "%");
-                            progressDialog.setCancelable(false);
+
                         }
                     });
-                }
+                }//re-structured to create user first, get user ID use uID to name the image. ----------------------------------------------------------------------------------
             }
         }else{
             AlertDialog.Builder alert =  new AlertDialog.Builder(RegisterActivity_emp.this);

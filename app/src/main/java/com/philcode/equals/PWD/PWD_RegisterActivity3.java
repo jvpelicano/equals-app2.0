@@ -92,12 +92,14 @@ public class PWD_RegisterActivity3 extends Activity {
     }
 
     public void uploadPWDIDPic(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
         final Intent intent = new Intent(this, PWD_LoginActivity.class);
         if(filePath  != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Finalizing...");
             progressDialog.show();
-            final StorageReference ref = storageReference.child(Storage_Path+ System.currentTimeMillis() + "." + GetFileExtension(filePath));
+            final StorageReference ref = storageReference.child(userId); //Changed to store images named.---------------------------------------------------------------------
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
