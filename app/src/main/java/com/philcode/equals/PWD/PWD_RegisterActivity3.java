@@ -99,7 +99,7 @@ public class PWD_RegisterActivity3 extends Activity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Finalizing...");
             progressDialog.show();
-            final StorageReference ref = storageReference.child(userId); //Changed to store images named.---------------------------------------------------------------------
+            final StorageReference ref = storageReference.child("PWD_pfp").child(userId); //Changed to store images named.---------------------------------------------------------------------
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

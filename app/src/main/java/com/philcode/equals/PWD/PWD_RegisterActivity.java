@@ -332,8 +332,8 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
             internetConnection = false;
         if (internetConnection == true) {
             if (filePath != null) {
-                final String typeStatus = "PWDApproved";  // for testing app 09.12.2021
-                //final String typeStatus = "PWDPending"; original status when registering 09.12.2021
+//                final String typeStatus = "PWDApproved";  // for testing app 09.12.2021
+                final String typeStatus = "PWDPending"; //original status when registering 09.12.2021
                 final String email = editEmail.getText().toString().trim();
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
@@ -400,44 +400,41 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     progressDialog.show();
                     progressDialog.setCancelable(false);
-                    final StorageReference ref = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(filePath));
-                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    progressDialog.dismiss();
-                                    final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(PWD_RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    final StorageReference ref = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(filePath));
+                                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                            final String pwdIDnum = task.getResult().toString();
-
-                                            if (task.isSuccessful()) {
-                                                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            currentUser = firebaseAuth.getCurrentUser().getUid();
-                                                            PWD_UserInformation PWDInfo = new PWD_UserInformation(email, typeStatus, firstname, lastname, address, city, contact, pwdIDnum);
-                                                            FirebaseDatabase.getInstance().getReference("PWD").child(currentUser).setValue(PWDInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    //                     Toast.makeText(getApplicationContext(), "Information saved to " + currentUser, Toast.LENGTH_LONG).show();
-                                                                    startActivity(intent);
-
-                                                                }
-                                                            });
-                                                        } else {
-                                                            Toast.makeText(PWD_RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                                        }
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Uri> task_URI) {
+                                                    final String pwdID_URI = task_URI.getResult().toString();
+                                                    if (task.isSuccessful()) {
+                                                        currentUser = firebaseAuth.getCurrentUser().getUid();
+                                                        PWD_UserInformation PWDInfo = new PWD_UserInformation(email, typeStatus, firstname, lastname, address, city, contact, pwdID_URI);
+                                                        FirebaseDatabase.getInstance().getReference("PWD").child(currentUser).setValue(PWDInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        Toast.makeText(PWD_RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                                     }
-                                                });
-                                            } else {
-                                                Toast.makeText(PWD_RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                            }
+                                                }
+                                            });
+                                        }
+                                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                            progressDialog.setMessage("Loading " + (int) progress + "%");
+                                            progressDialog.setCancelable(false);
                                         }
                                     });
                                 }
@@ -448,13 +445,6 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
                             Toast.makeText(PWD_RegisterActivity.this, "Failed:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Loading " + (int) progress + "%");
-                            progressDialog.setCancelable(false);
                         }
                     });
                 }

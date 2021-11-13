@@ -262,7 +262,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }
         });
 
-        primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //ON ITEM SELECTED should do nothing but store data.
+        /*primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //ON ITEM SELECTED should do nothing but store data.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mUserItems.clear();
@@ -273,7 +273,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Selected: " + x, Toast.LENGTH_LONG).show();
-                    /*primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
+                    *//*primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
@@ -376,7 +376,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
-                    });*/ //Delete this???
+                    });*//* //Delete this???
 
                 }
             }
@@ -384,7 +384,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        });
+        });*/
 
 
         buttonAddWork.setOnClickListener(new View.OnClickListener() {
@@ -606,7 +606,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             check_Vis = checkVis.getText().toString();
         }
         else{
-            check_Vis = checkVis.getText().toString();
+            check_Vis = "";
         }
 
         if (checkHear.isChecked() ) {
@@ -708,12 +708,12 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         rbEduc = findViewById(selectedId);
         educAttainment = rbEduc.getText().toString();
 
-        for(int i=0;i<pwdPrimarySkills.length;i++){
+        /*for(int i=0;i<pwdPrimarySkills.length;i++){
             if(!(pwdPrimarySkills[i]==null)){
                 countw++;
             }
-        }
-        numberOfPrimarySkills=countw;
+        }*/
+        //numberOfPrimarySkills=countw;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
@@ -732,54 +732,48 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             textview7.requestFocus();
             Toast.makeText(PWD_RegisterActivity2.this, "Please check your disability", Toast.LENGTH_SHORT).show();
             return;
-        }else
-        if(categorySkill.equals("Click to select value")){
-            textview8.setError("Please select your skill category");
-            textview8.requestFocus();
-            Toast.makeText(PWD_RegisterActivity2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
-            return;
         }else{
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
-            mDatabase.child("educationalAttainment").setValue(educAttainment);
-            mDatabase.child("skill").setValue(categorySkill);
-            mDatabase.child("workExperience").setValue(workExperience);
-            //mDatabase.child("numberOfPrimarySkills").setValue(numberOfPrimarySkills);
+            if(categorySkill.equals("Click to select value")){
+                textview8.setError("Please select your skill category");
+                textview8.requestFocus();
+                Toast.makeText(PWD_RegisterActivity2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
+                mDatabase.child("educationalAttainment").setValue(educAttainment);
+                mDatabase.child("skill").setValue(x);
+                mDatabase.child("workExperience").setValue(workExperience);
 
 
-            ArrayList jobskills = new ArrayList();
-            jobskills.add(job1);
-            jobskills.add(job2);
-            jobskills.add(job3);
-            jobskills.add(job4);
-            jobskills.add(job5);
-            jobskills.add(job6);
-            jobskills.add(job7);
-            jobskills.add(job8);
-            jobskills.add(job9);
-            jobskills.add(job10);
+                ArrayList jobskills = new ArrayList();
+                jobskills.add(job1);
+                jobskills.add(job2);
+                jobskills.add(job3);
+                jobskills.add(job4);
+                jobskills.add(job5);
+                jobskills.add(job6);
+                jobskills.add(job7);
+                jobskills.add(job8);
+                jobskills.add(job9);
+                jobskills.add(job10);
 
-            ArrayList disabilities = new ArrayList();
-            disabilities.add(checkOrtho);
-            disabilities.add(checkVis);
-            disabilities.add(checkHear);
-            disabilities.add(checkMore);
+                ArrayList disabilities = new ArrayList();
+                disabilities.add(checkOrtho);
+                disabilities.add(checkVis);
+                disabilities.add(checkHear);
+                disabilities.add(checkMore);
 
 
-            for(int i = 0; i < jobskills.size(); i++){
-                if((jobskills.get(i) != "")){
-                    mDatabase.child("jobSkills" + i).setValue(jobskills.get(i));
+                for(int i = 0; i < jobskills.size(); i++){
+                    if((jobskills.get(i) != "")){
+                        mDatabase.child("jobSkills" + i).setValue(jobskills.get(i));
+                    }
                 }
-            }
-            for(int i = 0; i < disabilities.size(); i++){
-                if((disabilities.get(i) != "")){
-                    mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
+                for(int i = 0; i < disabilities.size(); i++){
+                    if((disabilities.get(i) != "")){
+                        mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
+                    }
                 }
-            }
-            /*for(int i = 0; i < pwdPrimarySkills.length; i++){
-                if((pwdPrimarySkills[i] != "")){
-                    mDatabase.child("primarySkill" + i).setValue(pwdPrimarySkills[i]);
-                    //--------------------------------------------------------------------------------------uncommented-----------------------------------------------------------10/29/21
-                } *///--------------------------------------------------------------------------------------uncommented-----------------------------------------------------------4/10/21
                 if(workExperience.equals("")){
                     mDatabase.child("workExperience").setValue("Without Experience");
                 }else{
@@ -787,17 +781,10 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 }
 
             }
+        }
 
 
-            mDatabase.child("primarySkillOthers").setValue(primarySkillOther).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
-
-                    startActivity(intent);
-
-                }
-            });
+        startActivity(intent);
 
         }
 

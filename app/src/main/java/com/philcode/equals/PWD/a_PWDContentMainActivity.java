@@ -91,33 +91,13 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(),t,Toast.LENGTH_SHORT).show();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
-                try {
-                    type1 = snapshot.child("typeOfDisability1").getValue().toString();
-                } catch (Exception e) {
-                    type1 = null;
-                }
-                try {
-                    type2 = snapshot.child("typeOfDisability2").getValue().toString();
-                } catch (Exception e) {
 
-                    type2 = null;
-                }
-                try {
-                    type3 = snapshot.child("typeOfDisability3").getValue().toString();
-                } catch (Exception e) {
-                    type3 = null;
-                }
-                try {
-                    type4 = snapshot.child("typeOfDisabilityMore").getValue().toString();
-                } catch (Exception e) {
-                    type4 = null;
-                }
+
                 pNavigation = findViewById(R.id.navigation_view_pwd);
                 menu = pNavigation.getMenu();
-                //           Toast.makeText(getApplicationContext(), type1 + " " + d1, Toast.LENGTH_SHORT).show();
-                if (type1.equals(d1.toString())) {
-                    //Kung may laman daw
 
+                if (snapshot.child("typeOfDisability0").exists()) {
+                    //Kung may laman daw
                     MenuItem target1 = menu.findItem(R.id.nav_job_orthopedic);
                     target1.setVisible(true);
                 }else {
@@ -125,7 +105,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     target1.setVisible(false);
                 }
 
-                if (type2.equals(d2)) {
+                if (snapshot.child("typeOfDisability1").exists()) {
                     //Kung may laman daw
                     MenuItem target2 = menu.findItem(R.id.nav_job_visual);
                     target2.setVisible(true);
@@ -134,7 +114,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     target3.setVisible(false);
                 }
 
-                if (type3.equals(d3)) {
+                if (snapshot.child("typeOfDisability2").exists()) {
                     //Kung may laman daw
                     MenuItem target3 = menu.findItem(R.id.nav_job_hearing);
                     target3.setVisible(true);
@@ -143,7 +123,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     target1.setVisible(false);
                 }
 
-                if (type4.equals(d4)) {
+                if (snapshot.child("typeOfDisability3").exists()) {
                     //Kung may laman daw
                     MenuItem target4 = menu.findItem(R.id.nav_job_more);
                     target4.setVisible(true);

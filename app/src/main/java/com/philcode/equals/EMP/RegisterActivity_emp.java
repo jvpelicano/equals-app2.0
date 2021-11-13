@@ -381,7 +381,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
                 final String fullname = editCompanyName.getText().toString().trim();
-                final String typeStatus = "EMPApproved"; //for testing 09.12.2021
+                final String typeStatus = "EMPPending"; //for testing 09.12.2021
                 //final String typeStatus = "EMPApproved"; original status 09.12.2021
                 //  final String fullname = editCompanyName.getText().toString().trim();
                 final String companybg = editCompanyBackground.getText().toString().trim();
