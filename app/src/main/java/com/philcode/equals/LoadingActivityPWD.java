@@ -65,7 +65,7 @@ public class LoadingActivityPWD extends AppCompatActivity {
                                                case "PWDApproved":
                                                    Intent i = new Intent(LoadingActivityPWD.this, a_PWDContentMainActivity.class);
                                                    startActivity(i);
-                                                   finish();
+//                                                   finish();
                                                    break;
                                                case "PWDPending":
                                                    Toast.makeText(LoadingActivityPWD.this, "Please wait for admin approval",

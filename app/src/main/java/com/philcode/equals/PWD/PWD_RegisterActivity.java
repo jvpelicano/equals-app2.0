@@ -332,8 +332,8 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
             internetConnection = false;
         if (internetConnection == true) {
             if (filePath != null) {
-                final String typeStatus = "PWDApproved";  // for testing app 09.12.2021
-                //final String typeStatus = "PWDPending"; original status when registering 09.12.2021
+//                final String typeStatus = "PWDApproved";  // for testing app 09.12.2021
+                final String typeStatus = "PWDPending"; //original status when registering 09.12.2021
                 final String email = editEmail.getText().toString().trim();
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
