@@ -262,7 +262,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }
         });
 
-        primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //ON ITEM SELECTED should do nothing but store data.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mUserItems.clear();
@@ -272,8 +272,8 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 if (x.equals("Click to select value")) {
 
                 } else {
-             //       Toast.makeText(getApplicationContext(), "Selected: " + x, Toast.LENGTH_LONG).show();
-                    primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
+                    Toast.makeText(getApplicationContext(), "Selected: " + x, Toast.LENGTH_LONG).show();
+                    *//*primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
@@ -363,72 +363,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                                             count2++;
                                         }
 
-                                  //      Toast.makeText(getApplicationContext(), "Count1: "+count+"\nCount2: " +count2, Toast.LENGTH_LONG).show();
-
-                                        String[] listSkills = new String[count];
-                                        count3=0;
-                                        if(m1.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m1;
-                                            count3++;
-                                        }
-                                        if(m2.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m2;
-                                            count3++;
-                                        }
-                                        if(m3.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m3;
-                                            count3++;
-                                        }
-                                        if(m4.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m4;
-                                            count3++;
-                                        }
-                                        if(m5.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m5;
-                                            count3++;
-                                        }
-                                        if(m6.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m6;
-                                            count3++;
-                                        }
-                                        if(m7.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m7;
-                                            count3++;
-                                        }
-                                        if(m8.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m8;
-                                            count3++;
-                                        }
-                                        if(m9.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m9;
-                                            count3++;
-                                        }
-                                        if(m10.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m10;
-                                            count3++;
-                                        }
-                                        checkedItems = new boolean[count3];
-                                        callDialog(listSkills, checkedItems);
                                     }
 
                                     @Override
@@ -442,14 +376,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
-                    });
+                    });*//* //Delete this???
+
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        });
+        });*/
 
 
         buttonAddWork.setOnClickListener(new View.OnClickListener() {
@@ -592,7 +527,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
                 }
 
-
                 alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -672,7 +606,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             check_Vis = checkVis.getText().toString();
         }
         else{
-            check_Vis = checkVis.getText().toString();
+            check_Vis = "";
         }
 
         if (checkHear.isChecked() ) {
@@ -743,89 +677,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         }
     }
 
-
-    public void callDialog(final String[] listSkillsZ, final boolean[] checkedItemsZ) {
-
-        View view2 = LayoutInflater.from(PWD_RegisterActivity2.this).inflate(R.layout.other_skills,null);
-        final EditText others = view2.findViewById(R.id.otherSkills);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(PWD_RegisterActivity2.this);
-        builder.setView(view2);
-        builder.setTitle("Select Primary Skills");
-        builder.setMultiChoiceItems(listSkillsZ, checkedItemsZ, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-                if (isChecked) {
-                    if (!mUserItems.contains(position)) {
-                        mUserItems.add(position);
-                    }
-                } else if (mUserItems.contains(position)) {
-                    mUserItems.remove(mUserItems.indexOf(position));
-                }
-
-            }
-        });
-        builder.setCancelable(false);
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int position) {
-                primarySkillOther = others.getText().toString();
-                String item = "";
-                String item2 = "";
-                //String selectedSkill = "";
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    item = listSkillsZ[mUserItems.get(i)];
-            //        Toast.makeText(PWD_RegisterActivity2.this, "i: " + i, Toast.LENGTH_LONG).show();
-
-                    //  if (i != mUserItems.size() - 1) {
-//                       for(int j = 0; j<19; j++){
-                    pwdPrimarySkills[i] = item;
-//                       }
-                    item2 = item2 + item + ", ";
-
-                }
-                primarySkill1 = pwdPrimarySkills[0];
-                primarySkill2 = pwdPrimarySkills[1];
-                primarySkill3 = pwdPrimarySkills[2];
-                primarySkill4 = pwdPrimarySkills[3];
-                primarySkill5 = pwdPrimarySkills[4];
-                primarySkill6 = pwdPrimarySkills[5];
-                primarySkill7 = pwdPrimarySkills[6];
-                primarySkill8 = pwdPrimarySkills[7];
-                primarySkill9 = pwdPrimarySkills[8];
-                primarySkill10 = pwdPrimarySkills[9];
-                if (primarySkillOther!="" && primarySkillOther!=null){
-                    item2 = item2+" "+primarySkillOther;
-                    skillSelected.setText(item2);
-                }else{
-                    skillSelected.setText(item2.substring(0, item2.length() - 2));
-                }
-            }
-
-        });
-
-        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNeutralButton("Clear skills", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < checkedItemsZ.length; i++) {
-                    checkedItemsZ[i] = false;
-                    mUserItems.clear();
-                    skillSelected.setText("");
-                }
-            }
-        });
-        AlertDialog mDialog = builder.create();
-        mDialog.show();
-    }
-
-
+    //deleted callDialog function --------------------------------------------------------------
 
 
     private void uploadImage() {
@@ -856,12 +708,12 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         rbEduc = findViewById(selectedId);
         educAttainment = rbEduc.getText().toString();
 
-        for(int i=0;i<pwdPrimarySkills.length;i++){
+        /*for(int i=0;i<pwdPrimarySkills.length;i++){
             if(!(pwdPrimarySkills[i]==null)){
                 countw++;
             }
-        }
-        numberOfPrimarySkills=countw;
+        }*/
+        //numberOfPrimarySkills=countw;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
@@ -880,55 +732,62 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             textview7.requestFocus();
             Toast.makeText(PWD_RegisterActivity2.this, "Please check your disability", Toast.LENGTH_SHORT).show();
             return;
-        }else
-        if(categorySkill.equals("Click to select value")){
-            textview8.setError("Please select your skill category");
-            textview8.requestFocus();
-            Toast.makeText(PWD_RegisterActivity2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
-            return;
         }else{
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
-            mDatabase.child("educationalAttainment").setValue(educAttainment);
-            mDatabase.child("skill").setValue(categorySkill);
-            mDatabase.child("workExperience").setValue(workExperience);
-            mDatabase.child("jobSkill1").setValue(job1);
-            mDatabase.child("jobSkill2").setValue(job2);
-            mDatabase.child("jobSkill3").setValue(job3);
-            mDatabase.child("jobSkill4").setValue(job4);
-            mDatabase.child("jobSkill5").setValue(job5);
-            mDatabase.child("jobSkill6").setValue(job6);
-            mDatabase.child("jobSkill7").setValue(job7);
-            mDatabase.child("jobSkill8").setValue(job8);
-            mDatabase.child("jobSkill9").setValue(job9);
-            mDatabase.child("jobSkill10").setValue(job10);
-            mDatabase.child("typeOfDisability1").setValue(checkOrtho);
-            mDatabase.child("typeOfDisability2").setValue(checkVis);
-            mDatabase.child("typeOfDisability3").setValue(checkHear);
-            mDatabase.child("typeOfDisabilityMore").setValue(checkMore);
-            mDatabase.child("numberOfPrimarySkills").setValue(numberOfPrimarySkills);
-            mDatabase.child("primarySkill1").setValue(primarySkill1);
-            mDatabase.child("primarySkill2").setValue(primarySkill2);
-            mDatabase.child("primarySkill3").setValue(primarySkill3);
-            mDatabase.child("primarySkill4").setValue(primarySkill4);
-            mDatabase.child("primarySkill5").setValue(primarySkill5);
-            mDatabase.child("primarySkill6").setValue(primarySkill6);
-            mDatabase.child("primarySkill7").setValue(primarySkill7);
-            mDatabase.child("primarySkill8").setValue(primarySkill8);
-            mDatabase.child("primarySkill9").setValue(primarySkill9);
-            mDatabase.child("primarySkill10").setValue(primarySkill10);
-            mDatabase.child("primarySkillOthers").setValue(primarySkillOther).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+            if(categorySkill.equals("Click to select value")){
+                textview8.setError("Please select your skill category");
+                textview8.requestFocus();
+                Toast.makeText(PWD_RegisterActivity2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
+                mDatabase.child("educationalAttainment").setValue(educAttainment);
+                mDatabase.child("skill").setValue(x);
+                mDatabase.child("workExperience").setValue(workExperience);
 
-                    startActivity(intent);
 
+                ArrayList jobskills = new ArrayList();
+                jobskills.add(job1);
+                jobskills.add(job2);
+                jobskills.add(job3);
+                jobskills.add(job4);
+                jobskills.add(job5);
+                jobskills.add(job6);
+                jobskills.add(job7);
+                jobskills.add(job8);
+                jobskills.add(job9);
+                jobskills.add(job10);
+
+                ArrayList disabilities = new ArrayList();
+                disabilities.add(checkOrtho);
+                disabilities.add(checkVis);
+                disabilities.add(checkHear);
+                disabilities.add(checkMore);
+
+
+                for(int i = 0; i < jobskills.size(); i++){
+                    if((jobskills.get(i) != "")){
+                        mDatabase.child("jobSkills" + i).setValue(jobskills.get(i));
+                    }
                 }
-            });
+                for(int i = 0; i < disabilities.size(); i++){
+                    if((disabilities.get(i) != "")){
+                        mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
+                    }
+                }
+                if(workExperience.equals("")){
+                    mDatabase.child("workExperience").setValue("Without Experience");
+                }else{
+                    mDatabase.child("workExperience").setValue(workExperience);
+                }
+
+            }
+        }
+
+
+        startActivity(intent);
 
         }
 
-    }
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
