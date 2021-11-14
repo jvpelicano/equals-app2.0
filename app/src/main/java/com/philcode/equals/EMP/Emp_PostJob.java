@@ -435,59 +435,6 @@ public class Emp_PostJob extends AppCompatActivity {
             typeOfDisability_2 = "";
 
         }
-
-        if (jobSkill1.isChecked()){
-            jobSkill_1 = jobSkill1.getText().toString();
-        }
-        else{
-            jobSkill_1 = "";
-        } if (jobSkill2.isChecked()){
-            jobSkill_2 = jobSkill2.getText().toString();
-        }
-        else{
-            jobSkill_2 = "";
-        } if (jobSkill3.isChecked()){
-            jobSkill_3 = jobSkill3.getText().toString();
-        }
-        else{
-            jobSkill_3 = "";
-        } if (jobSkill4.isChecked()){
-            jobSkill_4 = jobSkill4.getText().toString();
-        }
-        else{
-            jobSkill_4 = "";
-        } if (jobSkill5.isChecked()){
-            jobSkill_5 = jobSkill5.getText().toString();
-        }
-        else{
-            jobSkill_5 = "";
-        } if (jobSkill6.isChecked()){
-            jobSkill_6 = jobSkill6.getText().toString();
-        }
-        else{
-            jobSkill_6 = "";
-        } if (jobSkill7.isChecked()){
-            jobSkill_7 = jobSkill7.getText().toString();
-        }
-        else{
-            jobSkill_7 = "";
-        } if (jobSkill8.isChecked()){
-            jobSkill_8 = jobSkill8.getText().toString();
-        }
-        else{
-            jobSkill_8 = "";
-        } if (jobSkill9.isChecked()){
-            jobSkill_9 = jobSkill9.getText().toString();
-        }
-        else{
-            jobSkill_9 = "";
-        } if (jobSkill10.isChecked()){
-            jobSkill_10 = jobSkill10.getText().toString();
-        }
-        else{
-            jobSkill_10 = "";
-        }
-
     }
 
     private void uploadImage(final String companyName, final String uid) {
@@ -520,24 +467,6 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String tempTypeOfDisability2 = typeOfDisability_2;
                                     String tempTypeOfDisability3 = typeOfDisability_3;
                                     String tempTypeOfDisabilityMore = typeOfDisability_More;
-
-                                    String tempJobSkills1 = jobSkill_1;
-                                    String tempJobSkills2 = jobSkill_2;
-                                    String tempJobSkills3 = jobSkill_3;
-                                    String tempJobSkills4 = jobSkill_4;
-                                    String tempJobSkills5 = jobSkill_5;
-                                    String tempJobSkills6 = jobSkill_6;
-                                    String tempJobSkills7 = jobSkill_7;
-                                    String tempJobSkills8 = jobSkill_8;
-                                    String tempJobSkills9 = jobSkill_9;
-                                    String tempJobSkills10 = jobSkill_10;
-
-
-
-                                    // final String city = spinnerCity.getSelectedItem().toString().trim();
-
-
-
 
                                     rgEducAttainment = findViewById(R.id.rg_educ);
                                     final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
@@ -637,24 +566,55 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }
 
                                     String tempPermission = permission;
-                                    //  String expDate = setExpDate.getSelectedItem().toString();
+
                                     progressDialog.dismiss();
 
                                     Date currentDate = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
                                     String postDate = df.format(currentDate);
                                     categorySkill = primary_skillsCategory.getSelectedItem().toString();
-                    //              @SuppressWarnings("VisibleForTests")
+
                                     //Deleted Primary skills and Job Skills from Model
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
                                             tempPostDescription,tempPostLocation, tempTypeOfDisability1, tempTypeOfDisability2,
-                                            tempTypeOfDisability3,tempTypeOfDisabilityMore,tempPermission,tempJobSkills1, tempJobSkills2, tempJobSkills3,
-                                            tempJobSkills4,tempJobSkills5, tempJobSkills6, tempJobSkills7, tempJobSkills8, tempJobSkills9, tempJobSkills10,
-                                            companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
+                                            tempTypeOfDisability3,tempTypeOfDisabilityMore,tempPermission, companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
                                     String ImageUploadId = databaseReference.push().getKey();
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
+
+                                    if (jobSkill1.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill1").setValue(jobSkill1.getText().toString());
+                                    }
+                                    if (jobSkill2.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill2").setValue(jobSkill2.getText().toString());
+                                    }
+                                    if (jobSkill3.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill3").setValue(jobSkill3.getText().toString());
+                                    }
+                                    if (jobSkill4.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill4").setValue(jobSkill4.getText().toString());
+                                    }
+                                    if (jobSkill5.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill5").setValue(jobSkill5.getText().toString());
+                                    }
+                                    if (jobSkill6.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill6").setValue(jobSkill6.getText().toString());
+                                    }
+                                    if (jobSkill7.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill7").setValue(jobSkill7.getText().toString());
+                                    }
+                                    if (jobSkill8.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill8").setValue(jobSkill8.getText().toString());
+                                    }
+                                    if (jobSkill9.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill9").setValue(jobSkill9.getText().toString());
+                                    }
+                                    if (jobSkill10.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill0").setValue(jobSkill10.getText().toString());
+                                    }
+
+
                                 }
                             });
                             startActivity(intent);
