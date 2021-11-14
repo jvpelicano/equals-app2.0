@@ -61,7 +61,7 @@ public class Emp_PostJob extends AppCompatActivity {
     TextInputEditText postTitle, postDescription, yearsOfExperience;
     Button empBtnPost;
     CheckBox typeOfDisability1, typeOfDisability2, typeOfDisability3, typeOfDisabilityMore;
-    Spinner setExpDate, spinnerCity;
+    Spinner setExpDate;
     Button empBtnChoose;
     private RadioGroup rgWorkExperience, rgEducAttainment;
     private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
@@ -110,7 +110,7 @@ public class Emp_PostJob extends AppCompatActivity {
     int count3 = 0;
     int countw = 0;
     int years =0;
-    private TextView textViewUserEmail, skillSelected;
+    private TextView skillSelected;
     String[] pwdPrimarySkills = new String[10];
 
 
@@ -126,16 +126,6 @@ public class Emp_PostJob extends AppCompatActivity {
     String primarySkill10;
     String primarySkillOther;
 
-    String job_1 = "";
-    String job_2 = "";
-    String job_3 = "";
-    String job_4 = "";
-    String job_5 = "";
-    String job_6 = "";
-    String job_7 = "";
-    String job_8 = "";
-    String job_9 = "";
-    String job_10 = "";
 
     private String educAttainment = "";
     private String workExperience = "";
@@ -154,11 +144,8 @@ public class Emp_PostJob extends AppCompatActivity {
 
 
     Calendar cal = Calendar.getInstance();
-    Calendar currentCal = Calendar.getInstance();
     Date currentDate = Calendar.getInstance().getTime();
     SimpleDateFormat df = new SimpleDateFormat("MMMM-dd-yyyy");
-    String formattedDate = df.format(currentDate);
-    String date = new SimpleDateFormat("MMMM-dd-yyyy", Locale.getDefault()).format(new Date());
     //String formattedDate = df.format(c);
     SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
 
@@ -257,186 +244,8 @@ public class Emp_PostJob extends AppCompatActivity {
             }
         });
         primary_skillsCategory = findViewById(R.id.skillSpinner);
-        primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserItems.clear();
+        //DELETED WHOLE BLOCK -----------------------------------------------------------------------
 
-                final DatabaseReference primarySkillsRef = FirebaseDatabase.getInstance().getReference().child("Category");
-                x = primary_skillsCategory.getSelectedItem().toString();
-                if (x.equals("Click to select value")) {
-
-                } else {
-                    primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                                String parent = dataSnapshot1.getKey();
-                           final DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("Category").child(parent);
-                                parentRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        count=10;
-                                        count2=0;
-                                        if(dataSnapshot.child("skill1").getValue(String.class).equals("")){
-                                            count--;
-                                            m1="";
-                                        }
-                                        else{
-                                            m1 = dataSnapshot.child("skill1").getValue(String.class);
-                                            count2++;
-
-                                        }
-                                        if(dataSnapshot.child("skill2").getValue(String.class).equals("")){
-                                            count--;
-                                            m2="";
-                                        }else{
-                                            m2 = dataSnapshot.child("skill2").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill3").getValue(String.class).equals("")){
-                                            count--;
-                                            m3="";
-                                        }else{
-                                            m3 = dataSnapshot.child("skill3").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill4").getValue(String.class).equals("")){
-                                            count--;
-                                            m4="";
-                                        }else{
-                                            m4 = dataSnapshot.child("skill4").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill5").getValue(String.class).equals("")){
-                                            count--;
-                                            m5="";
-                                        }else{
-                                            m5 = dataSnapshot.child("skill5").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill6").getValue(String.class).equals("")){
-                                            count--;
-                                            m6="";
-                                        }else{
-                                            m6 = dataSnapshot.child("skill6").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill7").getValue(String.class).equals("")){
-                                            count--;
-                                            m7="";
-                                        }else{
-                                            m7 = dataSnapshot.child("skill7").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill8").getValue(String.class).equals("")){
-                                            count--;
-                                            m8="";
-
-                                        }else{
-                                            m8 = dataSnapshot.child("skill8").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill9").getValue(String.class).equals("")){
-                                            count--;
-                                            m9="";
-
-                                        }else{
-                                            m9 = dataSnapshot.child("skill9").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill10").getValue(String.class).equals("")){
-                                            count--;
-                                            m10="";
-
-                                        }else{
-                                            m10 = dataSnapshot.child("skill10").getValue(String.class);
-                                            count2++;
-                                        }
-                                        String[] listSkills = new String[count];
-                                        count3=0;
-                                        if(m1.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m1;
-                                            count3++;
-                                        }
-                                        if(m2.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m2;
-                                            count3++;
-                                        }
-                                        if(m3.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m3;
-                                            count3++;
-                                        }
-                                        if(m4.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m4;
-                                            count3++;
-                                        }
-                                        if(m5.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m5;
-                                            count3++;
-                                        }
-                                        if(m6.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m6;
-                                            count3++;
-                                        }
-                                        if(m7.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m7;
-                                            count3++;
-                                        }
-                                        if(m8.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m8;
-                                            count3++;
-                                        }
-                                        if(m9.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m9;
-                                            count3++;
-                                        }
-                                        if(m10.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m10;
-                                            count3++;
-                                        }
-                                        checkedItems = new boolean[count3];
-                                        callDialog(listSkills, checkedItems);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
         postTitle = findViewById(R.id.postTitle);
         postDescription = findViewById(R.id.postDescription);
@@ -680,79 +489,6 @@ public class Emp_PostJob extends AppCompatActivity {
         }
 
     }
-    public void callDialog(final String[] listSkillsZ, final boolean[] checkedItemsZ) {
-
-        View view2 = LayoutInflater.from(Emp_PostJob.this).inflate(R.layout.other_skills,null);
-        final EditText others = view2.findViewById(R.id.otherSkills);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(Emp_PostJob.this);
-        builder.setView(view2);
-        builder.setTitle("Select Primary Skills");
-        builder.setMultiChoiceItems(listSkillsZ, checkedItemsZ, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-                if (isChecked) {
-                    if (!mUserItems.contains(position)) {
-                        mUserItems.add(position);
-                    }
-                } else if (mUserItems.contains(position)) {
-                    mUserItems.remove(mUserItems.indexOf(position));
-                }
-
-            }
-        });
-        builder.setCancelable(false);
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int position) {
-                primarySkillOther = others.getText().toString();
-                String item = "";
-                String item2 = "";
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    item = listSkillsZ[mUserItems.get(i)];
-                    pwdPrimarySkills[i] = item;
-                    item2 = item2 + item + ", ";
-                }
-                primarySkill1 = pwdPrimarySkills[0];
-                primarySkill2 = pwdPrimarySkills[1];
-                primarySkill3 = pwdPrimarySkills[2];
-                primarySkill4 = pwdPrimarySkills[3];
-                primarySkill5 = pwdPrimarySkills[4];
-                primarySkill6 = pwdPrimarySkills[5];
-                primarySkill7 = pwdPrimarySkills[6];
-                primarySkill8 = pwdPrimarySkills[7];
-                primarySkill9 = pwdPrimarySkills[8];
-                primarySkill10 = pwdPrimarySkills[9];
-                if (primarySkillOther!="" && primarySkillOther!=null){
-                    item2 = item2+" "+primarySkillOther;
-                    skillSelected.setText(item2);
-                }else{
-                    skillSelected.setText(item2.substring(0, item2.length() - 2));
-                }
-            }
-
-        });
-
-        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNeutralButton("Clear skills", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < checkedItemsZ.length; i++) {
-                    checkedItemsZ[i] = false;
-                    mUserItems.clear();
-                    skillSelected.setText("");
-                }
-            }
-        });
-        AlertDialog mDialog = builder.create();
-        mDialog.show();
-    }
 
     private void uploadImage(final String companyName, final String uid) {
         if (checkEducRequirement.isChecked()){
@@ -784,17 +520,24 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String tempTypeOfDisability2 = typeOfDisability_2;
                                     String tempTypeOfDisability3 = typeOfDisability_3;
                                     String tempTypeOfDisabilityMore = typeOfDisability_More;
+
+                                    String tempJobSkills1 = jobSkill_1;
+                                    String tempJobSkills2 = jobSkill_2;
+                                    String tempJobSkills3 = jobSkill_3;
+                                    String tempJobSkills4 = jobSkill_4;
+                                    String tempJobSkills5 = jobSkill_5;
+                                    String tempJobSkills6 = jobSkill_6;
+                                    String tempJobSkills7 = jobSkill_7;
+                                    String tempJobSkills8 = jobSkill_8;
+                                    String tempJobSkills9 = jobSkill_9;
+                                    String tempJobSkills10 = jobSkill_10;
+
+
+
                                     // final String city = spinnerCity.getSelectedItem().toString().trim();
-                                    String tempJobSkill1 = jobSkill_1;
-                                    String tempJobSkill2 = jobSkill_2;
-                                    String tempJobSkill3 = jobSkill_3;
-                                    String tempJobSkill4 = jobSkill_4;
-                                    String tempJobSkill5 = jobSkill_5;
-                                    String tempJobSkill6 = jobSkill_6;
-                                    String tempJobSkill7 = jobSkill_7;
-                                    String tempJobSkill8 = jobSkill_8;
-                                    String tempJobSkill9 = jobSkill_9;
-                                    String tempJobSkill10 = jobSkill_10;
+
+
+
 
                                     rgEducAttainment = findViewById(R.id.rg_educ);
                                     final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
@@ -893,28 +636,21 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     }
 
-
                                     String tempPermission = permission;
                                     //  String expDate = setExpDate.getSelectedItem().toString();
                                     progressDialog.dismiss();
-                                    for(int i=0;i<pwdPrimarySkills.length;i++){
-                                        if(!(pwdPrimarySkills[i]==null)){
-                                            countw++;
-                                        }
-                                    }
-                                    numberOfPrimarySkills=countw;
+
                                     Date currentDate = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
                                     String postDate = df.format(currentDate);
                                     categorySkill = primary_skillsCategory.getSelectedItem().toString();
                     //              @SuppressWarnings("VisibleForTests")
+                                    //Deleted Primary skills and Job Skills from Model
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
                                             tempPostDescription,tempPostLocation, tempTypeOfDisability1, tempTypeOfDisability2,
-                                            tempTypeOfDisability3,tempTypeOfDisabilityMore, tempJobSkill1, tempJobSkill2, tempJobSkill3
-                                            ,tempJobSkill4, tempJobSkill5, tempJobSkill6, tempJobSkill7, tempJobSkill8, tempJobSkill9, tempJobSkill10,tempPermission,
-                                            companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill,
-                                            primarySkill1, primarySkill2, primarySkill3, primarySkill4, primarySkill5, primarySkill6, primarySkill7,
-                                            primarySkill8, primarySkill9, primarySkill10, primarySkillOther, numberOfPrimarySkills, zz);
+                                            tempTypeOfDisability3,tempTypeOfDisabilityMore,tempPermission,tempJobSkills1, tempJobSkills2, tempJobSkills3,
+                                            tempJobSkills4,tempJobSkills5, tempJobSkills6, tempJobSkills7, tempJobSkills8, tempJobSkills9, tempJobSkills10,
+                                            companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
                                     String ImageUploadId = databaseReference.push().getKey();
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);

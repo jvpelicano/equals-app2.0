@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_available_jobs.xml" value="0.25885416666666666" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_postjob.xml" value="0.25885416666666666" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_potentialapplicants_recycler.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_activity_home.xml" value="0.24635416666666668" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_available_jobs.xml" value="0.25885416666666666" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_availablejobs_cardview.xml" value="0.25885416666666666" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_availablejobs_view.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_edit_profile.xml" value="0.24895833333333334" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile1.xml" value="0.24895833333333334" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile3.xml" value="0.24895833333333334" />

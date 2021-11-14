@@ -31,19 +31,8 @@ public class Emp_PostJob_Information {
     public String educationalAttainment;
     public String workExperience;
 
-    public String primarySkill1;
-    public String primarySkill2;
-    public String primarySkill3;
-    public String primarySkill4;
-    public String primarySkill5;
-    public String primarySkill6;
-    public String primarySkill7;
-    public String primarySkill8;
-    public String primarySkill9;
-    public String primarySkill10;
-    public String primarySkillOther;
     public String skill;
-    public int numberOfPrimarySkills;
+
 
     public String educationalAttainmentRequirement;
     public Emp_PostJob_Information() {
@@ -57,10 +46,7 @@ public class Emp_PostJob_Information {
                                    String typeOfDisability3, String typeOfDisabilityMore, String jobSkill1, String jobSkill2, String jobSkill3, String jobSkill4,
                                    String jobSkill5, String jobSkill6, String jobSkill7, String jobSkill8, String jobSkill9, String jobSkill10, String permission,
                                    String companyName, String uid, String expDate, String postDate, String city, String educationalAttainment, String workExperience,
-                                   String skill, String primarySkill1, String primarySkill2, String primarySkill3,
-                                   String primarySkill4, String primarySkill5, String primarySkill6,
-                                   String primarySkill7, String primarySkill8, String primarySkill9,
-                                   String primarySkill10, String primarySkillOther, int numberOfPrimarySkills, String educationalAttainmentRequirement) {
+                                   String skill, String educationalAttainmentRequirement) {
 
         this.imageURL = imageURL;
         this.postTitle = postTitle;
@@ -94,19 +80,7 @@ public class Emp_PostJob_Information {
 
 
         this.skill = skill;
-        this.primarySkill1 = primarySkill1;
-        this.primarySkill2 = primarySkill2;
-        this.primarySkill3 = primarySkill3;
-        this.primarySkill4 = primarySkill4;
-        this.primarySkill5 = primarySkill5;
-        this.primarySkill6 = primarySkill6;
-        this.primarySkill7 = primarySkill7;
-        this.primarySkill8 = primarySkill8;
-        this.primarySkill9 = primarySkill9;
-        this.primarySkill10 = primarySkill10;
-        this.primarySkillOther = primarySkillOther;
 
-        this.numberOfPrimarySkills = numberOfPrimarySkills;
 
         this.educationalAttainmentRequirement = educationalAttainmentRequirement;
     }
@@ -325,89 +299,6 @@ public class Emp_PostJob_Information {
         this.city = city;
     }
 
-    public String getPrimarySkill1() {
-        return primarySkill1;
-    }
-
-    public void setPrimarySkill1(String primarySkill1) {
-        this.primarySkill1 = primarySkill1;
-    }
-
-    public String getPrimarySkill2() {
-        return primarySkill2;
-    }
-
-    public void setPrimarySkill2(String primarySkill2) {
-        this.primarySkill2 = primarySkill2;
-    }
-
-    public String getPrimarySkill3() {
-        return primarySkill3;
-    }
-
-    public void setPrimarySkill3(String primarySkill3) {
-        this.primarySkill3 = primarySkill3;
-    }
-
-    public String getPrimarySkill4() {
-        return primarySkill4;
-    }
-
-    public void setPrimarySkill4(String primarySkill4) {
-        this.primarySkill4 = primarySkill4;
-    }
-
-    public String getPrimarySkill5() {
-        return primarySkill5;
-    }
-
-    public void setPrimarySkill5(String primarySkill5) {
-        this.primarySkill5 = primarySkill5;
-    }
-
-    public String getPrimarySkill6() {
-        return primarySkill6;
-    }
-
-    public void setPrimarySkill6(String primarySkill6) {
-        this.primarySkill6 = primarySkill6;
-    }
-
-    public String getPrimarySkill7() {
-        return primarySkill7;
-    }
-
-    public void setPrimarySkill7(String primarySkill7) {
-        this.primarySkill7 = primarySkill7;
-    }
-
-    public String getPrimarySkill8() {
-        return primarySkill8;
-    }
-
-    public void setPrimarySkill8(String primarySkill8) {
-        this.primarySkill8 = primarySkill8;
-    }
-
-    public String getPrimarySkill9() {
-        return primarySkill9;
-    }
-
-    public void setPrimarySkill9(String primarySkill9) {
-        this.primarySkill9 = primarySkill9;
-    }
-
-    public String getPrimarySkill10() {
-        return primarySkill10;
-    }
-
-    public void setPrimarySkill10(String primarySkill10) {
-        this.primarySkill10 = primarySkill10;
-    }
-
-    public void setPrimarySkillOther(String primarySkillOther) {
-        this.primarySkillOther = primarySkillOther;
-    }
 
     public String getSkill() {
         return skill;
@@ -417,17 +308,6 @@ public class Emp_PostJob_Information {
         this.skill = skill;
     }
 
-    public int getNumberOfPrimarySkills() {
-        return numberOfPrimarySkills;
-    }
-
-    public void setNumberOfPrimarySkills(int numberOfPrimarySkills) {
-        this.numberOfPrimarySkills = numberOfPrimarySkills;
-    }
-
-    public String getPrimarySkillOther() {
-        return primarySkillOther;
-    }
 
     public String getEducationalAttainmentRequirement() {
         return educationalAttainmentRequirement;

@@ -189,7 +189,7 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 }else{
                     displayTypeOfDisabilityMore.setVisibility(GONE);
                 }
-                ///////////////////////////////////
+                /////////////////////////////////// Secondary skills
                 if(dataSnapshot.child("jobSkills0").exists()){
                     displaySkill1.setText(dataSnapshot.child("jobSkills0").getValue().toString());
                 }else{
@@ -253,8 +253,7 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                     displaySkill10.setVisibility(GONE);
 
                 }
-
-
+                /////////////////////////////////// Secondary skills
 
                 String pwdProfilePic = dataSnapshot.child("pwdProfilePic").getValue().toString();
                 Glide.with(getApplicationContext()).load(pwdProfilePic).into(images);

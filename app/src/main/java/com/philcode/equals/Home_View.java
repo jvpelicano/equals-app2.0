@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Home_View extends AppCompatActivity {
-    private Toolbar dToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +20,6 @@ public class Home_View extends AppCompatActivity {
         setContentView(R.layout.activity_home_view);
 
         getIncomingIntent();
-/*
-        dToolbar = findViewById(R.id.nav_action_bar_del);
-        setSupportActionBar(dToolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
     }
 
