@@ -741,7 +741,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }else{
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
                 mDatabase.child("educationalAttainment").setValue(educAttainment);
-                mDatabase.child("skill").setValue(x);
+                mDatabase.child("skill").setValue(primary_skillsCategory.getSelectedItem().toString()); //working
                 mDatabase.child("workExperience").setValue(workExperience);
 
 
