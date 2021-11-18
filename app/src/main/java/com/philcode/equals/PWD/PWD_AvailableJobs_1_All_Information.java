@@ -85,17 +85,7 @@ public class PWD_AvailableJobs_1_All_Information {
         this.educationalAttainment = educationalAttainment;
         this.skill = skill;
         this.workExperience = workExperience;
-        this.primarySkill1 = primarySkill1;
-        this.primarySkill2 = primarySkill2;
-        this.primarySkill3 = primarySkill3;
-        this.primarySkill4 = primarySkill4;
-        this.primarySkill5 = primarySkill5;
-        this.primarySkill6 = primarySkill6;
-        this.primarySkill7 = primarySkill7;
-        this.primarySkill8 = primarySkill8;
-        this.primarySkill9 = primarySkill9;
-        this.primarySkill10 = primarySkill10;
-        this.primarySkillOther = primarySkillOther;
+
 
         this.city = city;
     }

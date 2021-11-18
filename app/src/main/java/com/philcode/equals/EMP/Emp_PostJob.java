@@ -574,7 +574,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String postDate = df.format(currentDate);
                                     categorySkill = primary_skillsCategory.getSelectedItem().toString();
 
-                                    //Deleted Primary skills and Job Skills from Model
+                                    //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
                                             tempPostDescription,tempPostLocation, tempTypeOfDisability1, tempTypeOfDisability2,
                                             tempTypeOfDisability3,tempTypeOfDisabilityMore,tempPermission, companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);

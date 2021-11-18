@@ -232,7 +232,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         )
         {
             Log.d(TAG, "getIncomingIntent: found intent extras.");
-
             String imageURL = getIntent().getStringExtra("imageURL");
             String postTitle = getIntent().getStringExtra("postTitle");
             String postLocation = getIntent().getStringExtra("postLocation");
@@ -262,24 +261,11 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             String educationalAttainment = getIntent().getStringExtra("educationalAttainment");
             String categorySkill = getIntent().getStringExtra("skill");
             String workExperience = getIntent().getStringExtra("workExperience");
-            String primarySkill1 = getIntent().getStringExtra("primarySkill1");
-            String primarySkill2 = getIntent().getStringExtra("primarySkill2");
-            String primarySkill3 = getIntent().getStringExtra("primarySkill3");
-            String primarySkill4 = getIntent().getStringExtra("primarySkill4");
-            String primarySkill5 = getIntent().getStringExtra("primarySkill5");
-            String primarySkill6 = getIntent().getStringExtra("primarySkill6");
-            String primarySkill7 = getIntent().getStringExtra("primarySkill7");
-            String primarySkill8 = getIntent().getStringExtra("primarySkill8");
-            String primarySkill9 = getIntent().getStringExtra("primarySkill9");
-            String primarySkill10 = getIntent().getStringExtra("primarySkill10");
-            String primarySkillOther = getIntent().getStringExtra("primarySkillOther");
 
             setImage(imageURL,postTitle, postDescription,postLocation, postCompanyCity
                     ,typeOfDisability1,typeOfDisability2,typeOfDisability3, typeOfDisabilityMore,
-                    postDate, expDate, permission, companyName, jobSkill1, jobSkill2, jobSkill3, jobSkill4,
-                    jobSkill5, jobSkill6, jobSkill7, jobSkill8, jobSkill9, jobSkill10, educationalAttainment, categorySkill,
-                    workExperience, primarySkill1, primarySkill2, primarySkill3, primarySkill4, primarySkill5, primarySkill6,primarySkill7
-                    ,primarySkill8, primarySkill9, primarySkill10, primarySkillOther);
+                    postDate, expDate, permission, companyName,educationalAttainment, categorySkill,
+                    workExperience);
         }
     }
 
@@ -288,11 +274,8 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                           String postLocation, String postCompanyCity, String typeOfDisability1,
                           String typeOfDisability2, String typeOfDisability3, String typeOfDisabilityMore,
                           String postDate, String expDate, String permission, String companyName,
-                          String jobSkill1,String  jobSkill2, String jobSkill3,
-                          String jobSkill4, String jobSkill5, String jobSkill6,String  jobSkill7, String jobSkill8,
-                          String jobSkill9, String jobSkill10,String educationalAttainment, String categorySkill,
-                          String workExperience,String primarySkill1,String primarySkill2, String primarySkill3, String primarySkill4, String primarySkill5,String primarySkill6,
-                          String primarySkill7,String primarySkill8, String primarySkill9,String primarySkill10, String primarySkillOther){
+                          String educationalAttainment, String categorySkill,
+                          String workExperience){
         Log.d(TAG, "setImage: setting te image and name to widgets.");
 
         TextView displayTypeOfDisability1 = findViewById(R.id.displayTypeOfDisability1);
@@ -330,9 +313,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         TextView displayExpDate = findViewById(R.id.displayExpDate);
         displayExpDate.setText(expDate);
 
-//        TextView displayPostDate = findViewById(R.id.displayPostDate);
-//        displayPostDate.setText(postDate);
-
         TextView displayPermission = findViewById(R.id.displayPermission);
         displayPermission.setText(permission);
 
@@ -350,28 +330,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         final String d2 = "Partial Vision Disability";
         final String d3 = "Hearing Disability";
         final String d4 = "Other Disabilities";
-        final String Skill1 = "Active Listening";
-        final String Skill2 = "Communication";
-        final String Skill3 = "Computer Skills";
-        final String Skill4 =  "Customer Service";
-        final String Skill5 =  "Interpersonal Skills";
-        final String Skill6 =   "Leadership";
-        final String Skill7 =  "Management Skills";
-        final String Skill8 =   "Problem-Solving";
-        final String Skill9 =  "Time Management";
-        final String Skill10 = "Transferable Skills";
-
-        TextView displayPrimarySkill1 = findViewById(R.id.displayPrimarySkill1);
-        TextView displayPrimarySkill2 = findViewById(R.id.displayPrimarySkill2);
-        TextView displayPrimarySkill3 = findViewById(R.id.displayPrimarySkill3);
-        TextView displayPrimarySkill4 = findViewById(R.id.displayPrimarySkill4);
-        TextView displayPrimarySkill5 = findViewById(R.id.displayPrimarySkill5);
-        TextView displayPrimarySkill6 = findViewById(R.id.displayPrimarySkill6);
-        TextView displayPrimarySkill7 = findViewById(R.id.displayPrimarySkill7);
-        TextView displayPrimarySkill8 = findViewById(R.id.displayPrimarySkill8);
-        TextView displayPrimarySkill9 = findViewById(R.id.displayPrimarySkill9);
-        TextView displayPrimarySkill10 = findViewById(R.id.displayPrimarySkill10);
-        TextView displayPrimarySkillOther = findViewById(R.id.displayPrimarySkillOther);
 
 
         if(typeOfDisability1.equals(d1)) {
@@ -395,66 +353,58 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             displayTypeOfDisabilityMore.setVisibility(View.GONE);
         }
 
+//------------
+        String postJobID = getIntent().getStringExtra("ImageUploadID"); //not getting intent
+        DatabaseReference db_JobSkill = FirebaseDatabase.getInstance().getReference("Job_Offers").child(postJobID);
+        db_JobSkill.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("jobSkill1")){
+                    displaySkill1.setText(snapshot.child("jobSkill1").getValue().toString());
+                }
 
-        if(jobSkill1.equals(Skill1)) {
-            displaySkill1.setText(jobSkill1);
-        }else{
-            displaySkill1.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill2")){
+                    displaySkill2.setText(snapshot.child("jobSkill2").getValue().toString());
+                }
 
-        if(jobSkill2.equals(Skill2)) {
-            displaySkill2.setText(jobSkill2);
-        }else{
-            displaySkill2.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill3")){
+                    displaySkill3.setText(snapshot.child("jobSkill3").getValue().toString());
+                }
 
-        if(jobSkill3.equals(Skill3)) {
-            displaySkill3.setText(jobSkill3);
-        }else{
-            displaySkill3.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill4")){
+                    displaySkill4.setText(snapshot.child("jobSkill4").getValue().toString());
+                }
 
-        if(jobSkill4.equals(Skill4)) {
-            displaySkill4.setText(jobSkill4);
-        }else{
-            displaySkill4.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill5")){
+                    displaySkill5.setText(snapshot.child("jobSkill5").getValue().toString());
+                }
 
-        if(jobSkill5.equals(Skill5)) {
-            displaySkill5.setText(jobSkill5);
-        }else{
-            displaySkill5.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill6")){
+                    displaySkill6.setText(snapshot.child("jobSkill6").getValue().toString());
+                }
 
-        if(jobSkill6.equals(Skill6)) {
-            displaySkill6.setText(jobSkill6);
-        }else{
-            displaySkill6.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill7")){
+                    displaySkill7.setText(snapshot.child("jobSkill7").getValue().toString());
+                }
 
-        if(jobSkill7.equals(Skill7)) {
-            displaySkill7.setText(jobSkill7);
-        }else{
-            displaySkill7.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill8")){
+                    displaySkill8.setText(snapshot.child("jobSkill8").getValue().toString());
+                }
 
-        if(jobSkill8.equals(Skill8)) {
-            displaySkill8.setText(jobSkill8);
-        }else{
-            displaySkill8.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill9")){
+                    displaySkill9.setText(snapshot.child("jobSkill9").getValue().toString());
+                }
 
-        if(jobSkill9.equals(Skill9)) {
-            displaySkill9.setText(jobSkill9);
-        }else{
-            displaySkill9.setVisibility(View.GONE);
-        }
+                if(snapshot.hasChild("jobSkill10")){
+                    displaySkill10.setText(snapshot.child("jobSkill10").getValue().toString());
+                }
+            }
 
-        if(jobSkill10.equals(Skill10)) {
-            displaySkill10.setText(jobSkill10);
-        }else{
-            displaySkill10.setVisibility(View.GONE);
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if(typeOfDisability1.equals(d1)) {
             displayTypeOfDisability1.setText(typeOfDisability1);
@@ -477,72 +427,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             displayTypeOfDisabilityMore.setVisibility(View.GONE);
         }
 
-
-        if(primarySkill1 == null||primarySkill1.equals("")){
-            displayPrimarySkill1.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill1.setText(primarySkill1);
-        }
-
-        if(primarySkill2 == null||primarySkill2.equals("")){
-            displayPrimarySkill2.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill2.setText(primarySkill2);
-        }
-
-        if(primarySkill3 == null||primarySkill3.equals("")){
-            displayPrimarySkill3.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill3.setText(primarySkill3);
-        }
-
-        if(primarySkill4 == null||primarySkill4.equals("")){
-            displayPrimarySkill4.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill4.setText(primarySkill4);
-        }
-
-        if(primarySkill5 == null||primarySkill5.equals("")){
-            displayPrimarySkill5.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill5.setText(primarySkill5);
-        }
-
-        if(primarySkill6 == null||primarySkill6.equals("")){
-            displayPrimarySkill6.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill6.setText(primarySkill6);
-        }
-
-        if(primarySkill7 == null||primarySkill7.equals("")){
-            displayPrimarySkill7.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill7.setText(primarySkill7);
-        }
-
-        if(primarySkill8 == null||primarySkill8.equals("")){
-            displayPrimarySkill8.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill8.setText(primarySkill8);
-        }
-
-        if(primarySkill9 == null||primarySkill9.equals("")){
-            displayPrimarySkill9.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill9.setText(primarySkill9);
-        }
-
-        if(primarySkill10 == null||primarySkill10.equals("")){
-            displayPrimarySkill10.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill10.setText(primarySkill10);
-        }
-
-        if(primarySkillOther == null||primarySkillOther.equals("")){
-            displayPrimarySkillOther.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkillOther.setText(primarySkillOther);
-        }
     }
 
 }

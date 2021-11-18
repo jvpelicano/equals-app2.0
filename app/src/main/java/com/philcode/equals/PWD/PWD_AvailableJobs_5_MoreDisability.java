@@ -41,7 +41,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
     int countPostDisability;
     int pwdNumberOfPrimarySkill;
     RecyclerView recyclerView;
-    ArrayList<PWD_AvailableJobs_1_All_Information> list = new ArrayList<>();
+    ArrayList<PWD_Recycler_AvailableJobs_Model> list = new ArrayList<>();
     PWD_AvailableJobs_MyAdapter adapter;
     String typeOfDisability1;
     String typeOfDisability2;
@@ -309,7 +309,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
 
                                                                 countMatchedPrimarySkill = 0;
 
-                                                                PWD_AvailableJobs_1_All_Information p = dataSnapshot1.getValue(PWD_AvailableJobs_1_All_Information.class);
+                                                                PWD_Recycler_AvailableJobs_Model p = dataSnapshot1.getValue(PWD_Recycler_AvailableJobs_Model.class);
                                                                 list.add(p);
                                                             }
                                                             Collections.reverse(list);
