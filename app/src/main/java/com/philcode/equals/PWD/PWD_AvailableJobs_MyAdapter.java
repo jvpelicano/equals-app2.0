@@ -69,7 +69,6 @@ public class PWD_AvailableJobs_MyAdapter extends RecyclerView.Adapter<PWD_Availa
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context, jobPostID, Toast.LENGTH_LONG).show(); //correct data
                     Intent i = new Intent(context, PWD_AvailableJobs_View.class);
                     i.putExtra("POST_ID", jobPostID);
                     i.putExtra("INT_POS", pos);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +30,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.protobuf.StringValue;
 import com.philcode.equals.R;
 
 import java.lang.reflect.Array;
@@ -37,15 +44,14 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     String userId = user.getUid();
     public static final String Name = "nameKey";
     FirebaseDatabase fDb;
-    DatabaseReference jobOffersRef;
-
+    DatabaseReference jobOffersRef, pwdRef;
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
-            m_displayCategorySkill, m_displaySkill1, m_displaySkill2, m_displaySkill3, m_displaySkill4, m_displaySkill5,
-            m_displaySkill6, m_displaySkill7, m_displaySkill8, m_displaySkill9, m_displaySkill10, m_displayEducationalAttainment,
-            m_displayTotalWorkExperience, m_displayTypeOfDisability1, m_displayTypeOfDisability2,
-            m_displayTypeOfDisability3, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
+            m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
+            m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
             m_displayPostTitle;
-
+    Button m_sendResume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,27 +64,17 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayPostDescription = findViewById(R.id.displayPostDescription);
         m_displayPostLocation = findViewById(R.id.displayPostLocation);
         m_displayCategorySkill = findViewById(R.id.displayCategorySkill);
-        m_displaySkill1 = findViewById(R.id.displaySkill1);
-        m_displaySkill2 = findViewById(R.id.displaySkill2);
-        m_displaySkill3 = findViewById(R.id.displaySkill3);
-        m_displaySkill4 = findViewById(R.id.displaySkill4);
-        m_displaySkill5 = findViewById(R.id.displaySkill5);
-        m_displaySkill6 = findViewById(R.id.displaySkill6);
-        m_displaySkill7 = findViewById(R.id.displaySkill7);
-        m_displaySkill8 = findViewById(R.id.displaySkill8);
-        m_displaySkill9 = findViewById(R.id.displaySkill9);
-        m_displaySkill10 = findViewById(R.id.displaySkill10);
+        m_displayJobSkillsList = findViewById(R.id.displaySkill1);
         m_displayEducationalAttainment = findViewById(R.id.displayEducationalAttainment);
         m_displayTotalWorkExperience = findViewById(R.id.displayTotalWorkExperience);
-        m_displayTypeOfDisability1 = findViewById(R.id.displayTypeOfDisability1);
-        m_displayTypeOfDisability2 = findViewById(R.id.displayTypeOfDisability2);
-        m_displayTypeOfDisability3 = findViewById(R.id.displayTypeOfDisability3);
+        m_displayTypeOfDisabilitiesList = findViewById(R.id.displayTypeOfDisability1);
         m_displayTypeOfDisabilityOthers = findViewById(R.id.displayTypeOfDisabilityMore);
         m_displayExpDate = findViewById(R.id.displayExpDate);
         m_displayPermission = findViewById(R.id.displayPermission);
+        m_sendResume = findViewById(R.id.btnApply);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
-        Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
         fDb = FirebaseDatabase.getInstance();
         jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
         jobOffersRef.addValueEventListener(new ValueEventListener() {
@@ -108,11 +104,11 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
                 }
                 if(snapshot.hasChild("typeOfDisabilityMore")){
-                    String typeOfDisabilityMore = snapshot.child("typeOfDisabilityMore").getValue(String.class);
+                    typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
                 }else{
                     String typeOfDisabilityMore = "";
                 }
-                setUserInfo(postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate);
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate);
             }
 
             @Override
@@ -120,16 +116,50 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
+        checkResume();
     }
-    public void setUserInfo(String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String postExpDate){
+    public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
+                            String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String postExpDate){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience); //add an if else statement for when the user have work experience.
+        m_displayTotalWorkExperience.setText(workExperience);
         m_displayExpDate.setText(postExpDate);
+
+        StringBuilder jobSkillList_builder = new StringBuilder();
+        for(String jobSkillList1 : jobSkillList){
+            jobSkillList_builder.append(jobSkillList1 + "\n");
+        }
+        m_displayJobSkillsList.setText(jobSkillList_builder.toString());
+
+        StringBuilder typeOfDisability_builder = new StringBuilder();
+        for(String typeOfDisabilityList1 : typeOfDisabilityList) {
+            typeOfDisability_builder.append(typeOfDisabilityList1 + "\n");
+        }
+        m_displayTypeOfDisabilitiesList.setText(typeOfDisability_builder.toString());
+
+    }
+    public void checkResume(){
+        pwdRef = fDb.getReference().child("PWD").child(userId);
+        pwdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("resumeFile").exists() && !snapshot.child("resumeFile").getValue().toString().isEmpty()){
+                    m_sendResume.setText("Send Resume");
+                }else{
+                    m_sendResume.setText("Upload Resume");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
 
