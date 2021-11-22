@@ -1,21 +1,12 @@
 package com.philcode.equals.PWD;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,21 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
 
 public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
     DatabaseReference refForJobs, refUser;
     RecyclerView recyclerView;
-    ArrayList<PWD_Recycler_AvailableJobs_Model> list = new ArrayList<>();
+    ArrayList<PWD_AvailableJobs_Model> list = new ArrayList<>();
     PWD_AvailableJobs_MyAdapter adapter;
-    Date c = Calendar.getInstance().getTime();
-    String z = "Approved";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +52,9 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                         String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
                                         String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
-                                        PWD_Recycler_AvailableJobs_Model pwd_Model = new PWD_Recycler_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate);
+                                        String postID = job_snapshot1.getKey();
+
+                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                         list.add(pwd_Model);
                                         //to fix
                                         adapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);

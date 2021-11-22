@@ -1,8 +1,6 @@
 package com.philcode.equals.PWD;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,18 +16,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Locale;
 
 public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
     DatabaseReference refForJobs, refUser;
     RecyclerView recyclerView;
-    ArrayList<PWD_Recycler_AvailableJobs_Model> list = new ArrayList<>();
+    ArrayList<PWD_AvailableJobs_Model> list = new ArrayList<>();
     PWD_AvailableJobs_MyAdapter myAdapter;
     Date c = Calendar.getInstance().getTime();
     @Override
@@ -61,7 +55,9 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                         String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
                                         String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
-                                        PWD_Recycler_AvailableJobs_Model pwd_Model = new PWD_Recycler_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate);
+                                        String postID = job_snapshot1.getKey();
+
+                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                         list.add(pwd_Model);
                                         //to fix
                                         myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);

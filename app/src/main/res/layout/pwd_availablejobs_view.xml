@@ -76,25 +76,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <!--<TextView
-                        android:id="@+id/sample"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Job Available Until"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="center"
-                        android:textStyle="italic"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPostTitle" />
 -->
 
                     <TextView
@@ -246,234 +227,6 @@
 
 
                     <TextView
-                        android:id="@+id/txtLbl0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/proxima_nova_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill(s)"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 1"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbl0" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 2"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill1" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 3"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill2" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 4"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill3" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 5"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill4" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 6"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill5" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 7"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill6" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 8"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill7" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 9"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill8" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkill10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill 10"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill9" />
-
-                    <TextView
-                        android:id="@+id/displayPrimarySkillOther"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Primary Skill Other"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkill10" />
-
-
-                    <TextView
                         android:id="@+id/txtLbl1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -489,7 +242,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPrimarySkillOther" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill" />
 
                     <TextView
                         android:id="@+id/displaySkill1"
@@ -784,7 +537,6 @@
                         android:background="@color/postBackground"
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
-
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="disability1"

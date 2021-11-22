@@ -8,17 +8,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.philcode.equals.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PWD_AvailableJobs_MyAdapter extends RecyclerView.Adapter<PWD_AvailableJobs_MyAdapter.MyViewHolder> {
     Context context;
-    ArrayList<PWD_Recycler_AvailableJobs_Model> availablejobsinfos;
-    public PWD_AvailableJobs_MyAdapter(Context c, ArrayList<PWD_Recycler_AvailableJobs_Model> p) {
+    ArrayList<PWD_AvailableJobs_Model> availablejobsinfos;
+
+    public PWD_AvailableJobs_MyAdapter(Context c, ArrayList<PWD_AvailableJobs_Model> p) {
         context = c;
         availablejobsinfos = p;
     }
@@ -35,9 +39,10 @@ public class PWD_AvailableJobs_MyAdapter extends RecyclerView.Adapter<PWD_Availa
         holder.displayPostTitle.setText(availablejobsinfos.get(position).getDisplayPostTitle());
         holder.displayCompanyName.setText(availablejobsinfos.get(position).getDisplayCompanyName());
         holder.displayPostDate.setText(availablejobsinfos.get(position).getDisplayPostDate());
+        String jobPostID_bind = availablejobsinfos.get(position).getPostJobID();
 
         holder.btnViewPost.setVisibility(View.VISIBLE);
-        holder.onClick(position);
+        holder.onClick(position, jobPostID_bind);
     }
 
     @Override
@@ -47,9 +52,8 @@ public class PWD_AvailableJobs_MyAdapter extends RecyclerView.Adapter<PWD_Availa
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView displayPostTitle, displayCompanyName, displayPostDate, displayExpDate;
+        TextView displayPostTitle, displayCompanyName, displayPostDate;
         ImageView displayPostPic;
-
         Button btnViewPost;
 
         public MyViewHolder(View itemView) {
@@ -61,11 +65,14 @@ public class PWD_AvailableJobs_MyAdapter extends RecyclerView.Adapter<PWD_Availa
             btnViewPost = itemView.findViewById(R.id.btnViewPost);
 
         }
-        public void onClick(final int position) {
+        public void onClick(int pos,String jobPostID) {
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //Toast.makeText(context, jobPostID, Toast.LENGTH_LONG).show(); //correct data
                     Intent i = new Intent(context, PWD_AvailableJobs_View.class);
+                    i.putExtra("POST_ID", jobPostID);
+                    i.putExtra("INT_POS", pos);
                     context.startActivity(i);
                 }
             });

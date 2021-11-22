@@ -1,16 +1,31 @@
 package com.philcode.equals.PWD;
 
-public class PWD_Recycler_AvailableJobs_Model {
-    String imageURL, displayPostTitle, displayCompanyName, displayPostDate;
+import java.util.ArrayList;
 
-    public PWD_Recycler_AvailableJobs_Model() {
+public class PWD_AvailableJobs_Model {
+    public String imageURL, displayPostTitle, displayCompanyName, displayPostDate, postJobID, typeOfDisabilityMore;
+
+
+    public PWD_AvailableJobs_Model() {
+
     }
 
-    public PWD_Recycler_AvailableJobs_Model(String imageURL, String displayPostTitle, String displayCompanyName, String displayPostDate) {
+    public PWD_AvailableJobs_Model(String imageURL, String displayPostTitle, String displayCompanyName, String displayPostDate, String postJobID) {
         this.imageURL = imageURL;
         this.displayPostTitle = displayPostTitle;
         this.displayCompanyName = displayCompanyName;
         this.displayPostDate = displayPostDate;
+        this.postJobID = postJobID;
+
+    }
+
+
+    public String getPostJobID() {
+        return postJobID;
+    }
+
+    public void setPostJobID(String postJobID) {
+        this.postJobID = postJobID;
     }
 
     public String getImageURL() {

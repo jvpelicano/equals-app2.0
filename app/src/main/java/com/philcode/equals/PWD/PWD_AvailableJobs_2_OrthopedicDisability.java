@@ -24,12 +24,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
     RecyclerView recyclerView;
     PWD_AvailableJobs_MyAdapter myAdapter;
 
-    ArrayList<PWD_Recycler_AvailableJobs_Model> list;
+    ArrayList<PWD_AvailableJobs_Model> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_available_jobs);
         list = new ArrayList<>();
+
         recyclerView = findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -54,9 +56,11 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                         String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
                                         String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
-                                        PWD_Recycler_AvailableJobs_Model pwd_Model = new PWD_Recycler_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate);
+                                        String postID = job_snapshot1.getKey(); //correct
+
+
+                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                         list.add(pwd_Model);
-                                        //to fix
                                         myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
                                         recyclerView.setAdapter(myAdapter);
                                         myAdapter.notifyDataSetChanged();

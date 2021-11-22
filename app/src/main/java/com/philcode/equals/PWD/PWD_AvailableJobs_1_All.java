@@ -1,7 +1,6 @@
 package com.philcode.equals.PWD;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,18 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 
 public class PWD_AvailableJobs_1_All extends AppCompatActivity {
     DatabaseReference refForJobs, refUser;
     RecyclerView recyclerView;
     PWD_AvailableJobs_MyAdapter myAdapter;
-    ArrayList<PWD_Recycler_AvailableJobs_Model> list;
+    ArrayList<PWD_AvailableJobs_Model> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +38,9 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
                 //Check Job Offer Info
-                if(pwd_dataSnapshot.hasChild("typeOfDisability3")){ // checking PWD for type of disability
+                 // checking PWD for type of disability
                     refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                    refForJobs.orderByChild("typeOfDisabilityMore").addValueEventListener(new ValueEventListener() { //checking Job_Offers
+                    refForJobs.addValueEventListener(new ValueEventListener() { //checking Job_Offers
                         @Override
                         public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
 
@@ -59,7 +53,9 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                         String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
                                         String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
-                                        PWD_Recycler_AvailableJobs_Model pwd_Model = new PWD_Recycler_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate);
+                                        String postID = job_snapshot1.getKey();
+
+                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                         list.add(pwd_Model);
                                         //to fix
                                         myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_1_All.this, list);
@@ -74,7 +70,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                         }
                     });
                 }
-            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
