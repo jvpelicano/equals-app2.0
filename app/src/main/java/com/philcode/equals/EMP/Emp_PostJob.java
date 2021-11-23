@@ -57,7 +57,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Emp_PostJob extends AppCompatActivity {
-
+    //Removed selection of primary skills
     TextInputEditText postTitle, postDescription, yearsOfExperience;
     Button empBtnPost;
     CheckBox typeOfDisability1, typeOfDisability2, typeOfDisability3, typeOfDisabilityMore;
@@ -75,17 +75,6 @@ public class Emp_PostJob extends AppCompatActivity {
     ArrayList<Integer> mUserItems = new ArrayList<>();
     String expDate1;
     String categorySkill;
-    String jobSkill_1 = "";
-    String jobSkill_2 = "";
-    String jobSkill_3 = "";
-    String jobSkill_4 = "";
-    String jobSkill_5 = "";
-    String jobSkill_6 = "";
-    String jobSkill_7 = "";
-    String jobSkill_8 = "";
-    String jobSkill_9 = "";
-    String jobSkill_10 = "";
-    int numberOfPrimarySkills=0;
     String x;
     String Address;
     String city;
@@ -105,41 +94,13 @@ public class Emp_PostJob extends AppCompatActivity {
     String month11="11 month";
     String year1="1 year";
     String unli="Unlimited";
-    int count = 10;
-    int count2 = 0;
-    int count3 = 0;
-    int countw = 0;
     int years =0;
     private TextView skillSelected;
-    String[] pwdPrimarySkills = new String[10];
-
-
-    String primarySkill1;
-    String primarySkill2;
-    String primarySkill3;
-    String primarySkill4;
-    String primarySkill5;
-    String primarySkill6;
-    String primarySkill7;
-    String primarySkill8;
-    String primarySkill9;
-    String primarySkill10;
-    String primarySkillOther;
 
 
     private String educAttainment = "";
     private String workExperience = "";
 
-    String m1 = "";
-    String m2 = "";
-    String m3 = "";
-    String m4 = "";
-    String m5 = "";
-    String m6 = "";
-    String m7 = "";
-    String m8 = "";
-    String m9 = "";
-    String m10 = "";
     String zz;
 
 
