@@ -130,21 +130,26 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 }
             });
         }else{
-            AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_AvailableJobs_View.this);
-            alert.setMessage("Resume file format should be in PDF.").setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("docx/*");
-                            intent.setType("doc/*");
-                            intent.setType("application/pdf");
-                            startActivityForResult(intent, PICK_FILE);
-                        }
-                    });
-            AlertDialog alertDialog = alert.create();
-            alertDialog.setTitle("Resume Upload File Format");
-            alertDialog.show();
+            m_sendResume.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_AvailableJobs_View.this);
+                    alert.setMessage("Resume file format should be in PDF.").setCancelable(true)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                    intent.setType("docx/*");
+                                    intent.setType("doc/*");
+                                    intent.setType("application/pdf");
+                                    startActivityForResult(intent, PICK_FILE);
+                                }
+                            });
+                    AlertDialog alertDialog = alert.create();
+                    alertDialog.setTitle("Resume Upload File Format");
+                    alertDialog.show();
+                }
+            });
         }
     }
 
