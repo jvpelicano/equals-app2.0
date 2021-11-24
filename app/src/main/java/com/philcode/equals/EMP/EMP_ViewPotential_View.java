@@ -411,18 +411,6 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
 
         TextView displaypwdpic = findViewById(R.id.profile_pic_pwd);
 
-        TextView displayPrimarySkill1 = findViewById(R.id.displayPrimarySkill1);
-        TextView displayPrimarySkill2 = findViewById(R.id.displayPrimarySkill2);
-        TextView displayPrimarySkill3 = findViewById(R.id.displayPrimarySkill3);
-        TextView displayPrimarySkill4 = findViewById(R.id.displayPrimarySkill4);
-        TextView displayPrimarySkill5 = findViewById(R.id.displayPrimarySkill5);
-        TextView displayPrimarySkill6 = findViewById(R.id.displayPrimarySkill6);
-        TextView displayPrimarySkill7 = findViewById(R.id.displayPrimarySkill7);
-        TextView displayPrimarySkill8 = findViewById(R.id.displayPrimarySkill8);
-        TextView displayPrimarySkill9 = findViewById(R.id.displayPrimarySkill9);
-        TextView displayPrimarySkill10 = findViewById(R.id.displayPrimarySkill10);
-        TextView displayPrimarySkillOther = findViewById(R.id.displayPrimarySkillOther);
-
 
         displayName.setText(firstName+" "+lastName);
         displayEmail.setText(email);
@@ -530,72 +518,6 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
             displaySkill10.setText(jobSkill10);
         }else{
             displaySkill10.setVisibility(View.GONE);
-        }
-
-        if(primarySkill1 == null||primarySkill1.equals("")){
-            displayPrimarySkill1.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill1.setText(primarySkill1);
-        }
-
-        if(primarySkill2 == null||primarySkill2.equals("")){
-            displayPrimarySkill2.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill2.setText(primarySkill2);
-        }
-
-        if(primarySkill3 == null||primarySkill3.equals("")){
-            displayPrimarySkill3.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill3.setText(primarySkill3);
-        }
-
-        if(primarySkill4 == null||primarySkill4.equals("")){
-            displayPrimarySkill4.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill4.setText(primarySkill4);
-        }
-
-        if(primarySkill5 == null||primarySkill5.equals("")){
-            displayPrimarySkill5.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill5.setText(primarySkill5);
-        }
-
-        if(primarySkill6 == null||primarySkill6.equals("")){
-            displayPrimarySkill6.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill6.setText(primarySkill6);
-        }
-
-        if(primarySkill7 == null||primarySkill7.equals("")){
-            displayPrimarySkill7.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill7.setText(primarySkill7);
-        }
-
-        if(primarySkill8 == null||primarySkill8.equals("")){
-            displayPrimarySkill8.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill8.setText(primarySkill8);
-        }
-
-        if(primarySkill9 == null||primarySkill9.equals("")){
-            displayPrimarySkill9.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill9.setText(primarySkill9);
-        }
-
-        if(primarySkill10 == null||primarySkill10.equals("")){
-            displayPrimarySkill10.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkill10.setText(primarySkill10);
-        }
-
-        if(primarySkillOther == null||primarySkillOther.equals("")){
-            displayPrimarySkillOther.setVisibility(View.GONE);
-        }else {
-            displayPrimarySkillOther.setText(primarySkillOther);
         }
 
 

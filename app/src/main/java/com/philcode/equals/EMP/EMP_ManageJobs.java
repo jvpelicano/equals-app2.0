@@ -44,8 +44,15 @@ public class EMP_ManageJobs extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    EMP_ManageJobs_Information p = dataSnapshot1.getValue(EMP_ManageJobs_Information.class);
-                    list.add(p);
+                    String imageURL = dataSnapshot1.child("imageURL").getValue(String.class);
+                    String displayPostTitle = dataSnapshot1.child("postTitle").getValue(String.class);
+                    String displayCompanyName = dataSnapshot1.child("companyName").getValue(String.class);
+                    String displayPostDate = dataSnapshot1.child("postDate").getValue(String.class);
+                    String displayPermission = dataSnapshot1.child("permission").getValue(String.class);
+                    String postID = dataSnapshot1.getKey(); //correct
+
+                    EMP_ManageJobs_Information model = new EMP_ManageJobs_Information(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID, displayPermission);
+                    list.add(model);
                 }
                 Collections.reverse(list);
                 adapter = new EMP_ManageJobs_MyAdapter(EMP_ManageJobs.this, list);

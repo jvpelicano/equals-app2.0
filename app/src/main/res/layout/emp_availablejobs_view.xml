@@ -243,180 +243,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/txtLbl1" />
 
 
-
-
-                    <TextView
-                        android:id="@+id/displaySkill2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 2"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1" />
-
-                    <TextView
-                        android:id="@+id/displaySkill3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 3"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill2" />
-
-                    <TextView
-                        android:id="@+id/displaySkill4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 4"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill3" />
-
-                    <TextView
-                        android:id="@+id/displaySkill5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 5"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill4" />
-
-                    <TextView
-                        android:id="@+id/displaySkill6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 6"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill5" />
-
-                    <TextView
-                        android:id="@+id/displaySkill7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 7"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill6" />
-
-                    <TextView
-                        android:id="@+id/displaySkill8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 8"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill7" />
-
-                    <TextView
-                        android:id="@+id/displaySkill9"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 9"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill8" />
-
-                    <TextView
-                        android:id="@+id/displaySkill10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Skill 10"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill9" />
-
-
                     <TextView
                         android:id="@+id/displayTypeOfDisability1"
                         android:layout_width="match_parent"
@@ -437,64 +263,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/txtLb2" />
 
                     <TextView
-                        android:id="@+id/displayTypeOfDisability2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/open_sans_regular"
-
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="disability2"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1" />
-
-
-                    <TextView
-                        android:id="@+id/displayTypeOfDisability3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="disability3"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability2" />
-
-                    <TextView
-                        android:id="@+id/displayTypeOfDisabilityMore"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Other Disabilities"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability3" />
-
-
-                    <TextView
                         android:id="@+id/txtLbl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -510,7 +278,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill10" />
+                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1" />
 
                     <TextView
                         android:id="@+id/displayEducationalAttainment"
@@ -606,7 +374,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisabilityMore" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1" />
 
                     <TextView
                         android:id="@+id/displayExpDate"
@@ -669,52 +437,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-         <!--   <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:isScrollContainer="true"
-                android:weightSum="3">
-
-                <Button
-                    android:id="@+id/btnViewResume"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_viewresume"
-                    android:onClick="onClick"
-                    android:text="Applicant\n Resumes"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btnPotential"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_viewresume"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:onClick="potential"
-                    android:text="Potential\n Applicants"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    />
-
-                <Button
-                    android:id="@+id/btnDelete"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Delete\n Post"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textAllCaps="false"
-                    android:onClick="delete"
-                    android:textColor="@color/white"
-                    android:background="@drawable/btn_deletepost" />
-            </LinearLayout>-->
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 

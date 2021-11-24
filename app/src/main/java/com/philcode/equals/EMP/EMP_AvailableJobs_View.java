@@ -1,4 +1,5 @@
 package com.philcode.equals.EMP;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,17 +26,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
+import java.util.ArrayList;
+
 public class EMP_AvailableJobs_View extends AppCompatActivity {
 
     private FloatingActionButton fab_main, fab1_resumes, fab2_potential, fab3_delete;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     TextView textview_resume, textview_potential, textView_delete;
+    TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
+    m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
+    m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
+    m_displayPostTitle;
 
+    FirebaseDatabase fDb;
+    DatabaseReference jobOffersRef, pwdRef;
     Boolean isOpen = false;
 
     DatabaseReference refForJobs;
     private static final String TAG = "PWD_AvailableJobs_View";
-    Button sendResume;
 
 
     @Override
@@ -44,8 +52,19 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         setContentView(R.layout.emp_availablejobs_view);
         Log.d(TAG, "onCreate: started.");
 
-        getIncomingIntent();
-
+        //layout
+        m_displayPostTitle = findViewById(R.id.displayPostTitle);
+        m_displayCompanyName = findViewById(R.id.displayCompanyName);
+        m_displayPostDescription = findViewById(R.id.displayPostDescription);
+        m_displayPostLocation = findViewById(R.id.displayPostLocation);
+        m_displayCategorySkill = findViewById(R.id.displayCategorySkill);
+        m_displayJobSkillsList = findViewById(R.id.displaySkill1);
+        m_displayEducationalAttainment = findViewById(R.id.displayEducationalAttainment);
+        m_displayTotalWorkExperience = findViewById(R.id.displayTotalWorkExperience);
+        m_displayTypeOfDisabilitiesList = findViewById(R.id.displayTypeOfDisability1);
+        m_displayTypeOfDisabilityOthers = findViewById(R.id.displayTypeOfDisabilityMore);
+        m_displayExpDate = findViewById(R.id.displayExpDate);
+        m_displayPermission = findViewById(R.id.displayPermission);
 
         //animation
         fab_main = findViewById(R.id.fab);
@@ -210,194 +229,42 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
 
         });
 
-
-
-
-
-    }
-
-
-
-    private void getIncomingIntent(){
-        Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
-
-        if(getIntent().hasExtra("imageURL")
-                && getIntent().hasExtra("postTitle")
-                && getIntent().hasExtra("postDescription")
-                || getIntent().hasExtra("postLocation")
-                || getIntent().hasExtra("typeofDisability1")
-                || getIntent().hasExtra("typeofDisability2")
-                || getIntent().hasExtra("typeofDisability3")
-                || getIntent().hasExtra("typeofDisabilityMore")
-        )
-        {
-            Log.d(TAG, "getIncomingIntent: found intent extras.");
-            String imageURL = getIntent().getStringExtra("imageURL");
-            String postTitle = getIntent().getStringExtra("postTitle");
-            String postLocation = getIntent().getStringExtra("postLocation");
-            String postCompanyCity = getIntent().getStringExtra("city");
-            String typeOfDisability1 = getIntent().getStringExtra("typeOfDisability1");
-            String typeOfDisability2 = getIntent().getStringExtra("typeOfDisability2");
-            String typeOfDisability3 = getIntent().getStringExtra("typeOfDisability3");
-            String typeOfDisabilityMore = getIntent().getStringExtra("typeOfDisabilityMore");
-            String postDescription = getIntent().getStringExtra("postDescription");
-            String postDate = getIntent().getStringExtra("postDate");
-            String expDate = getIntent().getStringExtra("expDate");
-            String permission = getIntent().getStringExtra("permission");
-            String companyName = getIntent().getStringExtra("companyName");
-
-            String jobSkill1 = getIntent().getStringExtra("jobSkill1");
-            String jobSkill2 = getIntent().getStringExtra("jobSkill2");
-            String jobSkill3 = getIntent().getStringExtra("jobSkill3");
-            String jobSkill4 = getIntent().getStringExtra("jobSkill4");
-            String jobSkill5 = getIntent().getStringExtra("jobSkill5");
-            String jobSkill6 = getIntent().getStringExtra("jobSkill6");
-            String jobSkill7 = getIntent().getStringExtra("jobSkill7");
-            String jobSkill8 = getIntent().getStringExtra("jobSkill8");
-            String jobSkill9 = getIntent().getStringExtra("jobSkill9");
-            String jobSkill10 = getIntent().getStringExtra("jobSkill10");
-
-            //added
-            String educationalAttainment = getIntent().getStringExtra("educationalAttainment");
-            String categorySkill = getIntent().getStringExtra("skill");
-            String workExperience = getIntent().getStringExtra("workExperience");
-
-            setImage(imageURL,postTitle, postDescription,postLocation, postCompanyCity
-                    ,typeOfDisability1,typeOfDisability2,typeOfDisability3, typeOfDisabilityMore,
-                    postDate, expDate, permission, companyName,educationalAttainment, categorySkill,
-                    workExperience);
-        }
-    }
-
-
-    private void setImage(String imageURL, String postTitle, String postDescription,
-                          String postLocation, String postCompanyCity, String typeOfDisability1,
-                          String typeOfDisability2, String typeOfDisability3, String typeOfDisabilityMore,
-                          String postDate, String expDate, String permission, String companyName,
-                          String educationalAttainment, String categorySkill,
-                          String workExperience){
-        Log.d(TAG, "setImage: setting te image and name to widgets.");
-
-        TextView displayTypeOfDisability1 = findViewById(R.id.displayTypeOfDisability1);
-        TextView displayTypeOfDisability2 =findViewById(R.id.displayTypeOfDisability2);
-        TextView displayTypeOfDisability3 = findViewById(R.id.displayTypeOfDisability3);
-        TextView displayTypeOfDisabilityMore = findViewById(R.id.displayTypeOfDisabilityMore);
-        TextView displayPostLocation = findViewById(R.id.displayPostLocation);
-
-
-        ImageView images = findViewById(R.id.displayPostPic);
-        Glide.with(this)
-                .asBitmap()
-                .load(imageURL)
-                .into(images);
-        TextView displayPostTitle = findViewById(R.id.displayPostTitle);
-        displayPostTitle.setText(postTitle);
-
-        TextView displayPostDescription = findViewById(R.id.displayPostDescription);
-        displayPostDescription.setText(postDescription);
-        displayPostLocation.setText(String.format("%s, %s", postLocation, postCompanyCity));
-        displayTypeOfDisability1.setText(typeOfDisability1);
-        displayTypeOfDisability2.setText(typeOfDisability2);
-        displayTypeOfDisability3.setText(typeOfDisability3);
-        displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
-        TextView displaySkill1 = findViewById(R.id.displaySkill1);
-        TextView displaySkill2 = findViewById(R.id.displaySkill2);
-        TextView displaySkill3 = findViewById(R.id.displaySkill3);
-        TextView displaySkill4 = findViewById(R.id.displaySkill4);
-        TextView displaySkill5 = findViewById(R.id.displaySkill5);
-        TextView displaySkill6 = findViewById(R.id.displaySkill6);
-        TextView displaySkill7 = findViewById(R.id.displaySkill7);
-        TextView displaySkill8 = findViewById(R.id.displaySkill8);
-        TextView displaySkill9 = findViewById(R.id.displaySkill9);
-        TextView displaySkill10 = findViewById(R.id.displaySkill10);
-        TextView displayExpDate = findViewById(R.id.displayExpDate);
-        displayExpDate.setText(expDate);
-
-        TextView displayPermission = findViewById(R.id.displayPermission);
-        displayPermission.setText(permission);
-
-        TextView displayCompanyName = findViewById(R.id.displayCompanyName);
-        displayCompanyName.setText(companyName);
-
-        TextView displayEducationalAttainment = findViewById(R.id.displayEducationalAttainment);
-        displayEducationalAttainment.setText(educationalAttainment);
-        TextView displayCategorySkill = findViewById(R.id.displayCategorySkill);
-        displayCategorySkill.setText(categorySkill);
-        TextView displayTotalWorkExperience = findViewById(R.id.displayTotalWorkExperience);
-        displayTotalWorkExperience.setText(workExperience);
-
-        final String d1 = "Orthopedic Disability";
-        final String d2 = "Partial Vision Disability";
-        final String d3 = "Hearing Disability";
-        final String d4 = "Other Disabilities";
-
-
-        if(typeOfDisability1.equals(d1)) {
-            displayTypeOfDisability1.setText(typeOfDisability1);
-        }else{
-            displayTypeOfDisability1.setVisibility(View.GONE);
-        }
-        if(typeOfDisability2.equals(d2)) {
-            displayTypeOfDisability2.setText(typeOfDisability2);
-        }else{
-            displayTypeOfDisability2.setVisibility(View.GONE);
-        }
-        if(typeOfDisability3.equals(d3)) {
-            displayTypeOfDisability3.setText(typeOfDisability3);
-        }else{
-            displayTypeOfDisability3.setVisibility(View.GONE);
-        }
-        if(typeOfDisabilityMore.equals(d4)) {
-            displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
-        }else{
-            displayTypeOfDisabilityMore.setVisibility(View.GONE);
-        }
-
-//------------
-        String postJobID = getIntent().getStringExtra("ImageUploadID"); //not getting intent
-        DatabaseReference db_JobSkill = FirebaseDatabase.getInstance().getReference("Job_Offers").child(postJobID);
-        db_JobSkill.addValueEventListener(new ValueEventListener() {
+        final String postJobID = getIntent().getStringExtra("POST_ID");
+        //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
+        fDb = FirebaseDatabase.getInstance();
+        jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
+        jobOffersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild("jobSkill1")){
-                    displaySkill1.setText(snapshot.child("jobSkill1").getValue().toString());
+                final String postTitle = snapshot.child("postTitle").getValue().toString();
+                final String companyName = snapshot.child("companyName").getValue().toString();
+                final String postDescription = snapshot.child("postDescription").getValue().toString();
+                final String postLoc = snapshot.child("postLocation").getValue().toString();
+                final String skillCategory = snapshot.child("skill").getValue().toString();
+                final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
+                final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
+                final String postExpDate = snapshot.child("expDate").getValue().toString();
+
+                ArrayList<String> jobSkillList = new ArrayList<>();
+                ArrayList<String> typeOfDisabilityList = new ArrayList<>();
+                for(int counter = 1; counter <= 10; counter++){
+                    if(snapshot.hasChild("jobSkill" + counter) && !snapshot.child("jobSkill" + counter).getValue().toString().equals("")){
+                        jobSkillList.add(snapshot.child("jobSkill" + counter).getValue(String.class));
+                    }
                 }
 
-                if(snapshot.hasChild("jobSkill2")){
-                    displaySkill2.setText(snapshot.child("jobSkill2").getValue().toString());
-                }
+                for(int counter_a = 1; counter_a <= 3; counter_a++){
+                    if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
+                        typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
+                    }
 
-                if(snapshot.hasChild("jobSkill3")){
-                    displaySkill3.setText(snapshot.child("jobSkill3").getValue().toString());
                 }
-
-                if(snapshot.hasChild("jobSkill4")){
-                    displaySkill4.setText(snapshot.child("jobSkill4").getValue().toString());
+                if(snapshot.hasChild("typeOfDisabilityMore")){
+                    typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
+                }else{
+                    String typeOfDisabilityMore = "";
                 }
-
-                if(snapshot.hasChild("jobSkill5")){
-                    displaySkill5.setText(snapshot.child("jobSkill5").getValue().toString());
-                }
-
-                if(snapshot.hasChild("jobSkill6")){
-                    displaySkill6.setText(snapshot.child("jobSkill6").getValue().toString());
-                }
-
-                if(snapshot.hasChild("jobSkill7")){
-                    displaySkill7.setText(snapshot.child("jobSkill7").getValue().toString());
-                }
-
-                if(snapshot.hasChild("jobSkill8")){
-                    displaySkill8.setText(snapshot.child("jobSkill8").getValue().toString());
-                }
-
-                if(snapshot.hasChild("jobSkill9")){
-                    displaySkill9.setText(snapshot.child("jobSkill9").getValue().toString());
-                }
-
-                if(snapshot.hasChild("jobSkill10")){
-                    displaySkill10.setText(snapshot.child("jobSkill10").getValue().toString());
-                }
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate);
             }
 
             @Override
@@ -405,28 +272,31 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
+    }
 
-        if(typeOfDisability1.equals(d1)) {
-            displayTypeOfDisability1.setText(typeOfDisability1);
-        }else{
-            displayTypeOfDisability1.setVisibility(View.GONE);
+    private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String postExpDate) {
+        m_displayPostTitle.setText(postTitle);
+        m_displayCompanyName.setText(companyName);
+        m_displayPostDescription.setText(postDescription);
+        m_displayPostLocation.setText(postLoc);
+        m_displayCategorySkill.setText(skillCategory);
+        m_displayEducationalAttainment.setText(educationalAttainment);
+        m_displayTotalWorkExperience.setText(workExperience);
+        m_displayExpDate.setText(postExpDate);
+
+        StringBuilder jobSkillList_builder = new StringBuilder();
+        for(String jobSkillList1 : jobSkillList){
+            jobSkillList_builder.append(jobSkillList1 + "\n");
         }
-        if(typeOfDisability2.equals(d2)) {
-            displayTypeOfDisability2.setText(typeOfDisability2);
-        }else{
-            displayTypeOfDisability2.setVisibility(View.GONE);
+        m_displayJobSkillsList.setText(jobSkillList_builder.toString());
+
+        StringBuilder typeOfDisability_builder = new StringBuilder();
+        for(String typeOfDisabilityList1 : typeOfDisabilityList) {
+            typeOfDisability_builder.append(typeOfDisabilityList1 + "\n");
         }
-        if(typeOfDisability3.equals(d3)) {
-            displayTypeOfDisability3.setText(typeOfDisability3);
-        }else {
-            displayTypeOfDisability3.setVisibility(View.GONE);
-        }
-        if(typeOfDisabilityMore.equals(d4)) {
-            displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
-        }else {
-            displayTypeOfDisabilityMore.setVisibility(View.GONE);
-        }
+        m_displayTypeOfDisabilitiesList.setText(typeOfDisability_builder.toString());
 
     }
+
 
 }
