@@ -1,6 +1,7 @@
 package com.philcode.equals.EMP;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -65,5 +66,12 @@ public class EMP_ManageJobs extends AppCompatActivity {
                 Toast.makeText(EMP_ManageJobs.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, a_EmployeeContentMainActivity.class);
+        startActivity(i);
     }
 }

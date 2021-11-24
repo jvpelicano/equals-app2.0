@@ -84,7 +84,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (isOpen) {
-
                     textview_resume.setVisibility(View.INVISIBLE);
                     textview_potential.setVisibility(View.INVISIBLE);
                     textView_delete.setVisibility(View.INVISIBLE);
@@ -115,26 +114,22 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         fab3_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 AlertDialog.Builder alert =  new AlertDialog.Builder(EMP_AvailableJobs_View.this);
                 alert.setMessage("This post will be deleted and you won't be able to find it anymore.").setCancelable(false)
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                final String imageURL = getIntent().getStringExtra("imageURL");
-                                refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                                refForJobs.orderByChild("imageURL").equalTo(imageURL).addListenerForSingleValueEvent(new ValueEventListener() {
-
+                                startActivity(new Intent(EMP_AvailableJobs_View.this, EMP_ManageJobs.class));
+                                final String postJobID = getIntent().getStringExtra("POST_ID");
+                                jobOffersRef = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
+                                jobOffersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                            String parent = dataSnapshot1.getKey();
                                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers");
-                                            ref.child(parent).removeValue();
-                                            startActivity(new Intent(EMP_AvailableJobs_View.this, a_EmployeeContentMainActivity.class));
-
+                                            ref.child(postJobID).removeValue();
                                         }
+                                        Toast.makeText(EMP_AvailableJobs_View.this, "Job offer is successfully removed.", Toast.LENGTH_SHORT).show();
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
