@@ -537,13 +537,26 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
-                                            tempPostDescription,tempPostLocation, tempTypeOfDisability1, tempTypeOfDisability2,
-                                            tempTypeOfDisability3,tempTypeOfDisabilityMore,tempPermission, companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
+                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
                                     String ImageUploadId = databaseReference.push().getKey();
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
 
+                                    //TYPE OF DISABILITY
+                                    if(typeOfDisability1.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability1").setValue(typeOfDisability1.getText().toString());
+                                    }
+                                    if(typeOfDisability2.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability2").setValue(typeOfDisability2.getText().toString());
+                                    }
+                                    if(typeOfDisability3.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability3").setValue(typeOfDisability3.getText().toString());
+                                    }
+                                    if(typeOfDisabilityMore.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisabilityMore").setValue(typeOfDisabilityMore.getText().toString());
+                                    }
+                                    //JOB SKILL
                                     if (jobSkill1.isChecked()){
                                         databaseReference.child(ImageUploadId).child("jobSkill1").setValue(jobSkill1.getText().toString());
                                     }

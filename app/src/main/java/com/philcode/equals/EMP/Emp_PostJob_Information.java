@@ -5,10 +5,6 @@ public class Emp_PostJob_Information {
     public String postTitle;
     public String postDescription;
     public String postLocation;
-    public String typeOfDisability1;
-    public String typeOfDisability2;
-    public String typeOfDisability3;
-    public String typeOfDisabilityMore;
 
     public String permission;
     public String companyName;
@@ -30,8 +26,7 @@ public class Emp_PostJob_Information {
 
 
     public Emp_PostJob_Information(String imageURL, String postTitle, String postDescription,
-                                   String postLocation, String typeOfDisability1, String typeOfDisability2,
-                                   String typeOfDisability3, String typeOfDisabilityMore, String permission,
+                                   String postLocation, String permission,
                                    String companyName, String uid, String expDate, String postDate, String city, String educationalAttainment, String workExperience,
                                    String skill, String educationalAttainmentRequirement) {
 
@@ -40,10 +35,6 @@ public class Emp_PostJob_Information {
         this.postDescription = postDescription;
 
         this.postLocation = postLocation;
-        this.typeOfDisability1 = typeOfDisability1;
-        this.typeOfDisability2 = typeOfDisability2;
-        this.typeOfDisability3 = typeOfDisability3;
-        this.typeOfDisabilityMore = typeOfDisabilityMore;
 
         this.permission = permission;
         this.companyName = companyName;
@@ -93,39 +84,6 @@ public class Emp_PostJob_Information {
         this.postLocation = postLocation;
     }
 
-
-    public String getTypeOfDisability1() {
-        return typeOfDisability1;
-    }
-
-    public void setTypeOfDisability1(String typeOfDisability1) {
-        this.typeOfDisability1 = typeOfDisability1;
-    }
-
-    public String getTypeOfDisability2() {
-        return typeOfDisability2;
-    }
-
-    public void setTypeOfDisability2(String typeOfDisability2) {
-        this.typeOfDisability2 = typeOfDisability2;
-    }
-
-    public String getTypeOfDisabilityMore() {
-        return typeOfDisabilityMore;
-    }
-
-    public void setTypeOfDisabilityMore(String typeOfDisabilityMore) {
-        this.typeOfDisabilityMore = typeOfDisabilityMore;
-    }
-
-
-    public String getTypeOfDisability3() {
-        return typeOfDisability3;
-    }
-
-    public void setTypeOfDisability3(String typeOfDisability3) {
-        this.typeOfDisability3 = typeOfDisability3;
-    }
 
     public String getPermission() {
         return permission;
