@@ -43,6 +43,7 @@ import com.philcode.equals.EMP.EMP_ViewPotential_All;
 import com.philcode.equals.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -91,6 +92,10 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
     String companyName;
     private TextView profile_email;
 
+    //PWD
+
+    TextView m_fullName, m_email, m_address, m_educationalAttainment, m_workExperience, m_contact, m_skill, m_displayJobSkillList, m_displayTypeOfDisability;
+
     private static final String TAG = "EMP_ViewPotential_View";
 
     @Override
@@ -116,6 +121,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
 
         //call get Info here...
+        getApplicantInfo();
 
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,10 +284,37 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
 
     }
     public void getApplicantInfo(){
-        pwd_reference.addValueEventListener(new ValueEventListener() {
+        pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD");
+        String pwd_AuthID = getIntent().getStringExtra("PWD_ID");
+        pwd_reference.child(pwd_AuthID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String imageUrl = snapshot.child("pwdProfilePic").getValue().toString();
+                String firstName = snapshot.child("firstName").getValue().toString();
+                String lastName = snapshot.child("lastName").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
+                String address = snapshot.child("address").getValue().toString();
+                String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
+                String workExperience = snapshot.child("workExperience").getValue().toString();
+                String contact = snapshot.child("contact").getValue().toString();
+                String skill = snapshot.child("skill").getValue().toString();
+                String typeOfDisabilityMore = "";
+                ArrayList<String> jobSkillList = new ArrayList<>();
+                ArrayList<String> typeOfDisabilityList = new ArrayList<>();
+                for(int counter = 0; counter <= 10; counter++){
+                    if(snapshot.hasChild("jobSkills" + counter) && !snapshot.child("jobSkills" + counter).getValue().toString().equals("")){
+                        jobSkillList.add(snapshot.child("jobSkills" + counter).getValue(String.class));
+                    }
+                }
 
+                for(int counter_a = 0; counter_a <= 3; counter_a++){
+                    if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
+                        typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
+                    }
+
+                }
+
+                setApplicantInfo(jobSkillList, typeOfDisabilityList, imageUrl, firstName, lastName, email, address, educationalAttainment, workExperience, contact, skill);
             }
 
             @Override
@@ -289,9 +322,43 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
 
             }
         });
-    }
-    public void setApplicantInfo(){
 
+    }
+    public void setApplicantInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String imageUrl, String firstName, String lastName,  String email, String address, String educationalAttainment,
+                                 String workExperience, String contact, String skill){
+        m_fullName = findViewById(R.id.displayName);
+        m_email = findViewById(R.id.displayEmail);
+        m_address = findViewById(R.id.displayAddress);
+        m_educationalAttainment = findViewById(R.id.displayEducationalAttainment);
+        m_workExperience = findViewById(R.id.displayTotalWorkExperience);
+        m_contact = findViewById(R.id.displayContact);
+        m_skill = findViewById(R.id.displayCategorySkill);
+        m_displayJobSkillList = findViewById(R.id.displaySkill1);
+        m_displayTypeOfDisability = findViewById(R.id.displayTypeOfDisability1);
+        ImageView images = findViewById(R.id.pwdProfilePic);
+        m_fullName.setText(firstName.concat(" ").concat(lastName));
+        m_email.setText(email);
+        m_address.setText(address);
+        m_educationalAttainment.setText(educationalAttainment);
+        m_workExperience.setText(workExperience);
+        m_contact.setText(contact);
+        m_skill.setText(skill);
+        StringBuilder jobSkillList_builder = new StringBuilder();
+        for(String jobSkillList1 : jobSkillList){
+            jobSkillList_builder.append(jobSkillList1 + "\n");
+        }
+        m_displayJobSkillList.setText(jobSkillList_builder.toString());
+
+        StringBuilder typeOfDisability_builder = new StringBuilder();
+        for(String typeOfDisabilityList1 : typeOfDisabilityList) {
+            typeOfDisability_builder.append(typeOfDisabilityList1 + "\n");
+        }
+        m_displayTypeOfDisability.setText(typeOfDisability_builder.toString());
+
+        Glide.with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(images);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,8 +74,9 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Toast.makeText(context, pwd_AuthID, Toast.LENGTH_SHORT).show(); //correct data
                     Intent i = new Intent(context, EMP_ViewPotential_View.class);
-                    i.putExtra("POST_ID", pwd_AuthID);
+                    i.putExtra("PWD_ID", pwd_AuthID);
                     i.putExtra("INT_POS", position);
                     context.startActivity(i);
                 }
