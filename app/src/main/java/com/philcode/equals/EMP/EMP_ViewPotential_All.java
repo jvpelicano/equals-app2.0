@@ -170,14 +170,22 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference().child("PWD");
         reference1.addValueEventListener(new ValueEventListener() {
 
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<EMP_PWD_Information> list = new ArrayList<>();
                 list.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    EMP_PWD_Information pwd = dataSnapshot1.getValue(EMP_PWD_Information.class);
-                    //key = dataSnapshot1.getKey().toString();
+                    String email = dataSnapshot1.child("email").getValue().toString();
+                    String typeStatus = dataSnapshot1.child("typeStatus").getValue().toString();
+                    String firstName = dataSnapshot1.child("firstName").getValue().toString();
+                    String lastName = dataSnapshot1.child("lastName").getValue().toString();
+                    String address = dataSnapshot1.child("address").getValue().toString();
+                    String city = dataSnapshot1.child("city").getValue().toString();
+                    String contact = dataSnapshot1.child("contact").getValue().toString();
+                    String pwdProfilePic = dataSnapshot1.child("pwdProfilePic").getValue().toString();
+
+                    String key = dataSnapshot1.getKey().toString();
+                    EMP_PWD_Information pwd = new EMP_PWD_Information(email, typeStatus, firstName, lastName, address, city, pwdProfilePic, key, contact);
                     list.add(pwd);
                 }
                 Collections.reverse(list);
@@ -198,7 +206,6 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (switchPriority.isChecked()){
-
                     rootRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -210,8 +217,17 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
                                     ArrayList<EMP_PWD_Information> list = new ArrayList<>();
                                     list.clear();
                                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        EMP_PWD_Information pwd = dataSnapshot1.getValue(EMP_PWD_Information.class);
-                                        //key = dataSnapshot1.getKey().toString();
+                                        String email = dataSnapshot1.child("email").getValue().toString();
+                                        String typeStatus = dataSnapshot1.child("typeStatus").getValue().toString();
+                                        String firstName = dataSnapshot1.child("firstName").getValue().toString();
+                                        String lastName = dataSnapshot1.child("lastName").getValue().toString();
+                                        String address = dataSnapshot1.child("address").getValue().toString();
+                                        String city = dataSnapshot1.child("city").getValue().toString();
+                                        String pwdProfilePic = dataSnapshot1.child("pwdProfilePic").getValue().toString();
+                                        String contact = dataSnapshot1.child("contact").getValue().toString();
+
+                                        String key = dataSnapshot1.getKey().toString();
+                                        EMP_PWD_Information pwd = new EMP_PWD_Information(email, typeStatus, firstName, lastName, address, city, pwdProfilePic, key, contact);
                                         list.add(pwd);
                                     }
                                     Collections.reverse(list);
@@ -237,7 +253,6 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
 
                 }else {
 
-
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference().child("PWD");
                     reference1.addValueEventListener(new ValueEventListener() {
 
@@ -247,8 +262,17 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
                             ArrayList<EMP_PWD_Information> list = new ArrayList<>();
                             list.clear();
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                EMP_PWD_Information pwd = dataSnapshot1.getValue(EMP_PWD_Information.class);
-                                //key = dataSnapshot1.getKey().toString();
+                                String email = dataSnapshot1.child("email").getValue().toString();
+                                String typeStatus = dataSnapshot1.child("typeStatus").getValue().toString();
+                                String firstName = dataSnapshot1.child("firstName").getValue().toString();
+                                String lastName = dataSnapshot1.child("lastName").getValue().toString();
+                                String address = dataSnapshot1.child("address").getValue().toString();
+                                String city = dataSnapshot1.child("city").getValue().toString();
+                                String pwdProfilePic = dataSnapshot1.child("pwdProfilePic").getValue().toString();
+                                String contact = dataSnapshot1.child("contact").getValue().toString();
+
+                                String key = dataSnapshot1.getKey().toString();
+                                EMP_PWD_Information pwd = new EMP_PWD_Information(email, typeStatus, firstName, lastName, address, city, pwdProfilePic, key, contact);
                                 list.add(pwd);
                             }
                             Collections.reverse(list);
