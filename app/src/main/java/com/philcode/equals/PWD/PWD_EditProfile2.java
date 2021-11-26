@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,25 +59,21 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class PWD_EditProfile2 extends AppCompatActivity{
-
     //firebase auth object
     private FirebaseAuth firebaseAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    DatabaseReference work_databaseRef, mDatabase, pwdWorks;
+    DatabaseReference mDatabase;
 
-    String x;
     final Calendar myCalendar = Calendar.getInstance();
 
-    // Folder path for Firebase Storage.
     String Storage_Path = "PWD_Reg_Form/";
-    // Root Database Name for Firebase Database.
-    // String Database_Path = "PWD_Reg_Form";
 
     //view objects
     private TextView textViewUserEmail, skillSelected;
@@ -86,15 +83,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
     private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
     private RecyclerView work_recyclerView;
 
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
-    ArrayList<Integer> title = new ArrayList<>();
-    int count = 10;
-    int count2 = 0;
-    int count3 = 0;
     int wCount = 0;
-    int countw = 0;
-    int numberOfPrimarySkills = 0;
 
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
@@ -118,36 +107,11 @@ public class PWD_EditProfile2 extends AppCompatActivity{
     private String educAttainment = "";
     private String workExperience = "";
 
-    String[] pwdPrimarySkills = new String[10];
 
-    String m1 = "";
-    String m2 = "";
-    String m3 = "";
-    String m4 = "";
-    String m5 = "";
-    String m6 = "";
-    String m7 = "";
-    String m8 = "";
-    String m9 = "";
-    String m10 = "";
-
-    String primarySkill1;
-    String primarySkill2;
-    String primarySkill3;
-    String primarySkill4;
-    String primarySkill5;
-    String primarySkill6;
-    String primarySkill7;
-    String primarySkill8;
-    String primarySkill9;
-    String primarySkill10;
-    String primarySkillOther;
-    private TextView textview7;
-    private CheckBox checkOrtho, checkHear, checkVis, checkMore, ortho, visual, hear, more;
+    private CheckBox checkOrtho, checkHear, checkVis, checkMore;
     private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -168,7 +132,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         work_recyclerView.setHasFixedSize(true);
         work_recyclerView.setLayoutManager(new LinearLayoutManager(PWD_EditProfile2.this));
 
-        textview7 = findViewById(R.id.textView7);
+        firebaseAuth = FirebaseAuth.getInstance();
         buttonAddWork = findViewById(R.id.add_work);
 
         final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
@@ -216,17 +180,18 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         rgWorkExperience = findViewById(R.id.workexperience);
         final int selectExperience = rgWorkExperience.getCheckedRadioButtonId();
         rbWorkExperience = findViewById(selectExperience);
-        workExperience = rbWorkExperience.getText().toString();
         rgWorkExperience.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbWithExperience.isChecked()) {
+                    workExperience="With Experience";
                     buttonAddWork.setVisibility(View.VISIBLE);
                     work_recyclerView.setVisibility(View.VISIBLE);
 
                 }
                 if (rbWithoutExperience.isChecked()) {
+                    workExperience="Without Experience";
                     buttonAddWork.setVisibility(View.GONE);
                     work_recyclerView.setVisibility(View.GONE);
                 }
@@ -254,204 +219,12 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         job10 = findViewById(R.id.typeOfSkills10);
 
 
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removeCurrentData();
                 login();
                 uploadImage();
-            }
-        });
-
-
-        primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserItems.clear();
-
-                final DatabaseReference primarySkillsRef = FirebaseDatabase.getInstance().getReference().child("Category");
-                x = primary_skillsCategory.getSelectedItem().toString();
-                if (x.equals("Click to select value")) {
-
-                } else {
-                    //       Toast.makeText(getApplicationContext(), "Selected: " + x, Toast.LENGTH_LONG).show();
-
-                    primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                                String parent = dataSnapshot1.getKey();
-                                //     Toast.makeText(getApplicationContext(), parent, Toast.LENGTH_LONG).show();
-
-
-                                final DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("Category").child(parent);
-                                parentRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        count=10;
-                                        count2=0;
-                                        if(dataSnapshot.child("skill1").getValue(String.class).equals("")){
-                                            count--;
-                                            m1="";
-                                        }
-                                        else{
-                                            m1 = dataSnapshot.child("skill1").getValue(String.class);
-                                            count2++;
-
-                                        }
-                                        if(dataSnapshot.child("skill2").getValue(String.class).equals("")){
-                                            count--;
-                                            m2="";
-                                        }else{
-                                            m2 = dataSnapshot.child("skill2").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill3").getValue(String.class).equals("")){
-                                            count--;
-                                            m3="";
-                                        }else{
-                                            m3 = dataSnapshot.child("skill3").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill4").getValue(String.class).equals("")){
-                                            count--;
-                                            m4="";
-                                        }else{
-                                            m4 = dataSnapshot.child("skill4").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill5").getValue(String.class).equals("")){
-                                            count--;
-                                            m5="";
-                                        }else{
-                                            m5 = dataSnapshot.child("skill5").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill6").getValue(String.class).equals("")){
-                                            count--;
-                                            m6="";
-                                        }else{
-                                            m6 = dataSnapshot.child("skill6").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill7").getValue(String.class).equals("")){
-                                            count--;
-                                            m7="";
-                                        }else{
-                                            m7 = dataSnapshot.child("skill7").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill8").getValue(String.class).equals("")){
-                                            count--;
-                                            m8="";
-
-                                        }else{
-                                            m8 = dataSnapshot.child("skill8").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill9").getValue(String.class).equals("")){
-                                            count--;
-                                            m9="";
-
-                                        }else{
-                                            m9 = dataSnapshot.child("skill9").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill10").getValue(String.class).equals("")){
-                                            count--;
-                                            m10="";
-
-                                        }else{
-                                            m10 = dataSnapshot.child("skill10").getValue(String.class);
-                                            count2++;
-                                        }
-
-                                        Toast.makeText(getApplicationContext(), "Count1: "+count+"\nCount2: " +count2, Toast.LENGTH_LONG).show();
-
-                                        String[] listSkills = new String[count];
-                                        count3=0;
-                                        if(m1.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m1;
-                                            count3++;
-                                        }
-                                        if(m2.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m2;
-                                            count3++;
-                                        }
-                                        if(m3.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m3;
-                                            count3++;
-                                        }
-                                        if(m4.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m4;
-                                            count3++;
-                                        }
-                                        if(m5.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m5;
-                                            count3++;
-                                        }
-                                        if(m6.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m6;
-                                            count3++;
-                                        }
-                                        if(m7.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m7;
-                                            count3++;
-                                        }
-                                        if(m8.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m8;
-                                            count3++;
-                                        }
-                                        if(m9.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m9;
-                                            count3++;
-                                        }
-                                        if(m10.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m10;
-                                            count3++;
-                                        }
-                                        checkedItems = new boolean[count3];
-                                        callDialog(listSkills, checkedItems);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
@@ -468,7 +241,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
 
                 final TextView txtstart = view.findViewById(R.id.txtstart);
                 final TextView txtend = view.findViewById(R.id.txtend);
-                final TextView txtResult = view.findViewById(R.id.txtResult);
 
                 final Button btnSelectstart = view.findViewById(R.id.btnSelectstart);
                 final Button btnSelectend = view.findViewById(R.id.btnSelectend);
@@ -478,7 +250,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
                 categoryRef.addValueEventListener(new ValueEventListener() {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //  final List<String> skill = new ArrayList<String>();
                         final List<String> category = new ArrayList<String>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
@@ -552,13 +323,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
 
                             int date1 = Integer.parseInt(yearformat.format(myCalendar.getTime()));
                             txtend.setText(""+date1);
-                        /*String textS = txtstart.getText().toString();
-                        String textE = txtend.getText().toString();
-                        if (textS!=null && textE != null) {
-                            int textStart = Integer.parseInt(textS);
-                            int textEnd = Integer.parseInt(textE);
-                            txtResult.setText(textEnd - textStart);
-                        }*/
 
 
                         }
@@ -596,11 +360,9 @@ public class PWD_EditProfile2 extends AppCompatActivity{
 
                 }
 
-
                 alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                         String job = jobposition.getText().toString();
                         String company = companyname.getText().toString();
@@ -660,9 +422,29 @@ public class PWD_EditProfile2 extends AppCompatActivity{
 
     }
 
+    private void removeCurrentData() {
+        FirebaseUser currentFirebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        String uid = currentFirebaseUser.getUid();
+        mDatabase.child(uid).child("jobSkills0").removeValue();
+        mDatabase.child(uid).child("jobSkills1").removeValue();
+        mDatabase.child(uid).child("jobSkills2").removeValue();
+        mDatabase.child(uid).child("jobSkills3").removeValue();
+        mDatabase.child(uid).child("jobSkills4").removeValue();
+        mDatabase.child(uid).child("jobSkills5").removeValue();
+        mDatabase.child(uid).child("jobSkills6").removeValue();
+        mDatabase.child(uid).child("jobSkills7").removeValue();
+        mDatabase.child(uid).child("jobSkills8").removeValue();
+        mDatabase.child(uid).child("jobSkills9").removeValue();
 
+        mDatabase.child(uid).child("typeOfDisability0").removeValue();
+        mDatabase.child(uid).child("typeOfDisability1").removeValue();
+        mDatabase.child(uid).child("typeOfDisability2").removeValue();
+        mDatabase.child(uid).child("typeOfDisability3").removeValue();
 
-
+        mDatabase.child(uid).child("skill").removeValue();
+        mDatabase.child(uid).child("workExperience").removeValue();
+        mDatabase.child(uid).child("educationalAttainment").removeValue();
+    }
 
     private void login() {
         if (checkOrtho.isChecked()) {
@@ -676,7 +458,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
             check_Vis = checkVis.getText().toString();
         }
         else{
-            check_Vis = checkVis.getText().toString();
+            check_Vis = "";
         }
 
         if (checkHear.isChecked() ) {
@@ -692,6 +474,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         else{
             check_More = "";
         }
+
 
 
         if (job1.isChecked()) {
@@ -745,94 +528,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
             job_10 = "";
         }
     }
-
-
-    public void callDialog(final String[] listSkillsZ, final boolean[] checkedItemsZ) {
-
-        View view2 = LayoutInflater.from(PWD_EditProfile2.this).inflate(R.layout.other_skills,null);
-        final EditText others = view2.findViewById(R.id.otherSkills);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(PWD_EditProfile2.this);
-        builder.setView(view2);
-        builder.setTitle("Select Primary Skills");
-        builder.setMultiChoiceItems(listSkillsZ, checkedItemsZ, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-                if (isChecked) {
-                    if (!mUserItems.contains(position)) {
-                        mUserItems.add(position);
-                    }
-                } else if (mUserItems.contains(position)) {
-                    mUserItems.remove(mUserItems.indexOf(position));
-                }
-
-            }
-        });
-        builder.setCancelable(false);
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int position) {
-                primarySkillOther = others.getText().toString();
-                String item = "";
-                String item2 = "";
-                //String selectedSkill = "";
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    item = listSkillsZ[mUserItems.get(i)];
-                    Toast.makeText(PWD_EditProfile2.this, "i: " + i, Toast.LENGTH_LONG).show();
-
-                    //  if (i != mUserItems.size() - 1) {
-//                       for(int j = 0; j<19; j++){
-                    pwdPrimarySkills[i] = item;
-//                       }
-                    item2 = item2 + item + ", ";
-
-                }
-                primarySkill1 = pwdPrimarySkills[0];
-                primarySkill2 = pwdPrimarySkills[1];
-                primarySkill3 = pwdPrimarySkills[2];
-                primarySkill4 = pwdPrimarySkills[3];
-                primarySkill5 = pwdPrimarySkills[4];
-                primarySkill6 = pwdPrimarySkills[5];
-                primarySkill7 = pwdPrimarySkills[6];
-                primarySkill8 = pwdPrimarySkills[7];
-                primarySkill9 = pwdPrimarySkills[8];
-                primarySkill10 = pwdPrimarySkills[9];
-                if (primarySkillOther!="" && primarySkillOther!=null){
-                    item2 = item2+" "+primarySkillOther;
-                    skillSelected.setText(item2);
-                }else{
-                    skillSelected.setText(item2.substring(0, item2.length() - 2));
-                }
-            }
-
-        });
-
-        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNeutralButton("Clear skills", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < checkedItemsZ.length; i++) {
-                    checkedItemsZ[i] = false;
-                    mUserItems.clear();
-                    skillSelected.setText("");
-                }
-            }
-        });
-        AlertDialog mDialog = builder.create();
-        mDialog.show();
-    }
-
-
-
-
     private void uploadImage() {
-
         final Intent intent = new Intent(this, PWD_EditProfile_ViewActivity.class);
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.show();
@@ -847,34 +543,11 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         final String job9 = job_9;
         final String job10 = job_10;
 
+        final String categorySkill = primary_skillsCategory.getSelectedItem().toString();
         final String checkOrtho = check_Ortho;
         final String checkVis = check_Vis;
         final String checkHear = check_Hear;
         final String checkMore = check_More;
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = user.getUid();
-        /*DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
-        noice.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String dis1 = dataSnapshot.child("typeOfDisability1").getValue().toString();
-                String dis2 = dataSnapshot.child("typeOfDisability2").getValue().toString();
-                String dis3 = dataSnapshot.child("typeOfDisability3").getValue().toString();
-                String disMore = dataSnapshot.child("typeOfDisabilityMore").getValue().toString();
-                Toast.makeText(PWD_EditProfile2.this, dis1, Toast.LENGTH_SHORT).show();
-
-
-                if(dis1=="Orthopedic Disability"){
-                    ortho.setChecked(true);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
 
         progressDialog.dismiss();
 
@@ -883,116 +556,81 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         rbEduc = findViewById(selectedId);
         educAttainment = rbEduc.getText().toString();
 
-        for(int i=0;i<pwdPrimarySkills.length;i++){
-            if(!(pwdPrimarySkills[i]==null)){
-                countw++;
-            }
-        }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
 
-        ortho = findViewById(R.id.checkOrtho);
-        visual = findViewById(R.id.checkVis);
-        hear = findViewById(R.id.checkHear);
-        more = findViewById(R.id.checkMore);
+        CheckBox ortho = findViewById(R.id.checkOrtho);
+        CheckBox visual = findViewById(R.id.checkVis);
+        CheckBox hear = findViewById(R.id.checkHear);
+        CheckBox more = findViewById(R.id.checkMore);
 
         primary_skillsCategory = findViewById(R.id.skillSpinner);
-        final String categorySkill = primary_skillsCategory.getSelectedItem().toString();
 
         TextView textview8 = findViewById(R.id.textView8);
+        TextView textview7 = findViewById(R.id.textView7);
 
         if(!ortho.isChecked() && !visual.isChecked() && !hear.isChecked() && !more.isChecked()){
             textview7.setError("Please check your disability");
             textview7.requestFocus();
             Toast.makeText(PWD_EditProfile2.this, "Please check your disability", Toast.LENGTH_SHORT).show();
             return;
-        }else
-        if(categorySkill.equals("Click to select value")){
-            textview8.setError("Please select your skill category");
-            textview8.requestFocus();
-            Toast.makeText(PWD_EditProfile2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
-            return;
         }else{
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
-            mDatabase.child("educationalAttainment").setValue(educAttainment);
-            mDatabase.child("skill").setValue(categorySkill);
-            mDatabase.child("workExperience").setValue(workExperience);
-            mDatabase.child("jobSkill1").setValue(job1);
-            mDatabase.child("jobSkill2").setValue(job2);
-            mDatabase.child("jobSkill3").setValue(job3);
-            mDatabase.child("jobSkill4").setValue(job4);
-            mDatabase.child("jobSkill5").setValue(job5);
-            mDatabase.child("jobSkill6").setValue(job6);
-            mDatabase.child("jobSkill7").setValue(job7);
-            mDatabase.child("jobSkill8").setValue(job8);
-            mDatabase.child("jobSkill9").setValue(job9);
-            mDatabase.child("jobSkill10").setValue(job10);
-            mDatabase.child("typeOfDisability1").setValue(checkOrtho);
-            mDatabase.child("typeOfDisability2").setValue(checkVis);
-            mDatabase.child("typeOfDisability3").setValue(checkHear);
-            mDatabase.child("typeOfDisabilityMore").setValue(checkMore);
-            mDatabase.child("numberOfPrimarySkills").setValue(numberOfPrimarySkills);
-            mDatabase.child("primarySkill1").setValue(primarySkill1);
-            mDatabase.child("primarySkill2").setValue(primarySkill2);
-            mDatabase.child("primarySkill3").setValue(primarySkill3);
-            mDatabase.child("primarySkill4").setValue(primarySkill4);
-            mDatabase.child("primarySkill5").setValue(primarySkill5);
-            mDatabase.child("primarySkill6").setValue(primarySkill6);
-            mDatabase.child("primarySkill7").setValue(primarySkill7);
-            mDatabase.child("primarySkill8").setValue(primarySkill8);
-            mDatabase.child("primarySkill9").setValue(primarySkill9);
-            mDatabase.child("primarySkill10").setValue(primarySkill10);
-            mDatabase.child("primarySkillOthers").setValue(primarySkillOther).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+            if(categorySkill.equals("Click to select value")){
+                textview8.setError("Please select your skill category");
+                textview8.requestFocus();
+                Toast.makeText(PWD_EditProfile2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
+                mDatabase.child("educationalAttainment").setValue(educAttainment);
+                mDatabase.child("skill").setValue(primary_skillsCategory.getSelectedItem().toString()); //working
+                mDatabase.child("workExperience").setValue(workExperience);
 
-                    startActivity(intent);
 
+                ArrayList jobskills = new ArrayList();
+                jobskills.add(job1);
+                jobskills.add(job2);
+                jobskills.add(job3);
+                jobskills.add(job4);
+                jobskills.add(job5);
+                jobskills.add(job6);
+                jobskills.add(job7);
+                jobskills.add(job8);
+                jobskills.add(job9);
+                jobskills.add(job10);
+
+                ArrayList disabilities = new ArrayList();
+                disabilities.add(checkOrtho);
+                disabilities.add(checkVis);
+                disabilities.add(checkHear);
+                disabilities.add(checkMore);
+
+
+                for(int i = 0; i < jobskills.size(); i++){
+                    if((jobskills.get(i) != "")){
+                        mDatabase.child("jobSkills" + i).setValue(jobskills.get(i));
+                    }
                 }
-            });
-
+                for(int i = 0; i < disabilities.size(); i++){
+                    if((disabilities.get(i) != "")){
+                        mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
+                    }
+                }
+                if(workExperience.equals("")){
+                    mDatabase.child("workExperience").setValue("Without Experience");
+                }else{
+                    mDatabase.child("workExperience").setValue(workExperience);
+                }
+                Toast.makeText(PWD_EditProfile2.this, "Changes successfully saved.", Toast.LENGTH_SHORT).show();
+            }
         }
 
-
-        /*if(categorySkill.equals("Click to select value")){
-            buttonSave.setClickable(false);
-            textview8.setError("Please select your skill category");
-            textview8.requestFocus();
-            Toast.makeText(PWD_EditProfile2.this, "Choose your skill category", Toast.LENGTH_LONG).show();
-            return;
-        }else if(ortho.isChecked() || visual.isChecked() || hear.isChecked() || more.isChecked() &&  categorySkill!="Click to select value"){
-            buttonSave.setClickable(true);
-        }*/
-
-
-
-        numberOfPrimarySkills=countw;
-
+        startActivity(intent);
 
     }
 
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            final Intent intent = new Intent(this, PWD_EditProfile_ViewActivity.class);
-            androidx.appcompat.app.AlertDialog.Builder alert =  new androidx.appcompat.app.AlertDialog.Builder(PWD_EditProfile2.this);
-            alert.setMessage("Are you sure you want to go back without any saving any changes?").setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        /*    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("PWD");
-                            dbRef.child(String.valueOf(user)).removeValue();*/
-                            startActivity(intent);
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            androidx.appcompat.app.AlertDialog alertDialog = alert.create();
-            alertDialog.setTitle("Return to Profile");
-            alertDialog.show();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
+
+
 }
