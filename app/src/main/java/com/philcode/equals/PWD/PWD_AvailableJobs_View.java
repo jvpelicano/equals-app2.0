@@ -92,7 +92,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
-                final String postExpDate = snapshot.child("expDate").getValue().toString();
+                //final String postExpDate = snapshot.child("expDate").getValue().toString();
 
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 }else{
                     String typeOfDisabilityMore = "";
                 }
-                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate);
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience);
             }
 
             @Override
@@ -122,71 +122,11 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             }
         });
         checkResume();
-        if(m_sendResume.getText().equals("Send Resume")){
-            m_sendResume.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendResume();
-                }
-            });
-        }else{
-            m_sendResume.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_AvailableJobs_View.this);
-                    alert.setMessage("Resume file format should be in PDF.").setCancelable(true)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                    intent.setType("docx/*");
-                                    intent.setType("doc/*");
-                                    intent.setType("application/pdf");
-                                    startActivityForResult(intent, PICK_FILE);
-                                }
-                            });
-                    AlertDialog alertDialog = alert.create();
-                    alertDialog.setTitle("Resume Upload File Format");
-                    alertDialog.show();
-                }
-            });
-        }
     }
 
-    private void sendResume() {
-        pwdRef = fDb.getReference().child("PWD").child(userId);
-        pwdRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String fname = snapshot.child("firstName").getValue().toString();
-                String lname = snapshot.child("lastName").getValue().toString();
-                String email = snapshot.child("email").getValue().toString();
-                String contact = snapshot.child("contact").getValue().toString();
-                String resume = snapshot.child("resumeFile").getValue().toString();
-                String userID = user.getUid();
-                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("resumeFile", resume);
-                hashMap.put("firstName", fname);
-                hashMap.put("lastName", lname);
-                hashMap.put("email", email);
-                hashMap.put("contact", contact);
-                hashMap.put("userID", userID);
-                jobOffersRef.child("Resume").child(userID).setValue(hashMap);
-                Toast.makeText(getApplicationContext(), "Resume submitted successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
-                            String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String postExpDate){
+                            String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -194,7 +134,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience);
-        m_displayExpDate.setText(postExpDate);
+        //m_displayExpDate.setText(postExpDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
         for(String jobSkillList1 : jobSkillList){
@@ -216,9 +156,66 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("resumeFile").exists() && !snapshot.child("resumeFile").getValue().toString().isEmpty()){
                     m_sendResume.setText("Send Resume");
+                    m_sendResume.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sendResume();
+                        }
+                    });
                 }else{
                     m_sendResume.setText("Upload Resume");
+                    m_sendResume.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_AvailableJobs_View.this);
+                            alert.setMessage("Resume file format should be in PDF.").setCancelable(true)
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                            intent.setType("docx/*");
+                                            intent.setType("doc/*");
+                                            intent.setType("application/pdf");
+                                            startActivityForResult(intent, PICK_FILE);
+                                        }
+                                    });
+                            AlertDialog alertDialog = alert.create();
+                            alertDialog.setTitle("Resume Upload File Format");
+                            alertDialog.show();
+                        }
+                    });
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void sendResume() {
+        pwdRef = fDb.getReference().child("PWD").child(userId);
+        pwdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fname = snapshot.child("firstName").getValue().toString();
+                String lname = snapshot.child("lastName").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
+                String contact = snapshot.child("contact").getValue().toString();
+                String resume = snapshot.child("resumeFile").getValue().toString();
+                String userID = user.getUid();
+                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("resumeFile", resume);
+                hashMap.put("firstName", fname);
+                hashMap.put("lastName", lname);
+                hashMap.put("email", email);
+                hashMap.put("contact", contact);
+                hashMap.put("userID", userID);
+                jobOffersRef.child("Resume").child(userID).setValue(hashMap);
+                Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
             }
 
             @Override
@@ -230,7 +227,6 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     }
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        final Intent i = new Intent(PWD_AvailableJobs_View.this, a_PWDContentMainActivity.class);
         if(requestCode == PICK_FILE){
             if(resultCode == RESULT_OK){
                 Uri FileUri = data.getData();
@@ -248,12 +244,23 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                                 resume.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        startActivity(i);
-                                        progressDialog.dismiss();
                                         resume.child("resumeFile").setValue(String.valueOf(uri));
-                                        startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
-                                        Toast.makeText(PWD_AvailableJobs_View.this, "Resume Uploaded", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PWD_AvailableJobs_View.this, "Resume successfully uploaded.", Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
+                                        pwdRef = fDb.getReference().child("PWD").child(userId);
+                                        pwdRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if(snapshot.hasChild("resumeFile")){
+                                                    sendResume();
+                                                }
+                                            }
 
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -264,7 +271,6 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
                             }
                         });
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

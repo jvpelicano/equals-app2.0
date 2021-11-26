@@ -95,6 +95,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
     //PWD
 
     TextView m_fullName, m_email, m_address, m_educationalAttainment, m_workExperience, m_contact, m_skill, m_displayJobSkillList, m_displayTypeOfDisability;
+    ImageView images;
 
     private static final String TAG = "EMP_ViewPotential_View";
 
@@ -335,7 +336,8 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         m_skill = findViewById(R.id.displayCategorySkill);
         m_displayJobSkillList = findViewById(R.id.displaySkill1);
         m_displayTypeOfDisability = findViewById(R.id.displayTypeOfDisability1);
-        ImageView images = findViewById(R.id.pwdProfilePic);
+        images = findViewById(R.id.pwdProfilePic);
+
         m_fullName.setText(firstName.concat(" ").concat(lastName));
         m_email.setText(email);
         m_address.setText(address);

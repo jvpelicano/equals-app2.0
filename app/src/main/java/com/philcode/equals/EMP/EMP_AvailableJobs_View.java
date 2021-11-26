@@ -175,16 +175,12 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            String parent = dataSnapshot1.getKey();
+                            String parent = getIntent().getStringExtra("POST_ID");
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + parent);
                             ref.addListenerForSingleValueEvent(new ValueEventListener() {
-
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.hasChild("Resumes")) {
-
-                                        // Toast.makeText(EMP_AvailableJobs_View.this, "No Resume", Toast.LENGTH_SHORT).show();
-
                                         Intent i = new Intent(getApplicationContext(), EMP_ViewResume.class);
                                         i.putExtra("imageURL", imageURL);
                                         startActivity(i);
