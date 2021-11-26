@@ -234,10 +234,11 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
-              //  final String postExpDate = snapshot.child("expDate").getValue().toString();
-
+                final String postExpDate = snapshot.child("expDate").getValue().toString();
+                final String permission = snapshot.child("permission").getValue().toString();
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
+
                 for(int counter = 1; counter <= 10; counter++){
                     if(snapshot.hasChild("jobSkill" + counter) && !snapshot.child("jobSkill" + counter).getValue().toString().equals("")){
                         jobSkillList.add(snapshot.child("jobSkill" + counter).getValue(String.class));
@@ -255,7 +256,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 }else{
                     String typeOfDisabilityMore = "";
                 }
-                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience);
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission);
             }
 
             @Override
@@ -265,7 +266,8 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         });
     }
 
-    private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience) {
+    private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment,
+                             String workExperience, String postExpDate, String permission) {
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -273,7 +275,8 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience);
-        //m_displayExpDate.setText(postExpDate);
+        m_displayExpDate.setText(postExpDate);
+        m_displayPermission.setText(permission);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
         for(String jobSkillList1 : jobSkillList){
