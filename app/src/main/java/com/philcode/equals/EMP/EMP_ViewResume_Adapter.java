@@ -10,13 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.philcode.equals.R;
@@ -36,7 +34,7 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.resume_list_item, parent, false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.emp_resume_list_item_cardview, parent, false));
     }
 
     @Override
@@ -49,8 +47,6 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
         holder.contact.setText(availablejobsinfos.get(position).getContact());
         //holder.displayUid.setText(availablejobsinfos.get(position).getUserId());
         //holder.resumeFile.setText(availablejobsinfos.get(position).getResumeFile());
-
-
     }
 
 
@@ -74,33 +70,6 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
             firstName = itemView.findViewById(R.id.editFirstName);
             email = itemView.findViewById(R.id.editEmail);
             contact = itemView.findViewById(R.id.editContact);
-            /*btnCall= itemView.findViewById(R.id.btnCall);
-            btnMessage = itemView.findViewById(R.id.btnMessage);*/
-
-            //lastName = itemView.findViewById(R.id.editLastName);
-            /*displayUid = itemView.findViewById(R.id.displayUid);
-            resumeFile = itemView.findViewById(R.id.editResume);*/
-            /*btnMessage = findViewById(R.id.btnMessage);
-            btnCall = findViewById(R.id.btnCall);
-            btnCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EditText contact = findViewById(R.id.editContact);
-
-                    Intent i = new Intent(Intent.ACTION_CALL);
-                    String contactNum = contact.getText().toString();
-                    i.setData(Uri.parse("tel:"+contactNum));
-                    if(ActivityCompat.checkSelfPermission(EMP_ViewResume.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
-                        requestPermission();
-                    }else{
-                        startActivity(i);
-                    }
-                }
-            });*/
-
-
-
-
         }
 
         public void onClick(final int position) {

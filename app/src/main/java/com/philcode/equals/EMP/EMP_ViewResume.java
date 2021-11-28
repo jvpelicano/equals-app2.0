@@ -77,7 +77,7 @@ public class EMP_ViewResume extends AppCompatActivity {
 
         // current = dbRef.child(user.);
 
-        String imageURL = getIntent().getStringExtra("imageURL");
+        String postJobID = getIntent().getStringExtra("POST_ID");
         recyclerView = findViewById(R.id.theRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -153,21 +153,17 @@ public class EMP_ViewResume extends AppCompatActivity {
 
         dbRef = FirebaseDatabase.getInstance().getReference("Job_Offers");
 
-        dbRef.orderByChild("imageURL").equalTo(imageURL).addValueEventListener(new ValueEventListener() {
+        dbRef.child(postJobID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String parent = dataSnapshot1.getKey();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + parent).child("Resumes");
+                //Resumes > Resume ; Deleted for loop
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume");
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
                                 EMP_ViewResume_Information p = dataSnapshot2.getValue(EMP_ViewResume_Information.class);
                                 list.add(p);
-                               /* String hi = dataSnapshot.child("First Name").toString();
-                                Toast.makeText(EMP_ViewResume.this, hi,
-                                        Toast.LENGTH_LONG).show();*/
                             }
                             Collections.reverse(list);
                             adapter = new EMP_ViewResume_Adapter(EMP_ViewResume.this, list);
@@ -181,7 +177,6 @@ public class EMP_ViewResume extends AppCompatActivity {
 
                         }
                     });
-                }
             }
 
             @Override

@@ -79,6 +79,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
 
+        final String postJobID = getIntent().getStringExtra("POST_ID");
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,48 +168,32 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String imageURL = getIntent().getStringExtra("imageURL");
+            //Toast.makeText(EMP_AvailableJobs_View.this, "Button is working!", Toast.LENGTH_LONG).show();
 
                 refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                refForJobs.orderByChild("imageURL").equalTo(imageURL).addListenerForSingleValueEvent(new ValueEventListener() {
+                refForJobs.child(postJobID).addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            String parent = getIntent().getStringExtra("POST_ID");
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + parent);
-                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.hasChild("Resumes")) {
-                                        Intent i = new Intent(getApplicationContext(), EMP_ViewResume.class);
-                                        i.putExtra("imageURL", imageURL);
-                                        startActivity(i);
-                                        return;
-                                    } else {
-                                        AlertDialog.Builder alert =  new AlertDialog.Builder(EMP_AvailableJobs_View.this);
-                                        alert.setMessage("You haven't received resume from applicants yet.").setCancelable(false)
-                                                .setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.cancel();
+                            if (dataSnapshot.hasChild("Resume")) {
+                                Intent i = new Intent(getApplicationContext(), EMP_ViewResume.class);
+                                i.putExtra("POST_ID", postJobID);
+                                startActivity(i);
+                                return;
+                            } else {
+                                AlertDialog.Builder alert =  new AlertDialog.Builder(EMP_AvailableJobs_View.this);
+                                alert.setMessage("You haven't received resume from applicants yet.").setCancelable(false)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
 
-                                                    }
-                                                });
-                                        AlertDialog alertDialog = alert.create();
-                                        alertDialog.setTitle("No Resume Available");
-                                        alertDialog.show();
-                                    }
-                                }
-
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-
-                            });
-                        }
+                                            }
+                                        });
+                                AlertDialog alertDialog = alert.create();
+                                alertDialog.setTitle("No Resume Available");
+                                alertDialog.show();
+                            }
                     }
 
                     @Override
@@ -220,7 +205,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
 
         });
 
-        final String postJobID = getIntent().getStringExtra("POST_ID");
         //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
         fDb = FirebaseDatabase.getInstance();
         jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
@@ -253,8 +237,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 }
                 if(snapshot.hasChild("typeOfDisabilityMore")){
                     typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
-                }else{
-                    String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission);
             }

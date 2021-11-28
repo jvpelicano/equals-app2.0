@@ -205,7 +205,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     }
                 });
                 final String dp1 = snapshot.child("pwdProfilePic").getValue().toString();
-                //final String fullName  = snapshot.child("fullname").getValue().toString();
+
                 final String firstName  = snapshot.child("firstName").getValue().toString();
                 final String lastName  = snapshot.child("lastName").getValue().toString();
                 View hView =pNavigation.inflateHeaderView(R.layout.pwd_navigation_header);
@@ -224,9 +224,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
         home_recyclerView = findViewById(R.id.homeRecyclerView);
         home_recyclerView.setHasFixedSize(true);
         home_recyclerView.setLayoutManager(new LinearLayoutManager(a_PWDContentMainActivity.this));
-        /*home_recyclerView = new LinearLayoutManager(a_PWDContentMainActivity.this);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);*/
+
 
         home_list = new ArrayList<>();
         home_databaseref = FirebaseDatabase.getInstance().getReference("home_content");
@@ -287,9 +285,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                                         resume.child("resumeFile").setValue(String.valueOf(uri));
                                         startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
                                         Toast.makeText(a_PWDContentMainActivity.this, "Resume Uploaded", Toast.LENGTH_SHORT).show();
-
-
-
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
