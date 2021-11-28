@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.philcode.equals.EMP_ViewResumePDF_Activity;
 import com.philcode.equals.R;
 
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class EMP_ViewResume extends AppCompatActivity {
         final ArrayList<EMP_ViewResume_Information> list = new ArrayList<>();
         final RecyclerView recyclerView;
         // Toast.makeText(getApplicationContext(), getParent().toString(), Toast.LENGTH_LONG).show();
+        dbRef = FirebaseDatabase.getInstance().getReference("Job_Offers");
 
         // current = dbRef.child(user.);
 
@@ -126,13 +129,14 @@ public class EMP_ViewResume extends AppCompatActivity {
                         }).setNeutralButton("View Resume", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                EMP_ViewResume_Information emp = list.get(position);
-                                Intent intent = new Intent();
+                                Intent intent = new Intent(EMP_ViewResume.this, EMP_ViewResumePDF_Activity.class);
+                                intent.putExtra("PDF_Uri", list.get(position).getResumeFile());
+                                //Toast.makeText(EMP_ViewResume.this, list.get(position).getResumeFile(), Toast.LENGTH_SHORT).show();
+                                //EMP_ViewResume_Information emp = new EMP_ViewResume_Information();
+                                /*Intent intent = new Intent();
                                 intent.setType(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(emp.getResumeFile()));
+                                intent.setData(Uri.parse(list.get(position).getResumeFile()));*/
                                 startActivity(intent);
-
-
                             }
                         });
                         AlertDialog alertDialog = alert.create();
@@ -151,7 +155,6 @@ public class EMP_ViewResume extends AppCompatActivity {
 
         );
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Job_Offers");
 
         dbRef.child(postJobID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -263,7 +266,7 @@ public class EMP_ViewResume extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-        });
+        }); //drawer
 
 
 

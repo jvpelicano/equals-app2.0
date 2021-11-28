@@ -74,7 +74,6 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, pwd_AuthID, Toast.LENGTH_SHORT).show(); //correct data
                     Intent i = new Intent(context, EMP_ViewPotential_View.class);
                     i.putExtra("PWD_ID", pwd_AuthID);
                     i.putExtra("INT_POS", position);
