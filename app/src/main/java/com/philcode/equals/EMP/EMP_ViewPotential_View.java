@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -40,12 +42,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.philcode.equals.EMP.EMP_ViewPotential_All;
+import com.philcode.equals.PWD.PWD_AddWorkInformation;
+import com.philcode.equals.PWD.PWD_EditProfile_ViewActivity;
+import com.philcode.equals.PWD.PWD_WorkExperienceAdapter;
 import com.philcode.equals.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -54,9 +61,12 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
     private FloatingActionButton fab_main, fab1_call, fab2_mail;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     TextView textview_call, textview_mail;
+    private RecyclerView work_recyclerView;
 
     Boolean isOpen = false;
 
+    private List<EMPToPWD_WokExperienceModel> work_list;
+    private EMPToPWD_WorkExperienceAdapter work_adapter;
 
     // Folder path for Firebase Storage.
     String Storage_Path = "Job_Offers/";
@@ -120,6 +130,10 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
+
+        work_recyclerView = findViewById(R.id.workRecyclerView);
+        work_recyclerView.setHasFixedSize(true);
+        work_recyclerView.setLayoutManager(new LinearLayoutManager(EMP_ViewPotential_View.this));
 
         //call get Info here...
         getApplicantInfo();
@@ -290,6 +304,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         pwd_reference.child(pwd_AuthID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String imageUrl = snapshot.child("pwdProfilePic").getValue().toString();
                 String firstName = snapshot.child("firstName").getValue().toString();
                 String lastName = snapshot.child("lastName").getValue().toString();
@@ -361,6 +376,35 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
                 .asBitmap()
                 .load(imageUrl)
                 .into(images);
+        if(workExperience.equals("With Experience")){
+            String pwd_AuthID = getIntent().getStringExtra("PWD_ID");
+            pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD").child(pwd_AuthID).child("listOfWorks");
+            work_recyclerView.setVisibility(View.VISIBLE);
+            pwd_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    work_list = new ArrayList<>();
+                    work_list.clear();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        EMPToPWD_WokExperienceModel p = dataSnapshot1.getValue(EMPToPWD_WokExperienceModel.class);
+                        work_list.add(p);
+                    }
+                    Collections.reverse(work_list);
+                    work_adapter = new EMPToPWD_WorkExperienceAdapter(EMP_ViewPotential_View.this, work_list);
+                    work_recyclerView.setAdapter(work_adapter);
+                    work_adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(EMP_ViewPotential_View.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+
     }
 
     @Override
