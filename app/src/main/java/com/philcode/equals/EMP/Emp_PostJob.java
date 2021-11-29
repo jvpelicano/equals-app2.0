@@ -44,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.protobuf.StringValue;
 import com.philcode.equals.PWD.PWD_RegisterActivity2;
 import com.philcode.equals.R;
 
@@ -196,7 +197,7 @@ public class Emp_PostJob extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbWithExperience.isChecked()) {
-                    yearsOfExperience.setVisibility(View.GONE);
+                    yearsOfExperience.setVisibility(View.VISIBLE);
 
                 }
                 if (rbWithoutExperience.isChecked()) {
@@ -455,6 +456,11 @@ public class Emp_PostJob extends AppCompatActivity {
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
 
+                                    if(workExperience.equals("With Experience")){
+                                        years = Integer.parseInt(yearsOfExperience.getText().toString());
+                                        databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
+                                    }
+
                                     if(expDate.equals(week1)) { // working
                                         cal.add(Calendar.WEEK_OF_YEAR, 1);
                                         format.format(cal.getTime());
@@ -580,7 +586,6 @@ public class Emp_PostJob extends AppCompatActivity {
                                     if (jobSkill10.isChecked()){
                                         databaseReference.child(ImageUploadId).child("jobSkill0").setValue(jobSkill10.getText().toString());
                                     }
-
                                 }
                             });
                             startActivity(intent);
