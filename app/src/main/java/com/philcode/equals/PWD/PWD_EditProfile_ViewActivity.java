@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.philcode.equals.PWD_AddWorkExperience;
 import com.philcode.equals.R;
 
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ import java.util.List;
 
 public class PWD_EditProfile_ViewActivity extends Activity{
 
-    private FloatingActionButton fab_main, fab1_personalInfo, fab2_jobInfo;
+    private FloatingActionButton fab_main, fab1_personalInfo, fab2_jobInfo, fab3_addWorkExpInfo;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
-    TextView textview_personalInfo, textview_jobInfo;
+    TextView textview_personalInfo, textview_jobInfo, textview_AddWorkInfo;
     Button changePhoto;
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
@@ -98,8 +99,10 @@ public class PWD_EditProfile_ViewActivity extends Activity{
         fab_main = findViewById(R.id.fab);
         fab1_personalInfo = findViewById(R.id.fab1);
         fab2_jobInfo = findViewById(R.id.fab2);
+        fab3_addWorkExpInfo = findViewById(R.id.fab3);
         textview_personalInfo = findViewById(R.id.textview_personalInfo);
         textview_jobInfo = findViewById(R.id.textview_jobQualifications);
+        textview_AddWorkInfo = findViewById(R.id.textview_AddWork);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
@@ -112,18 +115,24 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 if (isOpen) {
                     textview_jobInfo.setVisibility(View.INVISIBLE);
                     textview_personalInfo.setVisibility(View.INVISIBLE);
+                    textview_AddWorkInfo.setVisibility(View.INVISIBLE);
+                    fab3_addWorkExpInfo.startAnimation(fab_close);
                     fab2_jobInfo.startAnimation(fab_close);
                     fab1_personalInfo.startAnimation(fab_close);
                     fab_main.startAnimation(fab_anticlock);
+                    fab3_addWorkExpInfo.setClickable(false);
                     fab2_jobInfo.setClickable(false);
                     fab1_personalInfo.setClickable(false);
                     isOpen = false;
                 } else {
                     textview_jobInfo.setVisibility(View.VISIBLE);
                     textview_personalInfo.setVisibility(View.VISIBLE);
+                    textview_AddWorkInfo.setVisibility(View.VISIBLE);
+                    fab3_addWorkExpInfo.startAnimation(fab_open);
                     fab2_jobInfo.startAnimation(fab_open);
                     fab1_personalInfo.startAnimation(fab_open);
                     fab_main.startAnimation(fab_clock);
+                    fab3_addWorkExpInfo.setClickable(true);
                     fab2_jobInfo.setClickable(true);
                     fab1_personalInfo.setClickable(true);
                     isOpen = true;
@@ -132,13 +141,18 @@ public class PWD_EditProfile_ViewActivity extends Activity{
             }
         });
 
+        fab3_addWorkExpInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PWD_EditProfile_ViewActivity.this, PWD_AddWorkExperience.class);
+                startActivity(intent);
+            }
+        });
         fab2_jobInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PWD_EditProfile_ViewActivity.this, PWD_EditProfile2.class);
                 startActivity(intent);
-
-
             }
         });
 

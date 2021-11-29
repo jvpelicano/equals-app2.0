@@ -217,7 +217,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     }
                 });
                 final String dp1 = snapshot.child("pwdProfilePic").getValue().toString();
-
                 final String firstName  = snapshot.child("firstName").getValue().toString();
                 final String lastName  = snapshot.child("lastName").getValue().toString();
 
@@ -237,7 +236,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
         home_recyclerView = findViewById(R.id.homeRecyclerView);
         home_recyclerView.setHasFixedSize(true);
         home_recyclerView.setLayoutManager(new LinearLayoutManager(a_PWDContentMainActivity.this));
-
 
         home_list = new ArrayList<>();
         home_databaseref = FirebaseDatabase.getInstance().getReference("home_content");

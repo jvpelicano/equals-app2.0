@@ -6,7 +6,12 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_delete.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_add.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_applicants.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_baseline_note_add_24.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_job.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_person.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_add_work_experience.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_emp_view_resume_pdf.xml" value="0.29322916666666665" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_pwd_addworkexperience.xml" value="0.3223958333333333" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_available_jobs.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_availablejobs_cardview.xml" value="0.25" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_availablejobs_view.xml" value="0.26927083333333335" />
@@ -33,7 +38,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile1.xml" value="0.24895833333333334" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile2.xml" value="0.2078125" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile3.xml" value="0.24895833333333334" />
-        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile_view.xml" value="0.5" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile_view.xml" value="0.22" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_update_profile.xml" value="0.2078125" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_viewresume_activity.xml" value="0.271875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/resume_list_item.xml" value="0.290625" />
