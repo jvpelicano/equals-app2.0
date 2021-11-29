@@ -14,9 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,14 +32,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class PWD_EditProfile_ViewActivity extends Activity{
 
     private FloatingActionButton fab_main, fab1_personalInfo, fab2_jobInfo;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     TextView textview_personalInfo, textview_jobInfo;
     Button changePhoto;
-
+    private List<PWD_AddWorkInformation> work_list;
+    private PWD_WorkExperienceAdapter work_adapter;
     Boolean isOpen = false;
+    private RecyclerView work_recyclerView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_editprofile_view);
@@ -76,11 +85,14 @@ public class PWD_EditProfile_ViewActivity extends Activity{
         final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentFirebaseUser.getUid();
-        final String userz = user.getUid();
+        final String uid = currentFirebaseUser.getUid();
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
 
         changePhoto = findViewById(R.id.changePhoto);
+
+        work_recyclerView = findViewById(R.id.workRecyclerView);
+        work_recyclerView.setHasFixedSize(true);
+        work_recyclerView.setLayoutManager(new LinearLayoutManager(PWD_EditProfile_ViewActivity.this));
 
         //animation
         fab_main = findViewById(R.id.fab);
@@ -263,6 +275,32 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 String workExperience = dataSnapshot.child("workExperience").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
 
+                DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
+                if(workExperience.equals("With Experience")){
+                    work_recyclerView.setVisibility(View.VISIBLE);
+                    noice.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            work_list = new ArrayList<>();
+                            work_list.clear();
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
+                                work_list.add(p);
+                            }
+                            Collections.reverse(work_list);
+                            work_adapter = new PWD_WorkExperienceAdapter(PWD_EditProfile_ViewActivity.this, work_list);
+                            work_recyclerView.setAdapter(work_adapter);
+                            work_adapter.notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(PWD_EditProfile_ViewActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
 
                 displayEducationalAttainment.setText(educationalAttainment);
                 displayTotalWorkExperience.setText(workExperience);

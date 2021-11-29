@@ -92,6 +92,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
+                final String expDate = snapshot.child("expDate").getValue().toString();
                 //final String postExpDate = snapshot.child("expDate").getValue().toString();
 
                 ArrayList<String> jobSkillList = new ArrayList<>();
@@ -113,7 +114,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 }else{
                     String typeOfDisabilityMore = "";
                 }
-                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience);
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, expDate);
             }
 
             @Override
@@ -126,7 +127,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
-                            String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience){
+                            String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -134,6 +135,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience);
+        m_displayExpDate.setText(expDate);
         //m_displayExpDate.setText(postExpDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
