@@ -78,6 +78,7 @@
     <string name="website_pwd">Visit Equals Website</string>
     <string name="resumes_pwd">My Resume</string>
     <string name="logout_pwd">Log Out</string>
+    <string name="view_resume_pwd">View Resume</string>>
     //Drawer Layout
     <string name="open_pwd">Open</string>
     <string name="close_pwd">Close</string>

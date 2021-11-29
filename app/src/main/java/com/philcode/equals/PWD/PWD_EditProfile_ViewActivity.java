@@ -110,7 +110,6 @@ public class PWD_EditProfile_ViewActivity extends Activity{
             public void onClick(View view) {
 
                 if (isOpen) {
-
                     textview_jobInfo.setVisibility(View.INVISIBLE);
                     textview_personalInfo.setVisibility(View.INVISIBLE);
                     fab2_jobInfo.startAnimation(fab_close);

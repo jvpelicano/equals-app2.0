@@ -12,7 +12,6 @@ import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
-import com.firebase.client.core.Context;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,7 +27,7 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emp_view_resume_pdf);
+        setContentView(R.layout.emp_view_resume_pdf_activity);
         fab_main = findViewById(R.id.fab);
         pdfView = findViewById(R.id.pdfView);
         String url = getIntent().getStringExtra("PDF_Uri");
