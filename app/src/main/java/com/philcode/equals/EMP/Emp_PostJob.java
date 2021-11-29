@@ -457,6 +457,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     if(expDate.equals(week1)) { // working
                                         cal.add(Calendar.WEEK_OF_YEAR, 1);
+                                        format.format(cal.getTime());
                                         expDate1 = format.format(cal.getTime());
 
                                     }else if(expDate.equals(week2)) {
@@ -497,6 +498,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     } else if(expDate.equals(month6)) {
                                         cal.add(Calendar.MONTH, 6);
                                         format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
 
                                     } else if(expDate.equals(month7)) {
                                         cal.add(Calendar.MONTH, 7);
