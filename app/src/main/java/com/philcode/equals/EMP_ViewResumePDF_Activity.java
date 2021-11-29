@@ -1,13 +1,20 @@
 package com.philcode.equals;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
 
+import android.app.DownloadManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.os.Environment;
+import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.URLUtil;
+import android.widget.Toast;
 
+import com.firebase.client.core.Context;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -17,15 +24,38 @@ import java.net.URL;
 
 public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
     private PDFView pdfView;
+    private FloatingActionButton fab_main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emp_view_resume_pdf);
-
+        fab_main = findViewById(R.id.fab);
         pdfView = findViewById(R.id.pdfView);
         String url = getIntent().getStringExtra("PDF_Uri");
         new RetrivePdfStream().execute(url);
+        fab_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownloadFile(url);
 
+            }
+        });
+    }
+
+    private void DownloadFile(String url) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        String title = URLUtil.guessFileName(url, null, null);
+        request.setTitle(title);
+        request.setDescription("Downloading File please wait...");
+        String cookie = CookieManager.getInstance().getCookie(url);
+        request.addRequestHeader("cookie", cookie);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title);
+
+        DownloadManager downloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+        downloadManager.enqueue(request);
+
+        Toast.makeText(EMP_ViewResumePDF_Activity.this, "Downloading Started.", Toast.LENGTH_SHORT).show();
     }
 
     private class RetrivePdfStream extends AsyncTask<String, Void, InputStream> {
@@ -47,7 +77,13 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(InputStream inputStream) {
-            pdfView.fromStream(inputStream).load();
+            pdfView.fromStream(inputStream)
+                    .swipeHorizontal(true)
+                    .enableSwipe(true)
+                    .defaultPage(0)
+                    .enableDoubletap(true)
+                    .pageSnap(true)
+                    .load();
         }
     }
 }

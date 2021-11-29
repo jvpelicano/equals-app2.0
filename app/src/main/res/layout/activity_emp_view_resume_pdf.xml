@@ -10,4 +10,18 @@
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_baseline_cloud_download_24"
+        app:backgroundTint="#177ad0"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="16dp" />
 </RelativeLayout>

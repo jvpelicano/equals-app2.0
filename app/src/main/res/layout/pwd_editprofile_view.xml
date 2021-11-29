@@ -626,7 +626,6 @@
             app:borderWidth="2dp"
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
-
             app:pressedTranslationZ="12dp"
             app:srcCompat="@drawable/ic_person" />
 
