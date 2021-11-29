@@ -9,7 +9,6 @@ public class Emp_PostJob_Information {
     public String permission;
     public String companyName;
     public String uid;
-    public String expDate;
     public String postDate;
     public String city;
     public String educationalAttainment;
@@ -27,7 +26,7 @@ public class Emp_PostJob_Information {
 
     public Emp_PostJob_Information(String imageURL, String postTitle, String postDescription,
                                    String postLocation, String permission,
-                                   String companyName, String uid, String expDate, String postDate, String city, String educationalAttainment, String workExperience,
+                                   String companyName, String uid, String postDate, String city, String educationalAttainment, String workExperience,
                                    String skill, String educationalAttainmentRequirement) {
 
         this.imageURL = imageURL;
@@ -39,7 +38,6 @@ public class Emp_PostJob_Information {
         this.permission = permission;
         this.companyName = companyName;
         this.uid = uid;
-        this.expDate = expDate;
         this.postDate = postDate;
         this.city = city;
         this.educationalAttainment = educationalAttainment;
@@ -108,15 +106,6 @@ public class Emp_PostJob_Information {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-
-    public String getExpDate() {
-        return expDate;
-    }
-
-    public void setExpDate(String expDate) {
-        this.expDate = expDate;
     }
 
     public String getPostDate() {

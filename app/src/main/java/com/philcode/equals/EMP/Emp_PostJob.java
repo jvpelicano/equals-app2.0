@@ -73,7 +73,6 @@ public class Emp_PostJob extends AppCompatActivity {
     private Spinner primary_skillsCategory;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
-    String expDate1;
     String categorySkill;
     String x;
     String Address;
@@ -83,17 +82,18 @@ public class Emp_PostJob extends AppCompatActivity {
     String week3="3 weeks";
     String month1="1 month";
     String month2="2 months";
-    String month3="3 month";
+    String month3="3 months";
     String month4="4 months";
-    String month5="5 month";
+    String month5="5 months";
     String month6="6 months";
-    String month7="7 month";
+    String month7="7 months";
     String month8="8 months";
-    String month9="9 month";
+    String month9="9 months";
     String month10="10 months";
-    String month11="11 month";
+    String month11="11 months";
     String year1="1 year";
     String unli="Unlimited";
+    public String expDate1;
     int years =0;
     private TextView skillSelected;
 
@@ -424,11 +424,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String tempPostTitle = postTitle.getText().toString().trim();
                                     String tempPostDescription = postDescription.getText().toString();
                                     String tempPostLocation = Address;
-                                    String tempTypeOfDisability1 = typeOfDisability_1;
-                                    String tempTypeOfDisability2 = typeOfDisability_2;
-                                    String tempTypeOfDisability3 = typeOfDisability_3;
-                                    String tempTypeOfDisabilityMore = typeOfDisability_More;
-
+                                    String ImageUploadId = databaseReference.push().getKey();
                                     rgEducAttainment = findViewById(R.id.rg_educ);
                                     final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
                                     rbEduc = findViewById(selectedId);
@@ -443,89 +439,6 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     String expDate = dropdown1.getSelectedItem().toString();
 
-                                    if (expDate == week1) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -1);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 2);
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if (expDate == week2) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -2);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-
-                                    }else  if (expDate == week3) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -3);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 4);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == month1) {
-                                        cal.add(Calendar.MONTH, 1);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == month2) {
-                                        cal.add(Calendar.MONTH, 2);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month3) {
-                                        cal.add(Calendar.MONTH, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month4) {
-                                        cal.add(Calendar.MONTH, 4);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month5) {
-                                        cal.add(Calendar.MONTH, 5);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month6) {
-                                        cal.add(Calendar.MONTH, 6);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month7) {
-                                        cal.add(Calendar.MONTH, 7);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month8) {
-                                        cal.add(Calendar.MONTH, 8);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month9) {
-                                        cal.add(Calendar.MONTH, 9);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month10) {
-                                        cal.add(Calendar.MONTH, 10);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month11) {
-                                        cal.add(Calendar.MONTH, 11);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == year1) {
-                                        cal.add(Calendar.MONTH, 12);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == unli) {
-                                        expDate1 = "unlimited";
-
-                                    }
-
                                     String tempPermission = permission;
 
                                     progressDialog.dismiss();
@@ -537,11 +450,89 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
-                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill, zz);
-                                    String ImageUploadId = databaseReference.push().getKey();
+                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz);
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
+
+                                    if(expDate.equals(week1)) { // working
+                                        cal.add(Calendar.WEEK_OF_YEAR, 1);
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(week2)) {
+                                        cal.add(Calendar.WEEK_OF_YEAR, 2);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(week3)) {
+                                        cal.add(Calendar.WEEK_OF_YEAR, 3);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(month1)) {
+                                        cal.add(Calendar.MONTH, 1);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(month2)) {
+                                        cal.add(Calendar.MONTH, 2);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month3)) {
+                                        cal.add(Calendar.MONTH, 3);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month4)) {
+                                        cal.add(Calendar.MONTH, 4);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month5)) {
+                                        cal.add(Calendar.MONTH, 5);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month6)) {
+                                        cal.add(Calendar.MONTH, 6);
+                                        format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month7)) {
+                                        cal.add(Calendar.MONTH, 7);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month8)) {
+                                        cal.add(Calendar.MONTH, 8);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month9)) {
+                                        cal.add(Calendar.MONTH, 9);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month10)) {
+                                        cal.add(Calendar.MONTH, 10);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month11)) {
+                                        cal.add(Calendar.MONTH, 11);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(year1)) {
+                                        cal.add(Calendar.MONTH, 12);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(unli)) {
+                                        expDate1 = "unlimited";
+                                    }
+
+                                    databaseReference.child(ImageUploadId).child("expDate").setValue(expDate1);
 
                                     //TYPE OF DISABILITY
                                     if(typeOfDisability1.isChecked()){
@@ -587,7 +578,6 @@ public class Emp_PostJob extends AppCompatActivity {
                                     if (jobSkill10.isChecked()){
                                         databaseReference.child(ImageUploadId).child("jobSkill0").setValue(jobSkill10.getText().toString());
                                     }
-
 
                                 }
                             });
