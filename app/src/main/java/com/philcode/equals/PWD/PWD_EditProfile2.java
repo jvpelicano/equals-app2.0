@@ -222,9 +222,26 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeCurrentData();
-                login();
-                uploadImage();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PWD_EditProfile2.this);
+                builder.setMessage("Warning! This action will re-write all of your data that has already been saved.");
+                builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeCurrentData();
+                        login();
+                        uploadImage();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setTitle("Do you want to continue?");
+                dialog.show();
+                dialog.setCancelable(false);
+
             }
         });
 

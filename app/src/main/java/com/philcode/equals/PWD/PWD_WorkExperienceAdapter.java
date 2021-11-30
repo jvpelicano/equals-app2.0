@@ -47,7 +47,6 @@ public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode
 
         public PWD_WorkExperience_ViewHolder(View itemView){
             super(itemView);
-            
             displayPosition = itemView.findViewById(R.id.displayPosition);
             displayCompanyName = itemView.findViewById(R.id.displayCompanyName);
             displayWorkStarted = itemView.findViewById(R.id.displayWorkStarted);

@@ -1,4 +1,4 @@
-package com.philcode.equals;
+package com.philcode.equals.EMP;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.philcode.equals.R;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
