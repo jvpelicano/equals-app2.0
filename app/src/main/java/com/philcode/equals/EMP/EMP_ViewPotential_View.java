@@ -357,7 +357,6 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         m_email.setText(email);
         m_address.setText(address);
         m_educationalAttainment.setText(educationalAttainment);
-        m_workExperience.setText(workExperience);
         m_contact.setText(contact);
         m_skill.setText(skill);
         StringBuilder jobSkillList_builder = new StringBuilder();
@@ -393,7 +392,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
                     work_adapter = new EMPToPWD_WorkExperienceAdapter(EMP_ViewPotential_View.this, work_list);
                     work_recyclerView.setAdapter(work_adapter);
                     work_adapter.notifyDataSetChanged();
-
+                    m_workExperience.setText("Scroll down to view work experience list.");
                 }
 
                 @Override

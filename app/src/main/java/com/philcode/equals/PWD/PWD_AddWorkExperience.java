@@ -184,6 +184,7 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
             }
         });
         alertWork.setCancelable(false);
@@ -217,7 +218,8 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                             final String e = "w";
                             final String w = e + wCount;
                             mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
-                            startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                            startActivity(new Intent(PWD_AddWorkExperience.this, PWD_AddWorkExperience.class));
+                            Toast.makeText(PWD_AddWorkExperience.this, "Work Experience successfully added.", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

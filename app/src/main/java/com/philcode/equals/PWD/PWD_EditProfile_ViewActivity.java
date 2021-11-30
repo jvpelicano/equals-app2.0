@@ -76,7 +76,6 @@ public class PWD_EditProfile_ViewActivity extends Activity{
         final TextView displayCategorySkill = findViewById(R.id.displayCategorySkill);
         final TextView displayTotalWorkExperience = findViewById(R.id.displayTotalWorkExperience);
 
-
         FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -310,9 +309,8 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                         }
                     });
                 }
-
                 displayEducationalAttainment.setText(educationalAttainment);
-                displayTotalWorkExperience.setText(workExperience);
+                displayTotalWorkExperience.setText("Scroll down to view work experience list.");
                 displayContact.setText(contact);
 
             }
