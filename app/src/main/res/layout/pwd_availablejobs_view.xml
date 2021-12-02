@@ -38,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/postBackground"
                     android:contentDescription="Post Picture"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                     app:layout_constraintEnd_toEndOf="parent"
