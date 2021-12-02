@@ -170,7 +170,7 @@ public class Emp_PostJob extends AppCompatActivity {
         rgEducAttainment = findViewById(R.id.rg_educ);
         rgWorkExperience = findViewById(R.id.workexperience);
         checkEducRequirement=(CheckBox) findViewById(R.id.educAttainmentRequirement);
-        checkEducRequirement.setVisibility(View.GONE);
+        //checkEducRequirement.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(Emp_PostJob.this);
         empBtnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
