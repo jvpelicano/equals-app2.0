@@ -67,23 +67,6 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                             if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)){
                                 //logic is even if the company posts a job that does not require experience
                                 //people with experience should still be able to see the job post.
-                                final boolean occurrence1 = job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                        || pwd_educationalAttainment.equals("Associate Level")
-                                        || pwd_educationalAttainment.equals("Bachelor Level")
-                                        || pwd_educationalAttainment.equals("Master's Level")
-                                        || pwd_educationalAttainment.equals("Doctorate Level"));
-
-                                final boolean occurrence2 = job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                        || pwd_educationalAttainment.equals("Bachelor Level")
-                                        || pwd_educationalAttainment.equals("Master's Level")
-                                        || pwd_educationalAttainment.equals("Doctorate Level"));
-                                final boolean occurrence3 = job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                        || pwd_educationalAttainment.equals("Master's Level")
-                                        || pwd_educationalAttainment.equals("Doctorate Level"));
-                                final boolean occurrence4 = job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                        || pwd_educationalAttainment.equals("Doctorate Level"));
-                                final boolean occurrence5 = job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment);
-
                                 if(job_workExp.equals("With Experience")){
                                     if(pwd_workExp.equals("With Experience")){ // strictly checking if pwd has work experience otherwise the data for the job post will not show.
                                         if(job_educationalAttainmentRequirement.equals("true")){
@@ -98,11 +81,6 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                     String postID = job_snapshot1.getKey();
 
-
-                                                    //occurrences
-
-
-
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
@@ -111,7 +89,11 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                 }
 
-                                            }else if(occurrence1){
+                                            }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Associate Level")
+                                                    || pwd_educationalAttainment.equals("Bachelor Level")
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                                 if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -129,7 +111,10 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                 }
 
-                                            }else if(occurrence2){
+                                            }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Bachelor Level")
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                                 if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -147,7 +132,9 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                 }
 
-                                            }else if(occurrence3){
+                                            }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                                 if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -165,7 +152,8 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                 }
 
-                                            }else if(occurrence4){
+                                            }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                                 if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -183,7 +171,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                                 }
 
-                                            }else if(occurrence5){
+                                            }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
 
                                                 if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -200,7 +188,6 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     myAdapter.notifyDataSetChanged();
 
                                                 }
-
                                             }
                                         }//checks if job educRequirement is set to true
                                         else{ // if educRequirement for a job post is not required, the system will not check pwd's educAttainment level.
@@ -242,7 +229,11 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                             }
 
-                                        }else if(occurrence1){
+                                        }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Associate Level")
+                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                             if(job_location.equals(pwd_location)){
                                                 String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -260,7 +251,10 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                             }
 
-                                        }else if(occurrence2){
+                                        }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                             if(job_location.equals(pwd_location)){
                                                 String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -278,7 +272,9 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                             }
 
-                                        }else if(occurrence3){
+                                        }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                             if(job_location.equals(pwd_location)){
                                                 String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -296,7 +292,8 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                             }
 
-                                        }else if(occurrence4){
+                                        }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
 
                                             if(job_location.equals(pwd_location)){
                                                 String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
@@ -314,7 +311,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
 
                                             }
 
-                                        }else if(occurrence5){
+                                        }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
 
                                             if(job_location.equals(pwd_location)){
                                                 String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
