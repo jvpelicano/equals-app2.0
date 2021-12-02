@@ -49,7 +49,7 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                 //Check Job Offer Info
                 // checking PWD for type of disability
                 refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                refForJobs.addValueEventListener(new ValueEventListener() { //checking Job_Offers
+                refForJobs.orderByChild("typeOfDisability3").equalTo("Hearing Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
                         list.clear();

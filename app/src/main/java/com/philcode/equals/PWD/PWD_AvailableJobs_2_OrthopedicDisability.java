@@ -1,7 +1,9 @@
 package com.philcode.equals.PWD;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +45,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
-                final String pwd_SkillCatgeory = pwd_dataSnapshot.getValue().toString();
+                final String pwd_SkillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
                 final String pwd_educationalAttainment = pwd_dataSnapshot.child("educationalAttainment").getValue().toString();
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
                 final String pwd_location = pwd_dataSnapshot.child("city").getValue().toString();
@@ -51,7 +53,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                 //Check Job Offer Info
                 // checking PWD for type of disability
                 refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                refForJobs.addValueEventListener(new ValueEventListener() { //checking Job_Offers
+                refForJobs.orderByChild("typeOfDisability1").equalTo("Orthopedic Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
                         list.clear();
@@ -63,12 +65,16 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                             final String job_workExp = job_snapshot1.child("workExperience").getValue().toString();
                             final String job_location = job_snapshot1.child("city").getValue().toString();
                             // looks for approved job_offers hiring people with VisualDisability
-                            if (permission.equals("Approved")){
-                                if(job_workExp.equals(pwd_workExp)){
-                                    if(job_educationalAttainmentRequirement.equals("true")){
-                                        if(job_educationalAttainment.equals(pwd_educationalAttainment)){
-                                            if(job_location.equals(pwd_location)){
-                                                if(job_skillCategory.equals(pwd_SkillCatgeory)){
+                            if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)){
+                                //logic is even if the company posts a job that does not require experience
+                                //people with experience should still be able to see the job post.
+                                if(job_workExp.equals("With Experience")){
+                                    if(pwd_workExp.equals("With Experience")){ // strictly checking if pwd has work experience otherwise the data for the job post will not show.
+                                        if(job_educationalAttainmentRequirement.equals("true")){
+                                            //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
+                                            if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
+                                                //no need to check pwd_educAttainment
+                                                if(job_location.equals(pwd_location)){
                                                     String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
                                                     String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
                                                     String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
@@ -81,30 +87,271 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
+
                                                 }
+
+                                            }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Associate Level")
+                                                    || pwd_educationalAttainment.equals("Bachelor Level")
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                if(job_location.equals(pwd_location)){
+                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                    String postID = job_snapshot1.getKey();
+
+                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                    list.add(pwd_Model);
+                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                    recyclerView.setAdapter(myAdapter);
+                                                    myAdapter.notifyDataSetChanged();
+
+                                                }
+
+                                            }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Bachelor Level")
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                if(job_location.equals(pwd_location)){
+                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                    String postID = job_snapshot1.getKey();
+
+                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                    list.add(pwd_Model);
+                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                    recyclerView.setAdapter(myAdapter);
+                                                    myAdapter.notifyDataSetChanged();
+
+                                                }
+
+                                            }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Master's Level")
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                if(job_location.equals(pwd_location)){
+                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                    String postID = job_snapshot1.getKey();
+
+                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                    list.add(pwd_Model);
+                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                    recyclerView.setAdapter(myAdapter);
+                                                    myAdapter.notifyDataSetChanged();
+
+                                                }
+
+                                            }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                    || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                if(job_location.equals(pwd_location)){
+                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                    String postID = job_snapshot1.getKey();
+
+                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                    list.add(pwd_Model);
+                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                    recyclerView.setAdapter(myAdapter);
+                                                    myAdapter.notifyDataSetChanged();
+
+                                                }
+
+                                            }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
+
+                                                if(job_location.equals(pwd_location)){
+                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                    String postID = job_snapshot1.getKey();
+
+                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                    list.add(pwd_Model);
+                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                    recyclerView.setAdapter(myAdapter);
+                                                    myAdapter.notifyDataSetChanged();
+
+                                                }
+
+                                            }
+                                        }//checks if job educRequirement is set to true
+                                        else{ // if educRequirement for a job post is not required, the system will not check pwd's educAttainment level.
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
                                             }
                                         }
-                                    }else if(job_educationalAttainmentRequirement.equals("false")){
-                                        if(job_workExp.equals(pwd_workExp)){
+                                    }//checks pwd if workExperience = With Experience
+                                }else{ // Without work experience required the system will not check if pwd does not have work experience
+                                    if(job_educationalAttainmentRequirement.equals("true")){
+                                        //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
+                                        if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
+                                            //no need to check pwd_educAttainment
                                             if(job_location.equals(pwd_location)){
-                                                if(job_skillCategory.equals(pwd_SkillCatgeory)){
-                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                    String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
-                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
-                                                    String postID = job_snapshot1.getKey();
+                                                String postID = job_snapshot1.getKey();
 
-                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                    list.add(pwd_Model);
-                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
-                                                    recyclerView.setAdapter(myAdapter);
-                                                    myAdapter.notifyDataSetChanged();
-                                                }
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
                                             }
+
+                                        }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Associate Level")
+                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
+
+                                            if(job_location.equals(pwd_location)){
+                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                String postID = job_snapshot1.getKey();
+
+                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                list.add(pwd_Model);
+                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                                recyclerView.setAdapter(myAdapter);
+                                                myAdapter.notifyDataSetChanged();
+
+                                            }
+
+                                        }
+                                    }//checks if job educRequirement is set to true
+                                    else{ // if educRequirement for a job post is not required, the system will not check pwd's educAttainment level.
+                                        if(job_location.equals(pwd_location)){
+                                            String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                            String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
+                                            String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                            String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                            String postID = job_snapshot1.getKey();
+
+                                            PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                            list.add(pwd_Model);
+                                            myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
+                                            recyclerView.setAdapter(myAdapter);
+                                            myAdapter.notifyDataSetChanged();
+
                                         }
                                     }
                                 }
+
                             }
                         }
 
@@ -119,98 +366,5 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        /*switchPriority.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(switchPriority.isChecked()){
-                    refUser.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
-                            final String pwd_skillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
-                            //Check Job Offer Info
-                            if(pwd_dataSnapshot.hasChild("typeOfDisability0")){ // checking PWD
-                                refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                                refForJobs.orderByChild("typeOfDisability1").equalTo("Orthopedic Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
-                                        list.clear();
-                                        for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
-                                            //Look jor Job offers with Hearing Disability
-                                            final String permission = job_snapshot1.child("permission").getValue(String.class);
-                                            final String job_skillCategory = job_snapshot1.child("skill").getValue().toString();
-                                            if(permission.equals("Approved") && job_skillCategory.equals(pwd_skillCategory)){
-                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
-                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                String postID = job_snapshot1.getKey(); //correct
-
-
-                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                list.add(pwd_Model);
-                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
-                                                recyclerView.setAdapter(myAdapter);
-                                                myAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }else{
-                    refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
-                    refUser.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
-                            //Check Job Offer Info
-                            if(pwd_dataSnapshot.hasChild("typeOfDisability0")){ // checking PWD
-                                refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                                refForJobs.orderByChild("typeOfDisability1").equalTo("Orthopedic Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
-                                        list.clear();
-                                        for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
-                                            //Look jor Job offers with Hearing Disability
-                                            final String permission = job_snapshot1.child("permission").getValue(String.class);
-                                            if(permission.equals("Approved")){
-                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                String displayPostTitle = job_snapshot1.child("postTitle").getValue(String.class);
-                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                String postID = job_snapshot1.getKey(); //correct
-
-
-                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                list.add(pwd_Model);
-                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
-                                                recyclerView.setAdapter(myAdapter);
-                                                myAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-        });*/
     }
 }
