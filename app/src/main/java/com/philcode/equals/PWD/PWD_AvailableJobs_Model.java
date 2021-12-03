@@ -1,29 +1,24 @@
-package com.philcode.equals.EMP;
+package com.philcode.equals.PWD;
 
-public class EMP_ManageJobs_Information {
-    public String imageURL, displayPostTitle, displayCompanyName, displayPostDate, postJobID, typeOfDisabilityMore, permission;
+import java.util.ArrayList;
+
+public class PWD_AvailableJobs_Model {
+    public String imageURL, displayPostTitle, displayCompanyName, displayPostDate, postJobID, typeOfDisabilityMore;
 
 
-    public EMP_ManageJobs_Information(){
+    public PWD_AvailableJobs_Model() {
 
     }
 
-    public EMP_ManageJobs_Information(String imageURL, String displayPostTitle, String displayCompanyName, String displayPostDate, String postJobID, String permission) {
+    public PWD_AvailableJobs_Model(String imageURL, String displayPostTitle, String displayCompanyName, String displayPostDate, String postJobID) {
         this.imageURL = imageURL;
         this.displayPostTitle = displayPostTitle;
         this.displayCompanyName = displayCompanyName;
         this.displayPostDate = displayPostDate;
         this.postJobID = postJobID;
-        this.permission = permission;
+
     }
 
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
 
     public String getPostJobID() {
         return postJobID;

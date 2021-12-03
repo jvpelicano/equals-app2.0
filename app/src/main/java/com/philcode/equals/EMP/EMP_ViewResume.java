@@ -1,7 +1,6 @@
 package com.philcode.equals.EMP;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,10 +73,11 @@ public class EMP_ViewResume extends AppCompatActivity {
         final ArrayList<EMP_ViewResume_Information> list = new ArrayList<>();
         final RecyclerView recyclerView;
         // Toast.makeText(getApplicationContext(), getParent().toString(), Toast.LENGTH_LONG).show();
+        dbRef = FirebaseDatabase.getInstance().getReference("Job_Offers");
 
         // current = dbRef.child(user.);
 
-        String imageURL = getIntent().getStringExtra("imageURL");
+        String postJobID = getIntent().getStringExtra("POST_ID");
         recyclerView = findViewById(R.id.theRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -126,13 +126,14 @@ public class EMP_ViewResume extends AppCompatActivity {
                         }).setNeutralButton("View Resume", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                EMP_ViewResume_Information emp = list.get(position);
-                                Intent intent = new Intent();
+                                Intent intent = new Intent(EMP_ViewResume.this, EMP_ViewResumePDF_Activity.class);
+                                intent.putExtra("PDF_Uri", list.get(position).getResumeFile());
+                                //Toast.makeText(EMP_ViewResume.this, list.get(position).getResumeFile(), Toast.LENGTH_SHORT).show();
+                                //EMP_ViewResume_Information emp = new EMP_ViewResume_Information();
+                                /*Intent intent = new Intent();
                                 intent.setType(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(emp.getResumeFile()));
+                                intent.setData(Uri.parse(list.get(position).getResumeFile()));*/
                                 startActivity(intent);
-
-
                             }
                         });
                         AlertDialog alertDialog = alert.create();
@@ -151,23 +152,18 @@ public class EMP_ViewResume extends AppCompatActivity {
 
         );
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Job_Offers");
 
-        dbRef.orderByChild("imageURL").equalTo(imageURL).addValueEventListener(new ValueEventListener() {
+        dbRef.child(postJobID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String parent = dataSnapshot1.getKey();
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + parent).child("Resumes");
+                //Resumes > Resume ; Deleted for loop
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume");
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
                                 EMP_ViewResume_Information p = dataSnapshot2.getValue(EMP_ViewResume_Information.class);
                                 list.add(p);
-                               /* String hi = dataSnapshot.child("First Name").toString();
-                                Toast.makeText(EMP_ViewResume.this, hi,
-                                        Toast.LENGTH_LONG).show();*/
                             }
                             Collections.reverse(list);
                             adapter = new EMP_ViewResume_Adapter(EMP_ViewResume.this, list);
@@ -181,7 +177,6 @@ public class EMP_ViewResume extends AppCompatActivity {
 
                         }
                     });
-                }
             }
 
             @Override
@@ -268,7 +263,7 @@ public class EMP_ViewResume extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-        });
+        }); //drawer
 
 
 

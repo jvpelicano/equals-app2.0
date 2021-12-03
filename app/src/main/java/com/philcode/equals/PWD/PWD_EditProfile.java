@@ -174,9 +174,6 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 editContact.setText(contact);
                 editTextAddress.setText(address);
 
-
-
-
             }
 
             @Override

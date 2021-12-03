@@ -1,9 +1,9 @@
 package com.philcode.equals.PWD;
 
+import static android.view.View.GONE;
+
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,9 +12,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,14 +29,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class PWD_EditProfile_ViewActivity extends Activity{
 
-    private FloatingActionButton fab_main, fab1_personalInfo, fab2_jobInfo;
+    private FloatingActionButton fab_main, fab1_personalInfo, fab2_jobInfo, fab3_addWorkExpInfo;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
-    TextView textview_personalInfo, textview_jobInfo;
+    TextView textview_personalInfo, textview_jobInfo, textview_AddWorkInfo;
     Button changePhoto;
-
+    private List<PWD_AddWorkInformation> work_list;
+    private PWD_WorkExperienceAdapter work_adapter;
     Boolean isOpen = false;
+    private RecyclerView work_recyclerView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_editprofile_view);
@@ -67,38 +75,29 @@ public class PWD_EditProfile_ViewActivity extends Activity{
         final TextView displayEducationalAttainment = findViewById(R.id.displayEducationalAttainment);
         final TextView displayCategorySkill = findViewById(R.id.displayCategorySkill);
         final TextView displayTotalWorkExperience = findViewById(R.id.displayTotalWorkExperience);
-        TextView displaypwdpic = findViewById(R.id.profile_pic_pwd);
-
-
-        final TextView displayPrimarySkill1 = findViewById(R.id.displayPrimarySkill1);
-        final TextView displayPrimarySkill2 = findViewById(R.id.displayPrimarySkill2);
-        final TextView displayPrimarySkill3 = findViewById(R.id.displayPrimarySkill3);
-        final TextView displayPrimarySkill4 = findViewById(R.id.displayPrimarySkill4);
-        final TextView displayPrimarySkill5 = findViewById(R.id.displayPrimarySkill5);
-        final TextView displayPrimarySkill6 = findViewById(R.id.displayPrimarySkill6);
-        final TextView displayPrimarySkill7 = findViewById(R.id.displayPrimarySkill7);
-        final TextView displayPrimarySkill8 = findViewById(R.id.displayPrimarySkill8);
-        final TextView displayPrimarySkill9 = findViewById(R.id.displayPrimarySkill9);
-        final TextView displayPrimarySkill10 = findViewById(R.id.displayPrimarySkill10);
-        final TextView displayPrimarySkillOther = findViewById(R.id.displayPrimarySkillOther);
 
         FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentFirebaseUser.getUid();
-        final String userz = user.getUid();
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
+        final String uid = currentFirebaseUser.getUid();
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
 
         changePhoto = findViewById(R.id.changePhoto);
+
+        work_recyclerView = findViewById(R.id.workRecyclerView);
+        work_recyclerView.setHasFixedSize(true);
+        work_recyclerView.setLayoutManager(new LinearLayoutManager(PWD_EditProfile_ViewActivity.this));
 
         //animation
         fab_main = findViewById(R.id.fab);
         fab1_personalInfo = findViewById(R.id.fab1);
         fab2_jobInfo = findViewById(R.id.fab2);
+        fab3_addWorkExpInfo = findViewById(R.id.fab3);
         textview_personalInfo = findViewById(R.id.textview_personalInfo);
         textview_jobInfo = findViewById(R.id.textview_jobQualifications);
+        textview_AddWorkInfo = findViewById(R.id.textview_AddWork);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
@@ -109,21 +108,26 @@ public class PWD_EditProfile_ViewActivity extends Activity{
             public void onClick(View view) {
 
                 if (isOpen) {
-
                     textview_jobInfo.setVisibility(View.INVISIBLE);
                     textview_personalInfo.setVisibility(View.INVISIBLE);
+                    textview_AddWorkInfo.setVisibility(View.INVISIBLE);
+                    fab3_addWorkExpInfo.startAnimation(fab_close);
                     fab2_jobInfo.startAnimation(fab_close);
                     fab1_personalInfo.startAnimation(fab_close);
                     fab_main.startAnimation(fab_anticlock);
+                    fab3_addWorkExpInfo.setClickable(false);
                     fab2_jobInfo.setClickable(false);
                     fab1_personalInfo.setClickable(false);
                     isOpen = false;
                 } else {
                     textview_jobInfo.setVisibility(View.VISIBLE);
                     textview_personalInfo.setVisibility(View.VISIBLE);
+                    textview_AddWorkInfo.setVisibility(View.VISIBLE);
+                    fab3_addWorkExpInfo.startAnimation(fab_open);
                     fab2_jobInfo.startAnimation(fab_open);
                     fab1_personalInfo.startAnimation(fab_open);
                     fab_main.startAnimation(fab_clock);
+                    fab3_addWorkExpInfo.setClickable(true);
                     fab2_jobInfo.setClickable(true);
                     fab1_personalInfo.setClickable(true);
                     isOpen = true;
@@ -132,13 +136,18 @@ public class PWD_EditProfile_ViewActivity extends Activity{
             }
         });
 
+        fab3_addWorkExpInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PWD_EditProfile_ViewActivity.this, PWD_AddWorkExperience.class);
+                startActivity(intent);
+            }
+        });
         fab2_jobInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PWD_EditProfile_ViewActivity.this, PWD_EditProfile2.class);
                 startActivity(intent);
-
-
             }
         });
 
@@ -169,255 +178,102 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 String email = dataSnapshot.child("email").getValue().toString();
                 String address = dataSnapshot.child("address").getValue().toString();
                 String city = dataSnapshot.child("city").getValue().toString();
+                String skill = dataSnapshot.child("skill").getValue().toString();
 
                  displayName.setText(firstname+" "+lastname);
                  displayEmail.setText(email);
                  displayAddress.setText(address+" "+city);
+                 displayCategorySkill.setText(skill);
 
-                String typeOfDisability1 = dataSnapshot.child("typeOfDisability1").getValue().toString();
-                String typeOfDisability2 = dataSnapshot.child("typeOfDisability2").getValue().toString();
-                String typeOfDisability3 = dataSnapshot.child("typeOfDisability3").getValue().toString();
-                String typeOfDisabilityMore = dataSnapshot.child("typeOfDisabilityMore").getValue().toString();
-
-                final String d1 = "Orthopedic Disability";
-                final String d2 = "Partial Vision Disability";
-                final String d3 = "Hearing Disability";
-                final String d4 = "Other Disability/s";
-
-                if(typeOfDisability1.equals(d1)) {
+                if(dataSnapshot.child("typeOfDisability0").exists()) {
+                    String typeOfDisability1 = dataSnapshot.child("typeOfDisability0").getValue().toString();
                     displayTypeOfDisability1.setText(typeOfDisability1);
                 }else{
-                    displayTypeOfDisability1.setVisibility(View.GONE);
+                    displayTypeOfDisability1.setVisibility(GONE);
                 }
-                if(typeOfDisability2.equals(d2)) {
+                if(dataSnapshot.child("typeOfDisability1").exists()) {
+                    String typeOfDisability2 = dataSnapshot.child("typeOfDisability1").getValue().toString();
                     displayTypeOfDisability2.setText(typeOfDisability2);
                 }else{
-                    displayTypeOfDisability2.setVisibility(View.GONE);
+                    displayTypeOfDisability2.setVisibility(GONE);
                 }
-                if(typeOfDisability3.equals(d3)) {
+                if(dataSnapshot.child("typeOfDisability2").exists()) {
+                    String typeOfDisability3 = dataSnapshot.child("typeOfDisability2").getValue().toString();
                     displayTypeOfDisability3.setText(typeOfDisability3);
                 }else{
-                    displayTypeOfDisability3.setVisibility(View.GONE);
+                    displayTypeOfDisability3.setVisibility(GONE);
                 }
-                if(typeOfDisabilityMore.equals(d4)) {
+                if(dataSnapshot.child("typeOfDisability3").exists()) {
+                    String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability3").getValue().toString();
                     displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
                 }else{
-                    displayTypeOfDisabilityMore.setVisibility(View.GONE);
+                    displayTypeOfDisabilityMore.setVisibility(GONE);
                 }
-
-
-                String category = dataSnapshot.child("skill").getValue().toString();
-                displayCategorySkill.setText(category);
-
-                try{
-                    if(dataSnapshot.child("primarySkill1").getValue().toString()!=null) {
-                        String primarySkill1 = dataSnapshot.child("primarySkill1").getValue().toString();
-                        displayPrimarySkill1.setText(primarySkill1);
-                    }else{
-                        displayPrimarySkill1.setVisibility(View.GONE);
-
-                    }
-                }catch(NullPointerException e){
-                    displayPrimarySkill1.setVisibility(View.GONE);
-
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill2").getValue().toString()!=null) {
-                        String primarySkill2 = dataSnapshot.child("primarySkill2").getValue().toString();
-                        displayPrimarySkill2.setText(primarySkill2);
-                    }else{
-                        displayPrimarySkill2.setVisibility(View.GONE);
-                    }
-                }catch(NullPointerException e){
-                    displayPrimarySkill2.setVisibility(View.GONE);
-                }
-
-
-                try{
-                    if(dataSnapshot.child("primarySkill3").getValue().toString()!=null) {
-                        String primarySkill3 = dataSnapshot.child("primarySkill3").getValue().toString();
-                        displayPrimarySkill3.setText(primarySkill3);
-                    }else{
-                        displayPrimarySkill3.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill3.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill4").getValue().toString()!=null) {
-                        String primarySkill4 = dataSnapshot.child("primarySkill4").getValue().toString();
-                        displayPrimarySkill4.setText(primarySkill4);
-                    }else{
-                        displayPrimarySkill4.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill4.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill5").getValue().toString()!=null) {
-                        String primarySkill5 = dataSnapshot.child("primarySkill5").getValue().toString();
-                        displayPrimarySkill5.setText(primarySkill5);
-                    }else{
-                        displayPrimarySkill5.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill5.setVisibility(View.GONE);
-                }
-
-
-                try{
-                    if(dataSnapshot.child("primarySkill6").getValue().toString()!=null) {
-                        String primarySkill6 = dataSnapshot.child("primarySkill6").getValue().toString();
-                        displayPrimarySkill6.setText(primarySkill6);
-                    }else{
-                        displayPrimarySkill6.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill6.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill7").getValue().toString()!=null) {
-                        String primarySkill7 = dataSnapshot.child("primarySkill7").getValue().toString();
-                        displayPrimarySkill7.setText(primarySkill7);
-                    }else{
-                        displayPrimarySkill7.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill7.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill8").getValue().toString()!=null) {
-                        String primarySkill8 = dataSnapshot.child("primarySkill8").getValue().toString();
-                        displayPrimarySkill8.setText(primarySkill8);
-                    }else{
-                        displayPrimarySkill8.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill8.setVisibility(View.GONE);
-                }
-
-
-
-                try{
-                    if(dataSnapshot.child("primarySkill9").getValue().toString()!=null) {
-                        String primarySkill9 = dataSnapshot.child("primarySkill9").getValue().toString();
-                        displayPrimarySkill9.setText(primarySkill9);
-                    }else{
-                        displayPrimarySkill9.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill9.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkill10").getValue().toString()!=null) {
-                        String primarySkill10 = dataSnapshot.child("primarySkill10").getValue().toString();
-                        displayPrimarySkill10.setText(primarySkill10);
-                    }else{
-                        displayPrimarySkill10.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkill10.setVisibility(View.GONE);
-                }
-
-                try{
-                    if(dataSnapshot.child("primarySkillOther").getValue().toString()!=null) {
-                        String primarySkillOther = dataSnapshot.child("primarySkillOther").getValue().toString();
-                        displayPrimarySkillOther.setText(primarySkillOther);
-                    }else{
-                        displayPrimarySkillOther.setVisibility(View.GONE);
-                    }
-                }catch (NullPointerException e){
-                    displayPrimarySkillOther.setVisibility(View.GONE);
-                }
-
-                String jobSkill1 = dataSnapshot.child("jobSkill1").getValue().toString();
-                String jobSkill2 = dataSnapshot.child("jobSkill2").getValue().toString();
-                String jobSkill3 = dataSnapshot.child("jobSkill3").getValue().toString();
-                String jobSkill4 = dataSnapshot.child("jobSkill4").getValue().toString();
-                String jobSkill5 = dataSnapshot.child("jobSkill5").getValue().toString();
-                String jobSkill6 = dataSnapshot.child("jobSkill6").getValue().toString();
-                String jobSkill7 = dataSnapshot.child("jobSkill7").getValue().toString();
-                String jobSkill8= dataSnapshot.child("jobSkill8").getValue().toString();
-                String jobSkill9 = dataSnapshot.child("jobSkill9").getValue().toString();
-                String jobSkill10 = dataSnapshot.child("jobSkill10").getValue().toString();
-
-                final String s1 = "Active Listening";
-                final String s2 = "Communication";
-                final String s3 = "Computer Skills";
-                final String s4 = "Customer Service";
-                final String s5 = "Interpersonal Skills";
-                final String s6 = "Leadership";
-                final String s7 = "Management Skills";
-                final String s8 = "Problem-Solving";
-                final String s9 = "Time Management";
-                final String s10 = "Transferable Skills";
-
-                if(jobSkill1.equals(s1)) {
-                    displaySkill1.setText(jobSkill1);
+                /////////////////////////////////// Secondary skills
+                if(dataSnapshot.child("jobSkills0").exists()){
+                    displaySkill1.setText(dataSnapshot.child("jobSkills0").getValue().toString());
                 }else{
-                    displaySkill1.setVisibility(View.GONE);
+                    displaySkill1.setVisibility(GONE);
                 }
 
-                if(jobSkill2.equals(s2)) {
-                    displaySkill2.setText(jobSkill2);
+                if(dataSnapshot.child("jobSkills1").exists()){
+                    displaySkill2.setText(dataSnapshot.child("jobSkills1").getValue().toString());
                 }else{
-                    displaySkill2.setVisibility(View.GONE);
-                }
+                    displaySkill2.setVisibility(GONE);
 
-                if(jobSkill3.equals(s3)) {
-                    displaySkill3.setText(jobSkill3);
+                }
+                if(dataSnapshot.child("jobSkills2").exists()){
+                    displaySkill3.setText(dataSnapshot.child("jobSkills2").getValue().toString());
                 }else{
-                    displaySkill3.setVisibility(View.GONE);
+                    displaySkill3.setVisibility(GONE);
                 }
 
-                if(jobSkill4.equals(s4)) {
-                    displaySkill4.setText(jobSkill4);
+                if(dataSnapshot.child("jobSkills3").exists()){
+                    displaySkill4.setText(dataSnapshot.child("jobSkills3").getValue().toString());
                 }else{
-                    displaySkill4.setVisibility(View.GONE);
+                    displaySkill4.setVisibility(GONE);
+
                 }
 
-                if(jobSkill5.equals(s5)) {
-                    displaySkill5.setText(jobSkill5);
+                if(dataSnapshot.child("jobSkills4").exists()){
+                    displaySkill5.setText(dataSnapshot.child("jobSkills4").getValue().toString());
                 }else{
-                    displaySkill5.setVisibility(View.GONE);
+                    displaySkill5.setVisibility(GONE);
+
                 }
 
-                if(jobSkill6.equals(s6)) {
-                    displaySkill6.setText(jobSkill6);
+                if(dataSnapshot.child("jobSkills5").exists()){
+                    displaySkill6.setText(dataSnapshot.child("jobSkills5").getValue().toString());
                 }else{
-                    displaySkill6.setVisibility(View.GONE);
+                    displaySkill6.setVisibility(GONE);
+
                 }
 
-                if(jobSkill7.equals(s7)) {
-                    displaySkill7.setText(jobSkill7);
+                if(dataSnapshot.child("jobSkills6").exists()){
+                    displaySkill7.setText(dataSnapshot.child("jobSkills6").getValue().toString());
                 }else{
-                    displaySkill7.setVisibility(View.GONE);
+                    displaySkill7.setVisibility(GONE);
+
                 }
 
-                if(jobSkill8.equals(s8)) {
-                    displaySkill8.setText(jobSkill8);
+                if(dataSnapshot.child("jobSkills7").exists()){
+                    displaySkill8.setText(dataSnapshot.child("jobSkills7").getValue().toString());
                 }else{
-                    displaySkill8.setVisibility(View.GONE);
+                    displaySkill8.setVisibility(GONE);
                 }
 
-                if(jobSkill9.equals(s9)) {
-                    displaySkill9.setText(jobSkill9);
+                if(dataSnapshot.child("jobSkills8").exists()){
+                    displaySkill9.setText(dataSnapshot.child("jobSkills8").getValue().toString());
                 }else{
-                    displaySkill9.setVisibility(View.GONE);
+                    displaySkill9.setVisibility(GONE);
                 }
-
-                if(jobSkill10.equals(s10)) {
-                    displaySkill10.setText(jobSkill10);
+                if(dataSnapshot.child("jobSkills9").exists()){
+                    displaySkill10.setText(dataSnapshot.child("jobSkills9").getValue().toString());
                 }else{
-                    displaySkill10.setVisibility(View.GONE);
-                }
+                    displaySkill10.setVisibility(GONE);
 
+                }
+                /////////////////////////////////// Secondary skills
 
                 String pwdProfilePic = dataSnapshot.child("pwdProfilePic").getValue().toString();
                 Glide.with(getApplicationContext()).load(pwdProfilePic).into(images);
@@ -427,9 +283,34 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 String workExperience = dataSnapshot.child("workExperience").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
 
+                DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
+                if(workExperience.equals("With Experience")){
+                    work_recyclerView.setVisibility(View.VISIBLE);
+                    noice.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            work_list = new ArrayList<>();
+                            work_list.clear();
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
+                                work_list.add(p);
+                            }
+                            Collections.reverse(work_list);
+                            work_adapter = new PWD_WorkExperienceAdapter(PWD_EditProfile_ViewActivity.this, work_list);
+                            work_recyclerView.setAdapter(work_adapter);
+                            work_adapter.notifyDataSetChanged();
 
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(PWD_EditProfile_ViewActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
                 displayEducationalAttainment.setText(educationalAttainment);
-                displayTotalWorkExperience.setText(workExperience);
+                displayTotalWorkExperience.setText("Scroll down to view work experience list.");
                 displayContact.setText(contact);
 
             }

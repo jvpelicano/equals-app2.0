@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +43,8 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
         holder.displayContact.setText(availablejobsinfos.get(position).getContact());
         holder.displayEmail.setText(availablejobsinfos.get(position).getEmail());
         holder.btnViewPost.setVisibility(View.VISIBLE);
-        holder.onClick(position);
+        String pwd_AuthID = availablejobsinfos.get(position).getKey();
+        holder.onClick(position, pwd_AuthID);
     }
 
     @Override
@@ -68,50 +70,13 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
 
         }
 
-        public void onClick(final int position) {
+        public void onClick(final int position, String pwd_AuthID) {
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, EMP_ViewPotential_View.class);
-                    i.putExtra("email",availablejobsinfos.get(position).getEmail());
-                    i.putExtra("address", availablejobsinfos.get(position).getAddress());
-                    i.putExtra("contact",availablejobsinfos.get(position).getContact());
-                    i.putExtra("firstName",availablejobsinfos.get(position).getFirstName());
-                    i.putExtra("lastName",availablejobsinfos.get(position).getLastName());
-                    i.putExtra("typeOfDisability1",availablejobsinfos.get(position).getTypeOfDisability1());
-                    i.putExtra("typeOfDisability2",availablejobsinfos.get(position).getTypeOfDisability2());
-                    i.putExtra("typeOfDisability3",availablejobsinfos.get(position).getTypeOfDisability3());
-                    i.putExtra("typeOfDisabilityMore",availablejobsinfos.get(position).getTypeOfDisabilityMore());
-                    i.putExtra("jobSkill1",availablejobsinfos.get(position).getJobSkill1());
-                    i.putExtra("jobSkill2",availablejobsinfos.get(position).getJobSkill2());
-                    i.putExtra("jobSkill3",availablejobsinfos.get(position).getJobSkill3());
-                    i.putExtra("jobSkill4",availablejobsinfos.get(position).getJobSkill4());
-                    i.putExtra("jobSkill5",availablejobsinfos.get(position).getJobSkill5());
-                    i.putExtra("jobSkill6",availablejobsinfos.get(position).getJobSkill6());
-                    i.putExtra("jobSkill7",availablejobsinfos.get(position).getJobSkill7());
-                    i.putExtra("jobSkill8",availablejobsinfos.get(position).getJobSkill8());
-                    i.putExtra("jobSkill9",availablejobsinfos.get(position).getJobSkill9());
-                    i.putExtra("jobSkill10",availablejobsinfos.get(position).getJobSkill10());
-                    i.putExtra("pwdProfilePic",availablejobsinfos.get(position).getPwdProfilePic());
-                    i.putExtra("pwdIdCardNum",availablejobsinfos.get(position).getPwdIdCardNum());
-                    i.putExtra("typeStatus",availablejobsinfos.get(position).getTypeStatus());
-
-                    //added
-                    i.putExtra("educationalAttainment", availablejobsinfos.get(position).getEducationalAttainment());
-                    i.putExtra("skill", availablejobsinfos.get(position).getSkill());
-                    i.putExtra("workExperience", availablejobsinfos.get(position).getWorkExperience());
-                    i.putExtra("primarySkill1", availablejobsinfos.get(position).getPrimarySkill1());
-                    i.putExtra("primarySkill2", availablejobsinfos.get(position).getPrimarySkill2());
-                    i.putExtra("primarySkill3", availablejobsinfos.get(position).getPrimarySkill3());
-                    i.putExtra("primarySkill4", availablejobsinfos.get(position).getPrimarySkill4());
-                    i.putExtra("primarySkill5", availablejobsinfos.get(position).getPrimarySkill5());
-                    i.putExtra("primarySkill6", availablejobsinfos.get(position).getPrimarySkill6());
-                    i.putExtra("primarySkill7", availablejobsinfos.get(position).getPrimarySkill7());
-                    i.putExtra("primarySkill8", availablejobsinfos.get(position).getPrimarySkill8());
-                    i.putExtra("primarySkill9", availablejobsinfos.get(position).getPrimarySkill9());
-                    i.putExtra("primarySkill10", availablejobsinfos.get(position).getPrimarySkill10());
-                    i.putExtra("primarySkillOther", availablejobsinfos.get(position).getPrimarySkillOther());
-                    i.putExtra("city", availablejobsinfos.get(position).getCity());
+                    i.putExtra("PWD_ID", pwd_AuthID);
+                    i.putExtra("INT_POS", position);
                     context.startActivity(i);
                 }
             });

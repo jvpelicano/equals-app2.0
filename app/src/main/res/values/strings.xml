@@ -1,48 +1,47 @@
 <resources>
     <string name="app_name">Equals</string>
 
- //String ni Roy
- <string name="special_prompt">Choose a country</string>
- <string-array name="special_array">
-  <item>Others</item>
-  <item>Accountancy, Banking and Finance</item>
-  <item>Broadcasting Media</item>
-  <item>Business Consulting and Management</item>
-  <item>Charity and Voluntary</item>
-  <item>Creative Arts and Design</item>
-  <item>Education</item>
-  <item>Energy and Utilities</item>
-  <item>Healthcare</item>
-  <item>Hospitality and Events Management</item>
-  <item>Information Technology</item>
-  <item>Manufacturing</item>
-  <item>Marketing and Public Relations</item>
-  <item>Property Construction</item>
-  <item>Purchasing</item>
-  <item>Public Governance</item>
-  <item>Real Estate Development</item>
-  <item>Recruitment and HR</item>
-  <item>Retail</item>
-  <item>Sales and Marketing</item>
-  <item>Science and Pharmaceuticals</item>
-  <item>Social Care</item>
-  <item>Sports</item>
-  <item>Tourism</item>
-  <item>Transport and Logistics</item>
+    //String ni Roy
+    <string name="special_prompt">Choose a country</string>
+    <string-array name="special_array">
+        <item>Others</item>
+        <item>Accountancy, Banking and Finance</item>
+        <item>Broadcasting Media</item>
+        <item>Business Consulting and Management</item>
+        <item>Charity and Voluntary</item>
+        <item>Creative Arts and Design</item>
+        <item>Education</item>
+        <item>Energy and Utilities</item>
+        <item>Healthcare</item>
+        <item>Hospitality and Events Management</item>
+        <item>Information Technology</item>
+        <item>Manufacturing</item>
+        <item>Marketing and Public Relations</item>
+        <item>Property Construction</item>
+        <item>Purchasing</item>
+        <item>Public Governance</item>
+        <item>Real Estate Development</item>
+        <item>Recruitment and HR</item>
+        <item>Retail</item>
+        <item>Sales and Marketing</item>
+        <item>Science and Pharmaceuticals</item>
+        <item>Social Care</item>
+        <item>Sports</item>
+        <item>Tourism</item>
+        <item>Transport and Logistics</item>
 
- </string-array>
-
+    </string-array>
 
 
     //Kay Eric
- <string name="post_title">Job Information</string>
- <string name="post_companyname">Company Name</string>
- <string name="post_jobdescription">Job Description</string>
- <string name="post_disability">Disability</string>
- <string name="post_specialization">Specialization</string>
- <string name="view">View</string>
+    <string name="post_title">Job Information</string>
+    <string name="post_companyname">Company Name</string>
+    <string name="post_jobdescription">Job Description</string>
+    <string name="post_disability">Disability</string>
+    <string name="post_specialization">Specialization</string>
+    <string name="view">View</string>
 
-   //Employees
+    //Employees
     <string name="home_emp">Home</string>
     <string name="profile_emp">Profile</string>
     <string name="post_job_emp">Post Job</string>
@@ -61,182 +60,183 @@
     <string name="email_emp">email@sample.com</string>
 
     ------------------------------------------------------------------------------------------------
- //disabilities
- <string name="JobOffers">More</string>
- <string name="orthopedic_disability">Orthopedic Disability</string>
- <string name="visual_disability">Partial Vision Disability</string>
- <string name="hearing_disability">Hearing Disability</string>
- <string name="All_disability">Other Disabilities</string>
- //PWD
- <string name="home_pwd">Home</string>
- <string name="profile_pwd">Profile</string>
- <string name="job_offers_pwd">Look For A Job</string>
- <string name="notification_pwd">Notifications</string>
- <string name="change_password_pwd">Change Password</string>
- <string name="ortho_pwd">Orthopedic</string>
- <string name="visual_pwd">Partial Vision</string>
- <string name="hearing_pwd">Hearing</string>
- <string name="website_pwd">Visit Equals Website</string>
- <string name="resumes_pwd">My Resume</string>
- <string name="logout_pwd">Log Out</string>
-  //Drawer Layout
-  <string name="open_pwd">Open</string>
-  <string name="close_pwd">Close</string>
+    //disabilities
+    <string name="JobOffers">More</string>
+    <string name="orthopedic_disability">Orthopedic Disability</string>
+    <string name="visual_disability">Partial Vision Disability</string>
+    <string name="hearing_disability">Hearing Disability</string>
+    <string name="All_disability">Other Disabilities</string>
+    //PWD
+    <string name="home_pwd">Home</string>
+    <string name="profile_pwd">Profile</string>
+    <string name="job_offers_pwd">Look For A Job</string>
+    <string name="notification_pwd">Notifications</string>
+    <string name="change_password_pwd">Change Password</string>
+    <string name="ortho_pwd">Orthopedic</string>
+    <string name="visual_pwd">Partial Vision</string>
+    <string name="hearing_pwd">Hearing</string>
+    <string name="website_pwd">Visit Equals Website</string>
+    <string name="resumes_pwd">My Resume</string>
+    <string name="logout_pwd">Log Out</string>
+    <string name="view_resume_pwd">View Resume</string>>
+    //Drawer Layout
+    <string name="open_pwd">Open</string>
+    <string name="close_pwd">Close</string>
 
-  //Drawer Layout PWD
-  <string name="full_name_pwd">Full Name</string>
-  <string name="employment_status_pwd">Employed or Unemployed</string>
+    //Drawer Layout PWD
+    <string name="full_name_pwd">Full Name</string>
+    <string name="employment_status_pwd">Employed or Unemployed</string>
 
- //City
- <string name="city_prompt">Choose a city</string>
- <string-array name="City">
-  <item>Alaminos</item>
-  <item>Angeles</item>
-  <item>Antipolo</item>
-  <item>Bacolod</item>
-  <item>Bacoor</item>
-  <item>Bago</item>
-  <item>Baguio</item>
-  <item>Bais</item>
-  <item>Balanga</item>
-  <item>Batac</item>
-  <item>Batangas City</item>
-  <item>Bayawan</item>
-  <item>Baybay</item>
-  <item>Bayugan</item>
-  <item>Bislig</item>
-  <item>Biñan</item>
-  <item>Bogo</item>
-  <item>Borongan</item>
-  <item>Butuan</item>
-  <item>Cabadbaran</item>
-  <item>Cabanatuan</item>
-  <item>Cabuyao</item>
-  <item>Cadiz</item>
-  <item>Cagayan de Oro</item>
-  <item>Calamba</item>
-  <item>Calapan</item>
-  <item>Calbayog</item>
-  <item>Caloocan</item>
-  <item>Candon</item>
-  <item>Canlaon</item>
-  <item>Carcar</item>
-  <item>Catbalogan</item>
-  <item>Cauayan</item>
-  <item>Cavite City</item>
-  <item>Cebu City</item>
-  <item>Cotabato City</item>
-  <item>Dagupan</item>
-  <item>Danao</item>
-  <item>Dapitan</item>
-  <item>Dasmariñas</item>
-  <item>Davao City</item>
-  <item>Digos</item>
-  <item>Dipolog</item>
-  <item>Dumaguete</item>
-  <item>El Salvador</item>
-  <item>Escalante</item>
-  <item>Gapan</item>
-  <item>Calamba</item>
-  <item>General Santos</item>
-  <item>General Trias</item>
-  <item>Gingoog</item>
-  <item>Guihulngan</item>
-  <item>Himamaylan</item>
-  <item>Ilagan</item>
-  <item>Iligan</item>
-  <item>Iloilo City</item>
-  <item>Imus</item>
-  <item>Iriga</item>
-  <item>Isabela City</item>
-  <item>Kabankalan</item>
-  <item>Kidapawan</item>
-  <item>Koronadal</item>
-  <item>La Carlota</item>
-  <item>Lamitan</item>
-  <item>Laoag</item>
-  <item>Lapu-Lapu</item>
-  <item>Las Piñas</item>
-  <item>Legazpi</item>
-  <item>Ligao</item>
-  <item>Lipa</item>
-  <item>Lucena</item>
-  <item>Maasin</item>
-  <item>Mabalacat</item>
-  <item>Makati</item>
-  <item>Malabon</item>
-  <item>Malaybalay</item>
-  <item>Malolos</item>
-  <item>Mandaluyong</item>
-  <item>Mandaue</item>
-  <item>Manila</item>
-  <item>Marawi</item>
-  <item>Marikina</item>
-  <item>Masbate City</item>
-  <item>Mati</item>
-  <item>Meycauayan</item>
-  <item>Muntinlupa</item>
-  <item>Muñoz</item>
-  <item>Naga(Cebu)</item>
-  <item>Naga(Bicol)</item>
-  <item>Navotas</item>
-  <item>Olongapo</item>
-  <item>Ormoc</item>
-  <item>Oroquieta</item>
-  <item>Ozamiz</item>
-  <item>Pagadian</item>
-  <item>Palayan</item>
-  <item>Panabo</item>
-  <item>Parañaque</item>
-  <item>Pasay</item>
-  <item>Pasig</item>
-  <item>Passi</item>
-  <item>Puerto Princesa</item>
-  <item>Quezon City</item>
-  <item>Roxas City</item>
-  <item>Sagay</item>
-  <item>Samal</item>
-  <item>San Carlos(Negros)</item>
-  <item>San Carlos(Pangasinan)</item>
-  <item>San Fernando(La Union)</item>
-  <item>San Fernando(Pampanga)</item>
-  <item>San Jose</item>
-  <item>San Jose del Monte</item>
-  <item>San Juan</item>
-  <item>San Pablo</item>
-  <item>San Pedro</item>
-  <item>Santa Rosa</item>
-  <item>Santiago</item>
-  <item>Silay</item>
-  <item>Sipalay</item>
-  <item>Sorsogon City</item>
-  <item>Surigao City</item>
-  <item>Tabaco</item>
-  <item>Tabuk</item>
-  <item>Tacloban</item>
-  <item>Tacurong</item>
-  <item>Tagaytay</item>
-  <item>Tagbilaran</item>
-  <item>Taguig</item>
-  <item>Tagum</item>
-  <item>Talisay(Cebu)</item>
-  <item>Talisay(Negros)</item>
-  <item>Tanauan</item>
-  <item>Tandag</item>
-  <item>Tangub</item>
-  <item>Tanjay</item>
-  <item>Tarlac City</item>
-  <item>Tayabas</item>
-  <item>Toledo</item>
-  <item>Trece Martires</item>
-  <item>Tuguegarao</item>
-  <item>Urdaneta</item>
-  <item>Valencia</item>
-  <item>Valenzuela</item>
-  <item>Victorias</item>
-  <item>Vigan</item>
-  <item>Zamboanga City</item>
- </string-array>
+    //City
+    <string name="city_prompt">Choose a city</string>
+    <string-array name="City">
+        <item>Alaminos</item>
+        <item>Angeles</item>
+        <item>Antipolo</item>
+        <item>Bacolod</item>
+        <item>Bacoor</item>
+        <item>Bago</item>
+        <item>Baguio</item>
+        <item>Bais</item>
+        <item>Balanga</item>
+        <item>Batac</item>
+        <item>Batangas City</item>
+        <item>Bayawan</item>
+        <item>Baybay</item>
+        <item>Bayugan</item>
+        <item>Bislig</item>
+        <item>Biñan</item>
+        <item>Bogo</item>
+        <item>Borongan</item>
+        <item>Butuan</item>
+        <item>Cabadbaran</item>
+        <item>Cabanatuan</item>
+        <item>Cabuyao</item>
+        <item>Cadiz</item>
+        <item>Cagayan de Oro</item>
+        <item>Calamba</item>
+        <item>Calapan</item>
+        <item>Calbayog</item>
+        <item>Caloocan</item>
+        <item>Candon</item>
+        <item>Canlaon</item>
+        <item>Carcar</item>
+        <item>Catbalogan</item>
+        <item>Cauayan</item>
+        <item>Cavite City</item>
+        <item>Cebu City</item>
+        <item>Cotabato City</item>
+        <item>Dagupan</item>
+        <item>Danao</item>
+        <item>Dapitan</item>
+        <item>Dasmariñas</item>
+        <item>Davao City</item>
+        <item>Digos</item>
+        <item>Dipolog</item>
+        <item>Dumaguete</item>
+        <item>El Salvador</item>
+        <item>Escalante</item>
+        <item>Gapan</item>
+        <item>Calamba</item>
+        <item>General Santos</item>
+        <item>General Trias</item>
+        <item>Gingoog</item>
+        <item>Guihulngan</item>
+        <item>Himamaylan</item>
+        <item>Ilagan</item>
+        <item>Iligan</item>
+        <item>Iloilo City</item>
+        <item>Imus</item>
+        <item>Iriga</item>
+        <item>Isabela City</item>
+        <item>Kabankalan</item>
+        <item>Kidapawan</item>
+        <item>Koronadal</item>
+        <item>La Carlota</item>
+        <item>Lamitan</item>
+        <item>Laoag</item>
+        <item>Lapu-Lapu</item>
+        <item>Las Piñas</item>
+        <item>Legazpi</item>
+        <item>Ligao</item>
+        <item>Lipa</item>
+        <item>Lucena</item>
+        <item>Maasin</item>
+        <item>Mabalacat</item>
+        <item>Makati</item>
+        <item>Malabon</item>
+        <item>Malaybalay</item>
+        <item>Malolos</item>
+        <item>Mandaluyong</item>
+        <item>Mandaue</item>
+        <item>Manila</item>
+        <item>Marawi</item>
+        <item>Marikina</item>
+        <item>Masbate City</item>
+        <item>Mati</item>
+        <item>Meycauayan</item>
+        <item>Muntinlupa</item>
+        <item>Muñoz</item>
+        <item>Naga(Cebu)</item>
+        <item>Naga(Bicol)</item>
+        <item>Navotas</item>
+        <item>Olongapo</item>
+        <item>Ormoc</item>
+        <item>Oroquieta</item>
+        <item>Ozamiz</item>
+        <item>Pagadian</item>
+        <item>Palayan</item>
+        <item>Panabo</item>
+        <item>Parañaque</item>
+        <item>Pasay</item>
+        <item>Pasig</item>
+        <item>Passi</item>
+        <item>Puerto Princesa</item>
+        <item>Quezon City</item>
+        <item>Roxas City</item>
+        <item>Sagay</item>
+        <item>Samal</item>
+        <item>San Carlos(Negros)</item>
+        <item>San Carlos(Pangasinan)</item>
+        <item>San Fernando(La Union)</item>
+        <item>San Fernando(Pampanga)</item>
+        <item>San Jose</item>
+        <item>San Jose del Monte</item>
+        <item>San Juan</item>
+        <item>San Pablo</item>
+        <item>San Pedro</item>
+        <item>Santa Rosa</item>
+        <item>Santiago</item>
+        <item>Silay</item>
+        <item>Sipalay</item>
+        <item>Sorsogon City</item>
+        <item>Surigao City</item>
+        <item>Tabaco</item>
+        <item>Tabuk</item>
+        <item>Tacloban</item>
+        <item>Tacurong</item>
+        <item>Tagaytay</item>
+        <item>Tagbilaran</item>
+        <item>Taguig</item>
+        <item>Tagum</item>
+        <item>Talisay(Cebu)</item>
+        <item>Talisay(Negros)</item>
+        <item>Tanauan</item>
+        <item>Tandag</item>
+        <item>Tangub</item>
+        <item>Tanjay</item>
+        <item>Tarlac City</item>
+        <item>Tayabas</item>
+        <item>Toledo</item>
+        <item>Trece Martires</item>
+        <item>Tuguegarao</item>
+        <item>Urdaneta</item>
+        <item>Valencia</item>
+        <item>Valenzuela</item>
+        <item>Victorias</item>
+        <item>Vigan</item>
+        <item>Zamboanga City</item>
+    </string-array>
 
 
 </resources>

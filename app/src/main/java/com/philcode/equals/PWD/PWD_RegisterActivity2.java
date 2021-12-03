@@ -67,15 +67,11 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    DatabaseReference work_databaseRef, mDatabase, pwdWorks;
+    DatabaseReference mDatabase;
 
-    String x;
     final Calendar myCalendar = Calendar.getInstance();
 
-    // Folder path for Firebase Storage.
     String Storage_Path = "PWD_Reg_Form/";
-    // Root Database Name for Firebase Database.
-    // String Database_Path = "PWD_Reg_Form";
 
     //view objects
     private TextView textViewUserEmail, skillSelected;
@@ -85,15 +81,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
     private RecyclerView work_recyclerView;
 
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
-    ArrayList<Integer> title = new ArrayList<>();
-    int count = 10;
-    int count2 = 0;
-    int count3 = 0;
     int wCount = 0;
-    int countw = 0;
-    int numberOfPrimarySkills = 0;
 
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
@@ -117,30 +105,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private String educAttainment = "";
     private String workExperience = "";
 
-    String[] pwdPrimarySkills = new String[10];
-
-    String m1 = "";
-    String m2 = "";
-    String m3 = "";
-    String m4 = "";
-    String m5 = "";
-    String m6 = "";
-    String m7 = "";
-    String m8 = "";
-    String m9 = "";
-    String m10 = "";
-
-    String primarySkill1;
-    String primarySkill2;
-    String primarySkill3;
-    String primarySkill4;
-    String primarySkill5;
-    String primarySkill6;
-    String primarySkill7;
-    String primarySkill8;
-    String primarySkill9;
-    String primarySkill10;
-    String primarySkillOther;
 
     private CheckBox checkOrtho, checkHear, checkVis, checkMore;
     private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10;
@@ -262,130 +226,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }
         });
 
-        /*primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //ON ITEM SELECTED should do nothing but store data.
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserItems.clear();
-
-                final DatabaseReference primarySkillsRef = FirebaseDatabase.getInstance().getReference().child("Category");
-                x = primary_skillsCategory.getSelectedItem().toString();
-                if (x.equals("Click to select value")) {
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Selected: " + x, Toast.LENGTH_LONG).show();
-                    *//*primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                                String parent = dataSnapshot1.getKey();
-                                //     Toast.makeText(getApplicationContext(), parent, Toast.LENGTH_LONG).show();
-
-
-                                final DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("Category").child(parent);
-                                parentRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        count=10;
-                                        count2=0;
-                                        if(dataSnapshot.child("skill1").getValue(String.class).equals("")){
-                                            count--;
-                                            m1="";
-                                        }
-                                        else{
-                                            m1 = dataSnapshot.child("skill1").getValue(String.class);
-                                            count2++;
-
-                                        }
-                                        if(dataSnapshot.child("skill2").getValue(String.class).equals("")){
-                                            count--;
-                                            m2="";
-                                        }else{
-                                            m2 = dataSnapshot.child("skill2").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill3").getValue(String.class).equals("")){
-                                            count--;
-                                            m3="";
-                                        }else{
-                                            m3 = dataSnapshot.child("skill3").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill4").getValue(String.class).equals("")){
-                                            count--;
-                                            m4="";
-                                        }else{
-                                            m4 = dataSnapshot.child("skill4").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill5").getValue(String.class).equals("")){
-                                            count--;
-                                            m5="";
-                                        }else{
-                                            m5 = dataSnapshot.child("skill5").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill6").getValue(String.class).equals("")){
-                                            count--;
-                                            m6="";
-                                        }else{
-                                            m6 = dataSnapshot.child("skill6").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill7").getValue(String.class).equals("")){
-                                            count--;
-                                            m7="";
-                                        }else{
-                                            m7 = dataSnapshot.child("skill7").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill8").getValue(String.class).equals("")){
-                                            count--;
-                                            m8="";
-
-                                        }else{
-                                            m8 = dataSnapshot.child("skill8").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill9").getValue(String.class).equals("")){
-                                            count--;
-                                            m9="";
-
-                                        }else{
-                                            m9 = dataSnapshot.child("skill9").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill10").getValue(String.class).equals("")){
-                                            count--;
-                                            m10="";
-
-                                        }else{
-                                            m10 = dataSnapshot.child("skill10").getValue(String.class);
-                                            count2++;
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });*//* //Delete this???
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });*/
-
 
         buttonAddWork.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -399,7 +239,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
                 final TextView txtstart = view.findViewById(R.id.txtstart);
                 final TextView txtend = view.findViewById(R.id.txtend);
-                final TextView txtResult = view.findViewById(R.id.txtResult);
 
                 final Button btnSelectstart = view.findViewById(R.id.btnSelectstart);
                 final Button btnSelectend = view.findViewById(R.id.btnSelectend);
@@ -409,7 +248,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 categoryRef.addValueEventListener(new ValueEventListener() {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //  final List<String> skill = new ArrayList<String>();
                         final List<String> category = new ArrayList<String>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
@@ -483,13 +321,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
                             int date1 = Integer.parseInt(yearformat.format(myCalendar.getTime()));
                             txtend.setText(""+date1);
-                        /*String textS = txtstart.getText().toString();
-                        String textE = txtend.getText().toString();
-                        if (textS!=null && textE != null) {
-                            int textStart = Integer.parseInt(textS);
-                            int textEnd = Integer.parseInt(textE);
-                            txtResult.setText(textEnd - textStart);
-                        }*/
 
 
                         }
@@ -530,7 +361,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                         String job = jobposition.getText().toString();
                         String company = companyname.getText().toString();
@@ -708,12 +538,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         rbEduc = findViewById(selectedId);
         educAttainment = rbEduc.getText().toString();
 
-        /*for(int i=0;i<pwdPrimarySkills.length;i++){
-            if(!(pwdPrimarySkills[i]==null)){
-                countw++;
-            }
-        }*/
-        //numberOfPrimarySkills=countw;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
@@ -741,7 +565,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }else{
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
                 mDatabase.child("educationalAttainment").setValue(educAttainment);
-                mDatabase.child("skill").setValue(x);
+                mDatabase.child("skill").setValue(primary_skillsCategory.getSelectedItem().toString()); //working
                 mDatabase.child("workExperience").setValue(workExperience);
 
 
@@ -783,11 +607,9 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }
         }
 
-
         startActivity(intent);
 
         }
-
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

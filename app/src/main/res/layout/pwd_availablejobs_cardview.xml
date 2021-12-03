@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="false"
     android:background="@color/background"
-    tools:context=".PWD.PWD_AvailableJobs_1_All">
+    tools:context=".PWD.PWD_AvailableJobs_1_All"
+    android:elevation="10dp"
+
+    >
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:background="@drawable/cardview_shape"
-        android:weightSum="3">
+        android:weightSum="3"
+        >
 
         <ImageView
             android:id="@+id/displayPostPic"

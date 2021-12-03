@@ -91,7 +91,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(),t,Toast.LENGTH_SHORT).show();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
-
+                final String resumeFile = snapshot.child("resumeFile").getValue().toString();
 
                 pNavigation = findViewById(R.id.navigation_view_pwd);
                 menu = pNavigation.getMenu();
@@ -132,6 +132,14 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     target4.setVisible(false);
                 }
 
+                if(snapshot.hasChild("resumeFile")){
+                    MenuItem target5 = menu.findItem(R.id.nav_upload_resume);
+                    target5.setTitle("Re-Upload Resume");
+                }else if(!snapshot.hasChild("resumeFile")){
+                    MenuItem target5 = menu.findItem(R.id.nav_upload_resume);
+                    target5.setTitle("Upload Resume");
+                }
+
                 pNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -143,6 +151,10 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_profile_pwd) {
                             Intent i2 = new Intent(a_PWDContentMainActivity.this, PWD_EditProfile_ViewActivity.class);
                             startActivity(i2);
+                        }else if(id == R.id.nav_view_resume){
+                            Intent viewResume_intent = new Intent(a_PWDContentMainActivity.this, PWD_ViewResume_Activity.class);
+                            viewResume_intent.putExtra("RESUME_URL", resumeFile);
+                            startActivity(viewResume_intent);
                         }else if (id == R.id.nav_upload_resume) {
                             AlertDialog.Builder alert =  new AlertDialog.Builder(a_PWDContentMainActivity.this);
                             alert.setMessage("Resume file format should be in PDF.").setCancelable(false)
@@ -205,9 +217,9 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                     }
                 });
                 final String dp1 = snapshot.child("pwdProfilePic").getValue().toString();
-                //final String fullName  = snapshot.child("fullname").getValue().toString();
                 final String firstName  = snapshot.child("firstName").getValue().toString();
                 final String lastName  = snapshot.child("lastName").getValue().toString();
+
                 View hView =pNavigation.inflateHeaderView(R.layout.pwd_navigation_header);
                 imgProfile = hView.findViewById(R.id.profile_pic_pwd);
                 Glide.with(getApplicationContext()).load(dp1).into(imgProfile);
@@ -224,9 +236,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
         home_recyclerView = findViewById(R.id.homeRecyclerView);
         home_recyclerView.setHasFixedSize(true);
         home_recyclerView.setLayoutManager(new LinearLayoutManager(a_PWDContentMainActivity.this));
-        /*home_recyclerView = new LinearLayoutManager(a_PWDContentMainActivity.this);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);*/
 
         home_list = new ArrayList<>();
         home_databaseref = FirebaseDatabase.getInstance().getReference("home_content");
@@ -287,9 +296,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                                         resume.child("resumeFile").setValue(String.valueOf(uri));
                                         startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
                                         Toast.makeText(a_PWDContentMainActivity.this, "Resume Uploaded", Toast.LENGTH_SHORT).show();
-
-
-
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {

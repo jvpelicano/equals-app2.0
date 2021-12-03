@@ -144,32 +144,6 @@ public class EMP_Profile extends AppCompatActivity implements View.OnClickListen
                         Toast.LENGTH_LONG).show();
             }
         });
-//        String[] fields1 = {"Others",
-//                "Accountancy, Banking and Finance", "Broadcasting Media",
-//                "Business Consulting & Management",
-//                "Charity & Voluntary",
-//                "Creative Arts & Design",
-//                "Education",
-//                "Energy & Utilities",
-//                "Health care",
-//                "Hospitality & Events Management",
-//                "Information Technology",
-//                "Manufacturing",
-//                "Marketing & Public Relations",
-//                "Property Construction",
-//                "Purchasing",
-//                "Public Governance",
-//                "Real Estate Development",
-//                "Recruitment & HR",
-//                "Retail",
-//                "Sales & Marketing",
-//                "Science and Pharmaceuticals",
-//                "Social Care",
-//                "Sports",
-//                "Tourism",
-//                "Transport & Logistics"};
-//        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, fields1);
-//        ddspinner.setAdapter(adapter1);
     }
     public String GetFileExtension(Uri uri) {
 

@@ -44,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.protobuf.StringValue;
 import com.philcode.equals.PWD.PWD_RegisterActivity2;
 import com.philcode.equals.R;
 
@@ -57,11 +58,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Emp_PostJob extends AppCompatActivity {
-
+    //Removed selection of primary skills
     TextInputEditText postTitle, postDescription, yearsOfExperience;
     Button empBtnPost;
     CheckBox typeOfDisability1, typeOfDisability2, typeOfDisability3, typeOfDisabilityMore;
-    Spinner setExpDate, spinnerCity;
+    Spinner setExpDate;
     Button empBtnChoose;
     private RadioGroup rgWorkExperience, rgEducAttainment;
     private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
@@ -73,19 +74,7 @@ public class Emp_PostJob extends AppCompatActivity {
     private Spinner primary_skillsCategory;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
-    String expDate1;
     String categorySkill;
-    String jobSkill_1 = "";
-    String jobSkill_2 = "";
-    String jobSkill_3 = "";
-    String jobSkill_4 = "";
-    String jobSkill_5 = "";
-    String jobSkill_6 = "";
-    String jobSkill_7 = "";
-    String jobSkill_8 = "";
-    String jobSkill_9 = "";
-    String jobSkill_10 = "";
-    int numberOfPrimarySkills=0;
     String x;
     String Address;
     String city;
@@ -94,71 +83,31 @@ public class Emp_PostJob extends AppCompatActivity {
     String week3="3 weeks";
     String month1="1 month";
     String month2="2 months";
-    String month3="3 month";
+    String month3="3 months";
     String month4="4 months";
-    String month5="5 month";
+    String month5="5 months";
     String month6="6 months";
-    String month7="7 month";
+    String month7="7 months";
     String month8="8 months";
-    String month9="9 month";
+    String month9="9 months";
     String month10="10 months";
-    String month11="11 month";
+    String month11="11 months";
     String year1="1 year";
     String unli="Unlimited";
-    int count = 10;
-    int count2 = 0;
-    int count3 = 0;
-    int countw = 0;
+    public String expDate1;
     int years =0;
-    private TextView textViewUserEmail, skillSelected;
-    String[] pwdPrimarySkills = new String[10];
+    private TextView skillSelected;
 
-
-    String primarySkill1;
-    String primarySkill2;
-    String primarySkill3;
-    String primarySkill4;
-    String primarySkill5;
-    String primarySkill6;
-    String primarySkill7;
-    String primarySkill8;
-    String primarySkill9;
-    String primarySkill10;
-    String primarySkillOther;
-
-    String job_1 = "";
-    String job_2 = "";
-    String job_3 = "";
-    String job_4 = "";
-    String job_5 = "";
-    String job_6 = "";
-    String job_7 = "";
-    String job_8 = "";
-    String job_9 = "";
-    String job_10 = "";
 
     private String educAttainment = "";
     private String workExperience = "";
 
-    String m1 = "";
-    String m2 = "";
-    String m3 = "";
-    String m4 = "";
-    String m5 = "";
-    String m6 = "";
-    String m7 = "";
-    String m8 = "";
-    String m9 = "";
-    String m10 = "";
     String zz;
 
 
     Calendar cal = Calendar.getInstance();
-    Calendar currentCal = Calendar.getInstance();
     Date currentDate = Calendar.getInstance().getTime();
     SimpleDateFormat df = new SimpleDateFormat("MMMM-dd-yyyy");
-    String formattedDate = df.format(currentDate);
-    String date = new SimpleDateFormat("MMMM-dd-yyyy", Locale.getDefault()).format(new Date());
     //String formattedDate = df.format(c);
     SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
 
@@ -221,7 +170,7 @@ public class Emp_PostJob extends AppCompatActivity {
         rgEducAttainment = findViewById(R.id.rg_educ);
         rgWorkExperience = findViewById(R.id.workexperience);
         checkEducRequirement=(CheckBox) findViewById(R.id.educAttainmentRequirement);
-        checkEducRequirement.setVisibility(View.GONE);
+        //checkEducRequirement.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(Emp_PostJob.this);
         empBtnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +197,7 @@ public class Emp_PostJob extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbWithExperience.isChecked()) {
-                    yearsOfExperience.setVisibility(View.GONE);
+                    yearsOfExperience.setVisibility(View.VISIBLE);
 
                 }
                 if (rbWithoutExperience.isChecked()) {
@@ -257,186 +206,8 @@ public class Emp_PostJob extends AppCompatActivity {
             }
         });
         primary_skillsCategory = findViewById(R.id.skillSpinner);
-        primary_skillsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mUserItems.clear();
+        //DELETED WHOLE BLOCK -----------------------------------------------------------------------
 
-                final DatabaseReference primarySkillsRef = FirebaseDatabase.getInstance().getReference().child("Category");
-                x = primary_skillsCategory.getSelectedItem().toString();
-                if (x.equals("Click to select value")) {
-
-                } else {
-                    primarySkillsRef.orderByChild("skill").equalTo(x).addValueEventListener(new ValueEventListener() {
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                                String parent = dataSnapshot1.getKey();
-                           final DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("Category").child(parent);
-                                parentRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        count=10;
-                                        count2=0;
-                                        if(dataSnapshot.child("skill1").getValue(String.class).equals("")){
-                                            count--;
-                                            m1="";
-                                        }
-                                        else{
-                                            m1 = dataSnapshot.child("skill1").getValue(String.class);
-                                            count2++;
-
-                                        }
-                                        if(dataSnapshot.child("skill2").getValue(String.class).equals("")){
-                                            count--;
-                                            m2="";
-                                        }else{
-                                            m2 = dataSnapshot.child("skill2").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill3").getValue(String.class).equals("")){
-                                            count--;
-                                            m3="";
-                                        }else{
-                                            m3 = dataSnapshot.child("skill3").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill4").getValue(String.class).equals("")){
-                                            count--;
-                                            m4="";
-                                        }else{
-                                            m4 = dataSnapshot.child("skill4").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill5").getValue(String.class).equals("")){
-                                            count--;
-                                            m5="";
-                                        }else{
-                                            m5 = dataSnapshot.child("skill5").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill6").getValue(String.class).equals("")){
-                                            count--;
-                                            m6="";
-                                        }else{
-                                            m6 = dataSnapshot.child("skill6").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill7").getValue(String.class).equals("")){
-                                            count--;
-                                            m7="";
-                                        }else{
-                                            m7 = dataSnapshot.child("skill7").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill8").getValue(String.class).equals("")){
-                                            count--;
-                                            m8="";
-
-                                        }else{
-                                            m8 = dataSnapshot.child("skill8").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill9").getValue(String.class).equals("")){
-                                            count--;
-                                            m9="";
-
-                                        }else{
-                                            m9 = dataSnapshot.child("skill9").getValue(String.class);
-                                            count2++;
-                                        }
-                                        if(dataSnapshot.child("skill10").getValue(String.class).equals("")){
-                                            count--;
-                                            m10="";
-
-                                        }else{
-                                            m10 = dataSnapshot.child("skill10").getValue(String.class);
-                                            count2++;
-                                        }
-                                        String[] listSkills = new String[count];
-                                        count3=0;
-                                        if(m1.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m1;
-                                            count3++;
-                                        }
-                                        if(m2.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m2;
-                                            count3++;
-                                        }
-                                        if(m3.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m3;
-                                            count3++;
-                                        }
-                                        if(m4.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m4;
-                                            count3++;
-                                        }
-                                        if(m5.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m5;
-                                            count3++;
-                                        }
-                                        if(m6.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m6;
-                                            count3++;
-                                        }
-                                        if(m7.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m7;
-                                            count3++;
-                                        }
-                                        if(m8.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m8;
-                                            count3++;
-                                        }
-                                        if(m9.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m9;
-                                            count3++;
-                                        }
-                                        if(m10.equals("")){
-                                        }
-                                        else{
-                                            listSkills[count3]=m10;
-                                            count3++;
-                                        }
-                                        checkedItems = new boolean[count3];
-                                        callDialog(listSkills, checkedItems);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
         postTitle = findViewById(R.id.postTitle);
         postDescription = findViewById(R.id.postDescription);
@@ -626,132 +397,6 @@ public class Emp_PostJob extends AppCompatActivity {
             typeOfDisability_2 = "";
 
         }
-
-        if (jobSkill1.isChecked()){
-            jobSkill_1 = jobSkill1.getText().toString();
-        }
-        else{
-            jobSkill_1 = "";
-        } if (jobSkill2.isChecked()){
-            jobSkill_2 = jobSkill2.getText().toString();
-        }
-        else{
-            jobSkill_2 = "";
-        } if (jobSkill3.isChecked()){
-            jobSkill_3 = jobSkill3.getText().toString();
-        }
-        else{
-            jobSkill_3 = "";
-        } if (jobSkill4.isChecked()){
-            jobSkill_4 = jobSkill4.getText().toString();
-        }
-        else{
-            jobSkill_4 = "";
-        } if (jobSkill5.isChecked()){
-            jobSkill_5 = jobSkill5.getText().toString();
-        }
-        else{
-            jobSkill_5 = "";
-        } if (jobSkill6.isChecked()){
-            jobSkill_6 = jobSkill6.getText().toString();
-        }
-        else{
-            jobSkill_6 = "";
-        } if (jobSkill7.isChecked()){
-            jobSkill_7 = jobSkill7.getText().toString();
-        }
-        else{
-            jobSkill_7 = "";
-        } if (jobSkill8.isChecked()){
-            jobSkill_8 = jobSkill8.getText().toString();
-        }
-        else{
-            jobSkill_8 = "";
-        } if (jobSkill9.isChecked()){
-            jobSkill_9 = jobSkill9.getText().toString();
-        }
-        else{
-            jobSkill_9 = "";
-        } if (jobSkill10.isChecked()){
-            jobSkill_10 = jobSkill10.getText().toString();
-        }
-        else{
-            jobSkill_10 = "";
-        }
-
-    }
-    public void callDialog(final String[] listSkillsZ, final boolean[] checkedItemsZ) {
-
-        View view2 = LayoutInflater.from(Emp_PostJob.this).inflate(R.layout.other_skills,null);
-        final EditText others = view2.findViewById(R.id.otherSkills);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(Emp_PostJob.this);
-        builder.setView(view2);
-        builder.setTitle("Select Primary Skills");
-        builder.setMultiChoiceItems(listSkillsZ, checkedItemsZ, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position, boolean isChecked) {
-                if (isChecked) {
-                    if (!mUserItems.contains(position)) {
-                        mUserItems.add(position);
-                    }
-                } else if (mUserItems.contains(position)) {
-                    mUserItems.remove(mUserItems.indexOf(position));
-                }
-
-            }
-        });
-        builder.setCancelable(false);
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int position) {
-                primarySkillOther = others.getText().toString();
-                String item = "";
-                String item2 = "";
-                for (int i = 0; i < mUserItems.size(); i++) {
-                    item = listSkillsZ[mUserItems.get(i)];
-                    pwdPrimarySkills[i] = item;
-                    item2 = item2 + item + ", ";
-                }
-                primarySkill1 = pwdPrimarySkills[0];
-                primarySkill2 = pwdPrimarySkills[1];
-                primarySkill3 = pwdPrimarySkills[2];
-                primarySkill4 = pwdPrimarySkills[3];
-                primarySkill5 = pwdPrimarySkills[4];
-                primarySkill6 = pwdPrimarySkills[5];
-                primarySkill7 = pwdPrimarySkills[6];
-                primarySkill8 = pwdPrimarySkills[7];
-                primarySkill9 = pwdPrimarySkills[8];
-                primarySkill10 = pwdPrimarySkills[9];
-                if (primarySkillOther!="" && primarySkillOther!=null){
-                    item2 = item2+" "+primarySkillOther;
-                    skillSelected.setText(item2);
-                }else{
-                    skillSelected.setText(item2.substring(0, item2.length() - 2));
-                }
-            }
-
-        });
-
-        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNeutralButton("Clear skills", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < checkedItemsZ.length; i++) {
-                    checkedItemsZ[i] = false;
-                    mUserItems.clear();
-                    skillSelected.setText("");
-                }
-            }
-        });
-        AlertDialog mDialog = builder.create();
-        mDialog.show();
     }
 
     private void uploadImage(final String companyName, final String uid) {
@@ -780,22 +425,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String tempPostTitle = postTitle.getText().toString().trim();
                                     String tempPostDescription = postDescription.getText().toString();
                                     String tempPostLocation = Address;
-                                    String tempTypeOfDisability1 = typeOfDisability_1;
-                                    String tempTypeOfDisability2 = typeOfDisability_2;
-                                    String tempTypeOfDisability3 = typeOfDisability_3;
-                                    String tempTypeOfDisabilityMore = typeOfDisability_More;
-                                    // final String city = spinnerCity.getSelectedItem().toString().trim();
-                                    String tempJobSkill1 = jobSkill_1;
-                                    String tempJobSkill2 = jobSkill_2;
-                                    String tempJobSkill3 = jobSkill_3;
-                                    String tempJobSkill4 = jobSkill_4;
-                                    String tempJobSkill5 = jobSkill_5;
-                                    String tempJobSkill6 = jobSkill_6;
-                                    String tempJobSkill7 = jobSkill_7;
-                                    String tempJobSkill8 = jobSkill_8;
-                                    String tempJobSkill9 = jobSkill_9;
-                                    String tempJobSkill10 = jobSkill_10;
-
+                                    String ImageUploadId = databaseReference.push().getKey();
                                     rgEducAttainment = findViewById(R.id.rg_educ);
                                     final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
                                     rbEduc = findViewById(selectedId);
@@ -810,115 +440,152 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     String expDate = dropdown1.getSelectedItem().toString();
 
-                                    if (expDate == week1) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -1);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 2);
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if (expDate == week2) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -2);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-
-                                    }else  if (expDate == week3) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, -3);
-                                        cal.add(Calendar.WEEK_OF_YEAR, 4);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == month1) {
-                                        cal.add(Calendar.MONTH, 1);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == month2) {
-                                        cal.add(Calendar.MONTH, 2);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month3) {
-                                        cal.add(Calendar.MONTH, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month4) {
-                                        cal.add(Calendar.MONTH, 4);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month5) {
-                                        cal.add(Calendar.MONTH, 5);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month6) {
-                                        cal.add(Calendar.MONTH, 6);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month7) {
-                                        cal.add(Calendar.MONTH, 7);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month8) {
-                                        cal.add(Calendar.MONTH, 8);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month9) {
-                                        cal.add(Calendar.MONTH, 9);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month10) {
-                                        cal.add(Calendar.MONTH, 10);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if (expDate == month11) {
-                                        cal.add(Calendar.MONTH, 11);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == year1) {
-                                        cal.add(Calendar.MONTH, 12);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else  if (expDate == unli) {
-                                        expDate1 = "unlimited";
-
-                                    }
-
-
                                     String tempPermission = permission;
-                                    //  String expDate = setExpDate.getSelectedItem().toString();
+
                                     progressDialog.dismiss();
-                                    for(int i=0;i<pwdPrimarySkills.length;i++){
-                                        if(!(pwdPrimarySkills[i]==null)){
-                                            countw++;
-                                        }
-                                    }
-                                    numberOfPrimarySkills=countw;
+
                                     Date currentDate = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
                                     String postDate = df.format(currentDate);
                                     categorySkill = primary_skillsCategory.getSelectedItem().toString();
-                    //              @SuppressWarnings("VisibleForTests")
+
+                                    //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
-                                            tempPostDescription,tempPostLocation, tempTypeOfDisability1, tempTypeOfDisability2,
-                                            tempTypeOfDisability3,tempTypeOfDisabilityMore, tempJobSkill1, tempJobSkill2, tempJobSkill3
-                                            ,tempJobSkill4, tempJobSkill5, tempJobSkill6, tempJobSkill7, tempJobSkill8, tempJobSkill9, tempJobSkill10,tempPermission,
-                                            companyName, uid, expDate1, postDate, city, educAttainment, workExperience, categorySkill,
-                                            primarySkill1, primarySkill2, primarySkill3, primarySkill4, primarySkill5, primarySkill6, primarySkill7,
-                                            primarySkill8, primarySkill9, primarySkill10, primarySkillOther, numberOfPrimarySkills, zz);
-                                    String ImageUploadId = databaseReference.push().getKey();
+                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz);
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
+
+                                    if(workExperience.equals("With Experience")){
+                                        years = Integer.parseInt(yearsOfExperience.getText().toString());
+                                        databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
+                                    }
+
+                                    if(expDate.equals(week1)) { // working
+                                        cal.add(Calendar.WEEK_OF_YEAR, 1);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(week2)) {
+                                        cal.add(Calendar.WEEK_OF_YEAR, 2);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(week3)) {
+                                        cal.add(Calendar.WEEK_OF_YEAR, 3);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(month1)) {
+                                        cal.add(Calendar.MONTH, 1);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(month2)) {
+                                        cal.add(Calendar.MONTH, 2);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month3)) {
+                                        cal.add(Calendar.MONTH, 3);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month4)) {
+                                        cal.add(Calendar.MONTH, 4);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month5)) {
+                                        cal.add(Calendar.MONTH, 5);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month6)) {
+                                        cal.add(Calendar.MONTH, 6);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month7)) {
+                                        cal.add(Calendar.MONTH, 7);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month8)) {
+                                        cal.add(Calendar.MONTH, 8);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month9)) {
+                                        cal.add(Calendar.MONTH, 9);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month10)) {
+                                        cal.add(Calendar.MONTH, 10);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    } else if(expDate.equals(month11)) {
+                                        cal.add(Calendar.MONTH, 11);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(year1)) {
+                                        cal.add(Calendar.MONTH, 12);
+                                        format.format(cal.getTime());
+                                        expDate1 = format.format(cal.getTime());
+
+                                    }else if(expDate.equals(unli)) {
+                                        expDate1 = "unlimited";
+                                    }
+
+                                    databaseReference.child(ImageUploadId).child("expDate").setValue(expDate1);
+
+                                    //TYPE OF DISABILITY
+                                    if(typeOfDisability1.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability1").setValue(typeOfDisability1.getText().toString());
+                                    }
+                                    if(typeOfDisability2.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability2").setValue(typeOfDisability2.getText().toString());
+                                    }
+                                    if(typeOfDisability3.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisability3").setValue(typeOfDisability3.getText().toString());
+                                    }
+                                    if(typeOfDisabilityMore.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("typeOfDisabilityMore").setValue(typeOfDisabilityMore.getText().toString());
+                                    }
+                                    //JOB SKILL
+                                    if (jobSkill1.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill1").setValue(jobSkill1.getText().toString());
+                                    }
+                                    if (jobSkill2.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill2").setValue(jobSkill2.getText().toString());
+                                    }
+                                    if (jobSkill3.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill3").setValue(jobSkill3.getText().toString());
+                                    }
+                                    if (jobSkill4.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill4").setValue(jobSkill4.getText().toString());
+                                    }
+                                    if (jobSkill5.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill5").setValue(jobSkill5.getText().toString());
+                                    }
+                                    if (jobSkill6.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill6").setValue(jobSkill6.getText().toString());
+                                    }
+                                    if (jobSkill7.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill7").setValue(jobSkill7.getText().toString());
+                                    }
+                                    if (jobSkill8.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill8").setValue(jobSkill8.getText().toString());
+                                    }
+                                    if (jobSkill9.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill9").setValue(jobSkill9.getText().toString());
+                                    }
+                                    if (jobSkill10.isChecked()){
+                                        databaseReference.child(ImageUploadId).child("jobSkill0").setValue(jobSkill10.getText().toString());
+                                    }
                                 }
                             });
                             startActivity(intent);
