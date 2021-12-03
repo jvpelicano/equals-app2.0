@@ -91,7 +91,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(),t,Toast.LENGTH_SHORT).show();
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
-                final String resumeFile = snapshot.child("resumeFile").getValue().toString();
 
                 pNavigation = findViewById(R.id.navigation_view_pwd);
                 menu = pNavigation.getMenu();
@@ -133,6 +132,14 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                 }
 
                 if(snapshot.hasChild("resumeFile")){
+                    MenuItem target5 = menu.findItem(R.id.nav_view_resume);
+                    target5.setVisible(true);
+                }else{
+                    MenuItem target5 = menu.findItem(R.id.nav_view_resume);
+                    target5.setVisible(false);
+                }
+
+                if(snapshot.hasChild("resumeFile")){
                     MenuItem target5 = menu.findItem(R.id.nav_upload_resume);
                     target5.setTitle("Re-Upload Resume");
                 }else if(!snapshot.hasChild("resumeFile")){
@@ -152,9 +159,11 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                             Intent i2 = new Intent(a_PWDContentMainActivity.this, PWD_EditProfile_ViewActivity.class);
                             startActivity(i2);
                         }else if(id == R.id.nav_view_resume){
-                            Intent viewResume_intent = new Intent(a_PWDContentMainActivity.this, PWD_ViewResume_Activity.class);
-                            viewResume_intent.putExtra("RESUME_URL", resumeFile);
-                            startActivity(viewResume_intent);
+                                final String resumeFile = snapshot.child("resumeFile").getValue().toString();
+                                Intent viewResume_intent = new Intent(a_PWDContentMainActivity.this, PWD_ViewResume_Activity.class);
+                                viewResume_intent.putExtra("RESUME_URL", resumeFile);
+                                startActivity(viewResume_intent);
+
                         }else if (id == R.id.nav_upload_resume) {
                             AlertDialog.Builder alert =  new AlertDialog.Builder(a_PWDContentMainActivity.this);
                             alert.setMessage("Resume file format should be in PDF.").setCancelable(false)

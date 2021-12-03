@@ -59,7 +59,7 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
-        editEmailError = findViewById(R.id.textInputLayout3);
+        //editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
         txtImage = txtImage = findViewById(R.id.txtImage);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,7 +126,23 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
-        checkResume();
+        jobOffersRef.child("Resume").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(userId)){
+                    m_sendResume.setText("Resume is already sent.");
+                    m_sendResume.setClickable(false);
+                }else{
+                    checkResume();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 
