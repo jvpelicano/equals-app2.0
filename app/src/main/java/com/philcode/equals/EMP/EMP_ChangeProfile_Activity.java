@@ -353,7 +353,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                                     rootRef.child("lastname").setValue(lastname);
 
                                 }
-
+                                Toast.makeText(EMP_ChangeProfile_Activity.this, "Profile is updated successfully.", Toast.LENGTH_SHORT).show();
                             }
                             // }
                         });

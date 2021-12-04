@@ -401,6 +401,9 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
 
                 }
             });
+            m_workExperience.setText("Scroll down to view work experience list.");
+        }else{
+            m_workExperience.setText(workExperience);
         }
 
 

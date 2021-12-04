@@ -137,6 +137,7 @@ public class EMP_ChangeLogo extends Activity {
                         }
                         //   }
                     });
+                    Toast.makeText(EMP_ChangeLogo.this, "Logo is uploaded successfully.", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener(){
