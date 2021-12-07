@@ -9,10 +9,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background">
-
+        android:background="@color/background"
+        android:gravity="center"
+        >
         <include layout="@layout/emp_navigation_action_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

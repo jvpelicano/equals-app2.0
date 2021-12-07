@@ -392,7 +392,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
                     work_adapter = new EMPToPWD_WorkExperienceAdapter(EMP_ViewPotential_View.this, work_list);
                     work_recyclerView.setAdapter(work_adapter);
                     work_adapter.notifyDataSetChanged();
-                    m_workExperience.setText("Scroll down to view work experience list.");
+                    m_workExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
                 }
 
                 @Override

@@ -200,7 +200,6 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-
                                             FirebaseAuth.getInstance().signOut();
                                             //closing activity
                                             finish();

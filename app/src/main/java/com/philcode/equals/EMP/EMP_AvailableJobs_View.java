@@ -259,7 +259,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayPostLocation.setText(postLoc);
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience + "years");
+        m_displayTotalWorkExperience.setText(workExperience + " years of experience.");
         m_displayExpDate.setText(postExpDate);
         m_displayPermission.setText(permission);
 

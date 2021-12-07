@@ -308,7 +308,7 @@ public class PWD_EditProfile_ViewActivity extends Activity{
 
                         }
                     });
-                    displayTotalWorkExperience.setText("Scroll down to view work experience list.");
+                    displayTotalWorkExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
                 }else{
                     displayTotalWorkExperience.setText(workExperience);
                 }

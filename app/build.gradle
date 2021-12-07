@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.0'
     implementation 'com.google.firebase:firebase-analytics:19.0.1'
     //added 09.10.2021
