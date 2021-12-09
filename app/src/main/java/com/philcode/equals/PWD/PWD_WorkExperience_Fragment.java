@@ -102,10 +102,10 @@ public class PWD_WorkExperience_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String workExperience = dataSnapshot.child("workExperience").getValue().toString();
-
-                DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
-                if(workExperience.equals("With Experience")){
+                if(dataSnapshot.hasChild("listOfWorks")){
                     work_recyclerView.setVisibility(View.VISIBLE);
+                    displayTotalWorkExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
+                    DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
                     noice.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -128,10 +128,15 @@ public class PWD_WorkExperience_Fragment extends Fragment {
 
                         }
                     });
-                    displayTotalWorkExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
                 }else{
-                    displayTotalWorkExperience.setText(workExperience);
+                    if(workExperience.equals("With Experience") && !dataSnapshot.hasChild("listOfWorks")){
+                        work_recyclerView.setVisibility(View.VISIBLE);
+                        displayTotalWorkExperience.setText(workExperience + ", but no previous works information listed.");
+                    }else{
+                        displayTotalWorkExperience.setText(workExperience);
+                    }
                 }
+
             }
 
             @Override

@@ -214,7 +214,7 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                                 work_list.add(p);
                             }
                             PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended);
-                            wCount = work_list.size() + 2;
+                            wCount = work_list.size() + 1;
                             final String e = "w";
                             final String w = e + wCount;
                             mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
