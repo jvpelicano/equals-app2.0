@@ -173,6 +173,7 @@ public class PWD_EditProfile_ViewActivity extends Activity{
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //PWD Basic Info Fragment
                 String firstname = dataSnapshot.child("firstName").getValue().toString();
                 String lastname = dataSnapshot.child("lastName").getValue().toString();
                 String email = dataSnapshot.child("email").getValue().toString();
@@ -209,6 +210,7 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 }else{
                     displayTypeOfDisabilityMore.setVisibility(GONE);
                 }
+
                 /////////////////////////////////// Secondary skills
                 if(dataSnapshot.child("jobSkills0").exists()){
                     displaySkill1.setText(dataSnapshot.child("jobSkills0").getValue().toString());
@@ -283,6 +285,8 @@ public class PWD_EditProfile_ViewActivity extends Activity{
                 String workExperience = dataSnapshot.child("workExperience").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
 
+
+                //PWD Work Experience Fragment. Include Database Reference in the new Fragment to make this work.
                 DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
                 if(workExperience.equals("With Experience")){
                     work_recyclerView.setVisibility(View.VISIBLE);

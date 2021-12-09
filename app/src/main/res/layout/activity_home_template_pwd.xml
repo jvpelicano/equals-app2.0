@@ -64,13 +64,10 @@
             android:layout_marginEnd="15dp"
             android:text="Date"
             android:fontFamily="@font/open_sans_regular"
-            android:textSize="12sp">
-
+            android:textSize="12sp"
+            android:paddingBottom="10dp"
+            >
         </TextView>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp">
-        </View>
     </LinearLayout>
 
 
