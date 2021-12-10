@@ -28,68 +28,69 @@
         <ScrollView
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:descendantFocusability="beforeDescendants"
             android:fillViewport="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:isScrollContainer="true"
                 android:orientation="vertical">
 
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/pwdProfilePic"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:contentDescription="Post Picture"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <Button
                     android:id="@+id/changePhoto"
-                    android:text="Change Profile Photo"
-                    android:background="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_edit_blue"
                     android:drawablePadding="5dp"
+                    android:text="Change Profile Photo"
                     android:textAllCaps="false"
-                    android:textColor="#177ad0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#177ad0" />
+
                 <View
-                    android:background="@color/background"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/background" />
 
                 <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tabLayout"
-                    />
-                <androidx.viewpager2.widget.ViewPager2
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/pwd_viewpager2"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <Button
                     android:id="@+id/btnEdit"
-                    android:visibility="gone"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Edit Profile" />
+                    android:background="@color/colorPrimary"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
 
             </LinearLayout>

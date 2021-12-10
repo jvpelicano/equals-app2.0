@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -64,31 +65,25 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DrawerLayout pDrawerLayout;
     private ActionBarDrawerToggle pToggle;
-    NavigationView navigationView;
     private Toolbar pToolbar;
-    private NavigationView pNavigation, sampNav;
-    String s = "H";
-    String type1, type2, type3, type4;
+    private NavigationView pNavigation;
     TextView fullname, pwd_email;
     Menu menu;
     ImageView imgProfile = null;
-    Context context;
-    String d1 = "Orthopedic Disability";
-    String d2 = "Partial Vision Disability";
-    String d3 = "Hearing Disability";
-    String d4 = "More Disability";
+
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.pwd_activity_home);
+
+
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentFirebaseUser.getUid();
         final String email = currentFirebaseUser.getEmail().toString();
-//        Toast.makeText(getApplicationContext(),uid,Toast.LENGTH_SHORT).show();
-        super.onCreate(savedInstanceState);
-        progressDialog = new ProgressDialog(this);
-        setContentView(R.layout.pwd_activity_home);
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD/" + uid);
-//        String t = rootRef.toString();
-//        Toast.makeText(getApplicationContext(),t,Toast.LENGTH_SHORT).show();
+        progressDialog = new ProgressDialog(this);
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
 
@@ -241,28 +236,15 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        home_recyclerView = findViewById(R.id.homeRecyclerView);
-        home_recyclerView.setHasFixedSize(true);
-        home_recyclerView.setLayoutManager(new LinearLayoutManager(a_PWDContentMainActivity.this));
 
-        home_list = new ArrayList<>();
-        home_databaseref = FirebaseDatabase.getInstance().getReference("home_content");
-        home_databaseref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    Post_HomeInformation p = dataSnapshot1.getValue(Post_HomeInformation.class);
-                    home_list.add(p);
-                }
-                Collections.reverse(home_list);
-                home_adapter = new Post_Home_MyAdapter(a_PWDContentMainActivity.this, home_list);
-                home_recyclerView.setAdapter(home_adapter);
-                home_adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(a_PWDContentMainActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+        setHome_recyclerView();
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setHome_recyclerView();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -354,5 +336,32 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setHome_recyclerView(){
+        home_recyclerView = findViewById(R.id.homeRecyclerView);
+        home_recyclerView.setHasFixedSize(true);
+        home_recyclerView.setLayoutManager(new LinearLayoutManager(a_PWDContentMainActivity.this));
+
+        home_list = new ArrayList<>();
+        home_databaseref = FirebaseDatabase.getInstance().getReference("home_content");
+        home_databaseref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    Post_HomeInformation p = dataSnapshot1.getValue(Post_HomeInformation.class);
+                    home_list.add(p);
+                }
+                Collections.reverse(home_list);
+                home_adapter = new Post_Home_MyAdapter(a_PWDContentMainActivity.this, home_list);
+                home_recyclerView.setAdapter(home_adapter);
+                home_adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(a_PWDContentMainActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

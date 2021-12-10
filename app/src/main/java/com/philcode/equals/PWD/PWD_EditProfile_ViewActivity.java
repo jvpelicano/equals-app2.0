@@ -64,7 +64,6 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
         viewPager2.setAdapter(fragmentAdapter);
 
         tabLayout.addTab(tabLayout.newTab().setText("Basic Information"));
-        tabLayout.addTab(tabLayout.newTab().setText("Educational Background"));
         tabLayout.addTab(tabLayout.newTab().setText("Work Experience"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

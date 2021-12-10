@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EMP.EMP_PotentialApplicant_WorkExp_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="beforeDescendants"
+            android:fillViewport="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtLbz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Work Experience"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    />
+
+                <TextView
+                    android:id="@+id/displayTotalWorkExperience"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:text="Total Work Experience"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="invisible"
+                    android:id="@+id/workRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</FrameLayout>

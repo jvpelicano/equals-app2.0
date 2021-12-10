@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EMP.EMP_PotentialApplicant_BasicInfo_Fragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="beforeDescendants"
+            android:fillViewport="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="2dp"
+                    android:text="Name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="20dp"
+
+                    android:paddingBottom="2dp"
+                    android:text="displayName"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/lblEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:paddingStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:text="Email"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:drawableStart="@drawable/email"
+                    android:drawablePadding="10dp"
+                    android:text="displayEmail"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/lblAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:text="Address"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:drawableStart="@drawable/ic_placeholder"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="2dp"
+                    android:text="displayAddress"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/lblDisability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Type of Disability"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayTypeOfDisability1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:paddingBottom="2dp"
+                    android:text="display1"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txtLbl2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:text="Skill Category"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
+
+                <TextView
+                    android:id="@+id/displayCategorySkill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:text="Category"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
+
+                <TextView
+                    android:id="@+id/lblSkills"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Secondary Skill(s)"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displaySkill1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:text="Skill 1"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtLbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Educational Attainment"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayEducationalAttainment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:text="Educational Degree"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/lblContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Contact"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/displayContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/postBackground"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="2dp"
+                    android:text="displayContact"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="30dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+</FrameLayout>

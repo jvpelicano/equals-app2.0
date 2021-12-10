@@ -24,8 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.philcode.equals.EMP.EMP_ViewPotential_All;
 import com.philcode.equals.PWD.PWD_AddWorkInformation;
 import com.philcode.equals.PWD.PWD_EditProfile_ViewActivity;
+import com.philcode.equals.PWD.PWD_ProfileView_FragmentAdapter;
 import com.philcode.equals.PWD.PWD_WorkExperienceAdapter;
 import com.philcode.equals.R;
 
@@ -61,20 +65,9 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
     private FloatingActionButton fab_main, fab1_call, fab2_mail;
     private Animation fab_open, fab_close, fab_clock, fab_anticlock;
     TextView textview_call, textview_mail;
-    private RecyclerView work_recyclerView;
 
     Boolean isOpen = false;
 
-    private List<EMPToPWD_WokExperienceModel> work_list;
-    private EMPToPWD_WorkExperienceAdapter work_adapter;
-
-    // Folder path for Firebase Storage.
-    String Storage_Path = "Job_Offers/";
-    // Root Database Name for Firebase Database.
-    String Database_Path = "Job_Offers";
-    String huhu, text;
-    private Uri FilePathUri;
-    StorageReference storageReference;
     DatabaseReference pwd_reference;
 
     // Assign FirebaseStorage instance to storageReference.
@@ -103,14 +96,20 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
     private TextView profile_email;
 
     //PWD
-
-    TextView m_fullName, m_email, m_address, m_educationalAttainment, m_workExperience, m_contact, m_skill, m_displayJobSkillList, m_displayTypeOfDisability;
     ImageView images;
+
+    //fragments
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    EMP_FragmentAdapter fragmentAdapter;
 
     private static final String TAG = "EMP_ViewPotential_View";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.emp_viewpotential_view);
+
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -118,8 +117,40 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Employers/" + uid);
         final String email = currentFirebaseUser.getEmail().toString();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.emp_viewpotential_view);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager2 = findViewById(R.id.pwd_viewpager2);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentAdapter = new EMP_FragmentAdapter(fragmentManager, getLifecycle());
+        viewPager2.setAdapter(fragmentAdapter);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Basic Information"));
+        tabLayout.addTab(tabLayout.newTab().setText("Work Experience"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
+
         //animation
         fab_main = findViewById(R.id.fab);
         fab1_call = findViewById(R.id.fab1);
@@ -131,9 +162,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         fab_clock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_clock);
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
 
-        work_recyclerView = findViewById(R.id.workRecyclerView);
-        work_recyclerView.setHasFixedSize(true);
-        work_recyclerView.setLayoutManager(new LinearLayoutManager(EMP_ViewPotential_View.this));
+
 
         //call get Info here...
         getApplicantInfo();
@@ -306,31 +335,8 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String imageUrl = snapshot.child("pwdProfilePic").getValue().toString();
-                String firstName = snapshot.child("firstName").getValue().toString();
-                String lastName = snapshot.child("lastName").getValue().toString();
-                String email = snapshot.child("email").getValue().toString();
-                String address = snapshot.child("address").getValue().toString();
-                String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
-                String workExperience = snapshot.child("workExperience").getValue().toString();
-                String contact = snapshot.child("contact").getValue().toString();
-                String skill = snapshot.child("skill").getValue().toString();
-                String typeOfDisabilityMore = "";
-                ArrayList<String> jobSkillList = new ArrayList<>();
-                ArrayList<String> typeOfDisabilityList = new ArrayList<>();
-                for(int counter = 0; counter <= 10; counter++){
-                    if(snapshot.hasChild("jobSkills" + counter) && !snapshot.child("jobSkills" + counter).getValue().toString().equals("")){
-                        jobSkillList.add(snapshot.child("jobSkills" + counter).getValue(String.class));
-                    }
-                }
 
-                for(int counter_a = 0; counter_a <= 3; counter_a++){
-                    if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
-                        typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
-                    }
-
-                }
-
-                setApplicantInfo(jobSkillList, typeOfDisabilityList, imageUrl, firstName, lastName, email, address, educationalAttainment, workExperience, contact, skill);
+                setApplicantInfo(imageUrl);
             }
 
             @Override
@@ -340,71 +346,15 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         });
 
     }
-    public void setApplicantInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String imageUrl, String firstName, String lastName,  String email, String address, String educationalAttainment,
-                                 String workExperience, String contact, String skill){
-        m_fullName = findViewById(R.id.displayName);
-        m_email = findViewById(R.id.displayEmail);
-        m_address = findViewById(R.id.displayAddress);
-        m_educationalAttainment = findViewById(R.id.displayEducationalAttainment);
-        m_workExperience = findViewById(R.id.displayTotalWorkExperience);
-        m_contact = findViewById(R.id.displayContact);
-        m_skill = findViewById(R.id.displayCategorySkill);
-        m_displayJobSkillList = findViewById(R.id.displaySkill1);
-        m_displayTypeOfDisability = findViewById(R.id.displayTypeOfDisability1);
+
+    public void setApplicantInfo(String imageUrl){
+
         images = findViewById(R.id.pwdProfilePic);
-
-        m_fullName.setText(firstName.concat(" ").concat(lastName));
-        m_email.setText(email);
-        m_address.setText(address);
-        m_educationalAttainment.setText(educationalAttainment);
-        m_contact.setText(contact);
-        m_skill.setText(skill);
-        StringBuilder jobSkillList_builder = new StringBuilder();
-        for(String jobSkillList1 : jobSkillList){
-            jobSkillList_builder.append(jobSkillList1 + "\n");
-        }
-        m_displayJobSkillList.setText(jobSkillList_builder.toString());
-
-        StringBuilder typeOfDisability_builder = new StringBuilder();
-        for(String typeOfDisabilityList1 : typeOfDisabilityList) {
-            typeOfDisability_builder.append(typeOfDisabilityList1 + "\n");
-        }
-        m_displayTypeOfDisability.setText(typeOfDisability_builder.toString());
 
         Glide.with(this)
                 .asBitmap()
                 .load(imageUrl)
                 .into(images);
-        if(workExperience.equals("With Experience")){
-            String pwd_AuthID = getIntent().getStringExtra("PWD_ID");
-            pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD").child(pwd_AuthID).child("listOfWorks");
-            work_recyclerView.setVisibility(View.VISIBLE);
-            pwd_reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    work_list = new ArrayList<>();
-                    work_list.clear();
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        EMPToPWD_WokExperienceModel p = dataSnapshot1.getValue(EMPToPWD_WokExperienceModel.class);
-                        work_list.add(p);
-                    }
-                    Collections.reverse(work_list);
-                    work_adapter = new EMPToPWD_WorkExperienceAdapter(EMP_ViewPotential_View.this, work_list);
-                    work_recyclerView.setAdapter(work_adapter);
-                    work_adapter.notifyDataSetChanged();
-                    m_workExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(EMP_ViewPotential_View.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-            m_workExperience.setText("Scroll down to view work experience list.");
-        }else{
-            m_workExperience.setText(workExperience);
-        }
 
 
     }

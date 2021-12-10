@@ -1,4 +1,4 @@
-package com.philcode.equals.PWD;
+package com.philcode.equals.EMP;
 
 import android.os.Bundle;
 
@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,16 +27,16 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PWD_WorkExperience_Fragment#newInstance} factory method to
+ * Use the {@link EMP_PotentialApplicant_WorkExp_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PWD_WorkExperience_Fragment extends Fragment {
-
-    private List<PWD_AddWorkInformation> work_list;
-    private PWD_WorkExperienceAdapter work_adapter;
+public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
     private RecyclerView work_recyclerView;
-    TextView displayTotalWorkExperience;
-    DatabaseReference rootRef;
+    private List<EMPToPWD_WokExperienceModel> work_list;
+    private EMPToPWD_WorkExperienceAdapter work_adapter;
+    DatabaseReference pwd_reference;
+
+    TextView  m_workExperience;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +47,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PWD_WorkExperience_Fragment() {
+    public EMP_PotentialApplicant_WorkExp_Fragment() {
         // Required empty public constructor
     }
 
@@ -59,11 +57,11 @@ public class PWD_WorkExperience_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PWD_WorkExperience_Fragment.
+     * @return A new instance of fragment EMP_PotentialApplicant_WorkExp_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PWD_WorkExperience_Fragment newInstance(String param1, String param2) {
-        PWD_WorkExperience_Fragment fragment = new PWD_WorkExperience_Fragment();
+    public static EMP_PotentialApplicant_WorkExp_Fragment newInstance(String param1, String param2) {
+        EMP_PotentialApplicant_WorkExp_Fragment fragment = new EMP_PotentialApplicant_WorkExp_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,43 +82,43 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pwd_workexperience, container, false);
+        return inflater.inflate(R.layout.fragment_emp_pwdworkexp, container, false);
     }
-
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentFirebaseUser.getUid();
-        rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
+
+        //initialize layout components
+        m_workExperience = view.findViewById(R.id.displayTotalWorkExperience);
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
+
         work_recyclerView.setHasFixedSize(true);
         work_recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        displayTotalWorkExperience = view.findViewById(R.id.displayTotalWorkExperience);
-        getUserWorkInfo(uid);
-    }
-    public void getUserWorkInfo(String uid){
-        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD");
+
+        String pwd_AuthID = getActivity().getIntent().getStringExtra("PWD_ID");
+        pwd_reference.child(pwd_AuthID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String workExperience = dataSnapshot.child("workExperience").getValue().toString();
-                if(dataSnapshot.hasChild("listOfWorks") && workExperience.equals("With Experience")){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String workExperience = snapshot.child("workExperience").getValue().toString();
+                if(workExperience.equals("With Experience")){
+                    String pwd_AuthID = getActivity().getIntent().getStringExtra("PWD_ID");
+                    pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD").child(pwd_AuthID).child("listOfWorks");
                     work_recyclerView.setVisibility(View.VISIBLE);
-                    displayTotalWorkExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
-                    DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
-                    noice.addListenerForSingleValueEvent(new ValueEventListener() {
+                    pwd_reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             work_list = new ArrayList<>();
                             work_list.clear();
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
+                                EMPToPWD_WokExperienceModel p = dataSnapshot1.getValue(EMPToPWD_WokExperienceModel.class);
                                 work_list.add(p);
                             }
                             Collections.reverse(work_list);
-                            work_adapter = new PWD_WorkExperienceAdapter(getContext(), work_list);
+                            work_adapter = new EMPToPWD_WorkExperienceAdapter(getContext(), work_list);
                             work_recyclerView.setAdapter(work_adapter);
                             work_adapter.notifyDataSetChanged();
-
+                            m_workExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
                         }
 
                         @Override
@@ -129,15 +127,10 @@ public class PWD_WorkExperience_Fragment extends Fragment {
 
                         }
                     });
+                    m_workExperience.setText("Scroll down to view work experience list.");
                 }else{
-                    if(workExperience.equals("With Experience") && !dataSnapshot.hasChild("listOfWorks")){
-                        work_recyclerView.setVisibility(View.VISIBLE);
-                        displayTotalWorkExperience.setText(workExperience + ", but no previous works information listed.");
-                    }else{
-                        displayTotalWorkExperience.setText(workExperience);
-                    }
+                    m_workExperience.setText(workExperience);
                 }
-
             }
 
             @Override
