@@ -6,15 +6,21 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_delete.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_login_effect.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/camera.xml" value="0.3385416666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/cardview_shape.xml" value="0.35885416666666664" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/cardview_textbg.xml" value="0.35885416666666664" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/carview_textbg.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/cursor.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/description_bg.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_add.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_applicants.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_baseline_note_add_24.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_edit.xml" value="0.35885416666666664" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_edit_blue.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_job.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_person.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/password.xml" value="0.35885416666666664" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/font/poppins_bold.xml" value="0.3572916666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/font/poppins_light.xml" value="0.284375" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_add_work_experience.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_emp_view_resume_pdf.xml" value="0.29322916666666665" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_home_template_pwd.xml" value="0.31875" />
@@ -48,6 +54,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_basicinfo.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_educational_background.xml" value="0.3223958333333333" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_workexperience.xml" value="0.3385416666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/layout.xml" value="0.32065217391304346" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/list_item_work.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/other_skills.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/privacy_policy.xml" value="0.290625" />

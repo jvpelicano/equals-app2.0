@@ -56,92 +56,6 @@
 
                 </View>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/line2" />
-
-
-                <EditText
-                    android:id="@+id/editEmployerFirstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="First Name"
-                    android:inputType="textPersonName|textCapWords"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
-
-                <EditText
-                    android:id="@+id/editEmployerLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="Last Name"
-                    android:inputType="textPersonName|textCapWords"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editEmployerFirstName" />
-
-
-                <EditText
-                    android:id="@+id/editCompanyName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="Company Name"
-                    android:inputType="textPersonName|textCapWords"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editEmployerLastName" />
-
-
-                <EditText
-                    android:id="@+id/editContact"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:digits="0123456789"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="Representative Contact Number"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.489"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editCompanyName" />
-
-                <ImageView
-                    android:id="@+id/emp_ID"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/background"
-                    android:src="@drawable/placeholder"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView12" />
-
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
@@ -172,7 +86,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView8" />
 
-                <Button
+                <ImageView
+                    android:id="@+id/emp_ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/background"
+                    android:src="@drawable/camera"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_emp_ID_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,6 +114,159 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/emp_ID" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+
+                <TextView
+                    android:id="@+id/textFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="First Name"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterFirstName_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:hint="Juan"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editEmployerFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="Juan"
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="Last Name"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterLastName_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editEmployerLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="Dela Cruz"
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/textCompanyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="Company Name"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterCompanyName_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editCompanyName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="(eg. Company Name Org.)"
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/textContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="Contact Number"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterContactNumber_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint=" +639..."
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <TextView
                     android:id="@+id/lblCompanyOverview"
@@ -203,54 +284,64 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_emp_ID_upload" />
 
-                <EditText
-                    android:id="@+id/editCompanyBackground"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterCompanyOverview_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="Enter company overview"
-                    android:inputType="textMultiLine|textCapSentences"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.489"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lblCompanyOverview" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editCompanyBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="Enter Company Overview."
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/textAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/open_sans_regular"
                     android:text="Company Address"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editCompanyBackground" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/editTextAddress"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterAddress_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_placeholder"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:hint="(e.g. 2202 Don Juan St.)"
-                    android:inputType="textPersonName|textCapSentences"
-                    android:singleLine="false"
-                    android:textAlignment="viewStart"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textAddress" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_location_on_24"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint=" (eg. Blk. 1 Lot 2 Brngy. San...)"
+                        android:inputType="textWebEditText"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/textCity"
@@ -270,12 +361,12 @@
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/spinnerCity"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:background="@android:drawable/btn_dropdown"
                     android:entries="@array/City"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:prompt="@string/city_prompt"
@@ -292,15 +383,15 @@
                     android:text="TextView"
                     android:visibility="gone" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSave"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
-                    android:fontFamily="@font/proxima_nova_regular"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
                     android:text="Proceed"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textSize="12sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

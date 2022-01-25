@@ -38,7 +38,7 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
 
     // Folder path for Firebase Storage.
     String Storage_Path = "Employer_Reg_Form/";
-    private TextView textViewUserEmail, txtImage;
+    private TextView textViewUserEmail;
     private Button buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
 
     private EditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
@@ -62,8 +62,6 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
         //editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
-        txtImage = txtImage = findViewById(R.id.txtImage);
-        txtImage.setVisibility(View.INVISIBLE);
         buttonSave = (Button) findViewById(R.id.btnEditProfile);
         empValidID = findViewById(R.id.emp_ID);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +77,6 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
 
         editFirstName = findViewById(R.id.editEmployerFirstName);
         editFirstName.setKeyListener(null);
-
-        editLastName = findViewById(R.id.editEmployerLastName);
-        editLastName.setKeyListener(null);
 
         editCompanyName = findViewById(R.id.editCompanyName);
         editCompanyName.setKeyListener(null);
@@ -122,12 +117,9 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
                 editCompanyAddress.setText(companyAddress+" "+companycity);
                 editCompanyBackground.setText(companybg);
                 editContact.setText(contact);
-                editFirstName.setText(firstname);
+                editFirstName.setText(firstname + " " + lastname);
                 editCompanyName.setText(fullname);
-                editLastName.setText(lastname);
-                //spinnerCity.setText(companycity);
                 Glide.with(getApplicationContext()).load(empValidID1).into(empValidID);
-                txtImage.setText(empvalidid);
 
 
             }
