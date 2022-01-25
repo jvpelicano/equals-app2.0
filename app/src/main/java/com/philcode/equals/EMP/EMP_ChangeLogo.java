@@ -92,7 +92,6 @@ public class EMP_ChangeLogo extends Activity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String profile = dataSnapshot.child("empProfilePic").getValue().toString();
                 Glide.with(EMP_ChangeLogo.this).load(profile).into(profilePicEMP);
-
             }
 
             @Override

@@ -9,7 +9,7 @@
     android:fillViewport="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@color/white"
     tools:context="EMP.EMP_AvailableJobs_View">
 
     <RelativeLayout
@@ -46,7 +46,30 @@
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_displayCompanyLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:layout_constraintTop_toBottomOf="@+id/displayPostPic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    >
+                    <ImageView
+                        android:id="@+id/displayCompanyLogo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@color/postBackground"
+                        android:contentDescription="Post Picture"
+                        android:scaleType="centerCrop"
+                        />
+                </androidx.cardview.widget.CardView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
@@ -55,7 +78,7 @@
                     android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/displayPostPic">
+                    app:layout_constraintTop_toBottomOf="@+id/card_displayCompanyLogo">
 
                     <TextView
                         android:id="@+id/displayPostTitle"
@@ -63,13 +86,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@color/postBackground"
-                        android:fontFamily="@font/proxima_nova_regular"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="10dp"
                         android:singleLine="false"
                         android:text="Title"
+                        android:fontFamily="@font/proxima_nova_regular"
                         android:textAlignment="center"
                         android:textColor="@color/textColor"
                         android:textSize="30sp"
@@ -77,18 +100,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    -->
+
                     <TextView
                         android:id="@+id/displayCompanyName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/postBackground"
-                        android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="10dp"
                         android:text="Company Name"
-                        android:textAlignment="textStart"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:textAlignment="center"
                         android:textColor="@color/textColor"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -101,13 +126,54 @@
                         android:id="@+id/displayPostDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/open_sans_regular"
+                        android:background="@drawable/description_bg"
+                        android:layout_margin="10dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="10dp"
                         android:text="Description"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLb10" />
+
+                    <TextView
+                        android:id="@+id/txtLb10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/postBackground"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Job Description"
+                        android:textColor="@color/textColor"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view1"
+                        />
+
+                    <TextView
+                        android:id="@+id/displayPostLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/postBackground"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Location"
+                        android:drawableStart="@drawable/ic_placeholder"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/open_sans_regular"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="18sp"
@@ -116,39 +182,38 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/displayCompanyName" />
 
-                    <TextView
-                        android:id="@+id/displayPostLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:drawableStart="@drawable/ic_placeholder"
-                        android:drawablePadding="10dp"
-                        android:fontFamily="@font/open_sans_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Location"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/textColor"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPostDescription" />
-
-
                     <View
                         android:id="@+id/view1"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_height="2dp"
                         android:background="@color/background"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayPostLocation" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayPostLocation"
+                        />
+
+
+
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/displayPostDate"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:background="@color/postBackground"-->
+                    <!--                        android:paddingLeft="10dp"-->
+                    <!--                        android:paddingTop="1dp"-->
+                    <!--                        android:paddingRight="10dp"-->
+                    <!--                        android:paddingBottom="2dp"-->
+                    <!--                        android:text="Post Date"-->
+                    <!--                        android:textAlignment="textStart"-->
+                    <!--                        android:textColor="#504E4E"-->
+                    <!--                        android:textSize="12sp"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintHorizontal_bias="0.0"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/displayPostDescription" />-->
 
                     <TextView
                         android:id="@+id/txtLb9"
@@ -166,7 +231,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view1" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayPostDescription" />
 
                     <TextView
                         android:id="@+id/txtLbl2"
@@ -349,6 +414,7 @@
                         android:paddingTop="2dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
+                        android:layout_marginTop="15dp"
                         android:text="Type Of Disability"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
@@ -368,6 +434,7 @@
                         android:paddingTop="2dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
+                        android:layout_marginTop="15dp"
                         android:text="Job available until:"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
@@ -406,8 +473,9 @@
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Post Status"
+                        android:layout_marginTop="15dp"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"

@@ -90,8 +90,6 @@ public class PWD_EditProfile extends AppCompatActivity  {
         storageReference = storage.getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-
-        btnUpload = (Button) findViewById(R.id.btn_pwd_choose_idcard);
         buttonSave = (Button) findViewById(R.id.buttonSave);
 
 

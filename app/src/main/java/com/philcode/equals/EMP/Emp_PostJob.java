@@ -77,6 +77,7 @@ public class Emp_PostJob extends AppCompatActivity {
     String categorySkill;
     String x;
     String Address;
+    private String companyLogo;
     String city;
     String week1="1 week";
     String week2="2 weeks";
@@ -152,6 +153,7 @@ public class Emp_PostJob extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Address = dataSnapshot.child("companyaddress").getValue(String.class);
                 city = dataSnapshot.child("companycity").getValue(String.class);
+                companyLogo = dataSnapshot.child("empProfilePic").getValue(String.class);
      //           Toast.makeText(getApplicationContext(), cu+Address+city, Toast.LENGTH_LONG).show();
             }
 
@@ -425,6 +427,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     String tempPostTitle = postTitle.getText().toString().trim();
                                     String tempPostDescription = postDescription.getText().toString();
                                     String tempPostLocation = Address;
+                                    String tempCompanyLogo = companyLogo;
                                     String ImageUploadId = databaseReference.push().getKey();
                                     rgEducAttainment = findViewById(R.id.rg_educ);
                                     final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
@@ -451,7 +454,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
-                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz);
+                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz, tempCompanyLogo);
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);

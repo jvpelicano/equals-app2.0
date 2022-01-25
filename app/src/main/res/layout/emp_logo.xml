@@ -35,7 +35,7 @@
                     android:text="Please upload your Company Logo to finalize your registration."
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="59dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/emp_profilePic"

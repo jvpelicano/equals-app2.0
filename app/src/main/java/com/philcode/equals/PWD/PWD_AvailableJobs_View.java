@@ -57,7 +57,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
             m_displayPostTitle;
     Button m_sendResume;
-    ImageView m_displayPostPic;
+    ImageView m_displayPostPic, m_displayCompanyLogo;
+    private String companyLogoURL;
     private ProgressDialog progressDialog;
     private static final int PICK_FILE = 1 ;
 
@@ -84,6 +85,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayPermission = findViewById(R.id.displayPermission);
         m_sendResume = findViewById(R.id.btnApply);
         m_displayPostPic = findViewById(R.id.displayPostPic);
+        m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
         //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
@@ -101,7 +103,11 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
                 final String expDate = snapshot.child("expDate").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
-
+                if(snapshot.hasChild("empProfilePic")){
+                    companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
+                }else{
+                    companyLogoURL = null;
+                }
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
                 for(int counter = 1; counter <= 10; counter++){
@@ -122,7 +128,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience,
-                        expDate, imageURL);
+                        expDate, imageURL, companyLogoURL);
             }
 
             @Override
@@ -152,7 +158,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
                             String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate,
-                            String imageURL){
+                            String imageURL, String companyLogoURL){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -174,6 +180,12 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         }
         m_displayTypeOfDisabilitiesList.setText(typeOfDisability_builder.toString());
         Glide.with(getApplicationContext()).load(imageURL).into(m_displayPostPic);
+        if(companyLogoURL == null){
+            m_displayCompanyLogo.setVisibility(View.GONE);
+        }else{
+            Glide.with(getApplicationContext()).load(companyLogoURL).into(m_displayCompanyLogo);
+        }
+
 
     }
     public void checkResume(){

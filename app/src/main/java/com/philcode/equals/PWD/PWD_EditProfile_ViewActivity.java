@@ -48,9 +48,9 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
 
 
     //fragments
-    TabLayout tabLayout;
-    ViewPager2 viewPager2;
-    PWD_ProfileView_FragmentAdapter fragmentAdapter;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager2;
+    private PWD_ProfileView_FragmentAdapter fragmentAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -38,11 +38,11 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
     m_displayPostTitle;
 
-    ImageView m_displayPostPic;
+    ImageView m_displayPostPic, m_displayCompanyLogo;
     FirebaseDatabase fDb;
     DatabaseReference jobOffersRef, pwdRef;
     Boolean isOpen = false;
-
+    String companyLogoURL;
     DatabaseReference refForJobs;
     private static final String TAG = "PWD_AvailableJobs_View";
 
@@ -67,6 +67,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayExpDate = findViewById(R.id.displayExpDate);
         m_displayPermission = findViewById(R.id.displayPermission);
         m_displayPostPic = findViewById(R.id.displayPostPic);
+        m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
         //animation
         fab_main = findViewById(R.id.fab);
         fab1_resumes = findViewById(R.id.fab1);
@@ -222,6 +223,12 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 final String postExpDate = snapshot.child("expDate").getValue().toString();
                 final String permission = snapshot.child("permission").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
+                if(snapshot.hasChild("empProfilePic")){
+                    companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
+                }else{
+                    companyLogoURL = null;
+                }
+
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
 
@@ -241,7 +248,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                     typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission
-                , imageURL);
+                , imageURL, companyLogoURL);
             }
 
             @Override
@@ -252,7 +259,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     }
 
     private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment,
-                             String workExperience, String postExpDate, String permission, String imageURL) {
+                             String workExperience, String postExpDate, String permission, String imageURL, String companyLogoUrl) {
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -275,8 +282,10 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         }
         m_displayTypeOfDisabilitiesList.setText(typeOfDisability_builder.toString());
         Glide.with(getApplicationContext()).load(imageURL).into(m_displayPostPic);
-
+        if(companyLogoUrl == null){
+            m_displayCompanyLogo.setVisibility(View.GONE);
+        }else{
+            Glide.with(getApplicationContext()).load(companyLogoUrl).into(m_displayCompanyLogo);
+        }
     }
-
-
 }
