@@ -60,6 +60,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class PWD_RegisterActivity2 extends AppCompatActivity{
 
@@ -68,6 +69,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     FirebaseStorage storage;
     StorageReference storageReference;
     DatabaseReference mDatabase;
+    private String work_UUID;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -361,17 +363,25 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String skill = spinnercategory.getSelectedItem().toString();
+                        if (skill.equals("Click to select value")) {
+                            Toast.makeText(PWD_RegisterActivity2.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
+                        }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
+                                || dateended.getText().toString().isEmpty()){
+                            Toast.makeText(PWD_RegisterActivity2.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
+                        }else{
 
                         String job = jobposition.getText().toString();
                         String company = companyname.getText().toString();
                         String started = datestarted.getText().toString();
                         String ended = dateended.getText().toString();
-                        String skill = spinnercategory.getSelectedItem().toString();
 
-                        PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended);
+
+
                         wCount++;
                         final String e = "w";
                         final String w = e + wCount;
+                        PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
                         mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
 
                         DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
@@ -398,7 +408,8 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                                 Toast.makeText(PWD_RegisterActivity2.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
                             }
-                        });
+                        });        }
+
 
 
                     }

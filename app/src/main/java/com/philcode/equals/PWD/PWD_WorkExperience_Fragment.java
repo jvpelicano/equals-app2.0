@@ -1,10 +1,13 @@
 package com.philcode.equals.PWD;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +40,8 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
     private RecyclerView work_recyclerView;
+    private FirebaseUser currentFirebaseUser;
+    private String uid;
     TextView displayTotalWorkExperience;
     DatabaseReference rootRef;
 
@@ -83,14 +88,17 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        uid = currentFirebaseUser.getUid();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pwd_workexperience, container, false);
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentFirebaseUser.getUid();
+
         rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
         work_recyclerView.setHasFixedSize(true);
@@ -98,6 +106,28 @@ public class PWD_WorkExperience_Fragment extends Fragment {
         displayTotalWorkExperience = view.findViewById(R.id.displayTotalWorkExperience);
         getUserWorkInfo(uid);
     }
+
+    //Delete on swipe function
+    /*ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };*/
+/*    public void deleteWorkExp(RecyclerView.ViewHolder holder){
+        String workUUID = work_list.get(holder.getAdapterPosition()).getWorkID();
+        rootRef.child(workUUID).removeValue();
+        work_list.remove(holder.getAdapterPosition());
+        work_adapter.notifyDataSetChanged();
+    }*/
+
+
+
     public void getUserWorkInfo(String uid){
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

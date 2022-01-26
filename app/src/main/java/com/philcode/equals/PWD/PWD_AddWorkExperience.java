@@ -36,11 +36,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class PWD_AddWorkExperience extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     private int wCount;
     DatabaseReference mDatabase;
+    private String work_UUID;
 
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
@@ -197,11 +200,15 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                 String skill = spinnercategory.getSelectedItem().toString();
                 if (skill.equals("Click to select value")) {
                     Toast.makeText(PWD_AddWorkExperience.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
-                }else {
+                }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
+                || dateended.getText().toString().isEmpty()){
+                    Toast.makeText(PWD_AddWorkExperience.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
+                }else{
                     String job = jobposition.getText().toString();
                     String company = companyname.getText().toString();
                     String started = datestarted.getText().toString();
                     String ended = dateended.getText().toString();
+
                     DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
 
                     noice.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -213,10 +220,10 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                                 PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
                                 work_list.add(p);
                             }
-                            PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended);
-                            wCount = work_list.size() + 1;
                             final String e = "w";
                             final String w = e + wCount;
+                            PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
+                            wCount = work_list.size() + 1;
                             mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
                             mDatabase.child(userz).child("workExperience").setValue("With Experience");
                             startActivity(new Intent(PWD_AddWorkExperience.this, PWD_AddWorkExperience.class));

@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class PWD_EditProfile2 extends AppCompatActivity{
     //firebase auth object
@@ -82,6 +83,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
     private RadioGroup rgWorkExperience, rgEducAttainment;
     private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
     private RecyclerView work_recyclerView;
+    private String work_UUID;
 
     int wCount = 0;
 
@@ -380,44 +382,51 @@ public class PWD_EditProfile2 extends AppCompatActivity{
                 alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        String job = jobposition.getText().toString();
-                        String company = companyname.getText().toString();
-                        String started = datestarted.getText().toString();
-                        String ended = dateended.getText().toString();
                         String skill = spinnercategory.getSelectedItem().toString();
+                        if (skill.equals("Click to select value")) {
+                            Toast.makeText(PWD_EditProfile2.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
+                        }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
+                                || dateended.getText().toString().isEmpty()){
+                            Toast.makeText(PWD_EditProfile2.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
+                        }else {
+                            String job = jobposition.getText().toString();
+                            String company = companyname.getText().toString();
+                            String started = datestarted.getText().toString();
+                            String ended = dateended.getText().toString();
 
-                        PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended);
-                        wCount++;
-                        final String e = "w";
-                        final String w = e + wCount;
-                        mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
 
-                        DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
-                        Toast.makeText(PWD_EditProfile2.this, "List of Work Added", Toast.LENGTH_LONG).show();
+                            wCount++;
+                            final String e = "w";
+                            final String w = e + wCount;
+                            PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
+                            mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
 
-                        noice.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                work_list = new ArrayList<>();
-                                work_list.clear();
-                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                    PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
-                                    work_list.add(p);
+                            DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
+                            Toast.makeText(PWD_EditProfile2.this, "List of Work Added", Toast.LENGTH_LONG).show();
+
+                            noice.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    work_list = new ArrayList<>();
+                                    work_list.clear();
+                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                        PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
+                                        work_list.add(p);
+                                    }
+                                    Collections.reverse(work_list);
+                                    work_adapter = new PWD_WorkExperienceAdapter(PWD_EditProfile2.this, work_list);
+                                    work_recyclerView.setAdapter(work_adapter);
+                                    work_adapter.notifyDataSetChanged();
+
                                 }
-                                Collections.reverse(work_list);
-                                work_adapter = new PWD_WorkExperienceAdapter(PWD_EditProfile2.this, work_list);
-                                work_recyclerView.setAdapter(work_adapter);
-                                work_adapter.notifyDataSetChanged();
 
-                            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Toast.makeText(PWD_EditProfile2.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                Toast.makeText(PWD_EditProfile2.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
+                                }
+                            });
+                        }
 
 
                     }

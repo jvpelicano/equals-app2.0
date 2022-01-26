@@ -7,18 +7,28 @@ public class PWD_AddWorkInformation {
     String skill;
     String dateStarted;
     String dateEnded;
+    String workID;
 
 
 
 
-    public PWD_AddWorkInformation (String position, String company_name, String skill, String dateStarted, String dateEnded){
+    public PWD_AddWorkInformation (String position, String company_name, String skill, String dateStarted, String dateEnded, String workID){
 
         this.position = position;
         this.company_name = company_name;
         this.skill = skill;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
+        this.workID = workID;
 
+    }
+
+    public String getWorkID() {
+        return workID;
+    }
+
+    public void setWorkID(String workID) {
+        this.workID = workID;
     }
 
     public String getPosition() {

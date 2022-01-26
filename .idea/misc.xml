@@ -26,6 +26,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_home_template_pwd.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_home_view.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_pwd_addworkexperience.xml" value="0.3223958333333333" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_signin_pwd_emp.xml" value="0.31521739130434784" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_activity_home.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_available_jobs.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_availablejobs_cardview.xml" value="0.25" />
@@ -56,6 +57,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_workexperience.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/layout.xml" value="0.32065217391304346" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/list_item_work.xml" value="0.3385416666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/list_item_work_pwd.xml" value="0.31521739130434784" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/other_skills.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/privacy_policy.xml" value="0.290625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_activity_home.xml" value="0.24635416666666668" />
@@ -63,6 +65,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_activity_register.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_activity_register2.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_activity_register3.xml" value="0.22418478260869565" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_addworkexperience.xml" value="0.31521739130434784" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_available_jobs.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_availablejobs_cardview.xml" value="0.25885416666666666" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_availablejobs_view.xml" value="0.25885416666666666" />
