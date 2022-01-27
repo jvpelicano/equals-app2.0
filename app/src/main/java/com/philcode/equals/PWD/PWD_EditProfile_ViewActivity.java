@@ -83,7 +83,6 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
 
             }
         });
-
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

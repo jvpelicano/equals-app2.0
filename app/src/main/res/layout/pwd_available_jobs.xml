@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:gravity="center"
+    android:gravity="center_vertical"
     >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecycler"
@@ -14,12 +14,22 @@
         android:visibility="gone"
         />
 
+    <ImageView
+        android:id="@+id/mascot"
+        android:layout_width="343dp"
+        android:layout_height="180dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/service_dog_mascot" />
+
     <TextView
         android:id="@+id/tv_noJobsAvailable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="No job posts matched at the moment."
         android:gravity="center"
+        android:text="No job posts matched at the moment."
+        android:textSize="22sp"
+        android:fontFamily="@font/poppins_bold"
         />
 </LinearLayout>

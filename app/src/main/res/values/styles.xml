@@ -16,4 +16,5 @@
     <style name="ProximaNovaTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/proxima_nova_regular</item>
     </style>
+
 </resources>

@@ -355,7 +355,7 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
                 } else if (password.length() <= 5) {
                     //             editPassword.requestFocus();
                     editPassword.setError("Your password must contain at least 6 characters");
-                } else if (!(stringConfirmPassword.equals(password))) {
+                } else if (!(stringConfirmPassword1.equals(password))) {
                     confirmPasswordError.setError("Password doesn't match");
                 } else if (firstname.length() == 0) {
                     //           editFirstName.requestFocus();

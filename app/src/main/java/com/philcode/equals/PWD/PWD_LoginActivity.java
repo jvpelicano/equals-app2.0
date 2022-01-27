@@ -145,7 +145,6 @@ public class PWD_LoginActivity extends AppCompatActivity implements View.OnClick
                         //if the task is successful
                         if(task.isSuccessful()){
                             if(firebaseAuth.getCurrentUser().isEmailVerified()){
-//                                finish();
                                 startActivity(new Intent(getApplicationContext(), LoadingActivityPWD.class));
                             }else{
                                 AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_LoginActivity.this);

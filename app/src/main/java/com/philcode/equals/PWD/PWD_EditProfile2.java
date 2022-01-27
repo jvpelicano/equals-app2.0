@@ -130,12 +130,8 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         final String userz = user.getUid();
         rbWithoutExperience = findViewById(R.id.radio_10);
         rbWithExperience = findViewById(R.id.radio_11);
-        work_recyclerView = findViewById(R.id.workRecyclerView);
-        work_recyclerView.setHasFixedSize(true);
-        work_recyclerView.setLayoutManager(new LinearLayoutManager(PWD_EditProfile2.this));
 
         firebaseAuth = FirebaseAuth.getInstance();
-        buttonAddWork = findViewById(R.id.add_work);
 
         final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
         categoryRef.addValueEventListener(new ValueEventListener() {
@@ -188,14 +184,12 @@ public class PWD_EditProfile2 extends AppCompatActivity{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbWithExperience.isChecked()) {
                     workExperience="With Experience";
-                    buttonAddWork.setVisibility(View.VISIBLE);
-                    work_recyclerView.setVisibility(View.VISIBLE);
+
 
                 }
                 if (rbWithoutExperience.isChecked()) {
                     workExperience="Without Experience";
-                    buttonAddWork.setVisibility(View.GONE);
-                    work_recyclerView.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -247,204 +241,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
             }
         });
 
-
-        buttonAddWork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                View view = LayoutInflater.from(PWD_EditProfile2.this).inflate(R.layout.working_experience,null);
-                final EditText jobposition = view.findViewById(R.id.work_jobposition);
-                final EditText companyname = view.findViewById(R.id.work_company);
-                final EditText datestarted = view.findViewById(R.id.date_started);
-                final EditText dateended = view.findViewById(R.id.date_ended);
-
-                final TextView txtstart = view.findViewById(R.id.txtstart);
-                final TextView txtend = view.findViewById(R.id.txtend);
-
-                final Button btnSelectstart = view.findViewById(R.id.btnSelectstart);
-                final Button btnSelectend = view.findViewById(R.id.btnSelectend);
-                final Spinner spinnercategory = view.findViewById(R.id.spinnerCategory);
-
-                final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
-                categoryRef.addValueEventListener(new ValueEventListener() {
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        final List<String> category = new ArrayList<String>();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
-                            category.add(data.get("skill").toString());
-                        }
-                        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(PWD_EditProfile2.this, android.R.layout.simple_spinner_item, category) {
-                            @Override
-                            public View getDropDownView(int position, View convertView,
-                                                        ViewGroup parent) {
-                                View view = super.getDropDownView(position, convertView, parent);
-                                TextView tv = (TextView) view;
-                                if (position == 0) {
-                                    // Hide the second item from Spinner
-                                    tv.setVisibility(View.GONE);
-                                } else {
-                                    tv.setVisibility(View.VISIBLE);
-                                }
-                                return view;
-                            }
-                        };
-                        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnercategory.setAdapter(categoryAdapter);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                AlertDialog.Builder alertWork = new AlertDialog.Builder(PWD_EditProfile2.this);
-                alertWork.setView(view);
-                {
-                    final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-                        @RequiresApi(api = Build.VERSION_CODES.O)
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                              int dayOfMonth) {
-                            // TODO Auto-generated method stub
-                            myCalendar.set(Calendar.YEAR, year);
-                            myCalendar.set(Calendar.MONTH, monthOfYear);
-                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            String myFormat = "MMM/dd/yyyy"; //In which you need put here
-                            String year1 = "yyyy"; //In which you need put here
-                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                            SimpleDateFormat yearformat = new SimpleDateFormat(year1, Locale.US);
-                            datestarted.setText(sdf.format(myCalendar.getTime()));
-
-                            int date1 = Integer.parseInt(yearformat.format(myCalendar.getTime()));
-                            txtstart.setText(""+date1);
-
-                        }
-
-                    };
-                    final DatePickerDialog.OnDateSetListener date2 = new DatePickerDialog.OnDateSetListener() {
-
-                        @RequiresApi(api = Build.VERSION_CODES.O)
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                              int dayOfMonth) {
-                            // TODO Auto-generated method stub
-                            myCalendar.set(Calendar.YEAR, year);
-                            myCalendar.set(Calendar.MONTH, monthOfYear);
-                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            String myFormat = "MMM/dd/yyyy"; //In which you need put here
-                            String year1 = "yyyy"; //In which you need put here
-                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                            SimpleDateFormat yearformat = new SimpleDateFormat(year1, Locale.US);
-                            dateended.setText(sdf.format(myCalendar.getTime()));
-
-                            int date1 = Integer.parseInt(yearformat.format(myCalendar.getTime()));
-                            txtend.setText(""+date1);
-
-
-                        }
-
-                    };
-
-                    btnSelectstart.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            // TODO Auto-generated method stub
-                            new DatePickerDialog(PWD_EditProfile2.this, date, myCalendar
-                                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
-
-
-                        }
-                    });
-
-                    btnSelectend.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            // TODO Auto-generated method stub
-                            new DatePickerDialog(PWD_EditProfile2.this, date2, myCalendar
-                                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                        }
-                    });
-
-
-
-
-
-                }
-
-                alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String skill = spinnercategory.getSelectedItem().toString();
-                        if (skill.equals("Click to select value")) {
-                            Toast.makeText(PWD_EditProfile2.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
-                        }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
-                                || dateended.getText().toString().isEmpty()){
-                            Toast.makeText(PWD_EditProfile2.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
-                        }else {
-                            String job = jobposition.getText().toString();
-                            String company = companyname.getText().toString();
-                            String started = datestarted.getText().toString();
-                            String ended = dateended.getText().toString();
-
-
-                            wCount++;
-                            final String e = "w";
-                            final String w = e + wCount;
-                            PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
-                            mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
-
-                            DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
-                            Toast.makeText(PWD_EditProfile2.this, "List of Work Added", Toast.LENGTH_LONG).show();
-
-                            noice.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    work_list = new ArrayList<>();
-                                    work_list.clear();
-                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
-                                        work_list.add(p);
-                                    }
-                                    Collections.reverse(work_list);
-                                    work_adapter = new PWD_WorkExperienceAdapter(PWD_EditProfile2.this, work_list);
-                                    work_recyclerView.setAdapter(work_adapter);
-                                    work_adapter.notifyDataSetChanged();
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    Toast.makeText(PWD_EditProfile2.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-                        }
-
-
-                    }
-                });
-                alertWork.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertWork.setCancelable(false);
-
-                AlertDialog alert = alertWork.create();
-                alert.setTitle("Add Work");
-                alert.show();
-
-            }
-        });
 
     }
 

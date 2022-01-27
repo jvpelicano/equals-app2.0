@@ -44,6 +44,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     private String uid;
     TextView displayTotalWorkExperience;
     DatabaseReference rootRef;
+    private View view;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,21 +89,25 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view  = inflater.inflate(R.layout.fragment_pwd_workexperience, container, false);
 
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = currentFirebaseUser.getUid();
+        work_recyclerView = view.findViewById(R.id.workRecyclerView);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        work_recyclerView.setLayoutManager(manager);
+        work_recyclerView.setHasFixedSize(true);
+
+
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pwd_workexperience, container, false);
+        return view;
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
-        work_recyclerView = view.findViewById(R.id.workRecyclerView);
-        work_recyclerView.setHasFixedSize(true);
-        work_recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         displayTotalWorkExperience = view.findViewById(R.id.displayTotalWorkExperience);
         getUserWorkInfo(uid);
     }
@@ -144,9 +149,10 @@ public class PWD_WorkExperience_Fragment extends Fragment {
                             work_list.clear();
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                 PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
+
                                 work_list.add(p);
                             }
-                            Collections.reverse(work_list);
+                            //Collections.reverse(work_list);
                             work_adapter = new PWD_WorkExperienceAdapter(getContext(), work_list);
                             work_recyclerView.setAdapter(work_adapter);
                             work_adapter.notifyDataSetChanged();

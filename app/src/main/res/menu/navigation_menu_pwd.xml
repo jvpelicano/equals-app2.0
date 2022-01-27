@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <group android:checkableBehavior="single">
+
     <item android:id="@+id/nav_home_pwd"
         android:title="@string/home_pwd"
-        android:icon="@mipmap/home"/>
-
+        android:icon="@drawable/ic_baseline_home_24"
+        />
     <item android:id="@+id/nav_profile_pwd"
         android:title="Profile"
-        android:icon="@mipmap/profile"/>
+        android:icon="@mipmap/profile"
+        />
 
         <item android:id="@+id/nav_upload_resume"
             android:title="My Resume"
-            android:icon="@mipmap/upload"/>
+            android:icon="@mipmap/upload"
+            />
 
         <item android:id="@+id/nav_view_resume"
             android:title="@string/view_resume_pwd"
-            android:icon="@mipmap/resumes"/>
+            android:icon="@mipmap/resumes"
+            />
 
     </group>
     <item android:title="Job Offers">
         <menu>
             <item android:id="@+id/nav_job_orthopedic"
                 android:title="@string/orthopedic_disability"
-                android:icon="@mipmap/orthopedic"/>
+                android:icon="@mipmap/orthopedic"
+                />
             <item android:id="@+id/nav_job_visual"
                 android:title="@string/visual_disability"
-                android:icon="@mipmap/visual"/>
+                android:icon="@mipmap/visual"
+                />
             <item android:id="@+id/nav_job_hearing"
                 android:title="@string/hearing_disability"
-                android:icon="@mipmap/hearing"/>
+                android:icon="@mipmap/hearing"
+                />
             <item android:id="@+id/nav_job_more"
                 android:title="Other Disabilities"
-                android:icon="@mipmap/approval"/>
+                android:icon="@mipmap/approval"
+                />
         </menu>
     </item>
     <item android:title="Learn More">
         <menu>
             <item android:id="@+id/nav_website_pwd"
                 android:title="@string/website_pwd"
-                android:icon="@mipmap/website"/>
-
+                android:icon="@mipmap/website"
+                />
             <item android:id="@+id/nav_logout_pwd"
                 android:title="@string/logout_pwd"
-                android:icon="@mipmap/logout"/>
+                android:icon="@mipmap/logout"
+                />
         </menu>
     </item>
 </menu>

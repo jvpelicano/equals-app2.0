@@ -25,37 +25,45 @@
             android:layout_gravity="center_horizontal" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
+            android:id="@+id/pwd_enterEmail_layout"
             style="@style/Widget.Design.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:boxStrokeColor="@color/btnColor"
+            app:hintTextColor="@color/btnColor"
+            android:layout_marginTop="10dp"
+            app:hintAnimationEnabled="true"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/proxima_nova_regular"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:hint="Email"
                 android:drawableStart="@drawable/email"
                 android:drawablePadding="10dp"
-                android:inputType="textEmailAddress"/>
+                android:fontFamily="@font/proxima_nova_regular"
+                android:hint="Email"
+                android:inputType="textWebEditText"
+                android:textColor="#232c33"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSize="16sp">
+
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
+            android:id="@+id/pwd_enterPassword_layout"
             style="@style/Widget.Design.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:boxStrokeColor="@color/btnColor"
+            app:hintTextColor="@color/btnColor"
             app:passwordToggleEnabled="true"
+            android:layout_marginTop="10dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -63,13 +71,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proxima_nova_regular"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:hint="Password"
                 android:drawableStart="@drawable/password"
                 android:drawablePadding="10dp"
-                android:inputType="textPassword" />
+                android:inputType="textWebEditText"
+                android:textColor="#232c33"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSize="16sp">
 
+            </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
 

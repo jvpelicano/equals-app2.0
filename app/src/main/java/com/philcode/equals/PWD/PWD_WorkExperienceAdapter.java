@@ -15,7 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,15 +68,25 @@ public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode
                 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        rootRef.child("listOfWorks").child(workUUID).removeValue();
-                        v.getContext().startActivity(new Intent(context, a_PWDContentMainActivity.class));
-                        Toast.makeText(v.getContext(), "Data is deleted successfully.", Toast.LENGTH_SHORT).show();
+                        workInfos.remove(holder.getAdapterPosition());
+                        notifyDataSetChanged();
+                        dialog.dismiss();
+                        rootRef.child("listOfWorks").child(workUUID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(v.getContext(), "Data has been deleted successfully.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(v.getContext(), "Error" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        fragment.getUserWorkInfo(uid);
+                        notifyDataSetChanged();
                     }
                 });
 

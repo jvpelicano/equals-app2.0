@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_delete.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_deletepost.xml" value="0.3546875" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_effect.xml" value="0.3546875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/btn_login_effect.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/camera.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/cardview_shape.xml" value="0.35885416666666664" />
@@ -13,11 +15,13 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/description_bg.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_add.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_applicants.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_baseline_note_add_24.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_edit.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_edit_blue.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_job.xml" value="0.3390625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/ic_person.xml" value="0.3390625" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/menu_background_color_state.xml" value="0.27395833333333336" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/drawable/password.xml" value="0.35885416666666664" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/font/poppins_bold.xml" value="0.3572916666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/font/poppins_light.xml" value="0.284375" />
@@ -34,7 +38,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_changeprofile.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_editprofile.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_jobs_list.xml" value="0.3385416666666667" />
-        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_login.xml" value="0.271286231884058" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_login.xml" value="0.33" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_logo.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_navigation_action_bar.xml" value="0.290625" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_navigation_header.xml" value="0.290625" />

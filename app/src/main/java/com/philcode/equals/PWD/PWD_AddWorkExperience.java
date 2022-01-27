@@ -3,6 +3,9 @@ package com.philcode.equals.PWD;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -21,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -182,6 +187,7 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
         alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -220,14 +226,23 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                                 PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
                                 work_list.add(p);
                             }
-                            final String e = "w";
-                            final String w = e + wCount;
+
+                            final String w = UUID.randomUUID().toString();
                             PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
-                            wCount = work_list.size() + 1;
                             mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
-                            mDatabase.child(userz).child("workExperience").setValue("With Experience");
-                            startActivity(new Intent(PWD_AddWorkExperience.this, PWD_AddWorkExperience.class));
-                            Toast.makeText(PWD_AddWorkExperience.this, "Work Experience successfully added.", Toast.LENGTH_SHORT).show();
+                            mDatabase.child(userz).child("workExperience").setValue("With Experience").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        alert.dismiss();
+                                        startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                                        Toast.makeText(PWD_AddWorkExperience.this, "Work Experience Added.", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        alert.dismiss();startActivity(new Intent(PWD_AddWorkExperience.this, PWD_WorkExperience_Fragment.class));
+                                        Toast.makeText(PWD_AddWorkExperience.this, "Error" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
 
                         @Override
@@ -243,4 +258,9 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
 
 
         }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+}
