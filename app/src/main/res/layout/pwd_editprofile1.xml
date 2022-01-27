@@ -53,7 +53,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     app:boxStrokeColor="@color/btnColor"
-                    app:hintTextColor="@color/btnColor">
+                    app:hintTextColor="@color/btnColor"
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editEmail"
@@ -66,10 +67,18 @@
                         android:inputType="textWebEditText"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="16sp">
-
+                        android:textSize="16sp"
+                        >
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/emailAddressInUse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email address is already in use"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/pwd_enterFirstName_layout"
@@ -213,14 +222,13 @@
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginTop="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="Save"
-        android:textSize="12sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        />
+        android:textSize="12sp" />
 </RelativeLayout>

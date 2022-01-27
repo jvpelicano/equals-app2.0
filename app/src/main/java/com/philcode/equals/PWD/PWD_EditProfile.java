@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,11 +68,13 @@ public class PWD_EditProfile extends AppCompatActivity  {
 
 
     //view objects
-    private Button buttonSave, btnUpload;
+    private MaterialButton buttonSave, btnUpload;
     private Spinner spinnerCity;
 
-    private EditText editFirstName, editLastName, editTextAddress, editContact;
-    TextView editEmail;
+    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail;
+    private TextInputLayout pwd_enterEmail_layout;
+    private TextView emailAddressInUse;
+    private String emailFromFb;
 
 
     boolean valid;
@@ -90,10 +94,10 @@ public class PWD_EditProfile extends AppCompatActivity  {
         storageReference = storage.getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonSave = (MaterialButton) findViewById(R.id.buttonSave);
+        pwd_enterEmail_layout = findViewById(R.id.pwd_enterEmail_layout);
+        emailAddressInUse = findViewById(R.id.emailAddressInUse);
 
-
-        editEmail = findViewById(R.id.editEmail);
 
         editFirstName = findViewById(R.id.editFirstName);
         editFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -129,6 +133,22 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 }
             }
         });
+        editEmail = findViewById(R.id.editEmail);
+        editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String email = editEmail.getText().toString();
+                    if (!(email == null || email.equals(""))) {
+                        if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            checkEmailExistsOrNot(email);
+                        } else {
+                            pwd_enterEmail_layout.setError("Invalid email");
+                        }
+                    }
+                }
+            }
+        });
 
         editTextAddress = findViewById(R.id.editTextAddress);
         spinnerCity = findViewById(R.id.spinnerCity);
@@ -160,13 +180,13 @@ public class PWD_EditProfile extends AppCompatActivity  {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String email = dataSnapshot.child("email").getValue().toString();
+                emailFromFb = dataSnapshot.child("email").getValue().toString();
                 String firstName = dataSnapshot.child("firstName").getValue().toString();
                 String lastName = dataSnapshot.child("lastName").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
                 String address = dataSnapshot.child("address").getValue().toString();
+                String city = dataSnapshot.child("city").getValue().toString();
 
-                editEmail.setText(email);
                 editFirstName.setText(firstName);
                 editLastName.setText(lastName);
                 editContact.setText(contact);
@@ -180,16 +200,22 @@ public class PWD_EditProfile extends AppCompatActivity  {
             }
         });
 
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
+                String email = editEmail.getText().toString().trim();
                 String firstname = editFirstName.getText().toString();
                 String lastname = editLastName.getText().toString();
                 String contact = editContact.getText().toString();
                 String address = editTextAddress.getText().toString();
                 String spinner = spinnerCity.getSelectedItem().toString();
+
+                if(email.isEmpty() || email.equals(emailFromFb)){
+                    //
+                }else{
+                    updateEmail(email);
+                }
 
                 rootRef.child("firstName").setValue(firstname);
                 rootRef.child("lastName").setValue(lastname);
@@ -197,12 +223,71 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 rootRef.child("address").setValue(address);
                 rootRef.child("city").setValue(spinner);
 
+                startActivity(new Intent(PWD_EditProfile.this, PWD_EditProfile_ViewActivity.class));
+                Toast.makeText(PWD_EditProfile.this, "Changes is successfully saved.", Toast.LENGTH_SHORT).show();
 
             }
         });
 
+    }
 
+    public void updateEmail(String email){
+        firebaseAuth.getCurrentUser().updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(PWD_EditProfile.this, "Email is successfully updated.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+    public void checkEmailExistsOrNot(String emails) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            internetConnection = true;
+        } else
+            internetConnection = false;
 
+        if (internetConnection == true) {
+            final FirebaseAuth firebaseauth = FirebaseAuth.getInstance();
+            firebaseauth.fetchSignInMethodsForEmail(emails).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                @Override
+                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                    if (task.getResult().getSignInMethods().size() == 0) {
+                        emailAddressInUse.setVisibility(View.GONE);
+                        pwd_enterEmail_layout.setError(null);
+                        emailCheck = "huhuz";
+                    } else {
+                        emailAddressInUse.setError("Email address is already in use");
+                        emailCheck = "hehez";
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(PWD_EditProfile.this);
+            alert.setMessage("Please check your internet connection and try again").setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            final Intent intent = new Intent(getApplicationContext(), PWD_RegisterActivity.class);
+                            startActivity(intent);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        }
+                    });
+            AlertDialog alertDialog = alert.create();
+            alertDialog.setTitle("Network Connection");
+            alertDialog.show();
+        }
 
     }
 

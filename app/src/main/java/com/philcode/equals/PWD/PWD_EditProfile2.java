@@ -184,12 +184,9 @@ public class PWD_EditProfile2 extends AppCompatActivity{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbWithExperience.isChecked()) {
                     workExperience="With Experience";
-
-
                 }
                 if (rbWithoutExperience.isChecked()) {
                     workExperience="Without Experience";
-
                 }
             }
         });
