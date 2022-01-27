@@ -3,7 +3,6 @@ package com.philcode.equals.EMP;
 public class EmployeeInformation {
 
     public String email;
-    public String password;
     public String typeStatus;
     public String firstname;
     public String lastname;
@@ -77,11 +76,10 @@ public class EmployeeInformation {
         this.companycity = companycity;
     }
 
-    public EmployeeInformation(String email, String password, String typeStatus, String firstname, String lastname, String fullname, String companybg,
+    public EmployeeInformation(String email, String typeStatus, String firstname, String lastname, String fullname, String companybg,
                                String contact, String empValidID, String companyaddress, String companycity) {
 
         this.email=email;
-        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.typeStatus=typeStatus;

@@ -478,7 +478,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
-                                                            EmployeeInformation EmpInfo = new EmployeeInformation(email, password, typeStatus, firstname, lastname, fullname, companybg,
+                                                            EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
                                                                     contact, empValidID, companyAddress, companyCity);
                                                             FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override

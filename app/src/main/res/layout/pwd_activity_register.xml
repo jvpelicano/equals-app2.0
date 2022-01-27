@@ -341,6 +341,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
                 android:text="I have read and agree to the Equals Privacy Policy" />
 
             <com.google.android.material.button.MaterialButton

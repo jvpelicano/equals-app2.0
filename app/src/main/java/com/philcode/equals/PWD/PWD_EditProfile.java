@@ -71,8 +71,8 @@ public class PWD_EditProfile extends AppCompatActivity  {
     private MaterialButton buttonSave, btnUpload;
     private Spinner spinnerCity;
 
-    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail;
-    private TextInputLayout pwd_enterEmail_layout;
+    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail, editPassword, confirmPassword;
+    private TextInputLayout pwd_enterEmail_layout, confirmPasswordError, editPasswordError;
     private TextView emailAddressInUse;
     private String emailFromFb;
 
@@ -97,6 +97,8 @@ public class PWD_EditProfile extends AppCompatActivity  {
         buttonSave = (MaterialButton) findViewById(R.id.buttonSave);
         pwd_enterEmail_layout = findViewById(R.id.pwd_enterEmail_layout);
         emailAddressInUse = findViewById(R.id.emailAddressInUse);
+        confirmPasswordError = findViewById(R.id.textInputLayout5);
+        editPasswordError = findViewById(R.id.textInputLayout4);
 
 
         editFirstName = findViewById(R.id.editFirstName);
@@ -116,6 +118,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 }
             }
         });
+
         editLastName = findViewById(R.id.editLastName);
         editLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -133,6 +136,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 }
             }
         });
+
         editEmail = findViewById(R.id.editEmail);
         editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -150,6 +154,48 @@ public class PWD_EditProfile extends AppCompatActivity  {
             }
         });
 
+        editPassword = findViewById(R.id.editPassword);
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    password = editPassword.getText().toString().trim();
+                    if (password.length() == 0) {
+                        editPasswordError.setError("Please enter a password");
+                    } else {
+                        editPasswordError.setError(null);
+                    }
+                    if (password.length() <= 5) {
+                        editPasswordError.setError("Your password must contain at least 6 characters");
+                    } else {
+                        editPasswordError.setError(null);
+                    }
+                }
+            }
+        });
+
+        confirmPassword = findViewById(R.id.confirmPassword);
+        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    stringConfirmPassword = confirmPassword.getText().toString().trim();
+                    if (!(stringConfirmPassword.equals(password))) {
+                        confirmPasswordError.setError("Password doesn't match");
+                    } else {
+                        confirmPasswordError.setError(null);
+                    }
+                }
+            }
+        });
         editTextAddress = findViewById(R.id.editTextAddress);
         spinnerCity = findViewById(R.id.spinnerCity);
         editContact = findViewById(R.id.editContact);
@@ -205,6 +251,8 @@ public class PWD_EditProfile extends AppCompatActivity  {
             public void onClick(View v) {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
                 String email = editEmail.getText().toString().trim();
+                String password = editPassword.getText().toString().trim();
+                String confirmPassword = editPassword.getText().toString().trim();
                 String firstname = editFirstName.getText().toString();
                 String lastname = editLastName.getText().toString();
                 String contact = editContact.getText().toString();
@@ -214,7 +262,14 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 if(email.isEmpty() || email.equals(emailFromFb)){
                     //
                 }else{
-                    updateEmail(email);
+                    updateEmail(email, rootRef);
+                }
+
+                if((password.isEmpty() || confirmPassword.isEmpty()) && (!password.equals(confirmPassword))){
+                    //
+                }else{
+                    firebaseAuth.getCurrentUser().updatePassword(password);
+                    Toast.makeText(PWD_EditProfile.this, "Password is changed.", Toast.LENGTH_SHORT).show();
                 }
 
                 rootRef.child("firstName").setValue(firstname);
@@ -231,13 +286,14 @@ public class PWD_EditProfile extends AppCompatActivity  {
 
     }
 
-    public void updateEmail(String email){
+    public void updateEmail(String email, DatabaseReference rootRef){
         firebaseAuth.getCurrentUser().updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        rootRef.child("email").setValue(email);
                         Toast.makeText(PWD_EditProfile.this, "Email is successfully updated.", Toast.LENGTH_SHORT).show();
                     }
                 });
