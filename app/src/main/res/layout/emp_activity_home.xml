@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:itemTextAppearance="@style/ProximaNovaTextViewStyle"
+        app:itemIconTint="@color/gray"
         app:menu="@menu/navigation_menu_emp"
         android:layout_gravity="start"/>
 

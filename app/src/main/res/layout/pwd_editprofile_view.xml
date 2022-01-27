@@ -31,8 +31,6 @@
                 android:layout_height="match_parent"
                 android:isScrollContainer="true"
                 android:orientation="vertical">
-
-
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/pwdProfilePic"
                     android:layout_width="140dp"
@@ -53,7 +51,9 @@
                     android:drawablePadding="5dp"
                     android:text="Change Profile Photo"
                     android:textAllCaps="false"
-                    android:textColor="#177ad0" />
+                    android:textColor="#177ad0"
+                    app:tint="@color/colorPrimary"
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -118,7 +118,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_baseline_note_add_24" />
+            app:srcCompat="@drawable/ic_baseline_note_add_24"
+            app:tint="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/textview_jobQualifications"
@@ -152,7 +154,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_job" />
+            app:srcCompat="@drawable/ic_job"
+            app:tint="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/textview_personalInfo"
@@ -167,7 +171,7 @@
             android:textColor="#177ad0"
             android:textStyle="bold"
             android:fontFamily="@font/proxima_nova_regular"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab1"
@@ -185,7 +189,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_person" />
+            app:srcCompat="@drawable/ic_person"
+            app:tint="@color/colorPrimary"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -199,6 +205,7 @@
             android:elevation="16dp"
             android:focusable="true"
             android:src="@drawable/ic_edit"
+            app:tint="@color/white"
             app:backgroundTint="#177ad0" />
 
 

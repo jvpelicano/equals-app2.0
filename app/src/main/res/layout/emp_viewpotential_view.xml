@@ -10,26 +10,19 @@
     android:fillViewport="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="beforeDescendants"
-            android:fillViewport="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:background="@color/white">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:isScrollContainer="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white"
+                >
 
                 <include layout="@layout/navigation_action_bar_pwd"
                     android:layout_width="match_parent"
@@ -65,7 +58,6 @@
                     />
 
             </LinearLayout>
-        </ScrollView>
 
         <TextView
             android:id="@+id/textview_sendEmail"
@@ -99,7 +91,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/email" />
+            app:srcCompat="@drawable/email"
+            app:tint="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/textview_call"
@@ -131,7 +125,7 @@
             app:borderWidth="2dp"
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
-
+            app:tint="@color/colorPrimary"
             app:pressedTranslationZ="12dp"
             app:srcCompat="@drawable/ic_call" />
 
@@ -145,6 +139,7 @@
             android:layout_alignParentBottom="true"
             android:src="@drawable/ic_add"
             app:backgroundTint="#177ad0"
+            app:tint="@color/white"
             android:clickable="true"
             android:focusable="true"
             android:elevation="16dp" />
