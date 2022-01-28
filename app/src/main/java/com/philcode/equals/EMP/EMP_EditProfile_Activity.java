@@ -115,7 +115,6 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
                 String firstname = dataSnapshot.child("firstname").getValue().toString();
                 String fullname = dataSnapshot.child("fullname").getValue().toString();
                 String lastname = dataSnapshot.child("lastname").getValue().toString();
-                String empvalidid = dataSnapshot.child("empValidID").getValue().toString();
 
                 editCompanyAddress.setText(companyAddress+" "+companycity);
                 editCompanyBackground.setText(companybg);

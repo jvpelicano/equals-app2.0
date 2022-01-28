@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
     String password, stringConfirmPassword, emailCheck;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
+    private String[] cities;
     //private Uri filePath2;
 
     @Override
@@ -85,6 +87,14 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
         buttonUploadEmpID = (Button) findViewById(R.id.btn_emp_ID_upload);
         buttonSave = (Button) findViewById(R.id.btnSave);
         empValidID = findViewById(R.id.emp_ID);
+        spinnerCity = findViewById(R.id.spinnerCity);
+
+        cities = new String[146];
+
+        cities = getResources().getStringArray(R.array.City);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cities);
+        spinnerCity.setAdapter(adapter);
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,8 +196,6 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                 }
             }
         });
-
-        spinnerCity = findViewById(R.id.spinnerCity);
         editCompanyAddress = findViewById(R.id.editTextAddress);
         editCompanyAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -230,8 +238,9 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                 editFirstName.setText(firstname);
                 editCompanyName.setText(fullname);
                 editLastName.setText(lastname);
-                //Glide.with(getApplicationContext()).load(empValidID1).into(empValidID);
+                Glide.with(getApplicationContext()).load(empValidID1).into(empValidID);
                 txtImage.setText(empvalidid);
+                spinnerCity.setSelection(adapter.getPosition(companycity));
 
 
             }

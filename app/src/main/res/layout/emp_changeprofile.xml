@@ -367,7 +367,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:entries="@array/City"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:prompt="@string/city_prompt"
                     android:spinnerMode="dropdown"

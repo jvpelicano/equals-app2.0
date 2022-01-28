@@ -141,8 +141,6 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
         });
     }
 
-
-
     private void saveChanges(String userz) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
         String email = editEmail.getText().toString().trim();
