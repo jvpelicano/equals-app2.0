@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.philcode.equals" >
+    package="com.philcode.equals">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,7 +16,10 @@
         android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning" >
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity
+            android:name=".EMP_EditLoginCredentials_Activity"
+            android:exported="false" />
         <activity
             android:name=".PWD.PWD_AddWorkExperience"
             android:exported="false" />
@@ -28,7 +31,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,11 +53,9 @@
         <activity
             android:name=".PWD.PWD_AvailableJobs_5_MoreDisability"
             android:label="Other Disability" />
-        <activity android:name=".PWD.PWD_RegisterActivity"
-            />
-        <activity android:name=".PWD.PWD_LoginActivity"
-            />
-        <activity android:name=".PWD.a_PWDContentMainActivity"/>
+        <activity android:name=".PWD.PWD_RegisterActivity" />
+        <activity android:name=".PWD.PWD_LoginActivity" />
+        <activity android:name=".PWD.a_PWDContentMainActivity" />
         <activity android:name=".PWD.PWD_ForgotpassActivity" />
         <activity android:name=".PWD.PWD_EditProfile" />
         <activity android:name=".PWD.PWD_EditProfile2" />
@@ -66,7 +67,7 @@
         <activity android:name=".EMP.Emp_PostJob" />
         <activity android:name=".EMP.EMP_AvailableJobs_View" />
         <activity android:name=".EMP.ForgotpassActivity_emp" />
-        <activity android:name=".EMP.LoginActivity_emp"/>
+        <activity android:name=".EMP.LoginActivity_emp" />
         <activity android:name=".EMP.RegisterActivity_emp" />
         <activity android:name=".EMP.EMP_EditProfile_Activity" />
         <activity android:name=".SelectionScreenActivity" />

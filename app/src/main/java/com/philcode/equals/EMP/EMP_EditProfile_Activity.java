@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.philcode.equals.EMP_EditLoginCredentials_Activity;
 import com.philcode.equals.R;
 
 public class EMP_EditProfile_Activity extends AppCompatActivity {
@@ -39,17 +40,13 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
     // Folder path for Firebase Storage.
     String Storage_Path = "Employer_Reg_Form/";
     private TextView textViewUserEmail;
-    private Button buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
+    private Button buttonEditLoginCredentials, buttonSave, btnUpload, buttonUploadEmpID;
 
     private EditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
             editFirstName, editLastName, editCompanyAddress, confirmPassword;
     private TextInputLayout editEmailError, editPasswordError, confirmPasswordError;
     private ImageView profilePicEMP, empValidID;
     private TextView emailAddressInUse;
-    String password, stringConfirmPassword, emailCheck;
-    int PICK_IMAGE_REQUEST = 7;
-    private Uri filePath;
-    //private Uri filePath2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +56,7 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        buttonEditLoginCredentials = findViewById(R.id.btnEditLoginCredentials);
         //editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
@@ -71,7 +69,12 @@ public class EMP_EditProfile_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        buttonEditLoginCredentials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EMP_EditProfile_Activity.this, EMP_EditLoginCredentials_Activity.class));
+            }
+        });
 
 
 
