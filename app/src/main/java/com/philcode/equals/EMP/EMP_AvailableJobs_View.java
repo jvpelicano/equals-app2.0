@@ -189,8 +189,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
             }
         });
 
-
-
         fab2_potential.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

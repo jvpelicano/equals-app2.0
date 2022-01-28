@@ -44,7 +44,7 @@
                     android:layout_height="45dp"
                     app:cardCornerRadius="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                 <TextView
                     android:id="@+id/displayName"
@@ -85,7 +85,7 @@
                     android:layout_height="45dp"
                     app:cardCornerRadius="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                 <TextView
                     android:id="@+id/displayEmail"
@@ -124,7 +124,7 @@
                     android:minHeight="45dp"
                     app:cardCornerRadius="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                 <TextView
                     android:id="@+id/displayAddress"
@@ -163,7 +163,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
                     app:cardCornerRadius="10dp">
 
@@ -209,7 +209,7 @@
                     app:cardCornerRadius="10dp"
                     android:minHeight="45dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -304,7 +304,7 @@
                 android:layout_height="45dp"
                 app:cardCornerRadius="10dp"
                 android:elevation="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 >
                 <TextView
                     android:id="@+id/displayCategorySkill"
@@ -349,7 +349,7 @@
                     android:minHeight="45dp"
                     app:cardCornerRadius="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -530,7 +530,7 @@
                     app:cardCornerRadius="10dp"
                     android:layout_marginBottom="30dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     >
                 <TextView
                     android:id="@+id/displayEducationalAttainment"

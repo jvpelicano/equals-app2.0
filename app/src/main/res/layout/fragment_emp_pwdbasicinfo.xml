@@ -43,28 +43,27 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableStart="@drawable/ic_baseline_person_24"
+                        android:drawablePadding="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
                         android:paddingRight="20dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
-                        android:drawableStart="@drawable/ic_baseline_person_24"
-                        android:drawablePadding="10dp"
                         android:text="displayName"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
-
 
 
                 <TextView
@@ -84,9 +83,9 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
+                    app:cardCornerRadius="10dp"
 
                     >
 
@@ -94,13 +93,13 @@
                         android:id="@+id/displayEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:drawableStart="@drawable/email"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingStart="10dp"
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
-                        android:layout_marginTop="10dp"
                         android:text="displayEmail"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
@@ -124,14 +123,15 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:drawableStart="@drawable/ic_placeholder"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/open_sans_regular"
@@ -139,12 +139,12 @@
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="displayAddress"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/lblContact"
                     android:layout_width="match_parent"
@@ -163,14 +163,15 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayContact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:drawableStart="@drawable/ic_baseline_local_phone_24"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/open_sans_regular"
@@ -178,7 +179,6 @@
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="displayContact"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
@@ -203,25 +203,26 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayTypeOfDisability1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingStart="10dp"
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="display1"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/txtLbl2"
                     android:layout_width="match_parent"
@@ -243,20 +244,20 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayCategorySkill"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="Category"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
@@ -266,6 +267,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/lblSkills"
                     android:layout_width="match_parent"
@@ -283,25 +285,26 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
                     android:padding="10dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displaySkill1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:paddingStart="10dp"
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="Skill 1"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:id="@+id/txtLbl"
                     android:layout_width="match_parent"
@@ -319,21 +322,21 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="30dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="5dp"
-                    >
+                    app:cardCornerRadius="10dp">
+
                     <TextView
                         android:id="@+id/displayEducationalAttainment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
                         android:paddingTop="2dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
-                        android:layout_marginTop="10dp"
                         android:text="Educational Degree"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
