@@ -15,7 +15,7 @@ public class Emp_PostJob_Information {
     public String workExperience;
 
     public String skill;
-    public String companyLogo;
+
 
 
     public String educationalAttainmentRequirement;
@@ -28,7 +28,7 @@ public class Emp_PostJob_Information {
     public Emp_PostJob_Information(String imageURL, String postTitle, String postDescription,
                                    String postLocation, String permission,
                                    String companyName, String uid, String postDate, String city, String educationalAttainment, String workExperience,
-                                   String skill, String educationalAttainmentRequirement, String companyLogo) {
+                                   String skill, String educationalAttainmentRequirement) {
 
         this.imageURL = imageURL;
         this.postTitle = postTitle;
@@ -43,7 +43,6 @@ public class Emp_PostJob_Information {
         this.city = city;
         this.educationalAttainment = educationalAttainment;
         this.workExperience = workExperience;
-        this.companyLogo = companyLogo;
 
         this.skill = skill;
 
@@ -51,13 +50,6 @@ public class Emp_PostJob_Information {
         this.educationalAttainmentRequirement = educationalAttainmentRequirement;
     }
 
-    public String getCompanyLogo() {
-        return companyLogo;
-    }
-
-    public void setCompanyLogo(String companyLogo) {
-        this.companyLogo = companyLogo;
-    }
 
     public String getImageURL() {
         return imageURL;

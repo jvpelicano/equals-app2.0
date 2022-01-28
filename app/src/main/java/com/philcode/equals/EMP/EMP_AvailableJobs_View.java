@@ -18,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +44,8 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     FirebaseDatabase fDb;
     DatabaseReference jobOffersRef, pwdRef;
     Boolean isOpen = false;
-    String companyLogoURL;
+    private String companyLogoURL, postTitle,companyName, postDescription,postLoc,skillCategory,
+            educationalAttainment, workExperience,postExpDate,permission,imageURL;
     DatabaseReference refForJobs;
     private static final String TAG = "PWD_AvailableJobs_View";
 
@@ -82,6 +85,79 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         fab_anticlock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_rotate_anticlock);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
+        //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
+        fDb = FirebaseDatabase.getInstance();
+        jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
+        jobOffersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("postTitle")){
+                    postTitle = snapshot.child("postTitle").getValue().toString();
+                }
+                if(snapshot.hasChild("companyName")){
+                    companyName = snapshot.child("companyName").getValue().toString();
+                }
+                if(snapshot.hasChild("postDescription")){
+                    postDescription = snapshot.child("postDescription").getValue().toString();
+                }
+                if(snapshot.hasChild("postLocation")){
+                    postLoc = snapshot.child("postLocation").getValue().toString();
+                }
+                if(snapshot.hasChild("skill")){
+                    skillCategory = snapshot.child("skill").getValue().toString();
+                }
+                if(snapshot.hasChild("educationalAttainment")){
+                    educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
+                }
+                if(snapshot.hasChild("yearsOfExperience")){
+                    workExperience = snapshot.child("yearsOfExperience").getValue().toString();
+                }
+                if(snapshot.hasChild("expDate")){
+                    postExpDate = snapshot.child("expDate").getValue().toString();
+                }
+                if(snapshot.hasChild("permission")){
+                    permission = snapshot.child("permission").getValue().toString();
+
+                }
+                if(snapshot.hasChild("imageURL")){
+                    imageURL = snapshot.child("imageURL").getValue().toString();
+                }
+
+                if(snapshot.hasChild("empProfilePic")){
+                    companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
+                }else{
+                    companyLogoURL = null;
+                }
+
+                ArrayList<String> jobSkillList = new ArrayList<>();
+                ArrayList<String> typeOfDisabilityList = new ArrayList<>();
+                for(int counter = 1; counter <= 10; counter++){
+                    if(snapshot.hasChild("jobSkill" + counter)){
+                        if(snapshot.hasChild("jobSkill" + counter) && !snapshot.child("jobSkill" + counter).getValue().toString().equals("")){
+                            jobSkillList.add(snapshot.child("jobSkill" + counter).getValue(String.class));
+                        }
+                    }
+                }
+
+                for(int counter_a = 1; counter_a <= 3; counter_a++){
+                    if(snapshot.hasChild("typeOfDisability" + counter_a)){
+                        if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
+                            typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
+                        }
+                    }
+                }
+                if(snapshot.hasChild("typeOfDisabilityMore")){
+                    typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
+                }
+                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission
+                        , imageURL, companyLogoURL);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +190,17 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         });
 
 
+
+        fab2_potential.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(EMP_AvailableJobs_View.this, EMP_ViewPotential_All.class);
+                startActivity(i);
+
+            }
+        });
+
         fab3_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +209,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(EMP_AvailableJobs_View.this, EMP_ManageJobs.class));
                                 final String postJobID = getIntent().getStringExtra("POST_ID");
                                 jobOffersRef = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
                                 jobOffersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -130,15 +216,28 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers");
-                                            ref.child(postJobID).removeValue();
+                                            ref.child(postJobID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    getWindow().getDecorView().post(new Runnable() {
+
+                                                        @Override
+                                                        public void run() {
+                                                            finish();
+                                                            startActivity(new Intent(EMP_AvailableJobs_View.this, EMP_ManageJobs.class));
+                                                        }
+
+                                                    });
+                                                }
+                                            });
                                         }
-                                        Toast.makeText(EMP_AvailableJobs_View.this, "Job offer is successfully removed.", Toast.LENGTH_SHORT).show();
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                     }
                                 });
+
 
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -153,18 +252,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
-
-
-        fab2_potential.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(EMP_AvailableJobs_View.this, EMP_ViewPotential_All.class);
-                startActivity(i);
-
-            }
-        });
-
 
         fab1_resumes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,55 +294,6 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
 
         });
 
-        //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
-        fDb = FirebaseDatabase.getInstance();
-        jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
-        jobOffersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String postTitle = snapshot.child("postTitle").getValue().toString();
-                final String companyName = snapshot.child("companyName").getValue().toString();
-                final String postDescription = snapshot.child("postDescription").getValue().toString();
-                final String postLoc = snapshot.child("postLocation").getValue().toString();
-                final String skillCategory = snapshot.child("skill").getValue().toString();
-                final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
-                final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
-                final String postExpDate = snapshot.child("expDate").getValue().toString();
-                final String permission = snapshot.child("permission").getValue().toString();
-                final String imageURL = snapshot.child("imageURL").getValue().toString();
-                if(snapshot.hasChild("empProfilePic")){
-                    companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
-                }else{
-                    companyLogoURL = null;
-                }
-
-                ArrayList<String> jobSkillList = new ArrayList<>();
-                ArrayList<String> typeOfDisabilityList = new ArrayList<>();
-
-                for(int counter = 1; counter <= 10; counter++){
-                    if(snapshot.hasChild("jobSkill" + counter) && !snapshot.child("jobSkill" + counter).getValue().toString().equals("")){
-                        jobSkillList.add(snapshot.child("jobSkill" + counter).getValue(String.class));
-                    }
-                }
-
-                for(int counter_a = 1; counter_a <= 3; counter_a++){
-                    if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
-                        typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
-                    }
-
-                }
-                if(snapshot.hasChild("typeOfDisabilityMore")){
-                    typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue(String.class));
-                }
-                setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission
-                , imageURL, companyLogoURL);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment,
@@ -287,5 +325,12 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         }else{
             Glide.with(getApplicationContext()).load(companyLogoUrl).into(m_displayCompanyLogo);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        finish();
     }
 }
