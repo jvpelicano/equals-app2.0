@@ -44,6 +44,15 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
         switchPriority = findViewById(R.id.switchPriority);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
+        getWindow().getDecorView().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mascot.setVisibility(View.GONE);
+                tv_noJobsAvailable.setVisibility(View.GONE);
+            }
+
+        });
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
         refUser.addValueEventListener(new ValueEventListener() {
             @Override

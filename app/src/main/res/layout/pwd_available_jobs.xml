@@ -21,7 +21,9 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/service_dog_mascot" />
+        android:src="@drawable/service_dog_mascot"
+        android:visibility="visible"
+        />
 
     <TextView
         android:id="@+id/tv_noJobsAvailable"
@@ -31,5 +33,6 @@
         android:text="No job posts matched at the moment."
         android:textSize="22sp"
         android:fontFamily="@font/poppins_bold"
+        android:visibility="visible"
         />
 </LinearLayout>

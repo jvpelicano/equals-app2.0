@@ -47,6 +47,15 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
+        getWindow().getDecorView().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mascot.setVisibility(View.GONE);
+                tv_noJobsAvailable.setVisibility(View.GONE);
+            }
+
+        });
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {

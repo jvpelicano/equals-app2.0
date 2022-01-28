@@ -44,6 +44,15 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         list = new ArrayList<>();
+        getWindow().getDecorView().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mascot.setVisibility(View.GONE);
+                tv_noJobsAvailable.setVisibility(View.GONE);
+            }
+
+        });
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
         refUser.addValueEventListener(new ValueEventListener() {
             @Override

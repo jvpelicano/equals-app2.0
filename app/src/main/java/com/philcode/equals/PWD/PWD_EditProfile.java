@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,6 +51,7 @@ import com.google.firebase.storage.UploadTask;
 import com.philcode.equals.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class PWD_EditProfile extends AppCompatActivity  {
@@ -71,10 +73,11 @@ public class PWD_EditProfile extends AppCompatActivity  {
     private MaterialButton buttonSave, btnUpload;
     private Spinner spinnerCity;
 
-    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail, editPassword, confirmPassword;
+    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail, editPassword, editconfirmPassword;
     private TextInputLayout pwd_enterEmail_layout, confirmPasswordError, editPasswordError;
     private TextView emailAddressInUse;
     private String emailFromFb;
+    private String[] cities;
 
 
     boolean valid;
@@ -99,7 +102,12 @@ public class PWD_EditProfile extends AppCompatActivity  {
         emailAddressInUse = findViewById(R.id.emailAddressInUse);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
         editPasswordError = findViewById(R.id.textInputLayout4);
+        spinnerCity = findViewById(R.id.spinnerCity);
+        cities = new String[146];
 
+        cities = getResources().getStringArray(R.array.City);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, cities);
+        spinnerCity.setAdapter(adapter);
 
         editFirstName = findViewById(R.id.editFirstName);
         editFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -178,8 +186,8 @@ public class PWD_EditProfile extends AppCompatActivity  {
             }
         });
 
-        confirmPassword = findViewById(R.id.confirmPassword);
-        confirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editconfirmPassword = findViewById(R.id.confirmPassword);
+        editconfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -187,7 +195,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
                  * has valid values.
                  */
                 if (!hasFocus) {
-                    stringConfirmPassword = confirmPassword.getText().toString().trim();
+                    stringConfirmPassword = editconfirmPassword.getText().toString().trim();
                     if (!(stringConfirmPassword.equals(password))) {
                         confirmPasswordError.setError("Password doesn't match");
                     } else {
@@ -237,7 +245,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 editLastName.setText(lastName);
                 editContact.setText(contact);
                 editTextAddress.setText(address);
-
+                spinnerCity.setSelection(adapter.getPosition(city));
             }
 
             @Override
@@ -249,37 +257,14 @@ public class PWD_EditProfile extends AppCompatActivity  {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
-                String email = editEmail.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
-                String confirmPassword = editPassword.getText().toString().trim();
-                String firstname = editFirstName.getText().toString();
-                String lastname = editLastName.getText().toString();
-                String contact = editContact.getText().toString();
-                String address = editTextAddress.getText().toString();
-                String spinner = spinnerCity.getSelectedItem().toString();
+                String confirmPassword = editconfirmPassword.getText().toString().trim();
 
-                if(email.isEmpty() || email.equals(emailFromFb)){
-                    //
+                if(password.equals(confirmPassword)){
+                    saveChanges(userz);
                 }else{
-                    updateEmail(email, rootRef);
+                    Toast.makeText(PWD_EditProfile.this, "Password does not match.", Toast.LENGTH_SHORT).show();
                 }
-
-                if((password.isEmpty() || confirmPassword.isEmpty()) && (!password.equals(confirmPassword))){
-                    //
-                }else{
-                    firebaseAuth.getCurrentUser().updatePassword(password);
-                    Toast.makeText(PWD_EditProfile.this, "Password is changed.", Toast.LENGTH_SHORT).show();
-                }
-
-                rootRef.child("firstName").setValue(firstname);
-                rootRef.child("lastName").setValue(lastname);
-                rootRef.child("contact").setValue(contact);
-                rootRef.child("address").setValue(address);
-                rootRef.child("city").setValue(spinner);
-
-                startActivity(new Intent(PWD_EditProfile.this, PWD_EditProfile_ViewActivity.class));
-                Toast.makeText(PWD_EditProfile.this, "Changes is successfully saved.", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -346,7 +331,37 @@ public class PWD_EditProfile extends AppCompatActivity  {
         }
 
     }
+    public void saveChanges(String userz){
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        String confirmPassword = editconfirmPassword.getText().toString().trim();
+        String firstname = editFirstName.getText().toString();
+        String lastname = editLastName.getText().toString();
+        String contact = editContact.getText().toString();
+        String address = editTextAddress.getText().toString();
+        String spinner = spinnerCity.getSelectedItem().toString();
 
+        if(email.isEmpty() || email.equals(emailFromFb)){
+            //
+        }else{
+            updateEmail(email, rootRef);
+        }
+
+        if((!password.isEmpty() || !confirmPassword.isEmpty())){
+                firebaseAuth.getCurrentUser().updatePassword(password);
+                Toast.makeText(PWD_EditProfile.this, "Password is changed successfully.", Toast.LENGTH_SHORT).show();
+        }
+
+        rootRef.child("firstName").setValue(firstname);
+        rootRef.child("lastName").setValue(lastname);
+        rootRef.child("contact").setValue(contact);
+        rootRef.child("address").setValue(address);
+        rootRef.child("city").setValue(spinner);
+
+        startActivity(new Intent(PWD_EditProfile.this, PWD_EditProfile_ViewActivity.class));
+        Toast.makeText(PWD_EditProfile.this, "Changes is successfully saved.", Toast.LENGTH_SHORT).show();
+    }
 /*
     private void uploadImage() {
         final Intent intent = new Intent(this, PWD_EditProfile_ViewActivity.class);

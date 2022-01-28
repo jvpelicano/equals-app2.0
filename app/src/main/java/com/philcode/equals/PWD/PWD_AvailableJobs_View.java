@@ -165,7 +165,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayPostLocation.setText(postLoc);
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience);
+        m_displayTotalWorkExperience.setText(workExperience + " years");
         m_displayExpDate.setText(expDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();

@@ -122,11 +122,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/displayPostTitle" />
 
 
+
                     <TextView
                         android:id="@+id/displayPostDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/description_bg"
                         android:layout_margin="10dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
@@ -250,14 +250,25 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
-
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayCategorySkill_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        android:layout_marginLeft="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbl2"
+                        >
                     <TextView
                         android:id="@+id/displayCategorySkill"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/postBackground"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Category"
@@ -265,10 +276,8 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
+                         />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/txtLbl1"
@@ -286,15 +295,28 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill_card" />
 
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displaySkill1_card"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbl1"
+                        >
                     <TextView
                         android:id="@+id/displaySkill1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/postBackground"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Skill 1"
@@ -302,12 +324,21 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
+                         />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayTypeOfDisability1_card"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbl1" />
-
-
+                        app:layout_constraintTop_toBottomOf="@+id/txtLb2"
+                        >
                     <TextView
                         android:id="@+id/displayTypeOfDisability1"
                         android:layout_width="match_parent"
@@ -322,10 +353,8 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLb2" />
+                         />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/txtLbl"
@@ -343,15 +372,26 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1" />
+                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1_card" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayEducationalAttainment_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbl"
+                        >
                     <TextView
                         android:id="@+id/displayEducationalAttainment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/postBackground"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Educational Degree"
@@ -359,10 +399,8 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbl" />
+                         />
+                    </androidx.cardview.widget.CardView>
 
 
                     <TextView
@@ -374,22 +412,33 @@
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:layout_marginTop="15dp"
-                        android:text="Work Experience"
+                        android:text="Years of Experience"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayEducationalAttainment" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayEducationalAttainment_card" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayTotalWorkExperience_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbz"
+                        >
                     <TextView
                         android:id="@+id/displayTotalWorkExperience"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/postBackground"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Total Work Experience"
@@ -397,10 +446,8 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbz" />
+                         />
+                    </androidx.cardview.widget.CardView>
 
 
 
@@ -421,7 +468,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTotalWorkExperience" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayTotalWorkExperience_card" />
 
 
                     <TextView
@@ -441,8 +488,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1_card" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayExpDate_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtExpDate"
+                        >
                     <TextView
                         android:id="@+id/displayExpDate"
                         android:layout_width="match_parent"
@@ -450,17 +508,15 @@
                         android:background="@color/postBackground"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
                         android:text="Expiration Date"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtExpDate" />
+                         />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/lblPermission"
@@ -479,7 +535,21 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayExpDate" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayExpDate_card" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayPermission_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        android:layout_marginBottom="35dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lblPermission"
+                        >
 
                     <TextView
                         android:id="@+id/displayPermission"
@@ -489,18 +559,16 @@
                         android:background="@color/postBackground"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="4dp"
                         android:text="Permission"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lblPermission" />
+
+                        />
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -540,7 +608,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_delete" />
+            app:srcCompat="@drawable/ic_delete"
+            app:tint="@color/red"
+            />
 
 
         <TextView
@@ -563,19 +633,20 @@
             android:id="@+id/fab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="176dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="176dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:elevation="16dp"
             android:focusable="true"
-            app:borderWidth="2dp"
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
+            app:borderWidth="2dp"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_applicants" />
+            app:srcCompat="@drawable/ic_applicants"
+            app:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/textview_resume"
@@ -607,7 +678,7 @@
             app:borderWidth="2dp"
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
-
+            app:tint="@color/colorPrimary"
             app:pressedTranslationZ="12dp"
             app:srcCompat="@drawable/ic_resumes" />
 
@@ -620,7 +691,8 @@
             android:layout_marginBottom="24dp"
             android:layout_alignParentBottom="true"
             android:src="@drawable/ic_options"
-            app:backgroundTint="#177ad0"
+            app:tint="@color/white"
+            android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"
             android:elevation="16dp" />

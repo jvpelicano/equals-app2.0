@@ -50,15 +50,24 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         switchPriority = findViewById(R.id.switchPriority);
+        getWindow().getDecorView().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mascot.setVisibility(View.GONE);
+                tv_noJobsAvailable.setVisibility(View.GONE);
+            }
+
+        });
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
+
                 final String pwd_SkillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
                 final String pwd_educationalAttainment = pwd_dataSnapshot.child("educationalAttainment").getValue().toString();
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
                 final String pwd_location = pwd_dataSnapshot.child("city").getValue().toString();
-
                 //Check Job Offer Info
                 // checking PWD for type of disability
                 refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
@@ -98,7 +107,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -129,7 +138,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -159,7 +168,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -188,7 +197,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -216,7 +225,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -243,7 +252,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
-                                                    }else{
+                                                    }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -271,7 +280,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -302,7 +311,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -333,7 +342,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -363,7 +372,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -392,7 +401,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -420,7 +429,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -447,7 +456,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                }else{
+                                                }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -475,7 +484,7 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                 recyclerView.setVisibility(View.VISIBLE);
                                                 mascot.setVisibility(View.GONE);
                                                 tv_noJobsAvailable.setVisibility(View.GONE);
-                                            }else{
+                                            }else if(list.isEmpty()){
                                                 recyclerView.setVisibility(View.GONE);
                                                 mascot.setVisibility(View.VISIBLE);
                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
@@ -502,5 +511,6 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
     }
 }
