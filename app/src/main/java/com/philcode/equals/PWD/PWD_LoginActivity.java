@@ -118,8 +118,8 @@ public class PWD_LoginActivity extends AppCompatActivity implements View.OnClick
     }
     //method for user login
     private void userLogin(){
-        String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim().replaceAll("\\s+", "");
+        String password  = editTextPassword.getText().toString().trim().replaceAll("\\s+", "");
 
         //checking if email and passwords are empty
         if(TextUtils.isEmpty(email)){

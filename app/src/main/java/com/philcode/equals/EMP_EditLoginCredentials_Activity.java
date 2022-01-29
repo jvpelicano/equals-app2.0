@@ -143,7 +143,7 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
 
     private void saveChanges(String userz) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
-        String email = editEmail.getText().toString().trim();
+        String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
         String password = editPassword.getText().toString().trim();
         String confirmPassword = editconfirmPassword.getText().toString().trim();
 

@@ -386,7 +386,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         if (internetConnection == true) {
             final Intent intent = new Intent(this, EMP_FillUpInformation_ProfilePicture.class);
             if (filePath != null) {
-                final String email = editEmail.getText().toString().trim();
+                final String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
                 final String password = editPassword.getText().toString().trim();
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();

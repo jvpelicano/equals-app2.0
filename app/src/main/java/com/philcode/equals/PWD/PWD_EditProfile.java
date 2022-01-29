@@ -234,7 +234,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                emailFromFb = dataSnapshot.child("email").getValue().toString();
+                emailFromFb = dataSnapshot.child("email").getValue().toString().replaceAll("\\s+", "");
                 String firstName = dataSnapshot.child("firstName").getValue().toString();
                 String lastName = dataSnapshot.child("lastName").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
