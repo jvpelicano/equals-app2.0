@@ -63,7 +63,6 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
-
                 final String pwd_SkillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
                 final String pwd_educationalAttainment = pwd_dataSnapshot.child("educationalAttainment").getValue().toString();
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
@@ -75,6 +74,15 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
+                        if(jobFetch_dataSnapshot1.hasChild("Job_Offers")){
+                            recyclerView.setVisibility(View.VISIBLE);
+                            mascot.setVisibility(View.GONE);
+                            tv_noJobsAvailable.setVisibility(View.GONE);
+                        }else{
+                            recyclerView.setVisibility(View.GONE);
+                            mascot.setVisibility(View.VISIBLE);
+                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                        }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
                             final String permission = job_snapshot1.child("permission").getValue(String.class);

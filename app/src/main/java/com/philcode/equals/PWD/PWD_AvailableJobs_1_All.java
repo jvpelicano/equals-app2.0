@@ -68,6 +68,15 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                 refForJobs.addValueEventListener(new ValueEventListener() { //checking Job_Offers
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
+                        if(jobFetch_dataSnapshot1.hasChild("Job_Offers")){
+                            recyclerView.setVisibility(View.VISIBLE);
+                            mascot.setVisibility(View.GONE);
+                            tv_noJobsAvailable.setVisibility(View.GONE);
+                        }else{
+                            recyclerView.setVisibility(View.GONE);
+                            mascot.setVisibility(View.VISIBLE);
+                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                        }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
                             final String permission = job_snapshot1.child("permission").getValue(String.class);
