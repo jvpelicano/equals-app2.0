@@ -153,6 +153,7 @@
                         android:drawableStart="@drawable/email"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/proxima_nova_regular"
+                        android:textColorHighlight="#B31F86DE"
                         android:hint="Email"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -180,6 +181,7 @@
                         android:drawableStart="@drawable/password"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/proxima_nova_regular"
+                        android:textColorHighlight="#B31F86DE"
                         android:hint="Password"
                         android:inputType="textPassword" />
 
@@ -207,6 +209,7 @@
                         android:layout_marginRight="5dp"
                         android:drawableStart="@drawable/password"
                         android:drawablePadding="10dp"
+                        android:textColorHighlight="#B31F86DE"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="Confirm Password"
                         android:inputType="textPassword" />
@@ -243,6 +246,7 @@
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="Juan"
                         android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp">
@@ -278,6 +282,7 @@
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="Dela Cruz"
                         android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
@@ -312,6 +317,7 @@
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="(eg. Company Name Org.)"
                         android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
@@ -346,6 +352,7 @@
                         android:drawableStart="@drawable/ic_baseline_local_phone_24"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint=" +639..."
+                        android:textColorHighlight="#B31F86DE"
                         android:inputType="textWebEditText"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
@@ -383,6 +390,7 @@
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="Enter Company Overview."
                         android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
@@ -419,6 +427,7 @@
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint=" (eg. Blk. 1 Lot 2 Brngy. San...)"
                         android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp">
