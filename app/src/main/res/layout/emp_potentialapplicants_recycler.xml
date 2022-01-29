@@ -50,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu_emp"
+        app:itemIconTint="@color/gray"
         app:itemTextAppearance="@style/ProximaNovaTextViewStyle"
         android:layout_gravity="start"/>
 

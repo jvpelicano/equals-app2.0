@@ -465,7 +465,7 @@
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:text="I have read and agree to the Equals Privacy Policy"
-                    app:tint="@color/colorPrimaryDark"
+                    android:buttonTint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerCity" />
