@@ -140,8 +140,28 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(userId)){
-                    m_sendResume.setText("Resume is already sent.");
-                    m_sendResume.setClickable(false);
+                    m_sendResume.setText("Send updated resume.");
+                    m_sendResume.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(PWD_AvailableJobs_View.this).create();
+                            alertDialog.setTitle("Update Resume?");
+                            alertDialog.setMessage("If you haven't already sent your updated resume, you can click \"OK\" to re-send your updated resume.");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            sendResume();
+                                        }
+                                    });
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
                 }else{
                     checkResume();
                 }
