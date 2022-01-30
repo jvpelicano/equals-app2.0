@@ -2,6 +2,7 @@ package com.philcode.equals.EMP;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.EMP_PWD_Information;
 
 import com.philcode.equals.R;
@@ -23,6 +31,7 @@ import java.util.ArrayList;
 public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPotential_Adapter.MyViewHolder> {
     Context context;
     ArrayList<EMP_PWD_Information> availablejobsinfos;
+    private DatabaseReference jobReference;
     public EMP_ViewPotential_Adapter(Context c, ArrayList<EMP_PWD_Information> p) {
         context = c;
         availablejobsinfos = p;
@@ -45,6 +54,7 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
         holder.btnViewPost.setVisibility(View.VISIBLE);
         String pwd_AuthID = availablejobsinfos.get(position).getKey();
         holder.onClick(position, pwd_AuthID);
+
     }
 
     @Override
@@ -62,14 +72,11 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
         public MyViewHolder(View itemView) {
             super(itemView);
             displayPic = itemView.findViewById(R.id.pwd_user_imageview);
-
             displayName = itemView.findViewById(R.id.displayName);
             displayContact = itemView.findViewById(R.id.displayContact);
             displayEmail = itemView.findViewById(R.id.displayEmail);
             btnViewPost = itemView.findViewById(R.id.btnViewCategory);
-
         }
-
         public void onClick(final int position, String pwd_AuthID) {
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override

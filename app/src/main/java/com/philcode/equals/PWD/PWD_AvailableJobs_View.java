@@ -150,7 +150,18 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            sendResume();
+                                            jobOffersRef.child("Resume").child(userId).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    String oldResumeFile = snapshot.child("resumeFile").getValue(String.class);
+                                                    reSendResume(oldResumeFile);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
                             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
@@ -275,6 +286,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 jobOffersRef.child("Resume").child(userID).setValue(hashMap);
                 Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
+                finish();
             }
 
             @Override
@@ -283,6 +295,38 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             }
         });
 
+    }
+    private void reSendResume(String oldResumeFile){
+        pwdRef = fDb.getReference().child("PWD").child(userId);
+        pwdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fname = snapshot.child("firstName").getValue().toString();
+                String lname = snapshot.child("lastName").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
+                String contact = snapshot.child("contact").getValue().toString();
+                String resume = snapshot.child("resumeFile").getValue().toString();
+                String userID = user.getUid();
+                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("oldResumeFile", oldResumeFile);
+                hashMap.put("resumeFile", resume);
+                hashMap.put("firstName", fname);
+                hashMap.put("lastName", lname);
+                hashMap.put("email", email);
+                hashMap.put("contact", contact);
+                hashMap.put("userID", userID);
+                jobOffersRef.child("Resume").child(userID).setValue(hashMap);
+                Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

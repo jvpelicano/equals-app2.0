@@ -22,7 +22,6 @@
             android:orientation="vertical"
             android:weightSum="2">
 
-
             <include layout="@layout/navigation_action_bar_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -135,7 +134,7 @@
                         android:paddingBottom="10dp"
                         android:text="Description"
                         android:fontFamily="@font/open_sans_regular"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         android:textColor="@color/textColor"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"

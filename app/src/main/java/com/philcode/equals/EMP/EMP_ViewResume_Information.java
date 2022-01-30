@@ -6,7 +6,7 @@ public class EMP_ViewResume_Information {
     private String email;
     private String contact;
 
-    private String userId;
+    private String userID;
     private String resumeFile;
 
 
@@ -19,7 +19,7 @@ public class EMP_ViewResume_Information {
         this.lastName=lastName;
         this.email=email;
         this.contact=contact;
-        this.userId =userId;
+        this.userID =userId;
         this.resumeFile=resumeFile;
     }
 
@@ -56,12 +56,12 @@ public class EMP_ViewResume_Information {
         this.contact = contact;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getResumeFile() {

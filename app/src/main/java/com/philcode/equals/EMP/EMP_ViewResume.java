@@ -128,11 +128,10 @@ public class EMP_ViewResume extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(EMP_ViewResume.this, EMP_ViewResumePDF_Activity.class);
                                 intent.putExtra("PDF_Uri", list.get(position).getResumeFile());
-                                //Toast.makeText(EMP_ViewResume.this, list.get(position).getResumeFile(), Toast.LENGTH_SHORT).show();
-                                //EMP_ViewResume_Information emp = new EMP_ViewResume_Information();
-                                /*Intent intent = new Intent();
-                                intent.setType(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(list.get(position).getResumeFile()));*/
+                                intent.putExtra("POST_ID", postJobID);
+                                String resumeKey = list.get(position).getUserID();
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume").child(resumeKey);
+                                ref.child("oldResumeFile").removeValue();
                                 startActivity(intent);
                             }
                         });
@@ -166,7 +165,7 @@ public class EMP_ViewResume extends AppCompatActivity {
                                 list.add(p);
                             }
                             Collections.reverse(list);
-                            adapter = new EMP_ViewResume_Adapter(EMP_ViewResume.this, list);
+                            adapter = new EMP_ViewResume_Adapter(EMP_ViewResume.this, list, postJobID);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
@@ -288,5 +287,11 @@ public class EMP_ViewResume extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
