@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class Post_Home_MyAdapter extends RecyclerView.Adapter<Post_Home_MyAdapter.PWD_Home_ViewHolder> {
@@ -33,10 +35,17 @@ public class Post_Home_MyAdapter extends RecyclerView.Adapter<Post_Home_MyAdapte
    }
    @Override
    public void onBindViewHolder(@NonNull PWD_Home_ViewHolder holder, int position) {
+      String timeStamp = homeInfos.get(position).getFormattedDate();
+
       Picasso.get().load(homeInfos.get(position).getPostImage()).fit().centerCrop().into(holder.picfeed);
       holder.titlefeed.setText(homeInfos.get(position).getPostContentTitle());
       holder.descfeed.setText(homeInfos.get(position).getPostDescription());
-      holder.datefeed.setText(String.format("Posted on %s", homeInfos.get(position).getFormattedDate()));
+
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTimeInMillis(Long.parseLong(timeStamp));
+      String currentDate  = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
+      holder.datefeed.setText(("Posted on " + currentDate));
 
       holder.picfeed.setVisibility(View.VISIBLE);
       holder.onClick(position);
