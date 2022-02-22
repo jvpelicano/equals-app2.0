@@ -12,6 +12,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class Home_View extends AppCompatActivity {
 
     @Override
@@ -36,7 +39,7 @@ public class Home_View extends AppCompatActivity {
             String postImage = getIntent().getStringExtra("postImage");
             String postContentTitle = getIntent().getStringExtra("postContentTitle");
             String postContentDescription = getIntent().getStringExtra("postContentDescription");
-            String formattedDate = "Posted on " + getIntent().getStringExtra("formattedDate");
+            String formattedDate = getIntent().getStringExtra("formattedDate");
             setImage(postImage,postContentTitle, postContentDescription, formattedDate);
         }
     }
@@ -56,6 +59,12 @@ public class Home_View extends AppCompatActivity {
         desc.setText(postContentDescription);
 
         TextView date = findViewById(R.id.displayformattedDate);
-        date.setText(formattedDate);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Long.parseLong(formattedDate));
+        String currentDate  = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
+        date.setText("Posted on " +currentDate);
     }
 }
