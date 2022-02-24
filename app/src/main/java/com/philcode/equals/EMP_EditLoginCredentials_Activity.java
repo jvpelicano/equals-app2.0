@@ -44,6 +44,7 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
     private String emailCheck, password, stringConfirmPassword, emailFromFb;
     private MaterialButton buttonSave;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,8 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         final String userz = user.getUid();
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
+        rootRef = FirebaseDatabase.getInstance().getReference().child("EMP").child(userz);
+
 
         buttonSave = findViewById(R.id.buttonSaveChanges);
         editEmailError = findViewById(R.id.emp_enterEmail_layout);
@@ -71,7 +73,7 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
                  * has valid values.
                  */
                 if (!hasFocus) {
-                    String email = editEmail.getText().toString();
+                    String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
                     if (!(email == null || email.equals(""))) {
                         if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                             checkEmailExistsOrNot(email);
@@ -131,27 +133,44 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String password = editPassword.getText().toString().trim();
                 String confirmPassword = editconfirmPassword.getText().toString().trim();
+                String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
 
-                if(password.equals(confirmPassword)){
-                    saveChanges(userz);
+                if(password.isEmpty() && confirmPassword.isEmpty() && email.isEmpty()){
+                    Toast.makeText(EMP_EditLoginCredentials_Activity.this, "Nothing is changed.", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(EMP_EditLoginCredentials_Activity.this, "Password does not match.", Toast.LENGTH_SHORT).show();
+                    //if fields are valid check input pass and confirm pass if match.
+                    if(password.equals(confirmPassword)){
+                        saveChanges(userz);
+                    }else{
+                        Toast.makeText(EMP_EditLoginCredentials_Activity.this, "Password does not match.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
     }
 
     private void saveChanges(String userz) {
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
         String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
         String password = editPassword.getText().toString().trim();
         String confirmPassword = editconfirmPassword.getText().toString().trim();
 
-        if(email.isEmpty() || email.equals(emailFromFb)){
-            //
-        }else{
-            updateEmail(email, rootRef);
-        }
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                emailFromFb = snapshot.child("email").getValue(String.class);
+                if(email.isEmpty() || email.equals(emailFromFb)){
+                    //
+                }else{
+                    updateEmail(email, userz);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if((!password.isEmpty() || !confirmPassword.isEmpty())){
             firebaseAuth.getCurrentUser().updatePassword(password);
@@ -206,14 +225,15 @@ public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
         }
 
     }
-    public void updateEmail(String email, DatabaseReference rootRef){
+    public void updateEmail(String email, String userz){
+        DatabaseReference empRef =  FirebaseDatabase.getInstance().getReference().child("Employers").child(userz);
         firebaseAuth.getCurrentUser().updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        rootRef.child("email").setValue(email);
+                        empRef.child("email").setValue(email);
                         Toast.makeText(EMP_EditLoginCredentials_Activity.this, "Email is successfully updated.", Toast.LENGTH_SHORT).show();
                     }
                 });
