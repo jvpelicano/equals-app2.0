@@ -1,4 +1,4 @@
-package com.philcode.equals;
+package com.philcode.equals.EMP;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,9 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.philcode.equals.EMP.EMP_EditProfile_Activity;
-import com.philcode.equals.PWD.PWD_EditProfile;
 import com.philcode.equals.PWD.PWD_RegisterActivity;
+import com.philcode.equals.R;
 
 public class EMP_EditLoginCredentials_Activity extends AppCompatActivity {
 

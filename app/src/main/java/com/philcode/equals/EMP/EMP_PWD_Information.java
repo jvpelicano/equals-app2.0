@@ -1,4 +1,4 @@
-package com.philcode.equals;
+package com.philcode.equals.EMP;
 
 import android.widget.CheckBox;
 

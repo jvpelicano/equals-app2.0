@@ -133,6 +133,7 @@ public class EMP_ViewResume extends AppCompatActivity {
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume").child(resumeKey);
                                 ref.child("oldResumeFile").removeValue();
                                 startActivity(intent);
+                                finish();
                             }
                         });
                         AlertDialog alertDialog = alert.create();
@@ -160,6 +161,7 @@ public class EMP_ViewResume extends AppCompatActivity {
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            list.clear();
                             for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
                                 EMP_ViewResume_Information p = dataSnapshot2.getValue(EMP_ViewResume_Information.class);
                                 list.add(p);

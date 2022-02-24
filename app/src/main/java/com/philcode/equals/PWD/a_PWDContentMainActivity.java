@@ -196,10 +196,10 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             FirebaseAuth.getInstance().signOut();
-                                            //closing activity
-                                            finish();
                                             //starting login activity
                                             startActivity(new Intent(a_PWDContentMainActivity.this, PWD_LoginActivity.class));
+                                            //closing activity
+                                            finish();
                                         }
                                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override

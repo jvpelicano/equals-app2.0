@@ -93,8 +93,9 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(EMP_ViewResumePDF_Activity.this, EMP_ViewResume.class);
+        finish();
+        /*Intent intent = new Intent(EMP_ViewResumePDF_Activity.this, EMP_ViewResume.class);
         intent.putExtra("POST_ID", postJobID);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 }
