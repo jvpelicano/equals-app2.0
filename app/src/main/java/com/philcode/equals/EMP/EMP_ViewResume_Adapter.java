@@ -50,6 +50,8 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.file_icon.setImageResource(R.mipmap.resume_icon);
         holder.firstName.setText(availablejobsinfos.get(position).getFirstName()+" "+availablejobsinfos.get(position).getLastName());
+        holder.email.setText(availablejobsinfos.get(position).getEmail());
+        holder.contact.setText(availablejobsinfos.get(position).getContact());
         String key = availablejobsinfos.get(position).getUserID();
         jobReference = FirebaseDatabase.getInstance().getReference().child("Job_Offers").child(postJobId);
         jobReference.child("Resume").child(key).addValueEventListener(new ValueEventListener() {
@@ -87,6 +89,8 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
             file_icon = itemView.findViewById(R.id.file_icon);
             firstName = itemView.findViewById(R.id.editFirstName);
             resumeFile = itemView.findViewById(R.id.editNotifyOldResume);
+            email = itemView.findViewById(R.id.editEmail);
+            contact = itemView.findViewById(R.id.editContact);
         }
 
         public void onClick(final int position) {
