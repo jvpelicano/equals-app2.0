@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +49,7 @@ public class EMP_ChangeLogo extends Activity {
     private DatabaseReference databaseReference, mDatabase;
     String Storage_Path = "Employer_Reg_Form/";
     private ImageView profilePicEMP;
-    private Button chooseEmpPic, btnEmpSubmit;
+    private MaterialButton chooseEmpPic, btnEmpSubmit;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
 
