@@ -85,14 +85,6 @@
                 android:visibility="gone"
                 />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/viewApplicant"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_sharp_pageview_24"
-            />
     </LinearLayout>
 
     <View

@@ -66,7 +66,6 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
 
             }
         });
-        //holder.onClick3(key, position);
 
     }
 
@@ -92,7 +91,7 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
             resumeFile = itemView.findViewById(R.id.editNotifyOldResume);
             email = itemView.findViewById(R.id.editEmail);
             contact = itemView.findViewById(R.id.editContact);
-            btnViewPost = itemView.findViewById(R.id.viewApplicant);
+            //btnViewPost = itemView.findViewById(R.id.viewApplicant);
         }
 
         public void onClick(final int position) {
@@ -137,18 +136,6 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
 
                 private void requestPermission(){
                     ActivityCompat.requestPermissions((Activity) context, new String[] {Manifest.permission.CALL_PHONE},1);
-                }
-            });
-        }
-
-        public void onClick3(String key, int position){
-            btnViewPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, EMP_ViewPotential_View.class);
-                    i.putExtra("PWD_ID", key);
-                    i.putExtra("INT_POS", position);
-                    context.startActivity(i);
                 }
             });
         }

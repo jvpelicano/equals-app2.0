@@ -287,7 +287,6 @@ public class EMP_ViewResume extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-
         if (pToggle.onOptionsItemSelected(item)) {
             return true;
         }

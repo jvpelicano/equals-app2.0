@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -37,8 +38,8 @@ public class PWD_LoginActivity extends AppCompatActivity implements View.OnClick
 
     //defining views
     private Button buttonSignIn, buttonforgotpass;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
+    private TextInputEditText editTextEmail;
+    private TextInputEditText editTextPassword;
     private TextView textViewSignup;
 
     //firebase auth object
@@ -65,8 +66,8 @@ public class PWD_LoginActivity extends AppCompatActivity implements View.OnClick
         }
 */
         //initializing views
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextEmail = (TextInputEditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (TextInputEditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
         buttonforgotpass = (Button) findViewById(R.id.buttonForgotpasswor);
         textViewSignup  = (TextView) findViewById(R.id.textViewSignUp);

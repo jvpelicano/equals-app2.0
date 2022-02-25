@@ -75,7 +75,7 @@
                 android:hint="Password"
                 android:drawableStart="@drawable/password"
                 android:drawablePadding="10dp"
-                android:inputType="textWebEditText"
+                android:inputType="textPassword"
                 android:textColor="#232c33"
                 android:textColorHighlight="#B31F86DE"
                 android:textCursorDrawable="@drawable/cursor"

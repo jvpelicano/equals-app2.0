@@ -28,15 +28,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/theRecycler"
-            android:layout_width="411dp"
-            android:layout_height="677dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-             />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:textSize="18sp"
+                    android:text="Long press to view applicant's profile."
+                    android:background="@color/white"
+                    android:fontFamily="@font/poppins_bold"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/theRecycler"
+                    android:layout_width="411dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    />
+
 
         </LinearLayout>
     </RelativeLayout>
