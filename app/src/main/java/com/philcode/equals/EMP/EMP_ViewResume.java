@@ -146,11 +146,11 @@ public class EMP_ViewResume extends AppCompatActivity {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                        /*Intent i = new Intent(context, EMP_ViewPotential_View.class);
+                        Intent i = new Intent(EMP_ViewResume.this, EMP_ViewPotential_View.class);
                         String key = list.get(position).getUserID();
                         i.putExtra("PWD_ID", key);
                         i.putExtra("INT_POS", position);
-                        context.startActivity(i);*/
+                        startActivity(i);
                     }
                 })
 
