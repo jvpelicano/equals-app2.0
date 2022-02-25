@@ -127,7 +127,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="2dp"
-                android:text="Company Name"
+                android:text="Company Contact"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
