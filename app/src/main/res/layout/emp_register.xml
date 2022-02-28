@@ -389,11 +389,13 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:hint="Enter Company Overview."
-                        android:inputType="textWebEditText"
-                        android:textColorHighlight="#B31F86DE"
+                        android:inputType="textMultiLine|textCapSentences"
                         android:textColor="#232c33"
+                        android:textColorHighlight="#B31F86DE"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                        android:textSize="16sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -451,8 +453,8 @@
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/spinnerCity"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_width="250dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
