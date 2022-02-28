@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.philcode.equals.EMP_PWD_Information;
+import com.google.firebase.database.DatabaseReference;
 
 import com.philcode.equals.R;
 import com.squareup.picasso.Picasso;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPotential_Adapter.MyViewHolder> {
     Context context;
     ArrayList<EMP_PWD_Information> availablejobsinfos;
+    private DatabaseReference jobReference;
     public EMP_ViewPotential_Adapter(Context c, ArrayList<EMP_PWD_Information> p) {
         context = c;
         availablejobsinfos = p;
@@ -45,6 +45,7 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
         holder.btnViewPost.setVisibility(View.VISIBLE);
         String pwd_AuthID = availablejobsinfos.get(position).getKey();
         holder.onClick(position, pwd_AuthID);
+
     }
 
     @Override
@@ -62,14 +63,11 @@ public class EMP_ViewPotential_Adapter extends RecyclerView.Adapter<EMP_ViewPote
         public MyViewHolder(View itemView) {
             super(itemView);
             displayPic = itemView.findViewById(R.id.pwd_user_imageview);
-
             displayName = itemView.findViewById(R.id.displayName);
             displayContact = itemView.findViewById(R.id.displayContact);
             displayEmail = itemView.findViewById(R.id.displayEmail);
             btnViewPost = itemView.findViewById(R.id.btnViewCategory);
-
         }
-
         public void onClick(final int position, String pwd_AuthID) {
             btnViewPost.setOnClickListener(new View.OnClickListener() {
                 @Override

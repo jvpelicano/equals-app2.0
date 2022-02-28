@@ -152,7 +152,6 @@ public class Emp_PostJob extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Address = dataSnapshot.child("companyaddress").getValue(String.class);
                 city = dataSnapshot.child("companycity").getValue(String.class);
-     //           Toast.makeText(getApplicationContext(), cu+Address+city, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -279,8 +278,9 @@ public class Emp_PostJob extends AppCompatActivity {
                 rootRef.addValueEventListener(new ValueEventListener() {
                     public void onDataChange(DataSnapshot snapshot) {
                         String companyName = snapshot.child("fullname").getValue().toString();
+                        String companyLogo = snapshot.child("empProfilePic").getValue().toString();
                         login();
-                        uploadImage(companyName, uid);
+                        uploadImage(companyLogo, companyName, uid);
                     }
 
                     @Override
@@ -399,7 +399,7 @@ public class Emp_PostJob extends AppCompatActivity {
         }
     }
 
-    private void uploadImage(final String companyName, final String uid) {
+    private void uploadImage(final String companyLogo, final String companyName, final String uid) {
         if (checkEducRequirement.isChecked()){
             zz="true";
         }else{
@@ -452,9 +452,11 @@ public class Emp_PostJob extends AppCompatActivity {
                                     //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
                                     Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
                                             tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz);
+
                                     databaseReference.child(ImageUploadId).setValue(postJobInfo);
                                     databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
                                     databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
+                                    databaseReference.child(ImageUploadId).child("empProfilePic").setValue(companyLogo);
 
                                     if(workExperience.equals("With Experience")){
                                         years = Integer.parseInt(yearsOfExperience.getText().toString());

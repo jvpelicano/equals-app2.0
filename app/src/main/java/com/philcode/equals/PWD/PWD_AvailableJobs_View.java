@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
@@ -24,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,9 +57,11 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
             m_displayPostTitle;
     Button m_sendResume;
-    ImageView m_displayPostPic;
+    ImageView m_displayPostPic, m_displayCompanyLogo;
+    private String companyLogoURL;
     private ProgressDialog progressDialog;
     private static final int PICK_FILE = 1 ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayPermission = findViewById(R.id.displayPermission);
         m_sendResume = findViewById(R.id.btnApply);
         m_displayPostPic = findViewById(R.id.displayPostPic);
+        m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
         //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
@@ -96,7 +103,11 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
                 final String expDate = snapshot.child("expDate").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
-
+                if(snapshot.hasChild("empProfilePic")){
+                    companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
+                }else{
+                    companyLogoURL = null;
+                }
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
                 for(int counter = 1; counter <= 10; counter++){
@@ -117,7 +128,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience,
-                        expDate, imageURL);
+                        expDate, imageURL, companyLogoURL);
             }
 
             @Override
@@ -125,20 +136,67 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
-        checkResume();
+        jobOffersRef.child("Resume").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(userId)){
+                    m_sendResume.setText("Send updated resume.");
+                    m_sendResume.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(PWD_AvailableJobs_View.this).create();
+                            alertDialog.setTitle("Update Resume?");
+                            alertDialog.setMessage("If you haven't already sent your updated resume, you can click \"OK\" to re-send your updated resume.");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            jobOffersRef.child("Resume").child(userId).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    String oldResumeFile = snapshot.child("resumeFile").getValue(String.class);
+                                                    reSendResume(oldResumeFile);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    });
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    });
+                }else{
+                    checkResume();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
                             String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate,
-                            String imageURL){
+                            String imageURL, String companyLogoURL){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience);
+        m_displayTotalWorkExperience.setText(workExperience + " years");
         m_displayExpDate.setText(expDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
@@ -153,6 +211,12 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         }
         m_displayTypeOfDisabilitiesList.setText(typeOfDisability_builder.toString());
         Glide.with(getApplicationContext()).load(imageURL).into(m_displayPostPic);
+        if(companyLogoURL == null){
+            m_displayCompanyLogo.setVisibility(View.GONE);
+        }else{
+            Glide.with(getApplicationContext()).load(companyLogoURL).into(m_displayCompanyLogo);
+        }
+
 
     }
     public void checkResume(){
@@ -222,6 +286,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 jobOffersRef.child("Resume").child(userID).setValue(hashMap);
                 Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
+                finish();
             }
 
             @Override
@@ -230,6 +295,38 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             }
         });
 
+    }
+    private void reSendResume(String oldResumeFile){
+        pwdRef = fDb.getReference().child("PWD").child(userId);
+        pwdRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fname = snapshot.child("firstName").getValue().toString();
+                String lname = snapshot.child("lastName").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
+                String contact = snapshot.child("contact").getValue().toString();
+                String resume = snapshot.child("resumeFile").getValue().toString();
+                String userID = user.getUid();
+                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("oldResumeFile", oldResumeFile);
+                hashMap.put("resumeFile", resume);
+                hashMap.put("firstName", fname);
+                hashMap.put("lastName", lname);
+                hashMap.put("email", email);
+                hashMap.put("contact", contact);
+                hashMap.put("userID", userID);
+                jobOffersRef.child("Resume").child(userID).setValue(hashMap);
+                Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

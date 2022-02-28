@@ -3,6 +3,7 @@ package com.philcode.equals.EMP;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.net.URL;
 public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
     private PDFView pdfView;
     private FloatingActionButton fab_main;
+    private String postJobID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
         fab_main = findViewById(R.id.fab);
         pdfView = findViewById(R.id.pdfView);
         String url = getIntent().getStringExtra("PDF_Uri");
+        postJobID = getIntent().getStringExtra("POST_ID");
         new RetrivePdfStream().execute(url);
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,5 +88,14 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
                     .pageSnap(true)
                     .load();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        /*Intent intent = new Intent(EMP_ViewResumePDF_Activity.this, EMP_ViewResume.class);
+        intent.putExtra("POST_ID", postJobID);
+        startActivity(intent);*/
     }
 }

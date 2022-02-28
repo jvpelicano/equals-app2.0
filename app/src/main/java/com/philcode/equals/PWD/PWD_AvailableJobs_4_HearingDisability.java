@@ -2,6 +2,8 @@ package com.philcode.equals.PWD;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,16 +29,29 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
     ArrayList<PWD_AvailableJobs_Model> list = new ArrayList<>();
     PWD_AvailableJobs_MyAdapter myAdapter;
     SwitchMaterial switchPriority;
+    TextView tv_noJobsAvailable;
+    ImageView mascot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_available_jobs);
         recyclerView = findViewById(R.id.myRecycler);
+        tv_noJobsAvailable = findViewById(R.id.tv_noJobsAvailable);
+        mascot = findViewById(R.id.mascot);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         switchPriority = findViewById(R.id.switchPriority);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
         list = new ArrayList<>();
+        getWindow().getDecorView().post(new Runnable() {
+
+            @Override
+            public void run() {
+                mascot.setVisibility(View.GONE);
+                tv_noJobsAvailable.setVisibility(View.GONE);
+            }
+
+        });
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,6 +67,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                 refForJobs.orderByChild("typeOfDisability3").equalTo("Hearing Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
+                        if(jobFetch_dataSnapshot1.hasChild("Job_Offers")){
+                            recyclerView.setVisibility(View.VISIBLE);
+                            mascot.setVisibility(View.GONE);
+                            tv_noJobsAvailable.setVisibility(View.GONE);
+                        }else{
+                            recyclerView.setVisibility(View.GONE);
+                            mascot.setVisibility(View.VISIBLE);
+                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                        }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
                             final String permission = job_snapshot1.child("permission").getValue(String.class);
@@ -80,6 +104,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -102,6 +135,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -123,6 +165,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -143,6 +194,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -162,6 +222,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -180,6 +249,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                     PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                     list.add(pwd_Model);
+                                                    if(!list.isEmpty()){
+                                                        recyclerView.setVisibility(View.VISIBLE);
+                                                        mascot.setVisibility(View.GONE);
+                                                        tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    }else{
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        mascot.setVisibility(View.VISIBLE);
+                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    }
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -199,6 +277,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -221,6 +308,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -243,6 +339,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -264,6 +369,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -284,6 +398,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -303,6 +426,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -321,6 +453,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                                 PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                                 list.add(pwd_Model);
+                                                if(!list.isEmpty()){
+                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                    mascot.setVisibility(View.GONE);
+                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                }else{
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    mascot.setVisibility(View.VISIBLE);
+                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                }
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -340,6 +481,15 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
 
                                             PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
                                             list.add(pwd_Model);
+                                            if(!list.isEmpty()){
+                                                recyclerView.setVisibility(View.VISIBLE);
+                                                mascot.setVisibility(View.GONE);
+                                                tv_noJobsAvailable.setVisibility(View.GONE);
+                                            }else{
+                                                recyclerView.setVisibility(View.GONE);
+                                                mascot.setVisibility(View.VISIBLE);
+                                                tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                            }
                                             myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_4_HearingDisability.this, list);
                                             recyclerView.setAdapter(myAdapter);
                                             myAdapter.notifyDataSetChanged();

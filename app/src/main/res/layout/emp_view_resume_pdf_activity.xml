@@ -21,6 +21,7 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_cloud_download_24"
         app:backgroundTint="#177ad0"
+        app:tint="@color/white"
         android:clickable="true"
         android:focusable="true"
         android:elevation="16dp" />

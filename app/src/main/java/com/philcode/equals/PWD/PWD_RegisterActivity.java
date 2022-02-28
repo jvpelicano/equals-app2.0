@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,9 +14,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -35,6 +38,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,10 +73,10 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
 
 
     //view objects
-    private Button buttonSave, btnUpload;
+    private Button buttonSave, btn_pwd_ID_upload;
     private Spinner spinnerCity;
 
-    private EditText editFirstName, editLastName, editTextAddress, editContact, editPWDnumber, editEmail, editPassword, confirmPassword;
+    private TextInputEditText editFirstName, editLastName, editContact, editEmail, editPassword, confirmPassword, editTextAddress;
     private TextInputLayout editEmailError, editPasswordError, confirmPasswordError;
     private TextView emailAddressInUse;
     private ImageView imagePWD;
@@ -97,19 +101,24 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-        btnUpload = (Button) findViewById(R.id.btn_pwd_choose_idcard);
+        //btnUpload = (Button) findViewById(R.id.btn_pwd_choose_idcard);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
+        emailAddressInUse = findViewById(R.id.emailAddressInUse);
+        imagePWD = findViewById(R.id.pwd_idcardPic);
+        editTextAddress = findViewById(R.id.editTextAddress);
+        spinnerCity = findViewById(R.id.spinnerCity);
+        editContact = findViewById(R.id.editContact);
+        btn_pwd_ID_upload = findViewById(R.id.btn_pwd_ID_upload);
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+        btn_pwd_ID_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Creating intent.
                 Intent intent = new Intent();
-
                 // Setting intent type as image to select image from phone storage.
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -216,9 +225,6 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        editTextAddress = findViewById(R.id.editTextAddress);
-        spinnerCity = findViewById(R.id.spinnerCity);
-        editContact = findViewById(R.id.editContact);
         editContact.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -233,8 +239,6 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         });
-        emailAddressInUse = findViewById(R.id.emailAddressInUse);
-        imagePWD = findViewById(R.id.pwd_idcardPic);
 
 
         //Privacy Policy
@@ -250,6 +254,12 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
             public void onClick(@NonNull View widget) {
                 Intent intent = new Intent(PWD_RegisterActivity.this, PrivacyPolicyPDFViewer.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.BLUE);
             }
         };
 
@@ -334,7 +344,7 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
             if (filePath != null) {
 //                final String typeStatus = "PWDApproved";  // for testing app 09.12.2021
                 final String typeStatus = "PWDPending"; //original status when registering 09.12.2021
-                final String email = editEmail.getText().toString().trim();
+                final String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
                 final String address = editTextAddress.getText().toString().trim();
@@ -354,7 +364,7 @@ public class PWD_RegisterActivity extends AppCompatActivity implements View.OnCl
                 } else if (password.length() <= 5) {
                     //             editPassword.requestFocus();
                     editPassword.setError("Your password must contain at least 6 characters");
-                } else if (!(stringConfirmPassword.equals(password))) {
+                } else if (!(stringConfirmPassword1.equals(password))) {
                     confirmPasswordError.setError("Password doesn't match");
                 } else if (firstname.length() == 0) {
                     //           editFirstName.requestFocus();

@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +31,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +51,7 @@ import com.google.firebase.storage.UploadTask;
 import com.philcode.equals.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class PWD_EditProfile extends AppCompatActivity  {
@@ -66,11 +70,14 @@ public class PWD_EditProfile extends AppCompatActivity  {
 
 
     //view objects
-    private Button buttonSave, btnUpload;
+    private MaterialButton buttonSave, btnUpload;
     private Spinner spinnerCity;
 
-    private EditText editFirstName, editLastName, editTextAddress, editContact;
-    TextView editEmail;
+    private TextInputEditText editFirstName, editLastName, editTextAddress, editContact,  editEmail, editPassword, editconfirmPassword;
+    private TextInputLayout pwd_enterEmail_layout, confirmPasswordError, editPasswordError;
+    private TextView emailAddressInUse;
+    private String emailFromFb;
+    private String[] cities;
 
 
     boolean valid;
@@ -90,12 +97,17 @@ public class PWD_EditProfile extends AppCompatActivity  {
         storageReference = storage.getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        buttonSave = (MaterialButton) findViewById(R.id.buttonSave);
+        pwd_enterEmail_layout = findViewById(R.id.pwd_enterEmail_layout);
+        emailAddressInUse = findViewById(R.id.emailAddressInUse);
+        confirmPasswordError = findViewById(R.id.textInputLayout5);
+        editPasswordError = findViewById(R.id.textInputLayout4);
+        spinnerCity = findViewById(R.id.spinnerCity);
+        cities = new String[146];
 
-        btnUpload = (Button) findViewById(R.id.btn_pwd_choose_idcard);
-        buttonSave = (Button) findViewById(R.id.buttonSave);
-
-
-        editEmail = findViewById(R.id.editEmail);
+        cities = getResources().getStringArray(R.array.City);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, cities);
+        spinnerCity.setAdapter(adapter);
 
         editFirstName = findViewById(R.id.editFirstName);
         editFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -114,6 +126,7 @@ public class PWD_EditProfile extends AppCompatActivity  {
                 }
             }
         });
+
         editLastName = findViewById(R.id.editLastName);
         editLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -132,6 +145,65 @@ public class PWD_EditProfile extends AppCompatActivity  {
             }
         });
 
+        editEmail = findViewById(R.id.editEmail);
+        editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String email = editEmail.getText().toString();
+                    if (!(email == null || email.equals(""))) {
+                        if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            checkEmailExistsOrNot(email);
+                        } else {
+                            pwd_enterEmail_layout.setError("Invalid email");
+                        }
+                    }
+                }
+            }
+        });
+
+        editPassword = findViewById(R.id.editPassword);
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    password = editPassword.getText().toString().trim();
+                    if (password.length() == 0) {
+                        editPasswordError.setError("Please enter a password");
+                    } else {
+                        editPasswordError.setError(null);
+                    }
+                    if (password.length() <= 5) {
+                        editPasswordError.setError("Your password must contain at least 6 characters");
+                    } else {
+                        editPasswordError.setError(null);
+                    }
+                }
+            }
+        });
+
+        editconfirmPassword = findViewById(R.id.confirmPassword);
+        editconfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                /* When focus is lost check that the text field
+                 * has valid values.
+                 */
+                if (!hasFocus) {
+                    stringConfirmPassword = editconfirmPassword.getText().toString().trim();
+                    if (!(stringConfirmPassword.equals(password))) {
+                        confirmPasswordError.setError("Password doesn't match");
+                    } else {
+                        confirmPasswordError.setError(null);
+                    }
+                }
+            }
+        });
         editTextAddress = findViewById(R.id.editTextAddress);
         spinnerCity = findViewById(R.id.spinnerCity);
         editContact = findViewById(R.id.editContact);
@@ -162,18 +234,18 @@ public class PWD_EditProfile extends AppCompatActivity  {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String email = dataSnapshot.child("email").getValue().toString();
+                emailFromFb = dataSnapshot.child("email").getValue().toString().replaceAll("\\s+", "");
                 String firstName = dataSnapshot.child("firstName").getValue().toString();
                 String lastName = dataSnapshot.child("lastName").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
                 String address = dataSnapshot.child("address").getValue().toString();
+                String city = dataSnapshot.child("city").getValue().toString();
 
-                editEmail.setText(email);
                 editFirstName.setText(firstName);
                 editLastName.setText(lastName);
                 editContact.setText(contact);
                 editTextAddress.setText(address);
-
+                spinnerCity.setSelection(adapter.getPosition(city));
             }
 
             @Override
@@ -182,32 +254,114 @@ public class PWD_EditProfile extends AppCompatActivity  {
             }
         });
 
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
-                String firstname = editFirstName.getText().toString();
-                String lastname = editLastName.getText().toString();
-                String contact = editContact.getText().toString();
-                String address = editTextAddress.getText().toString();
-                String spinner = spinnerCity.getSelectedItem().toString();
+                String password = editPassword.getText().toString().trim();
+                String confirmPassword = editconfirmPassword.getText().toString().trim();
 
-                rootRef.child("firstName").setValue(firstname);
-                rootRef.child("lastName").setValue(lastname);
-                rootRef.child("contact").setValue(contact);
-                rootRef.child("address").setValue(address);
-                rootRef.child("city").setValue(spinner);
-
+                if(password.equals(confirmPassword)){
+                    saveChanges(userz);
+                }else{
+                    Toast.makeText(PWD_EditProfile.this, "Password does not match.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
-
-
-
     }
 
+    public void updateEmail(String email, DatabaseReference rootRef){
+        firebaseAuth.getCurrentUser().updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        rootRef.child("email").setValue(email);
+                        Toast.makeText(PWD_EditProfile.this, "Email is successfully updated.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+    public void checkEmailExistsOrNot(String emails) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            internetConnection = true;
+        } else
+            internetConnection = false;
+
+        if (internetConnection == true) {
+            final FirebaseAuth firebaseauth = FirebaseAuth.getInstance();
+            firebaseauth.fetchSignInMethodsForEmail(emails).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                @Override
+                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                    if (task.getResult().getSignInMethods().size() == 0) {
+                        emailAddressInUse.setVisibility(View.GONE);
+                        pwd_enterEmail_layout.setError(null);
+                        emailCheck = "huhuz";
+                    } else {
+                        emailAddressInUse.setError("Email address is already in use");
+                        emailCheck = "hehez";
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(PWD_EditProfile.this);
+            alert.setMessage("Please check your internet connection and try again").setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            final Intent intent = new Intent(getApplicationContext(), PWD_RegisterActivity.class);
+                            startActivity(intent);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        }
+                    });
+            AlertDialog alertDialog = alert.create();
+            alertDialog.setTitle("Network Connection");
+            alertDialog.show();
+        }
+
+    }
+    public void saveChanges(String userz){
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz);
+        String email = editEmail.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+        String confirmPassword = editconfirmPassword.getText().toString().trim();
+        String firstname = editFirstName.getText().toString();
+        String lastname = editLastName.getText().toString();
+        String contact = editContact.getText().toString();
+        String address = editTextAddress.getText().toString();
+        String spinner = spinnerCity.getSelectedItem().toString();
+
+        if(email.isEmpty() || email.equals(emailFromFb)){
+            //
+        }else{
+            updateEmail(email, rootRef);
+        }
+
+        if((!password.isEmpty() || !confirmPassword.isEmpty())){
+                firebaseAuth.getCurrentUser().updatePassword(password);
+                Toast.makeText(PWD_EditProfile.this, "Password is changed successfully.", Toast.LENGTH_SHORT).show();
+        }
+
+        rootRef.child("firstName").setValue(firstname);
+        rootRef.child("lastName").setValue(lastname);
+        rootRef.child("contact").setValue(contact);
+        rootRef.child("address").setValue(address);
+        rootRef.child("city").setValue(spinner);
+
+        startActivity(new Intent(PWD_EditProfile.this, PWD_EditProfile_ViewActivity.class));
+        Toast.makeText(PWD_EditProfile.this, "Changes is successfully saved.", Toast.LENGTH_SHORT).show();
+    }
 /*
     private void uploadImage() {
         final Intent intent = new Intent(this, PWD_EditProfile_ViewActivity.class);

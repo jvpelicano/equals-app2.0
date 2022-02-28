@@ -44,6 +44,7 @@ public class EMP_ManageJobs extends AppCompatActivity {
         refForJobs.orderByChild("uid").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String imageURL = dataSnapshot1.child("imageURL").getValue(String.class);
                     String displayPostTitle = dataSnapshot1.child("postTitle").getValue(String.class);

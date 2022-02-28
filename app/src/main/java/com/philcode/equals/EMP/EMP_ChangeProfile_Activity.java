@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
     String password, stringConfirmPassword, emailCheck;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
+    private String[] cities;
     //private Uri filePath2;
 
     @Override
@@ -77,7 +79,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
-        editEmailError = findViewById(R.id.textInputLayout3);
+        //editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
         txtImage = txtImage = findViewById(R.id.txtImage);
@@ -85,6 +87,14 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
         buttonUploadEmpID = (Button) findViewById(R.id.btn_emp_ID_upload);
         buttonSave = (Button) findViewById(R.id.btnSave);
         empValidID = findViewById(R.id.emp_ID);
+        spinnerCity = findViewById(R.id.spinnerCity);
+
+        cities = new String[146];
+
+        cities = getResources().getStringArray(R.array.City);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, cities);
+        spinnerCity.setAdapter(adapter);
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,8 +196,6 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                 }
             }
         });
-
-        spinnerCity = findViewById(R.id.spinnerCity);
         editCompanyAddress = findViewById(R.id.editTextAddress);
         editCompanyAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -232,6 +240,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                 editLastName.setText(lastname);
                 //Glide.with(getApplicationContext()).load(empValidID1).into(empValidID);
                 txtImage.setText(empvalidid);
+                spinnerCity.setSelection(adapter.getPosition(companycity));
 
 
             }
@@ -311,8 +320,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
             } else if (TextUtils.isEmpty(lastname)) {
                 Toast.makeText(this, "Please enter your last name", Toast.LENGTH_LONG).show();
                 return;
-            } else {
-
+            } else{
                 final ProgressDialog progressDialog = new ProgressDialog(this);
                 progressDialog.show();
                 progressDialog.setCancelable(false);
@@ -353,7 +361,7 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                                     rootRef.child("lastname").setValue(lastname);
 
                                 }
-
+                                Toast.makeText(EMP_ChangeProfile_Activity.this, "Profile is updated successfully.", Toast.LENGTH_SHORT).show();
                             }
                             // }
                         });
@@ -367,6 +375,46 @@ public class EMP_ChangeProfile_Activity extends AppCompatActivity implements Vie
                     }
                 });
             }
+        }else if(filePath == null){
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+
+            final String firstname = editFirstName.getText().toString().trim();
+            final String lastname = editLastName.getText().toString().trim();
+            final String fullname = editCompanyName.getText().toString().trim();
+            final String typeStatus = "EMPApproved";
+            //  final String fullname = editCompanyName.getText().toString().trim();
+            final String companybg = editCompanyBackground.getText().toString().trim();
+            final String contact = editContact.getText().toString().trim();
+            final String companyAddress = editCompanyAddress.getText().toString().trim();
+            final String txtImage1 = txtImage.getText().toString().trim();
+            final String companyCity = spinnerCity.getSelectedItem().toString().trim();
+
+            progressDialog.dismiss();
+
+
+            final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                               /* EMP_EditProfile_Information EmpInfo = new EMP_EditProfile_Information( typeStatus, firstname, lastname, fullname, companybg,
+                                        contact, empValidID, companyAddress, companyCity);*/
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid());
+                rootRef.child("companyaddress").setValue(companyAddress);
+                rootRef.child("companybg").setValue(companybg);
+                rootRef.child("companycity").setValue(companyCity);
+                rootRef.child("contact").setValue(contact);
+                rootRef.child("firstname").setValue(firstname);
+                rootRef.child("fullname").setValue(fullname);
+                rootRef.child("lastname").setValue(lastname);
+
+                rootRef.child("empValidID").setValue(txtImage1);
+                rootRef.child("companyaddress").setValue(companyAddress);
+                rootRef.child("companybg").setValue(companybg);
+                rootRef.child("companycity").setValue(companyCity);
+                rootRef.child("contact").setValue(contact);
+                rootRef.child("firstname").setValue(firstname);
+                rootRef.child("fullname").setValue(fullname);
+                rootRef.child("lastname").setValue(lastname);
+            Toast.makeText(EMP_ChangeProfile_Activity.this, "Profile is updated successfully.", Toast.LENGTH_SHORT).show();
         }
     }
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){

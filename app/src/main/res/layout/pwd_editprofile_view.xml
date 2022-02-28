@@ -9,7 +9,7 @@
     android:fillViewport="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,540 +25,67 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="beforeDescendants"
-            android:fillViewport="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:background="@color/white">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:isScrollContainer="true"
                 android:orientation="vertical">
-
-
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/pwdProfilePic"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:contentDescription="Post Picture"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <Button
                     android:id="@+id/changePhoto"
-                    android:text="Change Profile Photo"
-                    android:background="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_edit_blue"
                     android:drawablePadding="5dp"
+                    android:text="Change Profile Photo"
                     android:textAllCaps="false"
                     android:textColor="#177ad0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    app:tint="@color/colorPrimary"
+                    />
+
                 <View
-                    android:background="@color/background"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/background" />
 
-                <TextView
-                    android:id="@+id/lblName"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:paddingLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="2dp"
-                    android:text="Name"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/displayName"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pwd_viewpager2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="displayName"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/lblEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:paddingStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:text="Email"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displayEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:drawableStart="@drawable/email"
-                    android:drawablePadding="10dp"
-                    android:text="displayEmail"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/lblAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:text="Address"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displayAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:drawableStart="@drawable/ic_placeholder"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="displayAddress"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-                <TextView
-                    android:id="@+id/lblDisability"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Type of Disability"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displayTypeOfDisability1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingBottom="2dp"
-                    android:text="display1"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displayTypeOfDisability2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingBottom="2dp"
-                    android:text="display2"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displayTypeOfDisability3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingBottom="2dp"
-                    android:text="display3"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-
-                <TextView
-                    android:id="@+id/displayTypeOfDisabilityMore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingBottom="2dp"
-                    android:text="displayMore"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtLbl2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="Skill Category"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
-
-                <TextView
-                    android:id="@+id/displayCategorySkill"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="Category"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
-
-
-
-                <TextView
-                    android:id="@+id/lblSkills"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Secondary Skill(s)"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 1"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 2"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-                <TextView
-                    android:id="@+id/displaySkill3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 3"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 4"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 5"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-                <TextView
-                    android:id="@+id/displaySkill6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 6"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-                <TextView
-                    android:id="@+id/displaySkill7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 7"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 8"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:text="Skill 9"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/displaySkill10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-
-                    android:paddingBottom="2dp"
-                    android:text="Skill 10"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtLbl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Educational Attainment"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displayEducationalAttainment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="Educational Degree"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
-
-
-                <TextView
-                    android:id="@+id/txtLbz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Work Experience"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    />
-
-                <TextView
-                    android:id="@+id/displayTotalWorkExperience"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="Total Work Experience"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    android:id="@+id/workRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.028"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/displayTotalWorkExperience" />
-
-                <TextView
-                    android:id="@+id/lblContact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Contact"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/displayContact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="2dp"
-                    android:text="displayContact"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_height="match_parent" />
 
                 <Button
                     android:id="@+id/btnEdit"
-                    android:visibility="gone"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Edit Profile" />
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
-        </ScrollView>
+
         <TextView
             android:id="@+id/textview_AddWork"
             android:layout_width="wrap_content"
@@ -591,7 +118,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_baseline_note_add_24" />
+            app:srcCompat="@drawable/ic_baseline_note_add_24"
+            app:tint="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/textview_jobQualifications"
@@ -625,7 +154,9 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_job" />
+            app:srcCompat="@drawable/ic_job"
+            app:tint="@color/colorPrimary"
+            />
 
         <TextView
             android:id="@+id/textview_personalInfo"
@@ -640,7 +171,7 @@
             android:textColor="#177ad0"
             android:textStyle="bold"
             android:fontFamily="@font/proxima_nova_regular"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab1"
@@ -658,21 +189,24 @@
             android:visibility="invisible"
             app:backgroundTint="#ffffff"
             app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_person" />
+            app:srcCompat="@drawable/ic_person"
+            app:tint="@color/colorPrimary"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_edit"
-            app:backgroundTint="#177ad0"
             android:clickable="true"
+            android:elevation="16dp"
             android:focusable="true"
-            android:elevation="16dp" />
+            android:src="@drawable/ic_edit"
+            app:tint="@color/white"
+            app:backgroundTint="#177ad0" />
 
 
     </RelativeLayout>

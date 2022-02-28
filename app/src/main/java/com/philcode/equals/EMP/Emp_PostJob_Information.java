@@ -17,6 +17,7 @@ public class Emp_PostJob_Information {
     public String skill;
 
 
+
     public String educationalAttainmentRequirement;
     public Emp_PostJob_Information() {
 
@@ -43,12 +44,12 @@ public class Emp_PostJob_Information {
         this.educationalAttainment = educationalAttainment;
         this.workExperience = workExperience;
 
-
         this.skill = skill;
 
 
         this.educationalAttainmentRequirement = educationalAttainmentRequirement;
     }
+
 
     public String getImageURL() {
         return imageURL;

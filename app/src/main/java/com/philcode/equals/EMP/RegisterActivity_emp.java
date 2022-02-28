@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -37,6 +39,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,9 +69,9 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     // Folder path for Firebase Storage.
     String Storage_Path = "Employer_Reg_Form/";
     private TextView textViewUserEmail;
-    private Button buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
+    private MaterialButton buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
 
-    private EditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
+    private TextInputEditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
             editFirstName, editLastName, editCompanyAddress, confirmPassword;
     private TextInputLayout editEmailError, editPasswordError, confirmPasswordError;
     private ImageView profilePicEMP, empValidID;
@@ -91,8 +95,8 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
 
-        buttonUploadEmpID = (Button) findViewById(R.id.btn_emp_ID_upload);
-        buttonSave = (Button) findViewById(R.id.btnEditProfile);
+        buttonUploadEmpID = (MaterialButton) findViewById(R.id.btn_emp_ID_upload);
+        buttonSave = (MaterialButton) findViewById(R.id.btnEditProfile);
         empValidID = findViewById(R.id.emp_ID);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,6 +290,12 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
             public void onClick(@NonNull View widget) {
                 Intent intent = new Intent(RegisterActivity_emp.this, PrivacyPolicyPDFViewer.class);
                 startActivity(intent);
+
+            }
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.BLUE);
             }
         };
 
@@ -376,7 +386,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         if (internetConnection == true) {
             final Intent intent = new Intent(this, EMP_FillUpInformation_ProfilePicture.class);
             if (filePath != null) {
-                final String email = editEmail.getText().toString().trim();
+                final String email = editEmail.getText().toString().trim().replaceAll("\\s+", "");
                 final String password = editPassword.getText().toString().trim();
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
@@ -476,7 +486,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
-                                                            EmployeeInformation EmpInfo = new EmployeeInformation(email, password, typeStatus, firstname, lastname, fullname, companybg,
+                                                            EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
                                                                     contact, empValidID, companyAddress, companyCity);
                                                             FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override

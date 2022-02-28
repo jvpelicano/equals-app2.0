@@ -63,7 +63,7 @@
             android:layout_height="170dp"
             android:layout_margin="10dp"
             android:background="@color/background"
-            android:src="@drawable/placeholder"/>
+            android:src="@drawable/camera"/>
         <LinearLayout
             android:id="@+id/layout_button"
             android:orientation="horizontal"
@@ -91,6 +91,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout9"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -113,6 +114,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout10"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -150,12 +152,12 @@
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/skillSpinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:drawable/btn_dropdown"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -196,6 +198,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:text="Orthopedic Disability"
+                android:buttonTint="@color/colorPrimary"
                 android:fontFamily="@font/proxima_nova_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.026"
@@ -209,6 +212,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="Partial Vision Disability"
+                android:buttonTint="@color/colorPrimary"
                 android:fontFamily="@font/proxima_nova_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.026"
@@ -222,6 +226,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="Hearing Disability"
+                android:buttonTint="@color/colorPrimary"
                 android:fontFamily="@font/proxima_nova_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.026"
@@ -235,6 +240,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="Other Disabilities"
+                android:buttonTint="@color/colorPrimary"
                 android:fontFamily="@font/proxima_nova_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.025"
@@ -274,16 +280,15 @@
 
             <Spinner
                 android:id="@+id/spinnerExpDate"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/proxima_nova_regular"
                 android:spinnerMode="dropdown"
-                android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toTopOf="@+id/empBtnPost"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -327,7 +332,8 @@
                     android:layout_height="wrap_content"
                     android:text="Elementary Level"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_2"
@@ -335,7 +341,8 @@
                     android:layout_height="wrap_content"
                     android:text="High School Level"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_3"
@@ -343,7 +350,8 @@
                     android:text="Associate Level"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_4"
@@ -351,7 +359,8 @@
                     android:text="Bachelor Level"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -360,7 +369,8 @@
                     android:text="Master's Level"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_6"
@@ -368,7 +378,8 @@
                     android:text="Doctorate Level"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
             </RadioGroup>
 
@@ -381,6 +392,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:text="Required"
+                android:buttonTint="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -417,7 +429,8 @@
                     android:text="Without Experience"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio_11"
@@ -425,7 +438,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="With Experience" />
+                    android:text="With Experience"
+                    android:buttonTint="@color/colorPrimary"/>
             </RadioGroup>
 
 
@@ -484,7 +498,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Active Listening" />
+                        android:text="Active Listening"
+                        android:buttonTint="@color/colorPrimary"
+
+                        />
 
                     <CheckBox
                         android:id="@+id/typeOfSkills2"
@@ -493,7 +510,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Communication" />
+                        android:text="Communication"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills3"
@@ -502,7 +520,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Computer Skills" />
+                        android:text="Computer Skills"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills4"
@@ -511,7 +530,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Customer Service" />
+                        android:text="Customer Service"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills5"
@@ -520,7 +540,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Interpersonal Skills" />
+                        android:text="Interpersonal Skills"
+                        android:buttonTint="@color/colorPrimary"/>
 
 
 
@@ -539,7 +560,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="58dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Leadership" />
+                        android:text="Leadership"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills7"
@@ -548,7 +570,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Management Skills" />
+                        android:text="Management Skills"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills8"
@@ -557,7 +580,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Problem Solving" />
+                        android:text="Problem Solving"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills9"
@@ -566,7 +590,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Time Management" />
+                        android:text="Time Management"
+                        android:buttonTint="@color/colorPrimary"/>
 
                     <CheckBox
                         android:id="@+id/typeOfSkills10"
@@ -575,7 +600,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:text="Transferable Skills" />
+                        android:text="Transferable Skills"
+                        android:buttonTint="@color/colorPrimary"/>
 
                 </LinearLayout>
             </LinearLayout>
