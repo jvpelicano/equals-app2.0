@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import java.util.List;
  */
 public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
     private RecyclerView work_recyclerView;
+    private ImageView emp_pwdIcon;
     private List<EMPToPWD_WokExperienceModel> work_list;
     private EMPToPWD_WorkExperienceAdapter work_adapter;
     DatabaseReference pwd_reference;
@@ -91,6 +93,7 @@ public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
         //initialize layout components
         m_workExperience = view.findViewById(R.id.displayTotalWorkExperience);
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
+        emp_pwdIcon = view.findViewById(R.id.emp_emptyIcon);
 
         work_recyclerView.setHasFixedSize(true);
         work_recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -101,10 +104,12 @@ public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String workExperience = snapshot.child("workExperience").getValue().toString();
-                if(workExperience.equals("With Experience")){
+                if(workExperience.equals("With Experience") && snapshot.hasChild("listOfWorks")){
                     String pwd_AuthID = getActivity().getIntent().getStringExtra("PWD_ID");
                     pwd_reference = FirebaseDatabase.getInstance().getReference().child("PWD").child(pwd_AuthID).child("listOfWorks");
                     work_recyclerView.setVisibility(View.VISIBLE);
+                    emp_pwdIcon.setVisibility(View.GONE);
+                    m_workExperience.setText(workExperience);
                     pwd_reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -114,11 +119,10 @@ public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
                                 EMPToPWD_WokExperienceModel p = dataSnapshot1.getValue(EMPToPWD_WokExperienceModel.class);
                                 work_list.add(p);
                             }
-                            Collections.reverse(work_list);
+                            //Collections.reverse(work_list);
                             work_adapter = new EMPToPWD_WorkExperienceAdapter(getContext(), work_list);
                             work_recyclerView.setAdapter(work_adapter);
                             work_adapter.notifyDataSetChanged();
-                            m_workExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
                         }
 
                         @Override
@@ -127,9 +131,15 @@ public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
 
                         }
                     });
-                    m_workExperience.setText("Scroll down to view work experience list.");
                 }else{
-                    m_workExperience.setText(workExperience);
+                    if(workExperience.equals("With Experience") && !snapshot.hasChild("listOfWorks")){
+                        work_recyclerView.setVisibility(View.VISIBLE);
+                        emp_pwdIcon.setVisibility(View.VISIBLE);
+                        m_workExperience.setText(workExperience + ", but no previous work information listed.");
+                    }else{
+                        m_workExperience.setText(workExperience);
+                        emp_pwdIcon.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 

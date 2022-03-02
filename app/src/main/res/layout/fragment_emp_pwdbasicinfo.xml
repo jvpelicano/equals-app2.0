@@ -27,6 +27,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/emp_personal_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:text="Personal Information "
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/lblName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,7 +97,6 @@
                     android:layout_marginLeft="10dp"
                     android:elevation="5dp"
                     app:cardCornerRadius="10dp"
-
                     >
 
                     <TextView
@@ -186,6 +196,18 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/emp_jobQualifications_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:text="Job Qualification"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
                     android:id="@+id/lblDisability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -215,7 +237,6 @@
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingStart="10dp"
                         android:paddingTop="2dp"
-                        android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
                         android:text="display1"
                         android:textAlignment="textStart"

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
     private RecyclerView work_recyclerView;
+    private ImageView pwd_emptyIcon;
     private FirebaseUser currentFirebaseUser;
     private String uid;
     TextView displayTotalWorkExperience;
@@ -94,6 +96,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = currentFirebaseUser.getUid();
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
+        pwd_emptyIcon = view.findViewById(R.id.pwd_emptyIcon);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         work_recyclerView.setLayoutManager(manager);
         work_recyclerView.setHasFixedSize(true);
@@ -112,25 +115,6 @@ public class PWD_WorkExperience_Fragment extends Fragment {
         getUserWorkInfo(uid);
     }
 
-    //Delete on swipe function
-    /*ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-        }
-    };*/
-/*    public void deleteWorkExp(RecyclerView.ViewHolder holder){
-        String workUUID = work_list.get(holder.getAdapterPosition()).getWorkID();
-        rootRef.child(workUUID).removeValue();
-        work_list.remove(holder.getAdapterPosition());
-        work_adapter.notifyDataSetChanged();
-    }*/
-
 
 
     public void getUserWorkInfo(String uid){
@@ -140,7 +124,8 @@ public class PWD_WorkExperience_Fragment extends Fragment {
                 String workExperience = dataSnapshot.child("workExperience").getValue().toString();
                 if(dataSnapshot.hasChild("listOfWorks") && workExperience.equals("With Experience")){
                     work_recyclerView.setVisibility(View.VISIBLE);
-                    displayTotalWorkExperience.setText(workExperience + "\n" + "Scroll down to view work experience list.");
+                    pwd_emptyIcon.setVisibility(View.GONE);
+                    displayTotalWorkExperience.setText(workExperience);
                     DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
                     noice.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -167,10 +152,12 @@ public class PWD_WorkExperience_Fragment extends Fragment {
                     });
                 }else{
                     if(workExperience.equals("With Experience") && !dataSnapshot.hasChild("listOfWorks")){
-                        work_recyclerView.setVisibility(View.VISIBLE);
-                        displayTotalWorkExperience.setText(workExperience + ", but no previous works information listed.");
+                        work_recyclerView.setVisibility(View.GONE);
+                        pwd_emptyIcon.setVisibility(View.VISIBLE);
+                        displayTotalWorkExperience.setText(workExperience + ", but no previous work information listed.");
                     }else{
                         displayTotalWorkExperience.setText(workExperience);
+                        pwd_emptyIcon.setVisibility(View.VISIBLE);
                     }
                 }
 

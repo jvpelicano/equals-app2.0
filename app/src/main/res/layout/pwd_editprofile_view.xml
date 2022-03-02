@@ -26,11 +26,19 @@
         android:layout_height="match_parent">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:isScrollContainer="true"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:background="@color/browser_actions_bg_grey"
+                >
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/pwdProfilePic"
                     android:layout_width="140dp"
@@ -52,8 +60,7 @@
                     android:text="Change Profile Photo"
                     android:textAllCaps="false"
                     android:textColor="#177ad0"
-                    app:tint="@color/colorPrimary"
-                    />
+                    app:tint="@color/colorPrimary" />
 
                 <View
                     android:layout_width="match_parent"
@@ -63,42 +70,44 @@
                     android:layout_marginEnd="10dp"
                     android:background="@color/background" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/pwd_viewpager2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <Button
-                    android:id="@+id/btnEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:text="Edit Profile"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
-
             </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pwd_viewpager2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Edit Profile"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textview_AddWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="256dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="78dp"
+            android:layout_marginBottom="256dp"
+            android:fontFamily="@font/proxima_nova_regular"
             android:padding="8dp"
             android:text="Add Work Experience Info"
             android:textColor="#177ad0"
             android:textStyle="bold"
-            android:fontFamily="@font/proxima_nova_regular"
             android:visibility="invisible" />
 
 

@@ -24,6 +24,7 @@ import com.philcode.equals.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
@@ -116,6 +117,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -147,6 +149,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -177,6 +180,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -206,6 +210,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -234,6 +239,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -261,6 +267,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                     }
+                                                    Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                     recyclerView.setAdapter(myAdapter);
                                                     myAdapter.notifyDataSetChanged();
@@ -288,6 +295,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -319,6 +327,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -350,6 +359,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -380,6 +390,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -409,6 +420,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -437,6 +449,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -464,6 +477,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                                 }
+                                                Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
                                                 myAdapter.notifyDataSetChanged();
@@ -492,6 +506,7 @@ public class PWD_AvailableJobs_3_VisualDisability extends AppCompatActivity {
                                                 mascot.setVisibility(View.VISIBLE);
                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
                                             }
+                                            Collections.reverse(list);
                                             myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_3_VisualDisability.this, list);
                                             recyclerView.setAdapter(myAdapter);
                                             myAdapter.notifyDataSetChanged();

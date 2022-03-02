@@ -26,37 +26,37 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtLbz"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Work Experience"
-                    android:fontFamily="@font/proxima_nova_regular"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    />
-
-                <TextView
                     android:id="@+id/displayTotalWorkExperience"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="10dp"
                     android:paddingBottom="2dp"
                     android:text="Total Work Experience"
-                    android:fontFamily="@font/open_sans_regular"
+                    android:fontFamily="@font/proxima_nova_regular"
                     android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:visibility="gone"
+                    >
+                    <ImageView
+                        android:id="@+id/emp_emptyIcon"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/empty_box"
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     android:id="@+id/workRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

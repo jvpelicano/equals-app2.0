@@ -15,65 +15,78 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:descendantFocusability="beforeDescendants"
             android:fillViewport="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:isScrollContainer="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/pwd_personal_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:text="Personal Information "
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/lblName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/postBackground"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:paddingLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="2dp"
                     android:text="Name"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="5dp"
                     android:layout_marginLeft="10dp"
-                    >
-                <TextView
-                    android:id="@+id/displayName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="displayName"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    android:drawableStart="@drawable/ic_baseline_person_24"
-                    android:drawablePadding="10dp"
-                    />
+                    android:elevation="5dp"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:id="@+id/displayName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/postBackground"
+                        android:drawableStart="@drawable/ic_baseline_person_24"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="2dp"
+                        android:text="displayName"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/lblEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@color/postBackground"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:paddingStart="10dp"
-                    android:layout_marginTop="15dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="2dp"
                     android:text="Email"
@@ -83,80 +96,80 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="5dp"
                     android:layout_marginLeft="10dp"
-                    >
-                <TextView
-                    android:id="@+id/displayEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/email"
-                    android:drawablePadding="10dp"
-                    android:text="displayEmail"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"/>
+                    android:elevation="5dp"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:id="@+id/displayEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/postBackground"
+                        android:drawableStart="@drawable/email"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="20dp"
+                        android:text="displayEmail"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/lblAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingStart="10dp"
                     android:layout_marginTop="15dp"
+                    android:background="@color/postBackground"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:paddingStart="10dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="2dp"
                     android:text="Address"
-                    android:fontFamily="@font/open_sans_regular"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="5dp"
                     android:layout_marginLeft="10dp"
-                    >
-                <TextView
-                    android:id="@+id/displayAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:paddingStart="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_placeholder"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="2dp"
-                    android:text="displayAddress"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:elevation="5dp"
+                    android:minHeight="45dp"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:id="@+id/displayAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/postBackground"
+                        android:drawableStart="@drawable/ic_placeholder"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:paddingStart="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="2dp"
+                        android:text="displayAddress"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/lblContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
                     android:paddingStart="10dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
                     android:text="Contact"
-                    android:fontFamily="@font/proxima_nova_regular"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
@@ -171,34 +184,43 @@
                         android:id="@+id/displayContact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@color/postBackground"
+                        android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                        android:drawablePadding="10dp"
                         android:fontFamily="@font/open_sans_regular"
                         android:paddingStart="10dp"
                         android:paddingTop="2dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="2dp"
-                        android:drawablePadding="10dp"
-                        android:layout_marginTop="10dp"
                         android:text="displayContact"
                         android:textAlignment="textStart"
                         android:textColor="@color/textColor"
-                        android:textSize="14sp"
-                        android:drawableStart="@drawable/ic_baseline_local_phone_24"
-                        />
+                        android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:id="@+id/pwd_jobQualifications_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:text="Job Qualification"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lblDisability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@color/postBackground"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:paddingStart="10dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
                     android:text="Type of Disability"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
@@ -206,28 +228,28 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    android:minHeight="45dp"
-                    android:elevation="5dp"
                     android:layout_marginLeft="10dp"
-                    >
+                    android:elevation="5dp"
+                    android:minHeight="45dp"
+                    app:cardCornerRadius="10dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
                         android:layout_gravity="center"
-                        >
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/displayTypeOfDisability1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/open_sans_regular"
                             android:paddingBottom="2dp"
                             android:text="display1"
                             android:textAlignment="textStart"
@@ -239,10 +261,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
-                            android:fontFamily="@font/open_sans_regular"
                             android:paddingBottom="2dp"
                             android:text="display2"
                             android:textAlignment="textStart"
@@ -254,10 +276,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
-                            android:fontFamily="@font/open_sans_regular"
                             android:paddingBottom="2dp"
                             android:text="display3"
                             android:textAlignment="textStart"
@@ -269,10 +291,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
-                            android:fontFamily="@font/open_sans_regular"
                             android:paddingBottom="2dp"
                             android:text="displayMore"
                             android:textAlignment="textStart"
@@ -299,46 +321,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
-                android:layout_height="45dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="5dp"
-                android:layout_marginLeft="10dp"
-                >
-                <TextView
-                    android:id="@+id/displayCategorySkill"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Category"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
-            </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="250dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:elevation="5dp"
+                    app:cardCornerRadius="10dp">
 
+                    <TextView
+                        android:id="@+id/displayCategorySkill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/postBackground"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Category"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbl2" />
+                </androidx.cardview.widget.CardView>
 
 
                 <TextView
                     android:id="@+id/lblSkills"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@color/postBackground"
                     android:paddingStart="10dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
                     android:text="Secondary Skill(s)"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
@@ -346,27 +367,27 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="5dp"
                     android:layout_marginLeft="10dp"
-                    >
+                    android:elevation="5dp"
+                    android:minHeight="45dp"
+                    app:cardCornerRadius="10dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:gravity="center"
-                        >
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/displaySkill1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:background="@color/postBackground"
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
                             android:paddingBottom="2dp"
-                            android:layout_marginTop="10dp"
                             android:text="Skill 1"
                             android:textAlignment="textStart"
                             android:textColor="@color/textColor"
@@ -514,53 +535,51 @@
                     android:id="@+id/txtLbl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@color/postBackground"
+                    android:fontFamily="@font/proxima_nova_regular"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="2dp"
-                    android:layout_marginTop="15dp"
                     android:text="Educational Attainment"
-                    android:fontFamily="@font/proxima_nova_regular"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="250dp"
                     android:layout_height="45dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="30dp"
                     android:elevation="5dp"
-                    android:layout_marginLeft="10dp"
-                    >
-                <TextView
-                    android:id="@+id/displayEducationalAttainment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/postBackground"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="2dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="2dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Educational Degree"
-                    android:fontFamily="@font/open_sans_regular"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:id="@+id/displayEducationalAttainment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/postBackground"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Educational Degree"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
-
-
 
 
                 <Button
                     android:id="@+id/btnEdit"
-                    android:visibility="gone"
-                    android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Edit Profile" />
+                    android:background="@color/colorPrimary"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

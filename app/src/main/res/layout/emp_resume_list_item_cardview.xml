@@ -7,10 +7,12 @@
     android:layout_height="wrap_content"
     android:clickable="false"
     android:background="@color/background"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
     tools:context=".EMP.EMP_ViewResume">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cardview_shape"
@@ -85,11 +87,5 @@
                 android:visibility="gone"
                 />
         </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/background" >
-    </View>
+    </LinearLayout>s
 </androidx.cardview.widget.CardView>
