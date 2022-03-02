@@ -59,6 +59,8 @@ public class EMP_ViewResume_Adapter extends RecyclerView.Adapter<EMP_ViewResume_
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild("oldResumeFile")){
                     holder.resumeFile.setVisibility(View.VISIBLE);
+                }else{
+                    holder.resumeFile.setVisibility(View.INVISIBLE);
                 }
             }
             @Override

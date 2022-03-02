@@ -88,10 +88,10 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
-        //Toast.makeText(this, postJobID, Toast.LENGTH_SHORT).show();
         fDb = FirebaseDatabase.getInstance();
+
         jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
-        jobOffersRef.addValueEventListener(new ValueEventListener() {
+        jobOffersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 final String postTitle = snapshot.child("postTitle").getValue().toString();
@@ -136,7 +136,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
             }
         });
-        jobOffersRef.child("Resume").addValueEventListener(new ValueEventListener() {
+        jobOffersRef.child("Resume").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(userId)){
@@ -150,7 +150,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            jobOffersRef.child("Resume").child(userId).addValueEventListener(new ValueEventListener() {
+                                            jobOffersRef.child("Resume").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     String oldResumeFile = snapshot.child("resumeFile").getValue(String.class);
@@ -266,7 +266,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     }
     private void sendResume() {
         pwdRef = fDb.getReference().child("PWD").child(userId);
-        pwdRef.addValueEventListener(new ValueEventListener() {
+        pwdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String fname = snapshot.child("firstName").getValue().toString();
@@ -298,7 +298,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     }
     private void reSendResume(String oldResumeFile){
         pwdRef = fDb.getReference().child("PWD").child(userId);
-        pwdRef.addValueEventListener(new ValueEventListener() {
+        pwdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String fname = snapshot.child("firstName").getValue().toString();

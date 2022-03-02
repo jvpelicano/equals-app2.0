@@ -71,6 +71,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayPermission = findViewById(R.id.displayPermission);
         m_displayPostPic = findViewById(R.id.displayPostPic);
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
+
         //animation
         fab_main = findViewById(R.id.fab);
         fab1_resumes = findViewById(R.id.fab1);

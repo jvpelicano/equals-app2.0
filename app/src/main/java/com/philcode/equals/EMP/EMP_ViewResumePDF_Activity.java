@@ -36,11 +36,11 @@ public class EMP_ViewResumePDF_Activity extends AppCompatActivity {
         String url = getIntent().getStringExtra("PDF_Uri");
         postJobID = getIntent().getStringExtra("POST_ID");
         new RetrivePdfStream().execute(url);
+
         fab_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DownloadFile(url);
-
             }
         });
     }

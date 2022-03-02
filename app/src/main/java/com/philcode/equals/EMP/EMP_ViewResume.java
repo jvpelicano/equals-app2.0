@@ -40,7 +40,7 @@ import java.util.Collections;
 
 public class EMP_ViewResume extends AppCompatActivity {
     Context context;
-    DatabaseReference dbRef, current;
+    DatabaseReference dbRef;
     EMP_ViewResume_Adapter adapter;
 
 
@@ -128,11 +128,22 @@ public class EMP_ViewResume extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(EMP_ViewResume.this, EMP_ViewResumePDF_Activity.class);
                                 intent.putExtra("PDF_Uri", list.get(position).getResumeFile());
-                                intent.putExtra("POST_ID", postJobID);
+                                startActivity(intent);
                                 String resumeKey = list.get(position).getUserID();
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume").child(resumeKey);
-                                ref.child("oldResumeFile").removeValue();
-                                startActivity(intent);
+                                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.hasChild("oldResumeFile")){
+                                            ref.child("oldResumeFile").removeValue();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                                 finish();
                             }
                         });
