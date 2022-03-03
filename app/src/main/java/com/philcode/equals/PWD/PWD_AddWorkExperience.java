@@ -74,7 +74,7 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
         final Button btnSelectend = view.findViewById(R.id.btnSelectend);
         final Spinner spinnercategory = view.findViewById(R.id.spinnerCategory);
 
-
+        //setting up spinner
         final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
         categoryRef.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -193,7 +193,10 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                //startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                Intent intent = new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class);
+                intent.putExtra("Check",1);
+                startActivity(intent);
             }
         });
         alertWork.setCancelable(false);
@@ -235,7 +238,10 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         alert.dismiss();
-                                        startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                                        //startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                                        Intent intent = new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class);
+                                        intent.putExtra("Check",1);
+                                        startActivity(intent);
                                         Toast.makeText(PWD_AddWorkExperience.this, "Work Experience Added.", Toast.LENGTH_SHORT).show();
                                     }else{
                                         alert.dismiss();startActivity(new Intent(PWD_AddWorkExperience.this, PWD_WorkExperience_Fragment.class));
@@ -258,9 +264,4 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
 
 
         }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

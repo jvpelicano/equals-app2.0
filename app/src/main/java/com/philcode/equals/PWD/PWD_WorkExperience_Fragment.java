@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
     private List<PWD_AddWorkInformation> work_list;
     private PWD_WorkExperienceAdapter work_adapter;
     private RecyclerView work_recyclerView;
-    private ImageView pwd_emptyIcon;
+    private LinearLayout pwd_emptyIcon;
     private FirebaseUser currentFirebaseUser;
     private String uid;
     TextView displayTotalWorkExperience;
@@ -96,7 +97,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = currentFirebaseUser.getUid();
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
-        pwd_emptyIcon = view.findViewById(R.id.pwd_emptyIcon);
+        pwd_emptyIcon = view.findViewById(R.id.icon_layout_container);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         work_recyclerView.setLayoutManager(manager);
         work_recyclerView.setHasFixedSize(true);

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,8 +58,23 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_editprofile_view);
 
+        Intent intent = getIntent();
+        String s1 = intent.getStringExtra("Check");
+
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.pwd_viewpager2);
+
+        /*if(s1.equals("1"))
+        {
+            s1 = "";
+            Fragment pwd_workExperience_fragment = new PWD_WorkExperience_Fragment();
+            if (pwd_workExperience_fragment != null) {
+
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.pwd_viewpager2, pwd_workExperience_fragment).commit();
+            }
+        }*/
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentAdapter = new PWD_ProfileView_FragmentAdapter(fragmentManager, getLifecycle());

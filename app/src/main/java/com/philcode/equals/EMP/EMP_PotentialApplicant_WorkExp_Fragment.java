@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
     private RecyclerView work_recyclerView;
-    private ImageView emp_pwdIcon;
+    private LinearLayout emp_pwdIcon;
     private List<EMPToPWD_WokExperienceModel> work_list;
     private EMPToPWD_WorkExperienceAdapter work_adapter;
     DatabaseReference pwd_reference;
@@ -93,7 +94,7 @@ public class EMP_PotentialApplicant_WorkExp_Fragment extends Fragment {
         //initialize layout components
         m_workExperience = view.findViewById(R.id.displayTotalWorkExperience);
         work_recyclerView = view.findViewById(R.id.workRecyclerView);
-        emp_pwdIcon = view.findViewById(R.id.emp_emptyIcon);
+        emp_pwdIcon = view.findViewById(R.id.emp_icon_layout_container);
 
         work_recyclerView.setHasFixedSize(true);
         work_recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
