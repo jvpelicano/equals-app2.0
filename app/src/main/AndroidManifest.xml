@@ -20,9 +20,13 @@
         <activity
             android:name=".EMP.EMP_EditLoginCredentials_Activity"
             android:exported="false" />
+        <activity android:name=".PWD.PWD_EditProfile_ViewActivity"
+            />
         <activity
             android:name=".PWD.PWD_AddWorkExperience"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop"
+            />
         <activity
             android:name=".PWD.PWD_ViewResume_Activity"
             android:exported="false" />
@@ -81,7 +85,6 @@
             android:parentActivityName=".PWD.a_PWDContentMainActivity" />
         <activity android:name=".PWD.PWD_RegisterActivity3" />
         <activity android:name=".PWD.PWD_RegisterActivity2" />
-        <activity android:name=".PWD.PWD_EditProfile_ViewActivity" />
         <activity
             android:name=".EMP.EMP_ViewPotential_All"
             android:label="Potential Applicants" />

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,19 +32,25 @@ import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode.equals.PWD.PWD_WorkExperienceAdapter.PWD_WorkExperience_ViewHolder> {
 
-    Context context;
+    private Context context;
     private List<PWD_AddWorkInformation> workInfos;
-    DatabaseReference rootRef;
-    PWD_WorkExperience_Fragment fragment;
+    private DatabaseReference rootRef;
+    private PWD_WorkExperience_Fragment fragment;
     private String uid;
     private FirebaseUser currentFirebaseUser;
-    private FirebaseDatabase fdb;
 
     public PWD_WorkExperienceAdapter(Context c, List<PWD_AddWorkInformation> p ){
         context = c;
         workInfos = p;
+        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        uid = currentFirebaseUser.getUid();
+        rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid).child("listOfWorks");
     }
 
     @NonNull
@@ -68,25 +75,22 @@ public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode
                 builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        workInfos.remove(holder.getAdapterPosition());
-                        notifyDataSetChanged();
-                        dialog.dismiss();
-                        rootRef.child("listOfWorks").child(workUUID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        rootRef.child(workUUID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(v.getContext(), "Data has been deleted successfully.", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(v.getContext(), "Error" + task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                }
+                            public void onSuccess(Void unused) {
+                                context.startActivity(new Intent(context, PWD_EditProfile_ViewActivity.class));
+                                int pos = holder.getAdapterPosition();
+                                workInfos.remove(pos);
+                                notifyItemRemoved(pos);
+                                Toast.makeText(context,"Deleted successfully", Toast.LENGTH_LONG).show();
                             }
                         });
+                        dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        notifyDataSetChanged();
                     }
                 });
 
@@ -115,13 +119,29 @@ public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode
             btn_delete_workExp = itemView.findViewById(R.id.btn_delete_workExp);
             fragment = new PWD_WorkExperience_Fragment();
 
-            currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            uid = currentFirebaseUser.getUid();
-            rootRef = FirebaseDatabase.getInstance().getReference().child("PWD").child(uid);
-
         }
 
 
     }
+
+    /*private Completable deleteItem(String uID){
+        return Completable.create(emitter -> {
+           rootRef.child(uID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+               @Override
+               public void onComplete(@NonNull Task<Void> task) {
+                   if (task.isSuccessful()) {
+                       emitter.onComplete();
+                   } else {
+                       if (task.getException() != null) {
+                           emitter.onError(task.getException());
+                       } else {
+                           emitter.onError(new Throwable("No error found."));
+                       }
+                   }
+               }
+           });
+        });
+    }*/
+
 
 }

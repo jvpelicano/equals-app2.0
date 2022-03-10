@@ -168,6 +168,7 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PWD_EditProfile_ViewActivity.this, PWD_AddWorkExperience.class);
+                intent.putExtra("uID", uid);
                 startActivity(intent);
             }
         });

@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,20 +47,11 @@ import java.util.UUID;
 
 public class PWD_AddWorkExperience extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
-    private int wCount;
-    DatabaseReference mDatabase;
-    private String work_UUID;
-
-    private List<PWD_AddWorkInformation> work_list;
-    private PWD_WorkExperienceAdapter work_adapter;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pwd_addworkexperience);
-        //Database References
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD");
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String userz = user.getUid();
         View view = LayoutInflater.from(PWD_AddWorkExperience.this).inflate(R.layout.working_experience, null);
         //Layout
         final EditText jobposition = view.findViewById(R.id.work_jobposition);
@@ -73,6 +65,8 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
         final Button btnSelectstart = view.findViewById(R.id.btnSelectstart);
         final Button btnSelectend = view.findViewById(R.id.btnSelectend);
         final Spinner spinnercategory = view.findViewById(R.id.spinnerCategory);
+
+        final String uid = getIntent().getStringExtra("uID");
 
         //setting up spinner
         final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
@@ -187,80 +181,44 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
         alertWork.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //Database References
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD");
+                String skill = spinnercategory.getSelectedItem().toString();
+                if (skill.equals("Click to select value")) {
+                    Toast.makeText(PWD_AddWorkExperience.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
+                }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
+                        || dateended.getText().toString().isEmpty()){
+                    Toast.makeText(PWD_AddWorkExperience.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
+                }else{
+                    //startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                    String job = jobposition.getText().toString();
+                    String company = companyname.getText().toString();
+                    String started = datestarted.getText().toString();
+                    String ended = dateended.getText().toString();
+
+                    final String w = UUID.randomUUID().toString();
+                    PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
+                    mDatabase.child(uid).child("listOfWorks").child(w).setValue(workInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                        }
+                    });
+                    Toast.makeText(PWD_AddWorkExperience.this, "Work Experience Added.", Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                //startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
-                Intent intent = new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class);
-                intent.putExtra("Check",1);
-                startActivity(intent);
+                finish();
             }
         });
         alertWork.setCancelable(false);
         AlertDialog alert = alertWork.create();
         alert.setTitle("Add Work");
         alert.show();
-        alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String skill = spinnercategory.getSelectedItem().toString();
-                if (skill.equals("Click to select value")) {
-                    Toast.makeText(PWD_AddWorkExperience.this, "Please select a skill category.", Toast.LENGTH_SHORT).show();
-                }else if(jobposition.getText().toString().isEmpty() || companyname.getText().toString().isEmpty() || datestarted.getText().toString().isEmpty()
-                || dateended.getText().toString().isEmpty()){
-                    Toast.makeText(PWD_AddWorkExperience.this, "Please fill out the form completely.", Toast.LENGTH_SHORT).show();
-                }else{
-                    String job = jobposition.getText().toString();
-                    String company = companyname.getText().toString();
-                    String started = datestarted.getText().toString();
-                    String ended = dateended.getText().toString();
-
-                    DatabaseReference noice = FirebaseDatabase.getInstance().getReference().child("PWD").child(userz).child("listOfWorks");
-
-                    noice.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            work_list = new ArrayList<>();
-                            work_list.clear();
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                PWD_AddWorkInformation p = dataSnapshot1.getValue(PWD_AddWorkInformation.class);
-                                work_list.add(p);
-                            }
-
-                            final String w = UUID.randomUUID().toString();
-                            PWD_AddWorkInformation workInfo = new PWD_AddWorkInformation(job, company, skill, started, ended, w);
-                            mDatabase.child(userz).child("listOfWorks").child(w).setValue(workInfo);
-                            mDatabase.child(userz).child("workExperience").setValue("With Experience").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        alert.dismiss();
-                                        //startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
-                                        Intent intent = new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class);
-                                        intent.putExtra("Check",1);
-                                        startActivity(intent);
-                                        Toast.makeText(PWD_AddWorkExperience.this, "Work Experience Added.", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        alert.dismiss();startActivity(new Intent(PWD_AddWorkExperience.this, PWD_WorkExperience_Fragment.class));
-                                        Toast.makeText(PWD_AddWorkExperience.this, "Error" + task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(PWD_AddWorkExperience.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
-                }
-            }
-        });
 
 
         }

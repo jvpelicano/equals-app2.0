@@ -138,7 +138,7 @@ public class PWD_WorkExperience_Fragment extends Fragment {
 
                                 work_list.add(p);
                             }
-                            //Collections.reverse(work_list);
+                            Collections.reverse(work_list);
                             work_adapter = new PWD_WorkExperienceAdapter(getContext(), work_list);
                             work_recyclerView.setAdapter(work_adapter);
                             work_adapter.notifyDataSetChanged();
