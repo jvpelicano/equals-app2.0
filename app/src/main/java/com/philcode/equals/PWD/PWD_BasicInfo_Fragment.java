@@ -126,6 +126,7 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                 displayAddress.setText(address+" "+city);
                 displayCategorySkill.setText(skill);
 
+                for(int counter_typeOfDisability = 0; counter_typeOfDisability <= 3; counter_typeOfDisability++ )
                 if(dataSnapshot.child("typeOfDisability0").exists()) {
                     String typeOfDisability1 = dataSnapshot.child("typeOfDisability0").getValue().toString();
                     displayTypeOfDisability1.setText(typeOfDisability1);

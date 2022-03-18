@@ -201,7 +201,12 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                     mDatabase.child(uid).child("listOfWorks").child(w).setValue(workInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                            mDatabase.child(uid).child("workExperience").setValue("With Experience").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    startActivity(new Intent(PWD_AddWorkExperience.this, PWD_EditProfile_ViewActivity.class));
+                                }
+                            });
                         }
                     });
                     Toast.makeText(PWD_AddWorkExperience.this, "Work Experience Added.", Toast.LENGTH_SHORT).show();
