@@ -66,6 +66,9 @@ dependencies {
     //PDF
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
+    //BLUR-KIT
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
