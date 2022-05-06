@@ -114,14 +114,14 @@
                     app:layout_constraintTop_toBottomOf="@id/textView3"
                     tools:srcCompat="@tools:sample/avatars" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_emp_choose_profilepic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Choose Profile Photo"
+                    android:text="Choose Photo"
                     android:fontFamily="@font/open_sans_regular"
                     android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="parent"
