@@ -79,7 +79,6 @@
         <activity android:name=".LoadingActivityPWD" />
         <activity android:name=".LoadingActivityEMP" />
         <activity android:name=".EMP.EMP_FillUpInformation_ProfilePicture" />
-        <activity android:name=".EMP.EMP_Profile" />
         <activity
             android:name=".Home_View"
             android:parentActivityName=".PWD.a_PWDContentMainActivity" />
