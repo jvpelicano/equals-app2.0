@@ -127,7 +127,6 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     myAdapter.notifyDataSetChanged();
 
                                                 }
-
                                             }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
                                                     || pwd_educationalAttainment.equals("Associate Level")
                                                     || pwd_educationalAttainment.equals("Bachelor Level")
