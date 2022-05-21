@@ -87,7 +87,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
             <!--<TextView
                 android:id="@+id/txt_postTitle"
                 android:layout_width="wrap_content"
@@ -124,7 +125,6 @@
                 android:id="@+id/txt_typeOfDisability"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Type Of Disability"
@@ -137,8 +137,6 @@
                 android:id="@+id/typeOfDisability1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
                 android:text="Orthopedic Disability"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:buttonTint="@color/colorPrimary"
@@ -150,7 +148,6 @@
                 android:id="@+id/typeOfDisability2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="Partial Vision Disability"
                 android:fontFamily="@font/proxima_nova_regular"
@@ -164,7 +161,6 @@
                 android:id="@+id/typeOfDisability3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="Hearing Disability"
                 android:fontFamily="@font/proxima_nova_regular"
@@ -178,7 +174,6 @@
                 android:id="@+id/typeOfDisability4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="Speech Impediment"
                 android:fontFamily="@font/proxima_nova_regular"
@@ -192,7 +187,6 @@
                 android:id="@+id/typeOfDisabilityOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="Other Disabilities"
                 android:fontFamily="@font/proxima_nova_regular"
@@ -227,7 +221,6 @@
                 android:id="@+id/txt_skillCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Skill Category"
@@ -241,7 +234,6 @@
                 android:id="@+id/textInputLayout_skillCategory"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:hint="Click to select skill category"
                 app:layout_constraintTop_toBottomOf="@+id/txt_skillCategory"
                 app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +305,6 @@
                 android:id="@+id/txt_PostDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Job Description"
@@ -321,31 +312,32 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/txt_jobTitleError"
                 app:layout_constraintStart_toStartOf="parent"
+
                 />
            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_postDescription"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="Job Description"
+                android:hint="Ex. A Data Analyst, or Data Business Analyst, is re..."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_PostDescription">
+                app:layout_constraintTop_toBottomOf="@id/txt_PostDescription"
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textInputEditText_postDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/proxima_nova_regular"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine"
+                    android:textColorHighlight="#B31F86DE"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/txt_secondarySkill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Secondary Skill"
@@ -375,7 +367,6 @@
                         android:id="@+id/typeOfSkills1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Attention to Detail"
@@ -386,7 +377,6 @@
                         android:id="@+id/typeOfSkills2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Communication Skill"
                         android:buttonTint="@color/colorPrimary"
@@ -395,7 +385,6 @@
                         android:id="@+id/typeOfSkills3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Problem Solving"
                         android:buttonTint="@color/colorPrimary"
@@ -404,7 +393,6 @@
                         android:id="@+id/typeOfSkills4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Personal Productivity"
                         android:buttonTint="@color/colorPrimary"
@@ -413,7 +401,6 @@
                         android:id="@+id/typeOfSkills5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Positive Attitude/Outlook"
                         android:buttonTint="@color/colorPrimary"
@@ -422,7 +409,6 @@
                         android:id="@+id/typeOfSkills6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Teamwork Skills"
                         android:buttonTint="@color/colorPrimary"
@@ -431,7 +417,6 @@
                         android:id="@+id/typeOfSkills7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Learning/Adaptability Skills"
                         android:buttonTint="@color/colorPrimary"
@@ -450,7 +435,6 @@
                         android:id="@+id/typeOfSkills8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Organizational Skills"
@@ -461,7 +445,6 @@
                         android:id="@+id/typeOfSkills9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="PowerPoint and Excel"
                         android:buttonTint="@color/colorPrimary"
@@ -471,7 +454,6 @@
                         android:id="@+id/typeOfSkills10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Knowledgeable in Zoom/Google Meet/Etc."
                         android:buttonTint="@color/colorPrimary"
@@ -481,7 +463,6 @@
                         android:id="@+id/typeOfSkills11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Computer Skills"
                         android:buttonTint="@color/colorPrimary"
@@ -491,7 +472,6 @@
                         android:id="@+id/typeOfSkills12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Customer Service"
                         android:buttonTint="@color/colorPrimary"
@@ -501,7 +481,6 @@
                         android:id="@+id/typeOfSkills13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Strong Work Ethic"
                         android:buttonTint="@color/colorPrimary"
@@ -511,7 +490,6 @@
                         android:id="@+id/typeOfSkills14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/proxima_nova_regular"
                         android:text="Transferable Skills"
                         android:buttonTint="@color/colorPrimary"
@@ -523,7 +501,6 @@
                 android:id="@+id/txt_educationalAttainment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Educational Attainment"
@@ -537,7 +514,6 @@
                 android:id="@+id/checkBox_educAttainmentRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:text="Required"
                 app:layout_constraintTop_toBottomOf="@+id/txt_educationalAttainment"
@@ -560,7 +536,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Elementary Level"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"
                     />
@@ -570,7 +545,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="High School Level"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"
                     />
@@ -580,7 +554,6 @@
                     android:layout_width="match_parent"
                     android:text="Associate Level"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"/>
 
@@ -589,7 +562,6 @@
                     android:layout_width="match_parent"
                     android:text="Bachelor Level"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"/>
 
@@ -599,7 +571,6 @@
                     android:layout_width="match_parent"
                     android:text="Master's Level"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"/>
 
@@ -608,12 +579,141 @@
                     android:layout_width="match_parent"
                     android:text="Doctorate Level"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:buttonTint="@color/colorPrimary"/>
 
             </RadioGroup>
 
+            <TextView
+                android:id="@+id/txt_workExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Work Experience"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup_educ"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_workExp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:checkedButton="@+id/radio_10"
+                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_10"
+                    android:layout_width="wrap_content"
+                    android:text="Without Experience"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="With Experience"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_yearsOfExperience"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Minimum years of experience"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup_workExp"
+                android:visibility="gone"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_yearsOfExperience"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txt_typeOfEmployment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Type of Employment"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_yearsOfExperience"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_typeOfEmployment"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:hint="Click to select type of employment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_typeOfEmployment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="none"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txt_maxNumberOfApplicants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Maximum Number of Applicants"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_maxNumberOfApplicants"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Ex. 4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_maxNumberOfApplicants"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditText_maxNumberOfApplicants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:inputType="number"
+                android:textColorHighlight="#B31F86DE"
+                />
+            </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_saveJobPost"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Save"
+            android:textSize="12sp" />
     </LinearLayout>
 </ScrollView>
