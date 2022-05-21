@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:descendantFocusability="beforeDescendants"
     android:fillViewport="true"
     android:focusableInTouchMode="true"
@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:isScrollContainer="true">
 
@@ -87,8 +87,39 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+            <!--<TextView
+                android:id="@+id/txt_postTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Post Title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_postTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_postTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_postTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:inputType="textPersonName|textCapWords"/>
+            </com.google.android.material.textfield.TextInputLayout>-->
             <TextView
                 android:id="@+id/txt_typeOfDisability"
                 android:layout_width="wrap_content"
@@ -102,23 +133,94 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_typeOfDisability"
-                android:layout_width="250dp"
+            <CheckBox
+                android:id="@+id/typeOfDisability1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:hint="Click to select type of disability"
-                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfDisability"
+                android:layout_marginEnd="8dp"
+                android:text="Orthopedic Disability"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_gravity="start"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfDisability"
+                />
+            <CheckBox
+                android:id="@+id/typeOfDisability2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Partial Vision Disability"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfDisability1"
+                />
+
+            <CheckBox
+                android:id="@+id/typeOfDisability3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Hearing Disability"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfDisability2"
+                />
+
+            <CheckBox
+                android:id="@+id/typeOfDisability4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Speech Impediment"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfDisability3"
+                />
+
+            <CheckBox
+                android:id="@+id/typeOfDisabilityOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Other Disabilities"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:buttonTint="@color/colorPrimary"
+                android:layout_gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfDisability4"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_otherDisabilitySpecific"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Ex. Psychosocial Disability / Learning Disability"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeOfDisabilityOther"
+                android:visibility="gone"
                 >
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_typeOfDisability"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_otherDisabilitySpecific"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:textSize="18sp"
-                    />
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:inputType="textPersonName|textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -131,7 +233,7 @@
                 android:text="Skill Category"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfDisability"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_otherDisabilitySpecific"
                 app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -158,36 +260,359 @@
                 android:id="@+id/txt_jobTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_sharp_subdirectory_arrow_right_24"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="Job Title"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.233"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory"
                 android:visibility="gone"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_jobTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:hint="Job Title"
-                app:layout_constraintTop_toBottomOf="@+id/txt_jobTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:layout_constraintTop_toBottomOf="@+id/txt_jobTitle"
                 android:visibility="gone"
                 >
+
                 <AutoCompleteTextView
                     android:id="@+id/autoComplete_jobTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txt_jobTitleError"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ic_baseline_error_24"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Error entered job title does not exist."
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.344"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout_jobTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_jobTitle" />
+
+            <TextView
+                android:id="@+id/txt_PostDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Job Description"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/txt_jobTitleError"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+           <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_postDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Job Description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_PostDescription">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_postDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:inputType="textMultiLine"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txt_secondarySkill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Secondary Skill"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_postDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+             <LinearLayout
+                android:id="@+id/skillLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_secondarySkill">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Attention to Detail"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Communication Skill"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                    <CheckBox
+                        android:id="@+id/typeOfSkills3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Problem Solving"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                    <CheckBox
+                        android:id="@+id/typeOfSkills4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Personal Productivity"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                    <CheckBox
+                        android:id="@+id/typeOfSkills5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Positive Attitude/Outlook"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                    <CheckBox
+                        android:id="@+id/typeOfSkills6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Teamwork Skills"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                    <CheckBox
+                        android:id="@+id/typeOfSkills7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Learning/Adaptability Skills"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Organizational Skills"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="PowerPoint and Excel"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Knowledgeable in Zoom/Google Meet/Etc."
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Computer Skills"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Customer Service"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Strong Work Ethic"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/typeOfSkills14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:text="Transferable Skills"
+                        android:buttonTint="@color/colorPrimary"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_educationalAttainment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Educational Attainment"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/skillLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBox_educAttainmentRequirement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:text="Required"
+                app:layout_constraintTop_toBottomOf="@+id/txt_educationalAttainment"
+                app:layout_constraintStart_toStartOf="parent"
+                android:buttonTint="@color/colorPrimary"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_educ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/radio_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox_educAttainmentRequirement"
+                android:visibility="gone"
+                >
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Elementary Level"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="High School Level"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_3"
+                    android:layout_width="match_parent"
+                    android:text="Associate Level"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_4"
+                    android:layout_width="match_parent"
+                    android:text="Bachelor Level"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
+
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_5"
+                    android:layout_width="match_parent"
+                    android:text="Master's Level"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_6"
+                    android:layout_width="match_parent"
+                    android:text="Doctorate Level"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/colorPrimary"/>
+
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
