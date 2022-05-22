@@ -14,6 +14,8 @@ public class EmployeeInformation {
     public String companyaddress;
     public String companycity;
 
+    public String companyTelNum;
+
     public EmployeeInformation(){
 
     }
@@ -76,8 +78,16 @@ public class EmployeeInformation {
         this.companycity = companycity;
     }
 
+    public String getCompanyTelNum() {
+        return companyTelNum;
+    }
+
+    public void setCompanyTelNum(String companyTelNum) {
+        this.companyTelNum = companyTelNum;
+    }
+
     public EmployeeInformation(String email, String typeStatus, String firstname, String lastname, String fullname, String companybg,
-                               String contact, String empValidID, String companyaddress, String companycity) {
+                               String contact, String empValidID, String companyaddress, String companycity, String companyTelNum) {
 
         this.email=email;
         this.firstname = firstname;
@@ -89,6 +99,7 @@ public class EmployeeInformation {
         this.empValidID = empValidID;
         this.companyaddress = companyaddress;
         this.companycity = companycity;
+        this.companyTelNum = companyTelNum;
     }
 
 }

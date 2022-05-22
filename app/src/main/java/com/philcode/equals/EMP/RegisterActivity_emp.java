@@ -72,7 +72,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     private MaterialButton buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
 
     private TextInputEditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
-            editFirstName, editLastName, editCompanyAddress, confirmPassword;
+            editFirstName, editLastName, editCompanyAddress, confirmPassword, emp_editCompanyContact;
     private TextInputLayout editEmailError, editPasswordError, confirmPasswordError;
     private ImageView profilePicEMP, empValidID;
     private TextView emailAddressInUse;
@@ -94,6 +94,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
+        emp_editCompanyContact = findViewById(R.id.emp_editCompanyContact);
 
         buttonUploadEmpID = (MaterialButton) findViewById(R.id.btn_emp_ID_upload);
         buttonSave = (MaterialButton) findViewById(R.id.btnEditProfile);
@@ -334,15 +335,6 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     }
 
 
-    public String GetFileExtension(Uri uri) {
-
-        ContentResolver contentResolver = getContentResolver();
-
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -416,13 +408,12 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
                 final String fullname = editCompanyName.getText().toString().trim();
-                final String typeStatus = "EMPPending"; //for testing 09.12.2021
-                //final String typeStatus = "EMPApproved"; original status 09.12.2021
-                //  final String fullname = editCompanyName.getText().toString().trim();
+                final String typeStatus = "EMPPending";
                 final String companybg = editCompanyBackground.getText().toString().trim();
                 final String contact = editContact.getText().toString().trim();
                 final String companyAddress = editCompanyAddress.getText().toString().trim();
                 final String companyCity = spinnerCity.getSelectedItem().toString().trim();
+                final String companyTelNum = emp_editCompanyContact.getText().toString().trim();
                 if (emailCheck == "hehez") {
                     Toast.makeText(getApplicationContext(), emailCheck, Toast.LENGTH_LONG);
                     editEmailError.setError("Email address is already in use");
@@ -512,7 +503,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
-                                                                    contact, empValidID, companyAddress, companyCity);
+                                                                    contact, empValidID, companyAddress, companyCity, companyTelNum);
                                                             FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
