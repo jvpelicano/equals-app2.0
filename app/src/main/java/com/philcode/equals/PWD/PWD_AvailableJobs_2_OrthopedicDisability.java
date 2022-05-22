@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,15 +31,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity {
-    DatabaseReference refForJobs, refUser;
+    private DatabaseReference refForJobs, refUser;
 
-    RecyclerView recyclerView;
-    PWD_AvailableJobs_MyAdapter myAdapter;
+    private RecyclerView recyclerView;
+    private PWD_AvailableJobs_MyAdapter myAdapter;
 
-    ArrayList<PWD_AvailableJobs_Model> list;
-    SwitchMaterial switchPriority;
-    TextView tv_noJobsAvailable;
-    ImageView mascot;
+    private ArrayList<PWD_AvailableJobs_Model> list;
+    private SwitchMaterial switchPriority;
+    private TextView tv_noJobsAvailable;
+    private TextInputLayout textInputLayout_filterSkillOrDisability, textInputLayout_filterJobTitles;
+
+    private ImageView mascot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +51,12 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
         recyclerView = findViewById(R.id.myRecycler);
         tv_noJobsAvailable = findViewById(R.id.tv_noJobsAvailable);
         mascot = findViewById(R.id.mascot);
+        textInputLayout_filterSkillOrDisability = findViewById(R.id.textInputLayout_filterSkillOrDisability);
+        textInputLayout_filterJobTitles = findViewById(R.id.textInputLayout_filterJobTitles);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
-        switchPriority = findViewById(R.id.switchPriority);
+
         getWindow().getDecorView().post(new Runnable() {
 
             @Override
@@ -79,10 +85,13 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                             recyclerView.setVisibility(View.VISIBLE);
                             mascot.setVisibility(View.GONE);
                             tv_noJobsAvailable.setVisibility(View.GONE);
+                            textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                            textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                         }else{
                             recyclerView.setVisibility(View.GONE);
                             mascot.setVisibility(View.VISIBLE);
-                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                            textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                         }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
@@ -116,10 +125,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -147,10 +160,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -178,10 +195,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -208,10 +229,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -237,10 +262,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -265,10 +294,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                         recyclerView.setVisibility(View.VISIBLE);
                                                         mascot.setVisibility(View.GONE);
                                                         tv_noJobsAvailable.setVisibility(View.GONE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                     }else if(list.isEmpty()){
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                        textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
                                                     myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -294,10 +327,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -326,10 +363,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -358,10 +399,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -389,10 +434,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -419,10 +468,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -448,10 +501,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
                                                 myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
@@ -476,10 +533,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                     recyclerView.setVisibility(View.VISIBLE);
                                                     mascot.setVisibility(View.GONE);
                                                     tv_noJobsAvailable.setVisibility(View.GONE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                 }else if(list.isEmpty()){
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);
                                                 recyclerView.setAdapter(myAdapter);
@@ -504,10 +565,14 @@ public class PWD_AvailableJobs_2_OrthopedicDisability extends AppCompatActivity 
                                                 recyclerView.setVisibility(View.VISIBLE);
                                                 mascot.setVisibility(View.GONE);
                                                 tv_noJobsAvailable.setVisibility(View.GONE);
+                                                textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
+                                                textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                             }else if(list.isEmpty()){
                                                 recyclerView.setVisibility(View.GONE);
                                                 mascot.setVisibility(View.VISIBLE);
                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+                                                textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                             }
                                             Collections.reverse(list);
                                             myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_2_OrthopedicDisability.this, list);

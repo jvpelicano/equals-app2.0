@@ -73,7 +73,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/empBtnChoose"
+                android:id="@+id/btn_chooseHeaderImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -679,7 +679,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans_regular"
-                android:text="Maximum Number of Applicants"
+                android:text="Maximum Number of Hired Applicants"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment"
