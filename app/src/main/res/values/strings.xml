@@ -239,6 +239,7 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sendEmailToVerify">To get your account verified please send your company\'s SEC/DTI Certificate of Registration or BIR Form 2033 documents, click here or email PhilCode at equalsapp.philcode@gmail.com.</string>
 
 
 </resources>

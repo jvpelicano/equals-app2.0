@@ -68,7 +68,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
     // Folder path for Firebase Storage.
     String Storage_Path = "Employer_Reg_Form/";
-    private TextView textViewUserEmail;
+    private TextView textViewUserEmail, txt_sendAttachmentsForVerification;
     private MaterialButton buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
 
     private TextInputEditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
@@ -303,7 +303,32 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         checkPrivacy.setText(ss);
         checkPrivacy.setMovementMethod(LinkMovementMethod.getInstance());
 
+        txt_sendAttachmentsForVerification = findViewById(R.id.txt_sendAttachmentsForVerification);
+        String sendDocsString = txt_sendAttachmentsForVerification.getText().toString();
+        SpannableString spannableString_sendDocs = new SpannableString(sendDocsString);
 
+        ClickableSpan clickableSpan1 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setData(Uri.parse("email"));
+                i.putExtra(Intent.EXTRA_EMAIL,new String[] { "equals.philcode@gmail.com" });
+                i.putExtra(Intent.EXTRA_SUBJECT, "Equals Account Verification Request Documents");
+                i.putExtra(Intent.EXTRA_TEXT, "Put your details here.");
+                i.setType("message/rfc822");
+                Intent chooser = Intent.createChooser(i,"Choose Application");
+                startActivity(chooser);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.BLUE);
+            }
+        };
+        spannableString_sendDocs.setSpan(clickableSpan1, 120, 131, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        txt_sendAttachmentsForVerification.setText(spannableString_sendDocs);
+        txt_sendAttachmentsForVerification.setMovementMethod(LinkMovementMethod.getInstance());
 
 
     }
