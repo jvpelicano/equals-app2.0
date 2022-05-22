@@ -218,6 +218,22 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/txt_typeOfDisabilityOtherError"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ic_baseline_error_24"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Error please specify the type of disability."
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.344"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout_skillCategory"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory" />
+
+            <TextView
                 android:id="@+id/txt_skillCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -247,6 +263,21 @@
                     android:textSize="18sp"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txt_skillCategoryError"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ic_baseline_error_24"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Error entered skill category is invalid."
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.344"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout_skillCategory"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory" />
 
             <TextView
                 android:id="@+id/txt_jobTitle"
@@ -261,7 +292,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.233"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory"
+                app:layout_constraintTop_toBottomOf="@+id/txt_skillCategoryError"
                 android:visibility="gone"
                 />
 
@@ -293,7 +324,7 @@
                 android:drawableStart="@drawable/ic_baseline_error_24"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="Error entered job title does not exist."
+                android:text="Error entered job title is invalid."
                 android:textColor="@color/red"
                 android:textSize="12sp"
                 android:visibility="gone"
@@ -346,8 +377,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_postDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 />
-
-             <LinearLayout
+            <LinearLayout
                 android:id="@+id/skillLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -496,7 +526,6 @@
                         />
                 </LinearLayout>
             </LinearLayout>
-
             <TextView
                 android:id="@+id/txt_educationalAttainment"
                 android:layout_width="wrap_content"
@@ -641,6 +670,21 @@
                     android:fontFamily="@font/proxima_nova_regular"
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txt_minYearsOfExp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/ic_baseline_error_24"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="Error entered minimum years of experience is invalid."
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.344"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout_yearsOfExperience"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_yearsOfExperience" />
 
             <TextView
                 android:id="@+id/txt_typeOfEmployment"
@@ -651,7 +695,7 @@
                 android:text="Type of Employment"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_yearsOfExperience"
+                app:layout_constraintTop_toBottomOf="@+id/txt_minYearsOfExp"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 

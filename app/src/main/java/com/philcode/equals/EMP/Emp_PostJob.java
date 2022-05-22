@@ -43,7 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.philcode.equals.R;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class Emp_PostJob extends AppCompatActivity {
     //int
     private int selected_educAttainment_ID, selected_workExpRg_ID;
     //boolean
-    private Boolean editTextsValid, autoCompleteValid;
+    private Boolean editTextsValid, autoCompleteValid, skillCategory_exists, jobTitle_exists;
 
     //calendar
     private Calendar cal;
@@ -92,7 +91,7 @@ public class Emp_PostJob extends AppCompatActivity {
         private AutoCompleteTextView autoComplete_skillCategory, autoComplete_jobTitle, autoComplete_typeOfEmployment;
         //text views
         private TextView txt_jobTitle;
-        private TextView txt_jobTitleError;
+        private TextView txt_jobTitleError, txt_minYearsOfExpError , txt_skillCategoryError, txt_typeOfDisabilityOtherError;
         //edit texts
         private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
                 ,textInputEditText_yearsOfExperience;
@@ -200,6 +199,9 @@ public class Emp_PostJob extends AppCompatActivity {
                 //text views
                 txt_jobTitle = findViewById(R.id.txt_jobTitle);
                 txt_jobTitleError = findViewById(R.id.txt_jobTitleError);
+                txt_minYearsOfExpError = findViewById(R.id.txt_minYearsOfExp);
+                txt_skillCategoryError = findViewById(R.id.txt_skillCategoryError);
+                txt_typeOfDisabilityOtherError = findViewById(R.id.txt_typeOfDisabilityOtherError);
 
         //set exposed dropdown list
         setExposedDropdownListSkillCategory();
@@ -218,12 +220,11 @@ public class Emp_PostJob extends AppCompatActivity {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus){
-                        //Toast.makeText(Emp_PostJob.this, checkExposedDropdownListValue(arrayList_spinner_jobTitles, autoComplete_jobTitle.getText().toString()).toString(), Toast.LENGTH_LONG).show();
-                        Boolean exists = checkExposedDropdownListValue(arrayList_skillCategory, autoComplete_skillCategory.getText().toString());
-                        if(!exists){
-                            txt_jobTitleError.setVisibility(View.VISIBLE);
+                        skillCategory_exists = checkExposedDropdownListValue(arrayList_skillCategory, autoComplete_skillCategory.getText().toString());
+                        if(!skillCategory_exists){
+                            txt_skillCategoryError.setVisibility(View.VISIBLE);
                         }else{
-                            txt_jobTitleError.setVisibility(View.GONE);
+                            txt_skillCategoryError.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -246,9 +247,8 @@ public class Emp_PostJob extends AppCompatActivity {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus){
-                        //Toast.makeText(Emp_PostJob.this, checkExposedDropdownListValue(arrayList_spinner_jobtitles, autoComplete_jobTitle.getText().toString()).toString(), Toast.LENGTH_LONG).show();
-                        Boolean exists = checkExposedDropdownListValue(arrayList_jobTitles, autoComplete_jobTitle.getText().toString());
-                        if(!exists){
+                        jobTitle_exists = checkExposedDropdownListValue(arrayList_jobTitles, autoComplete_jobTitle.getText().toString());
+                        if(!jobTitle_exists){
                             txt_jobTitleError.setVisibility(View.VISIBLE);
                         }else{
                             txt_jobTitleError.setVisibility(View.GONE);
@@ -289,9 +289,23 @@ public class Emp_PostJob extends AppCompatActivity {
                         textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
                         hashMap_generalData.put("workExperience", radioButton_withWorkExp.getText().toString());
                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
+                        textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                if(!hasFocus){
+                                    if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                                        txt_minYearsOfExpError.setVisibility(View.VISIBLE);
+                                    }else{
+                                        txt_minYearsOfExpError.setVisibility(View.GONE);
+                                    }
+                                }
+                            }
+                        });
                     }else{
                         textInputLayout_yearsOfExperience.setVisibility(View.GONE);
                         hashMap_generalData.put("workExperience", "Without Experience");
+                        hashMap_generalData.put("yearsOfExperience", "0");
+                        txt_minYearsOfExpError.setVisibility(View.GONE);
                     }
                 }
             });
@@ -310,10 +324,36 @@ public class Emp_PostJob extends AppCompatActivity {
             btn_saveJobPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    progressDialog.setTitle("Posting...");
-                    progressDialog.show();
                     if(FilePathUri != null ){
-                        uploadData();
+                        selectedSecondarySkills();
+                        selectedTypeOfDisabilities();
+                        getDataFromCurrentUser();
+                        checkEditTextFields(textInputEditText_maxNumberOfApplicants);
+                        checkEditTextFields(textInputEditText_postDescription);
+                        checkAutoCompleteFields(autoComplete_skillCategory);
+                        checkAutoCompleteFields(autoComplete_jobTitle);
+                        checkAutoCompleteFields(autoComplete_typeOfEmployment);
+
+                        if(editTextsValid && autoCompleteValid && !checkBox_secondary_skills_checkIfEmpty.isEmpty()
+                                && (!checkBox_type_of_disabilities_checkIfEmpty.isEmpty()
+                                || checkBox_typeOfDisability_Other.isChecked())
+                                && skillCategory_exists
+                                && jobTitle_exists){ // if this returns true
+
+                                if(checkBox_typeOfDisability_Other.isChecked() && textInputEditText_otherDisabilitySpecific.getText().toString().isEmpty() //check this
+                                        || radioButton_withWorkExp.isChecked() && textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+
+                                        Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                }else{
+
+                                    uploadData();
+
+                                }
+
+                        } else{
+                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                        }
+
                     }else{
                         Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                     }
@@ -344,6 +384,75 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
+        }
+        //upload
+        private void uploadData(){
+            progressDialog.setTitle("Posting...");
+            progressDialog.show();
+            ref = job_offers_storage_root.child("Job_Offers/" + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+            ref.putFile(FilePathUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    ref.getDownloadUrl()
+                            .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    progressDialog.dismiss();
+                                    final String imageURL = task.getResult().toString();
+                                    pushKey = job_offers_root.push().getKey();
+
+                                    radioButton_educAttainment = findViewById(selected_educAttainment_ID);
+                                    radioButton_educAttainment_text = radioButton_educAttainment.getText().toString();
+
+                                    hashMap_generalData.put("skill", autoComplete_skillCategory.getText().toString());
+                                    hashMap_generalData.put("jobTitle", autoComplete_jobTitle.getText().toString());
+                                    hashMap_generalData.put("postDescription", textInputEditText_postDescription.getText().toString());
+                                    hashMap_generalData.put("uid", uID);
+                                    hashMap_generalData.put("postDate", postDate);
+                                    hashMap_generalData.put("educationalAttainment", radioButton_educAttainment_text);
+                                    hashMap_generalData.put("typeOfEmployment", autoComplete_typeOfEmployment.getText().toString());
+                                    hashMap_generalData.put("maxNumberApplicants", textInputEditText_maxNumberOfApplicants.getText().toString());
+                                    hashMap_generalData.put("imageURL", imageURL);
+
+                                    //reference automatic deletion after 12 months
+                                    cal.add(Calendar.MONTH, 12);
+                                    format.format(cal.getTime());
+                                    calculated_postExpDate = format.format(cal.getTime());
+
+                                    hashMap_generalData.put("expDate", calculated_postExpDate);
+
+                                    //new key "timestamp"
+                                    hashMap_generalData.put("permission", "pending");
+
+                                    job_offers_root.child(pushKey).setValue(hashMap_generalData);
+                                    Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Emp_PostJob.this, a_EmployeeContentMainActivity.class));
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred() / snapshot
+                            .getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    progressDialog.setCancelable(false);
+                }
+            });
         }
         //set data
         private void setExposedDropdownListSkillCategory(){
@@ -456,85 +565,7 @@ public class Emp_PostJob extends AppCompatActivity {
             }
             return autoCompleteValid;
         }
-        //upload
-        private void uploadData(){
-            ref = job_offers_storage_root.child("Job_Offers/" + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
-                    ref.putFile(FilePathUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl()
-                                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Uri> task) {
-                                            progressDialog.dismiss();
-                                            final String imageURL = task.getResult().toString();
-                                            pushKey = job_offers_root.push().getKey();
-                                            selectedSecondarySkills();
-                                            selectedTypeOfDisabilities();
-                                            getDataFromCurrentUser();
-                                            checkEditTextFields(textInputEditText_maxNumberOfApplicants);
-                                            checkEditTextFields(textInputEditText_postDescription);
-                                            checkAutoCompleteFields(autoComplete_skillCategory);
-                                            checkAutoCompleteFields(autoComplete_jobTitle);
 
-                                            radioButton_educAttainment = findViewById(selected_educAttainment_ID);
-                                            radioButton_educAttainment_text = radioButton_educAttainment.getText().toString();
-
-                                            hashMap_generalData.put("skill", autoComplete_skillCategory.getText().toString());
-                                            hashMap_generalData.put("jobTitle", autoComplete_jobTitle.getText().toString());
-                                            hashMap_generalData.put("postDescription", textInputEditText_postDescription.getText().toString());
-                                            hashMap_generalData.put("uid", uID);
-                                            hashMap_generalData.put("postDate", postDate);
-                                            hashMap_generalData.put("educationalAttainment", radioButton_educAttainment_text);
-                                            hashMap_generalData.put("typeOfEmployment", autoComplete_typeOfEmployment.getText().toString());
-                                            hashMap_generalData.put("maxNumberApplicants", textInputEditText_maxNumberOfApplicants.getText().toString());
-                                            hashMap_generalData.put("imageURL", imageURL);
-
-                                            //reference automatic deletion after 12 months
-                                            cal.add(Calendar.MONTH, 12);
-                                            format.format(cal.getTime());
-                                            calculated_postExpDate = format.format(cal.getTime());
-
-                                            hashMap_generalData.put("expDate", calculated_postExpDate);
-
-                                            //new key "timestamp"
-                                            hashMap_generalData.put("permission", "pending");
-
-                                            if(editTextsValid && autoCompleteValid && !checkBox_secondary_skills_checkIfEmpty.isEmpty()
-                                            && !checkBox_type_of_disabilities_checkIfEmpty.isEmpty()){
-                                                job_offers_root.child(pushKey).setValue(hashMap_generalData);
-                                                Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(Emp_PostJob.this, a_EmployeeContentMainActivity.class));
-                                            }else{
-                                                Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
-                                            }
-
-
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    });
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                            progressDialog.setCancelable(false);
-                        }
-                    });
-        }
 
         //post duration?
             /*private void calculateExpDate(String selected_postExpDate) {
