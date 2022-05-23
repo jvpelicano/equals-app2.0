@@ -718,6 +718,47 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/txt_workSetUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="Work Set-Up"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_workSetUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:checkedButton="@+id/radioButton_onSiteWork"
+                app:layout_constraintTop_toBottomOf="@+id/txt_workSetUp"
+                >
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioButton_onSiteWork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On-Site Work"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioButton_remoteWork"
+                    android:layout_width="wrap_content"
+                    android:text="Remote Work"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    />
+
+            </RadioGroup>
+
+            <TextView
                 android:id="@+id/txt_maxNumberOfApplicants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -726,7 +767,7 @@
                 android:text="Maximum Number of Hired Applicants"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup_workSetUp"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 

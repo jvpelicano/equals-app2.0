@@ -47,7 +47,7 @@ public class EMP_ManageJobs extends AppCompatActivity {
                 list.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String imageURL = dataSnapshot1.child("imageURL").getValue(String.class);
-                    String displayPostTitle = dataSnapshot1.child("postTitle").getValue(String.class);
+                    String displayPostTitle = dataSnapshot1.child("jobTitle").getValue(String.class);
                     String displayCompanyName = dataSnapshot1.child("companyName").getValue(String.class);
                     String displayPostDate = dataSnapshot1.child("postDate").getValue(String.class);
                     String displayPermission = dataSnapshot1.child("permission").getValue(String.class);

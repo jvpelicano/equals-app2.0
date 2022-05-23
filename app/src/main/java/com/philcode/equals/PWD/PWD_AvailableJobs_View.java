@@ -55,7 +55,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
             m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
             m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
-            m_displayPostTitle;
+            m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp;
     Button m_sendResume;
     ImageView m_displayPostPic, m_displayCompanyLogo;
     private String companyLogoURL;
@@ -94,15 +94,18 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         jobOffersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String postTitle = snapshot.child("postTitle").getValue().toString();
+                final String postTitle = snapshot.child("jobTitle").getValue().toString();
                 final String companyName = snapshot.child("companyName").getValue().toString();
                 final String postDescription = snapshot.child("postDescription").getValue().toString();
-                final String postLoc = snapshot.child("postLocation").getValue().toString();
+                final String postLoc = snapshot.child("postLocation").getValue().toString() + snapshot.child("city").getValue().toString();
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
                 final String expDate = snapshot.child("expDate").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
+                final String typeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
+
+                final  String workSetUp = snapshot.child("workSetUp").getValue().toString();
                 if(snapshot.hasChild("empProfilePic")){
                     companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
                 }else{
@@ -128,7 +131,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience,
-                        expDate, imageURL, companyLogoURL);
+                        expDate, imageURL, companyLogoURL, typeOfEmployment, workSetUp);
             }
 
             @Override
@@ -189,7 +192,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
                             String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate,
-                            String imageURL, String companyLogoURL){
+                            String imageURL, String companyLogoURL, String typeOfEmployment, String workSetUp){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -197,6 +200,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience + " years");
+        m_displayTypeOfEmployment.setText(typeOfEmployment);
+        m_displayWorkSetUp.setText(workSetUp);
         m_displayExpDate.setText(expDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
