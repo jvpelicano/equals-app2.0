@@ -347,14 +347,14 @@ public class Emp_PostJob extends AppCompatActivity {
                                     if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                     || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
                                             || textInputEditText_postDescription.getText().toString().isEmpty()
-                                            || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()){ // error
+                                            || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
+                                            || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
 
                                         Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
                                     }else{
 
                                         if(radioButton_withWorkExp.isChecked()){
-
                                             if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
                                                 Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                                             }else{
@@ -374,7 +374,8 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                 if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                         || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
-                                        || textInputEditText_postDescription.getText().toString().isEmpty() || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()){ // error
+                                        || textInputEditText_postDescription.getText().toString().isEmpty() || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
+                                        || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
 
                                     Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
@@ -619,100 +620,6 @@ public class Emp_PostJob extends AppCompatActivity {
                 return false;
             }
         }
-        private boolean textInputEditTextIsEmpty(TextInputEditText textInputEditText) {
-            if (textInputEditText.getText().toString().trim().length() > 0)
-                return false;
-
-            return true;
-        }
-        private Boolean autoCompleteTextViewIsEmpty(AutoCompleteTextView autoCompleteTextViewToCheck){
-            if(autoCompleteTextViewToCheck.getText().toString().isEmpty())
-                return true;
-            return false;
-        }
-
-
-        //post duration?
-            /*private void calculateExpDate(String selected_postExpDate) {
-                if(selected_postExpDate.equals("1 week")) { // working
-                    cal.add(Calendar.WEEK_OF_YEAR, 1);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("2 weeks")) {
-                    cal.add(Calendar.WEEK_OF_YEAR, 2);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("3 weeks")) {
-                    cal.add(Calendar.WEEK_OF_YEAR, 3);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("1 month")) {
-                    cal.add(Calendar.MONTH, 1);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("2 months")) {
-                    cal.add(Calendar.MONTH, 2);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("3 months")) {
-                    cal.add(Calendar.MONTH, 3);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("4 months")) {
-                    cal.add(Calendar.MONTH, 4);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("5 months")) {
-                    cal.add(Calendar.MONTH, 5);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("6 months")) {
-                    cal.add(Calendar.MONTH, 6);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("7 months")) {
-                    cal.add(Calendar.MONTH, 7);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("8 months")) {
-                    cal.add(Calendar.MONTH, 8);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("9 months")) {
-                    cal.add(Calendar.MONTH, 9);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("10 months")) {
-                    cal.add(Calendar.MONTH, 10);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                } else if(selected_postExpDate.equals("11 months")) {
-                    cal.add(Calendar.MONTH, 11);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("1 year")) {
-                    cal.add(Calendar.MONTH, 12);
-                    format.format(cal.getTime());
-                    calculated_postExpDate = format.format(cal.getTime());
-
-                }else if(selected_postExpDate.equals("Unlimited")) {
-                    calculated_postExpDate = "unlimited";
-                }
-            }*/
 
         //choose image
         public String GetFileExtension(Uri uri) {
@@ -737,5 +644,87 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             }
         }
+
+        //post duration?
+                /*private void calculateExpDate(String selected_postExpDate) {
+                    if(selected_postExpDate.equals("1 week")) { // working
+                        cal.add(Calendar.WEEK_OF_YEAR, 1);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("2 weeks")) {
+                        cal.add(Calendar.WEEK_OF_YEAR, 2);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("3 weeks")) {
+                        cal.add(Calendar.WEEK_OF_YEAR, 3);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("1 month")) {
+                        cal.add(Calendar.MONTH, 1);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("2 months")) {
+                        cal.add(Calendar.MONTH, 2);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("3 months")) {
+                        cal.add(Calendar.MONTH, 3);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("4 months")) {
+                        cal.add(Calendar.MONTH, 4);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("5 months")) {
+                        cal.add(Calendar.MONTH, 5);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("6 months")) {
+                        cal.add(Calendar.MONTH, 6);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("7 months")) {
+                        cal.add(Calendar.MONTH, 7);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("8 months")) {
+                        cal.add(Calendar.MONTH, 8);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("9 months")) {
+                        cal.add(Calendar.MONTH, 9);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("10 months")) {
+                        cal.add(Calendar.MONTH, 10);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("11 months")) {
+                        cal.add(Calendar.MONTH, 11);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("1 year")) {
+                        cal.add(Calendar.MONTH, 12);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("Unlimited")) {
+                        calculated_postExpDate = "unlimited";
+                    }
+                }*/
 
 }

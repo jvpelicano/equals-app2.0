@@ -3,6 +3,7 @@ package com.philcode.equals.PWD;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
@@ -26,13 +29,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PWD_AvailableJobs_1_All extends AppCompatActivity {
-    DatabaseReference refForJobs, refUser;
+    DatabaseReference refForJobs, refUser, categories_root;
     RecyclerView recyclerView;
     PWD_AvailableJobs_MyAdapter myAdapter;
     ArrayList<PWD_AvailableJobs_Model> list;
     SwitchMaterial switchPriority;
     TextView tv_noJobsAvailable;
     ImageView mascot;
+    TextInputLayout textInputLayout_filterJobTitle, textInputLayout_filterSkillOrDisability;
+    private AutoCompleteTextView autoComplete_filterSkillOrDisability, autoComplete_filterJobTitles;
+    private ArrayList <String> arrayList_jobTitles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,13 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
         switchPriority = findViewById(R.id.switchPriority);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
+        arrayList_jobTitles = new ArrayList<>();
+
+        categories_root = FirebaseDatabase.getInstance().getReference("Category");
+        autoComplete_filterJobTitles = findViewById(R.id.autoComplete_filterJobTitles);
+        textInputLayout_filterJobTitle = findViewById(R.id.textInputLayout_filterJobTitles);
+
+        setExposedDropdownListJobTitle();
         getWindow().getDecorView().post(new Runnable() {
 
             @Override
@@ -58,6 +71,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
+                Query query_filterToJobTitle = refForJobs.orderByChild("jobTitle").equalTo(autoComplete_filterJobTitles.getText().toString());
                 final String pwd_SkillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
                 final String pwd_educationalAttainment = pwd_dataSnapshot.child("educationalAttainment").getValue().toString();
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
@@ -528,5 +542,49 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+    private void setExposedDropdownListJobTitle(){
+
+        refUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String chosenSkillCategory = snapshot.child("skillCategory").getValue().toString();
+
+                categories_root.orderByChild("skill").equalTo(chosenSkillCategory).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot snap_category_key : snapshot.getChildren()){
+                            String parent = snap_category_key.getKey();
+
+                            categories_root.child(parent).child("jobtitles").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot snap_jobTitles : snapshot.getChildren()){
+                                        arrayList_jobTitles.add(snap_jobTitles.getValue().toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

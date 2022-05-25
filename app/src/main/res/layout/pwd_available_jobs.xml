@@ -5,56 +5,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_filterSkillOrDisability"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:hint="Skill Category"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:visibility="visible"
-        >
-        <AutoCompleteTextView
-            android:id="@+id/autoComplete_filterSkillOrDisability"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:textSize="18sp"
-            android:inputType="none"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_filterJobTitles"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:hint="Job Title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/search"
+        app:layout_constraintTop_toTopOf="parent"
         >
+
         <AutoCompleteTextView
             android:id="@+id/autoComplete_filterJobTitles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:textSize="18sp"
-            android:inputType="none"
-            />
+            android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/search"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_search_24"
+        app:layout_constraintBottom_toTopOf="@+id/myRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout_filterSkillOrDisability"
-        />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_filterJobTitles" />
 
     <ImageView
         android:id="@+id/mascot"

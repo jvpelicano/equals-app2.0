@@ -86,6 +86,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_sendResume = findViewById(R.id.btnApply);
         m_displayPostPic = findViewById(R.id.displayPostPic);
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
+        m_displayTypeOfEmployment = findViewById(R.id.displayTypeOfEmployment);
+        m_displayWorkSetUp = findViewById(R.id.displayWorkSetUp);
 
         final String postJobID = getIntent().getStringExtra("POST_ID");
         fDb = FirebaseDatabase.getInstance();
@@ -97,7 +99,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String postTitle = snapshot.child("jobTitle").getValue().toString();
                 final String companyName = snapshot.child("companyName").getValue().toString();
                 final String postDescription = snapshot.child("postDescription").getValue().toString();
-                final String postLoc = snapshot.child("postLocation").getValue().toString() + snapshot.child("city").getValue().toString();
+                final String postLoc = snapshot.child("postLocation").getValue().toString() + "," + snapshot.child("city").getValue().toString();
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
