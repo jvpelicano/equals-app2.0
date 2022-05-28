@@ -656,7 +656,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
                 final String pwd_location = pwd_dataSnapshot.child("city").getValue().toString();
                 refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
-                refForJobs.orderByChild("typeOfDisability1").equalTo("Orthopedic Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
+                refForJobs.orderByChild("typeOfDisability3").equalTo("Speech Impediment").addValueEventListener(new ValueEventListener() { //checking Job_Offers
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {

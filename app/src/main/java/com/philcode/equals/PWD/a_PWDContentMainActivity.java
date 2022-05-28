@@ -117,6 +117,15 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
 
                 if (snapshot.child("typeOfDisability3").exists()) {
                     //Kung may laman daw
+                    MenuItem target4 = menu.findItem(R.id.nav_job_speech);
+                    target4.setVisible(true);
+                }else{
+                    MenuItem target4 = menu.findItem(R.id.nav_job_speech);
+                    target4.setVisible(false);
+                }
+                //add for speech impediment
+                if (snapshot.child("typeOfDisability4").exists()) {
+                    //Kung may laman daw
                     MenuItem target4 = menu.findItem(R.id.nav_job_more);
                     target4.setVisible(true);
                 }else{
@@ -184,6 +193,9 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                             startActivity(j3);
                         } else if (id == R.id.nav_job_more) {
                             Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_5_MoreDisability.class);
+                            startActivity(j4);
+                        }else if(id == R.id.nav_job_speech){
+                            Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_1_All.class);
                             startActivity(j4);
                         }
                         else if (id == R.id.nav_logout_pwd) {

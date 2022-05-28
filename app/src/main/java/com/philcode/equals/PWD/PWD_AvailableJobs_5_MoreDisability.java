@@ -144,7 +144,6 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot pwd_dataSnapshot) {
-                Query query_filterToJobTitle = refForJobs.orderByChild("jobTitle").equalTo(autoComplete_filterJobTitles.getText().toString());
                 final String pwd_SkillCategory = pwd_dataSnapshot.child("skill").getValue().toString();
                 final String pwd_educationalAttainment = pwd_dataSnapshot.child("educationalAttainment").getValue().toString();
                 final String pwd_workExp = pwd_dataSnapshot.child("workExperience").getValue().toString();
