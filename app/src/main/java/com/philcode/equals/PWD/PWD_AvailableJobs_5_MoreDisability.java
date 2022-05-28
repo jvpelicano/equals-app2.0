@@ -666,30 +666,237 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                                 list.clear();
                                 if(!jobFetch_dataSnapshot1.child("typeOfDisabilityMore").getValue().toString().equals("")){
 
-                                }
-                                for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
-                                    final String permission = job_snapshot1.child("permission").getValue(String.class);
-                                    final String job_skillCategory = job_snapshot1.child("skill").getValue().toString();
-                                    final String job_educationalAttainmentRequirement = job_snapshot1.child("educationalAttainmentRequirement").getValue().toString();
-                                    final String job_educationalAttainment = job_snapshot1.child("educationalAttainment").getValue().toString();
-                                    final String job_workExp = job_snapshot1.child("workExperience").getValue().toString();
-                                    final String job_location = job_snapshot1.child("city").getValue().toString();
-                                    final String job_jobTitle = job_snapshot1.child("jobTitle").getValue().toString();
+                                    for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
+                                        final String permission = job_snapshot1.child("permission").getValue(String.class);
+                                        final String job_skillCategory = job_snapshot1.child("skill").getValue().toString();
+                                        final String job_educationalAttainmentRequirement = job_snapshot1.child("educationalAttainmentRequirement").getValue().toString();
+                                        final String job_educationalAttainment = job_snapshot1.child("educationalAttainment").getValue().toString();
+                                        final String job_workExp = job_snapshot1.child("workExperience").getValue().toString();
+                                        final String job_location = job_snapshot1.child("city").getValue().toString();
+                                        final String job_jobTitle = job_snapshot1.child("jobTitle").getValue().toString();
 
-                                    // looks for approved job_offers hiring people with VisualDisability
-                                    if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)
-                                            && job_jobTitle.equals(autoComplete_filterJobTitles.getText().toString())){
-                                        //logic is even if the company posts a job that does not require experience
-                                        //people with experience should still be able to see the job post.
-                                        if(job_workExp.equals("With Experience")){
-                                            if(pwd_workExp.equals("With Experience")){ // strictly checking if pwd has work experience otherwise the data for the job post will not show.
-                                                if(job_educationalAttainmentRequirement.equals("true")){
-                                                    //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
-                                                    if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
-                                                        //no need to check pwd_educAttainment
+                                        // looks for approved job_offers hiring people with VisualDisability
+                                        if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)
+                                                && job_jobTitle.equals(autoComplete_filterJobTitles.getText().toString())){
+                                            //logic is even if the company posts a job that does not require experience
+                                            //people with experience should still be able to see the job post.
+                                            if(job_workExp.equals("With Experience")){
+                                                if(pwd_workExp.equals("With Experience")){ // strictly checking if pwd has work experience otherwise the data for the job post will not show.
+                                                    if(job_educationalAttainmentRequirement.equals("true")){
+                                                        //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
+                                                        if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
+                                                            //no need to check pwd_educAttainment
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+                                                        }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                                || pwd_educationalAttainment.equals("Associate Level")
+                                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                        "").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+
+                                                        }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                                || pwd_educationalAttainment.equals("Bachelor Level")
+                                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                        "").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+
+                                                        }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                                || pwd_educationalAttainment.equals("Master's Level")
+                                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                        "").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+
+                                                        }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
+                                                                || pwd_educationalAttainment.equals("Doctorate Level"))){
+
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                        "").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+
+                                                        }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
+
+                                                            if(job_location.equals(pwd_location)){
+                                                                String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                                String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                        "").getValue(String.class);
+                                                                String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                                String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                                String postID = job_snapshot1.getKey();
+
+                                                                PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                                list.add(pwd_Model);
+                                                                if(!list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.VISIBLE);
+                                                                    mascot.setVisibility(View.GONE);
+                                                                    tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                                }else if(list.isEmpty()){
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    mascot.setVisibility(View.VISIBLE);
+                                                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                                }
+                                                                Collections.reverse(list);
+                                                                myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                                recyclerView.setAdapter(myAdapter);
+                                                                myAdapter.notifyDataSetChanged();
+
+                                                            }
+
+                                                        }
+                                                    }//checks if job educRequirement is set to true
+                                                    else{ // if educRequirement for a job post is not required, the system will not check pwd's educAttainment level.
                                                         if(job_location.equals(pwd_location)){
                                                             String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                            String displayPostTitle = job_snapshot1.child("jobTitle").getValue(String.class);
+                                                            String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                    "").getValue(String.class);
                                                             String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
                                                             String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
 
@@ -716,6 +923,44 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                                                             myAdapter.notifyDataSetChanged();
 
                                                         }
+                                                    }
+                                                }//checks pwd if workExperience = With Experience
+                                            }else{ // Without work experience required the system will not check if pwd does not have work experience
+                                                if(job_educationalAttainmentRequirement.equals("true")){
+                                                    //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
+                                                    if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
+                                                        //no need to check pwd_educAttainment
+                                                        if(job_location.equals(pwd_location)){
+                                                            String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
+                                                            String displayPostTitle = job_snapshot1.child("jobTitle" +
+                                                                    "").getValue(String.class);
+                                                            String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
+                                                            String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
+
+                                                            String postID = job_snapshot1.getKey();
+
+                                                            PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
+                                                            list.add(pwd_Model);
+                                                            if(!list.isEmpty()){
+                                                                recyclerView.setVisibility(View.VISIBLE);
+                                                                mascot.setVisibility(View.GONE);
+                                                                tv_noJobsAvailable.setVisibility(View.GONE);
+                                                                textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
+                                                                //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+                                                            }else if(list.isEmpty()){
+                                                                recyclerView.setVisibility(View.GONE);
+                                                                mascot.setVisibility(View.VISIBLE);
+                                                                tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                                                textInputLayout_filterJobTitle.setVisibility(View.GONE);
+                                                                //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+                                                            }
+                                                            Collections.reverse(list);
+                                                            myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                            recyclerView.setAdapter(myAdapter);
+                                                            myAdapter.notifyDataSetChanged();
+
+                                                        }
+
                                                     }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
                                                             || pwd_educationalAttainment.equals("Associate Level")
                                                             || pwd_educationalAttainment.equals("Bachelor Level")
@@ -884,8 +1129,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                                                                 textInputLayout_filterJobTitle.setVisibility(View.GONE);
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
-                                                            Collections.reverse(list);
-                                                            myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
+                                                            Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
                                                             recyclerView.setAdapter(myAdapter);
                                                             myAdapter.notifyDataSetChanged();
 
@@ -925,255 +1169,18 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }//checks pwd if workExperience = With Experience
-                                        }else{ // Without work experience required the system will not check if pwd does not have work experience
-                                            if(job_educationalAttainmentRequirement.equals("true")){
-                                                //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
-                                                if(job_educationalAttainment.equals("Elementary Level")){// checks if job post educAttainment matches pwd's educAttainment
-                                                    //no need to check pwd_educAttainment
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);
-                                                        myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }else if(job_educationalAttainment.equals("High School Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                                        || pwd_educationalAttainment.equals("Associate Level")
-                                                        || pwd_educationalAttainment.equals("Bachelor Level")
-                                                        || pwd_educationalAttainment.equals("Master's Level")
-                                                        || pwd_educationalAttainment.equals("Doctorate Level"))){
-
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);
-                                                        myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }else if(job_educationalAttainment.equals("Associate Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                                        || pwd_educationalAttainment.equals("Bachelor Level")
-                                                        || pwd_educationalAttainment.equals("Master's Level")
-                                                        || pwd_educationalAttainment.equals("Doctorate Level"))){
-
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);
-                                                        myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }else if(job_educationalAttainment.equals("Bachelor Level") && (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                                        || pwd_educationalAttainment.equals("Master's Level")
-                                                        || pwd_educationalAttainment.equals("Doctorate Level"))){
-
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);
-                                                        myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }else if(job_educationalAttainment.equals("Master's Level")&& (job_educationalAttainment.equals(pwd_educationalAttainment)
-                                                        || pwd_educationalAttainment.equals("Doctorate Level"))){
-
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);
-                                                        myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }else if(job_educationalAttainment.equals("Doctorate Level") && job_educationalAttainment.equals(pwd_educationalAttainment)){
-
-                                                    if(job_location.equals(pwd_location)){
-                                                        String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                        String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                                "").getValue(String.class);
-                                                        String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                        String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                        String postID = job_snapshot1.getKey();
-
-                                                        PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                        list.add(pwd_Model);
-                                                        if(!list.isEmpty()){
-                                                            recyclerView.setVisibility(View.VISIBLE);
-                                                            mascot.setVisibility(View.GONE);
-                                                            tv_noJobsAvailable.setVisibility(View.GONE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                        }else if(list.isEmpty()){
-                                                            recyclerView.setVisibility(View.GONE);
-                                                            mascot.setVisibility(View.VISIBLE);
-                                                            tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                            //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                        }
-                                                        Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                        recyclerView.setAdapter(myAdapter);
-                                                        myAdapter.notifyDataSetChanged();
-
-                                                    }
-
-                                                }
-                                            }//checks if job educRequirement is set to true
-                                            else{ // if educRequirement for a job post is not required, the system will not check pwd's educAttainment level.
-                                                if(job_location.equals(pwd_location)){
-                                                    String imageURL = job_snapshot1.child("imageURL").getValue(String.class);
-                                                    String displayPostTitle = job_snapshot1.child("jobTitle" +
-                                                            "").getValue(String.class);
-                                                    String displayCompanyName = job_snapshot1.child("companyName").getValue(String.class);
-                                                    String displayPostDate = job_snapshot1.child("postDate").getValue(String.class);
-
-                                                    String postID = job_snapshot1.getKey();
-
-                                                    PWD_AvailableJobs_Model pwd_Model = new PWD_AvailableJobs_Model(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID);
-                                                    list.add(pwd_Model);
-                                                    if(!list.isEmpty()){
-                                                        recyclerView.setVisibility(View.VISIBLE);
-                                                        mascot.setVisibility(View.GONE);
-                                                        tv_noJobsAvailable.setVisibility(View.GONE);
-                                                        textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                        //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
-                                                    }else if(list.isEmpty()){
-                                                        recyclerView.setVisibility(View.GONE);
-                                                        mascot.setVisibility(View.VISIBLE);
-                                                        tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitle.setVisibility(View.GONE);
-                                                        //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
-                                                    }
-                                                    Collections.reverse(list);
-                                                    myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_5_MoreDisability.this, list);
-                                                    recyclerView.setAdapter(myAdapter);
-                                                    myAdapter.notifyDataSetChanged();
-
-                                                }
                                             }
-                                        }
 
+                                        }
                                     }
+
+                                }else{
+                                    recyclerView.setVisibility(View.GONE);
+                                    mascot.setVisibility(View.VISIBLE);
+                                    tv_noJobsAvailable.setVisibility(View.VISIBLE);
+                                    textInputLayout_filterJobTitle.setVisibility(View.GONE);
                                 }
+
 
                             }
                             @Override

@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -35,6 +37,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +61,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -92,6 +97,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     String check_Vis = "";
     String check_Hear = "";
     String check_More = "";
+    String check_Speech = "";
 
     String job_1 = "";
     String job_2 = "";
@@ -103,15 +109,29 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     String job_8 = "";
     String job_9 = "";
     String job_10 = "";
+    String job_11 = "";
+    String job_12 = "";
+    String job_13 = "";
+    String job_14 = "";
+
+
 
     private String educAttainment = "";
     private String workExperience = "";
 
 
-    private CheckBox checkOrtho, checkHear, checkVis, checkMore;
-    private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10;
+    private CheckBox checkOrtho, checkHear, checkVis, checkMore, checkSpeech;
+    private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12, job13, job14;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
+    private TextInputLayout textInputLayout_otherDisabilitySpecific;
+    private TextInputEditText textInputEditText_otherDisabilitySpecific;
+    //skill category
+    private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter;
+    private ArrayList arrayList_skillCategory;
+    private AutoCompleteTextView autoComplete_skillCategory;
+    private HashMap hashMap_jobSkills;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,46 +150,20 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         rbWithoutExperience = findViewById(R.id.radio_10);
         rbWithExperience = findViewById(R.id.radio_11);
 
+        hashMap_jobSkills = new HashMap();
 
-        final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
-        categoryRef.addValueEventListener(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
+        textInputLayout_otherDisabilitySpecific = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
 
-                //  final List<String> skill = new ArrayList<String>();
-                final List<String> category = new ArrayList<String>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
-                    category.add(data.get("skill").toString());
-                }
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(PWD_RegisterActivity2.this, android.R.layout.simple_spinner_item, category) {
-                    @Override
-                    public View getDropDownView(int position, View convertView,
-                                                ViewGroup parent) {
-                        View view = super.getDropDownView(position, convertView, parent);
-                        TextView tv = (TextView) view;
-                        if (position == 0) {
-                            // Hide the second item from Spinner
-                            tv.setVisibility(View.GONE);
-                        } else {
-                            tv.setVisibility(View.VISIBLE);
-                        }
-                        return view;
-                    }
-                };
-                categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                primary_skillsCategory.setAdapter(categoryAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         buttonSave = (Button) findViewById(R.id.buttonSave2);
 
+        arrayList_skillCategory = new ArrayList();
+        autoComplete_skillCategory = findViewById(R.id.autoComplete_skillCategory);
+        exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_skillCategory);
+        autoComplete_skillCategory.setAdapter(exposedDropdownList_skillCategory_adapter);
 
-        primary_skillsCategory = findViewById(R.id.skillSpinner);
+        // = findViewById(R.id.skillSpinner);
         skillSelected = findViewById(R.id.selectedSkills);
         rgEducAttainment = findViewById(R.id.rg_educ);
         rgWorkExperience = findViewById(R.id.workexperience);
@@ -188,14 +182,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 }
             }
         });
-        if (skillSelected == null) {
+        /*if (skillSelected == null) {
             skillSelected.setVisibility(View.GONE);
-        }
+        }*/
 
         checkOrtho = findViewById(R.id.checkOrtho);
         checkVis = findViewById(R.id.checkVis);
         checkHear = findViewById(R.id.checkHear);
         checkMore = findViewById(R.id.checkMore);
+        checkSpeech = findViewById(R.id.checkSpeech);
 
         //Skills
         job1 = findViewById(R.id.typeOfSkills1);
@@ -208,20 +203,39 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         job8 = findViewById(R.id.typeOfSkills8);
         job9 = findViewById(R.id.typeOfSkills9);
         job10 = findViewById(R.id.typeOfSkills10);
+        job11 = findViewById(R.id.typeOfSkills11);
+        job12 = findViewById(R.id.typeOfSkills12);
+        job13 = findViewById(R.id.typeOfSkills13);
+        job14 = findViewById(R.id.typeOfSkills14);
+
+        setExposedDropdownListSkillCategory();
+        //autoComplete_skillCategory.setText(arrayList_skillCategory.get(0).toString());
+
+        checkMore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    textInputLayout_otherDisabilitySpecific.setVisibility(View.VISIBLE);
+                }else{
+                    textInputLayout_otherDisabilitySpecific.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
-                uploadImage();
+                if(checkMore.isChecked() && textInputEditText_otherDisabilitySpecific.getText().toString().isEmpty()){
+                    Toast.makeText(PWD_RegisterActivity2.this, "Please specify other disability.", Toast.LENGTH_SHORT).show();
+                }else{
+                    login();
+                    uploadImage();
+                }
             }
         });
 
     }
-
-
-
 
 
     private void login() {
@@ -246,8 +260,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             check_Hear = "";
         }
 
+        if (checkSpeech.isChecked() ) {
+            check_Speech = checkSpeech.getText().toString();
+        }
+        else{
+            check_Speech = "";
+        }
+
         if (checkMore.isChecked() ) {
-            check_More = checkMore.getText().toString();
+            check_More = textInputEditText_otherDisabilitySpecific.getText().toString();
         }
         else{
             check_More = "";
@@ -305,6 +326,26 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         } else {
             job_10 = "";
         }
+        if(job11.isChecked()){
+            job_11 = job11.getText().toString();
+        }else{
+            job_11 = "";
+        }
+        if(job12.isChecked()){
+            job_12 = job12.getText().toString();
+        }else{
+            job_11 = "";
+        }
+        if(job13.isChecked()){
+            job_13 = job13.getText().toString();
+        }else{
+            job_13 = "";
+        }
+        if(job14.isChecked()){
+            job_14 = job14.getText().toString();
+        }else{
+            job_14 = "";
+        }
     }
 
     //deleted callDialog function --------------------------------------------------------------
@@ -324,12 +365,17 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         final String job8 = job_8;
         final String job9 = job_9;
         final String job10 = job_10;
+        final String job11 = job_11;
+        final String job12 = job_12;
+        final String job13 = job_13;
+        final String job14 = job_14;
 
-        final String categorySkill = primary_skillsCategory.getSelectedItem().toString();
+        //final String categorySkill = primary_skillsCategory.getSelectedItem().toString();
         final String checkOrtho = check_Ortho;
         final String checkVis = check_Vis;
         final String checkHear = check_Hear;
         final String checkMore = check_More;
+        final String checkSpeech = check_Speech;
 
         progressDialog.dismiss();
 
@@ -346,70 +392,96 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         CheckBox hear = findViewById(R.id.checkHear);
         CheckBox more = findViewById(R.id.checkMore);
 
-        primary_skillsCategory = findViewById(R.id.skillSpinner);
+        //primary_skillsCategory = findViewById(R.id.skillSpinner);
 
         TextView textview8 = findViewById(R.id.textView8);
         TextView textview7 = findViewById(R.id.textView7);
+
+        ArrayList jobskills = new ArrayList();
+        jobskills.add(job1);
+        jobskills.add(job2);
+        jobskills.add(job3);
+        jobskills.add(job4);
+        jobskills.add(job5);
+        jobskills.add(job6);
+        jobskills.add(job7);
+        jobskills.add(job8);
+        jobskills.add(job9);
+        jobskills.add(job10);
+        jobskills.add(job11);
+        jobskills.add(job12);
+        jobskills.add(job13);
+        jobskills.add(job14);
 
         if(!ortho.isChecked() && !visual.isChecked() && !hear.isChecked() && !more.isChecked()){
             textview7.setError("Please check your disability");
             textview7.requestFocus();
             Toast.makeText(PWD_RegisterActivity2.this, "Please check your disability", Toast.LENGTH_SHORT).show();
             return;
-        }else{
-            if(categorySkill.equals("Click to select value")){
-                textview8.setError("Please select your skill category");
-                textview8.requestFocus();
-                Toast.makeText(PWD_RegisterActivity2.this, "Choose your skill category", Toast.LENGTH_SHORT).show();
-                return;
-            }else{
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
-                mDatabase.child("educationalAttainment").setValue(educAttainment);
-                mDatabase.child("skill").setValue(primary_skillsCategory.getSelectedItem().toString()); //working
-                mDatabase.child("workExperience").setValue(workExperience);
+        }else {
 
-
-                ArrayList jobskills = new ArrayList();
-                jobskills.add(job1);
-                jobskills.add(job2);
-                jobskills.add(job3);
-                jobskills.add(job4);
-                jobskills.add(job5);
-                jobskills.add(job6);
-                jobskills.add(job7);
-                jobskills.add(job8);
-                jobskills.add(job9);
-                jobskills.add(job10);
-
-                ArrayList disabilities = new ArrayList();
-                disabilities.add(checkOrtho);
-                disabilities.add(checkVis);
-                disabilities.add(checkHear);
-                disabilities.add(checkMore);
-
-
-                for(int i = 0; i < jobskills.size(); i++){
-                    if((jobskills.get(i) != "")){
-                        mDatabase.child("jobSkills" + i).setValue(jobskills.get(i));
+                ArrayList<String> checkedJobSkills = new ArrayList<String>();
+                for (int i = 0; i < jobskills.size(); i++) {
+                    if ((jobskills.get(i) != "")) {
+                        checkedJobSkills.add(jobskills.get(i).toString());
                     }
                 }
-                for(int i = 0; i < disabilities.size(); i++){
-                    if((disabilities.get(i) != "")){
-                        mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
-                    }
-                }
-                if(workExperience.equals("")){
-                    mDatabase.child("workExperience").setValue("Without Experience");
-                }else{
+
+                if(!checkedJobSkills.isEmpty() && !autoComplete_skillCategory.getText().toString().isEmpty()){
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
+                    mDatabase.child("educationalAttainment").setValue(educAttainment);
+                    mDatabase.child("skill").setValue(autoComplete_skillCategory.getText().toString()); //working
                     mDatabase.child("workExperience").setValue(workExperience);
+
+                    ArrayList disabilities = new ArrayList();
+                    disabilities.add(checkOrtho);
+                    disabilities.add(checkVis);
+                    disabilities.add(checkHear);
+                    disabilities.add(checkSpeech);
+                    disabilities.add(checkMore);
+
+
+                    for(int i = 0; i < checkedJobSkills.size(); i++){
+                        mDatabase.child("jobSkills" + i).setValue(checkedJobSkills.get(i));
+                    }
+
+                    for (int i = 0; i < disabilities.size(); i++) {
+                        if ((disabilities.get(i) != "")) {
+                            mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
+                        }
+                    }
+                    if (workExperience.equals("")) {
+                        mDatabase.child("workExperience").setValue("Without Experience");
+                    } else {
+                        mDatabase.child("workExperience").setValue(workExperience);
+                    }
+
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(PWD_RegisterActivity2.this, "Please select job skills.", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
-        }
-
-        startActivity(intent);
 
         }
+
+    private void setExposedDropdownListSkillCategory(){
+        final DatabaseReference categories_root = FirebaseDatabase.getInstance().getReference().child("Category/");
+        categories_root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap_skillCategory : snapshot.getChildren()){
+                    arrayList_skillCategory.add(snap_skillCategory.child("skill").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

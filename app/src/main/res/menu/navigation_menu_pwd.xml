@@ -34,6 +34,10 @@
                 android:icon="@mipmap/visual"
                 />
             <item android:id="@+id/nav_job_hearing"
+                android:title="@string/speech_impediment"
+                android:icon="@mipmap/hearing"
+                />
+            <item android:id="@+id/nav_job_speech"
                 android:title="@string/hearing_disability"
                 android:icon="@mipmap/hearing"
                 />

@@ -65,6 +65,7 @@
     <string name="orthopedic_disability">Orthopedic Disability</string>
     <string name="visual_disability">Partial Vision Disability</string>
     <string name="hearing_disability">Hearing Disability</string>
+    <string name="speech_impediment">Speech Impediment</string>
     <string name="All_disability">Other Disabilities</string>
     //PWD
     <string name="home_pwd">Home</string>
