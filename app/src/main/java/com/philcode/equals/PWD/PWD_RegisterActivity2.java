@@ -427,7 +427,8 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                     }
                 }
 
-                if(!checkedJobSkills.isEmpty() && !autoComplete_skillCategory.getText().toString().isEmpty()){
+                if(!checkedJobSkills.isEmpty() && !autoComplete_skillCategory.getText().toString().isEmpty()
+                        && !autoComplete_skillCategory.getText().toString().equals("Click to select value")){
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
                     mDatabase.child("educationalAttainment").setValue(educAttainment);
                     mDatabase.child("skill").setValue(autoComplete_skillCategory.getText().toString()); //working

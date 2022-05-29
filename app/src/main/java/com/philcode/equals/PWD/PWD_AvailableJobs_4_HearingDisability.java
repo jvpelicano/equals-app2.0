@@ -192,8 +192,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);
@@ -227,8 +225,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);
@@ -262,8 +258,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);
@@ -296,8 +290,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);
@@ -329,8 +321,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);
@@ -361,8 +351,6 @@ public class PWD_AvailableJobs_4_HearingDisability extends AppCompatActivity {
                                                                     recyclerView.setVisibility(View.VISIBLE);
                                                                     mascot.setVisibility(View.GONE);
                                                                     tv_noJobsAvailable.setVisibility(View.GONE);
-                                                                    textInputLayout_filterJobTitle.setVisibility(View.VISIBLE);
-                                                                    textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                                                                 }else if(list.isEmpty()){
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     mascot.setVisibility(View.VISIBLE);

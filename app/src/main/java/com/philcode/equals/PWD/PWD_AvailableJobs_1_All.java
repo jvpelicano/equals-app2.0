@@ -68,6 +68,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
         categories_root = FirebaseDatabase.getInstance().getReference("Category");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
@@ -123,7 +124,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                             recyclerView.setVisibility(View.GONE);
                             mascot.setVisibility(View.VISIBLE);
                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                             ////textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                         }
                         list.clear();
@@ -164,7 +165,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -200,7 +201,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -236,7 +237,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -271,7 +272,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -305,7 +306,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -338,7 +339,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -372,7 +373,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -409,7 +410,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -446,7 +447,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -482,7 +483,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -517,7 +518,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -551,7 +552,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -584,7 +585,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_1_All.this, list);
@@ -617,7 +618,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                 recyclerView.setVisibility(View.GONE);
                                                 mascot.setVisibility(View.VISIBLE);
                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                             }
                                             Collections.reverse(list);
@@ -670,7 +671,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                             recyclerView.setVisibility(View.GONE);
                             mascot.setVisibility(View.VISIBLE);
                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                             ////textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                         }
                         list.clear();
@@ -711,7 +712,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -747,7 +748,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -783,7 +784,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -818,7 +819,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -852,7 +853,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -885,7 +886,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
@@ -919,7 +920,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -956,7 +957,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -993,7 +994,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -1029,7 +1030,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -1064,7 +1065,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -1098,7 +1099,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);
@@ -1131,7 +1132,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                     recyclerView.setVisibility(View.GONE);
                                                     mascot.setVisibility(View.VISIBLE);
                                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                     //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                 }
                                                 Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_1_All.this, list);
@@ -1164,7 +1165,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                 recyclerView.setVisibility(View.GONE);
                                                 mascot.setVisibility(View.VISIBLE);
                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                             }
                                             Collections.reverse(list);
@@ -1193,7 +1194,6 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
     }
     private void setExposedDropdownListJobTitle(String userId){
         refUser = FirebaseDatabase.getInstance().getReference().child("PWD/" + userId);
-
         refUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -1253,7 +1253,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                 query_filterToJobTitle.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        refForJobs.orderByChild("typeOfDisability1").equalTo("Orthopedic Disability").addValueEventListener(new ValueEventListener() { //checking Job_Offers
+                        refForJobs.orderByChild("typeOfDisability3").equalTo("Speech Impediment").addValueEventListener(new ValueEventListener() { //checking Job_Offers
                             @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onDataChange(@NonNull DataSnapshot jobFetch_dataSnapshot1) {
@@ -1262,13 +1262,12 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                     mascot.setVisibility(View.GONE);
                                     tv_noJobsAvailable.setVisibility(View.GONE);
                                     textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
-                                    //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
+
                                 }else{
                                     recyclerView.setVisibility(View.GONE);
                                     mascot.setVisibility(View.VISIBLE);
                                     tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                    textInputLayout_filterJobTitles.setVisibility(View.GONE);
-                                    ////textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
+
                                 }
                                 list.clear();
                                 for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
@@ -1311,7 +1310,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1347,7 +1346,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1383,7 +1382,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1418,7 +1417,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1452,7 +1451,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1485,7 +1484,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                                 recyclerView.setVisibility(View.GONE);
                                                                 mascot.setVisibility(View.VISIBLE);
                                                                 tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                                textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                                 //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                             }
                                                             Collections.reverse(list);
@@ -1519,7 +1518,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1556,7 +1555,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1593,7 +1592,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1629,7 +1628,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1664,7 +1663,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1698,7 +1697,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);
@@ -1731,7 +1730,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                             recyclerView.setVisibility(View.GONE);
                                                             mascot.setVisibility(View.VISIBLE);
                                                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                            textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                             //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                         }
                                                         Collections.reverse(list);myAdapter = new PWD_AvailableJobs_MyAdapter(PWD_AvailableJobs_1_All.this, list);
@@ -1764,7 +1763,7 @@ public class PWD_AvailableJobs_1_All extends AppCompatActivity {
                                                         recyclerView.setVisibility(View.GONE);
                                                         mascot.setVisibility(View.VISIBLE);
                                                         tv_noJobsAvailable.setVisibility(View.VISIBLE);
-                                                        textInputLayout_filterJobTitles.setVisibility(View.GONE);
+
                                                         //textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                                                     }
                                                     Collections.reverse(list);
