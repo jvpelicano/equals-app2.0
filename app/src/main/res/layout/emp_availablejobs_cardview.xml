@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:clickable="false"
     android:background="@color/background"
-    tools:context=".PWD.PWD_AvailableJobs_1_All">
+    tools:context=".PWD.PWD_AvailableJobs_1_SpeechImpediment">
 
 
     <RelativeLayout

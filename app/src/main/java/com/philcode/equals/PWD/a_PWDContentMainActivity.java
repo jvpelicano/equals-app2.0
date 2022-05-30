@@ -195,7 +195,7 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                             Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_5_MoreDisability.class);
                             startActivity(j4);
                         }else if(id == R.id.nav_job_speech){
-                            Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_1_All.class);
+                            Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_1_SpeechImpediment.class);
                             startActivity(j4);
                         }
                         else if (id == R.id.nav_logout_pwd) {

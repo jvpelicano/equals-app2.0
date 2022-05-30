@@ -79,6 +79,7 @@ public class a_EmployeeContentMainActivity extends AppCompatActivity  {
                 eNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                         profile_email = (TextView) findViewById(R.id.profile_email);
                         profile_email.setText(user.getEmail());
 

@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PWD.PWD_AvailableJobs_1_All"
+            android:name=".PWD.PWD_AvailableJobs_1_SpeechImpediment"
             android:label="Available Jobs" />
         <activity
             android:name=".PWD.PWD_AvailableJobs_2_OrthopedicDisability"

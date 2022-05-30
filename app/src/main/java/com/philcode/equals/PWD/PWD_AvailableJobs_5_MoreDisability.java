@@ -30,8 +30,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
     DatabaseReference refForJobs, refUser, categories_root;
@@ -46,6 +49,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
     private AutoCompleteTextView autoComplete_filterSkillOrDisability, autoComplete_filterJobTitles;
     private ImageButton imageButton_filterJobTitle;
     private ArrayAdapter<String> arrayAdapter_jobTitles;
+    private String currentDate_formatted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,10 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
         autoComplete_filterJobTitles = findViewById(R.id.autoComplete_filterJobTitles);
         textInputLayout_filterJobTitle = findViewById(R.id.textInputLayout_filterJobTitles);
         imageButton_filterJobTitle = findViewById(R.id.search);
+
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
+        currentDate_formatted = df.format(currentDate);
 
         getWindow().getDecorView().post(new Runnable() {
 
@@ -170,6 +178,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                         }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
+                            final String job_expDate = job_snapshot1.child("expDate").getValue().toString();
                             final String permission = job_snapshot1.child("permission").getValue(String.class);
                             final String job_skillCategory = job_snapshot1.child("skill").getValue().toString();
                             final String job_educationalAttainmentRequirement = job_snapshot1.child("educationalAttainmentRequirement").getValue().toString();
@@ -178,7 +187,8 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                             final String job_location = job_snapshot1.child("city").getValue().toString();
                             // looks for approved job_offers hiring people with VisualDisability
                             if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)
-                                    && !job_snapshot1.child("typeOfDisabilityMore").getValue().toString().equals("")){
+                                    && !job_snapshot1.child("typeOfDisabilityMore").getValue().toString().equals("")
+                                    && !job_expDate.equals(currentDate_formatted)){
                                 //logic is even if the company posts a job that does not require experience
                                 //people with experience should still be able to see the job post.
                                 if(job_workExp.equals("With Experience")){
@@ -668,6 +678,7 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                                 }
                                 list.clear();
                                 for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {
+                                    final String job_expDate = job_snapshot1.child("expDate").getValue().toString();
                                     final String permission = job_snapshot1.child("permission").getValue(String.class);
                                     final String job_skillCategory = job_snapshot1.child("skill").getValue().toString();
                                     final String job_educationalAttainmentRequirement = job_snapshot1.child("educationalAttainmentRequirement").getValue().toString();
@@ -679,7 +690,8 @@ public class PWD_AvailableJobs_5_MoreDisability extends AppCompatActivity {
                                     // looks for approved job_offers hiring people with VisualDisability
                                     if (permission.equals("Approved") && job_skillCategory.equals(pwd_SkillCategory)
                                             && job_jobTitle.equals(autoComplete_filterJobTitles.getText().toString())
-                                            &&!jobFetch_dataSnapshot1.child("typeOfDisabilityMore").getValue().toString().equals("")){
+                                            &&  !jobFetch_dataSnapshot1.child("typeOfDisabilityMore").getValue().toString().equals("")
+                                            && !job_expDate.equals(currentDate_formatted)){
                                         //logic is even if the company posts a job that does not require experience
                                         //people with experience should still be able to see the job post.
                                         if(job_workExp.equals("With Experience")){

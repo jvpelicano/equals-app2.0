@@ -478,7 +478,9 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                     checkPrivacy.requestFocus();
                     Toast.makeText(RegisterActivity_emp.this, "Please confirm that you have read the Equals Privacy Policy", Toast.LENGTH_LONG).show();
                     return;
-                } else{
+                } else if(TextUtils.isEmpty(companyTelNum)){
+                    Toast.makeText(RegisterActivity_emp.this, "Please enter your company's telephone number", Toast.LENGTH_LONG).show();
+                }else{
                     //re-structured to create user first, get user ID use uID to name the image. ----------------------------------------------------------------------------------
                     final ProgressDialog progressDialog = new ProgressDialog(this);
                     progressDialog.show();
@@ -526,7 +528,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
                         }
                     });
-                }//re-structured to create user first, get user ID use uID to name the image. ----------------------------------------------------------------------------------
+                }
             }
         }else{
             AlertDialog.Builder alert =  new AlertDialog.Builder(RegisterActivity_emp.this);

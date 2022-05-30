@@ -44,6 +44,10 @@ public class Home_View extends AppCompatActivity {
         }
     }
 
+    private void automaticDeletion(){
+
+    }
+
     private void setImage(String postImage, String postContentTitle, String postContentDescription, String formattedDate) {
 
         ImageView images = findViewById(R.id.displayBlogPic);

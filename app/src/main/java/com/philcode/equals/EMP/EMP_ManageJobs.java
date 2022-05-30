@@ -20,8 +20,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.PWD.PWD_AvailableJobs_MyAdapter;
 import com.philcode.equals.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 public class EMP_ManageJobs extends AppCompatActivity {
 
@@ -40,6 +43,11 @@ public class EMP_ManageJobs extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String userId = user.getUid();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
+        String currentDate_formatted = df.format(currentDate);
+
         refForJobs = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
         refForJobs.orderByChild("uid").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,9 +60,14 @@ public class EMP_ManageJobs extends AppCompatActivity {
                     String displayPostDate = dataSnapshot1.child("postDate").getValue(String.class);
                     String displayPermission = dataSnapshot1.child("permission").getValue(String.class);
                     String postID = dataSnapshot1.getKey(); //correct
+                    String expDate = dataSnapshot1.child("expDate").getValue().toString();
 
-                    EMP_ManageJobs_Information model = new EMP_ManageJobs_Information(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID, displayPermission);
-                    list.add(model);
+                    if(expDate.equals(currentDate_formatted)){
+                        refForJobs.child(postID).removeValue();
+                    }else {
+                        EMP_ManageJobs_Information model = new EMP_ManageJobs_Information(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID, displayPermission);
+                        list.add(model);
+                    }
                 }
                 Collections.reverse(list);
                 adapter = new EMP_ManageJobs_MyAdapter(EMP_ManageJobs.this, list);
