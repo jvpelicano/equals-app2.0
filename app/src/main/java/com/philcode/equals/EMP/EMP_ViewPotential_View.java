@@ -172,7 +172,6 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
             public void onClick(View view) {
 
                 if (isOpen) {
-
                     textview_mail.setVisibility(View.INVISIBLE);
                     textview_call.setVisibility(View.INVISIBLE);
                     fab2_mail.startAnimation(fab_close);
@@ -268,7 +267,6 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
                                 break;
 
                             case R.id.nav_logout_emp:
-
                                 AlertDialog.Builder alert =  new AlertDialog.Builder(EMP_ViewPotential_View.this);
                                 alert.setMessage("By clicking Yes, you will return to the login screen.").setCancelable(false)
                                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -324,6 +322,7 @@ public class EMP_ViewPotential_View extends AppCompatActivity{
         pToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
     }

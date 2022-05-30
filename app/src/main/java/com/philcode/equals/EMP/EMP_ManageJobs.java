@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.PWD.PWD_AvailableJobs_MyAdapter;
 import com.philcode.equals.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,6 +63,18 @@ public class EMP_ManageJobs extends AppCompatActivity {
                     String postID = dataSnapshot1.getKey(); //correct
                     String expDate = dataSnapshot1.child("expDate").getValue().toString();
 
+                    /*try {
+                        Date date_expDate = new SimpleDateFormat("MMMM/dd/yyyy").parse(expDate);
+                        if(expDate.equals(currentDate_formatted) || currentDate.before(date_expDate)){
+                        refForJobs.child(postID).removeValue();
+                    }else {
+                        EMP_ManageJobs_Information model = new EMP_ManageJobs_Information(imageURL, displayPostTitle, displayCompanyName, displayPostDate, postID, displayPermission);
+                        list.add(model);
+                    }
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }*/
                     if(expDate.equals(currentDate_formatted)){
                         refForJobs.child(postID).removeValue();
                     }else {

@@ -10,10 +10,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_filterJobTitles"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Job Title"
         android:visibility="visible"
+        android:minWidth="150dp"
         app:layout_constraintEnd_toStartOf="@+id/search"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/myRecycler"
@@ -21,10 +22,14 @@
 
         <AutoCompleteTextView
             android:id="@+id/autoComplete_filterJobTitles"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="150dp"
             android:background="@null"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:inputType="textAutoComplete"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
