@@ -129,13 +129,10 @@ public class PWD_AvailableJobs_1_SpeechImpediment extends AppCompatActivity {
                             mascot.setVisibility(View.GONE);
                             tv_noJobsAvailable.setVisibility(View.GONE);
                             textInputLayout_filterJobTitles.setVisibility(View.VISIBLE);
-                            //textInputLayout_filterSkillOrDisability.setVisibility(View.VISIBLE);
                         }else{
                             recyclerView.setVisibility(View.GONE);
                             mascot.setVisibility(View.VISIBLE);
                             tv_noJobsAvailable.setVisibility(View.VISIBLE);
-
-                            ////textInputLayout_filterSkillOrDisability.setVisibility(View.GONE);
                         }
                         list.clear();
                         for (DataSnapshot job_snapshot1 : jobFetch_dataSnapshot1.getChildren()) {

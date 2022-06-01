@@ -39,6 +39,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_home_template_pwd.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_home_view.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_pwd_addworkexperience.xml" value="0.3223958333333333" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_pwd_jobapplicationlist.xml" value="0.31476449275362317" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/activity_signin_pwd_emp.xml" value="0.31521739130434784" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_activity_home.xml" value="0.31875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/emp_available_jobs.xml" value="0.25885416666666666" />
@@ -90,6 +91,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile2.xml" value="0.2078125" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile3.xml" value="0.24895833333333334" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile_view.xml" value="0.33" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_jobapplicationlist_cardview.xml" value="0.31476449275362317" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_navigation_header.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_update_profile.xml" value="0.2078125" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_viewresume_activity.xml" value="0.271875" />

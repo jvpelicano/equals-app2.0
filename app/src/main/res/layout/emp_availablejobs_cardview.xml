@@ -39,11 +39,11 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="2dp"
             android:layout_toEndOf="@+id/displayPostPic"
-            android:text="Job Title"
             android:fontFamily="@font/proxima_nova_regular"
+            android:text="Job Title"
             android:textColor="@color/textColor"
             android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/displayPostTitle"

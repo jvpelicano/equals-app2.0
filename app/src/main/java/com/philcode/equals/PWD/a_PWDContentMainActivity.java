@@ -182,7 +182,10 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                             AlertDialog alertDialog = alert.create();
                             alertDialog.setTitle("Resume Upload File Format");
                             alertDialog.show();
-                        } else if (id == R.id.nav_job_orthopedic) {
+                        } /*else if(id == R.id.nav_applicationStatus){
+                            Intent j0 = new Intent(a_PWDContentMainActivity.this, PWD_ViewJobApplicationList.class);
+                            startActivity(j0);
+                        }*/else if (id == R.id.nav_job_orthopedic) {
                             Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_2_OrthopedicDisability.class);
                             startActivity(j1);
                         } else if (id == R.id.nav_job_visual) {

@@ -18,15 +18,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
+            android:name=".PWD_ViewJobApplicationList"
+            android:exported="false" />
+        <activity
             android:name=".EMP.EMP_EditLoginCredentials_Activity"
             android:exported="false" />
-        <activity android:name=".PWD.PWD_EditProfile_ViewActivity"
-            />
+        <activity android:name=".PWD.PWD_EditProfile_ViewActivity" />
         <activity
             android:name=".PWD.PWD_AddWorkExperience"
             android:exported="false"
-            android:launchMode="singleTop"
-            />
+            android:launchMode="singleTop" />
         <activity
             android:name=".PWD.PWD_ViewResume_Activity"
             android:exported="false" />

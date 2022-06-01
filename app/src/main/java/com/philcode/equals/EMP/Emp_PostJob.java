@@ -183,7 +183,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 //edit texts
                 textInputEditText_postDescription = findViewById(R.id.textInputEditText_postDescription);
                 textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
-                textInputEditText_maxNumberOfApplicants = findViewById(R.id.textInputEditText_maxNumberOfApplicants);
+                //textInputEditText_maxNumberOfApplicants = findViewById(R.id.textInputEditText_maxNumberOfApplicants);
                 textInputEditText_yearsOfExperience = findViewById(R.id.textInputEditText_yearsOfExperience);
                 //image view
                 imageView = findViewById(R.id.displayPostPic);
@@ -347,9 +347,8 @@ public class Emp_PostJob extends AppCompatActivity {
                                     if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                     || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
                                             || textInputEditText_postDescription.getText().toString().isEmpty()
-                                            || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
                                             || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
-
+                                            //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
                                         Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
                                     }else{
@@ -374,9 +373,9 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                 if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                         || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
-                                        || textInputEditText_postDescription.getText().toString().isEmpty() || textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
+                                        || textInputEditText_postDescription.getText().toString().isEmpty()
                                         || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
-
+                                        //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
                                     Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
                                 }else{
@@ -453,7 +452,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     hashMap_generalData.put("postDate", postDate);
                                     hashMap_generalData.put("typeOfEmployment", autoComplete_typeOfEmployment.getText().toString());
                                     hashMap_generalData.put("workSetUp", radioButton_workSetUp_text);
-                                    hashMap_generalData.put("maxNumberApplicants", textInputEditText_maxNumberOfApplicants.getText().toString());
+                                    //hashMap_generalData.put("maxNumberApplicants", textInputEditText_maxNumberOfApplicants.getText().toString());
                                     hashMap_generalData.put("imageURL", imageURL);
                                     hashMap_generalData.put("typeOfDisabilityMore", textInputEditText_otherDisabilitySpecific.getText().toString());
 

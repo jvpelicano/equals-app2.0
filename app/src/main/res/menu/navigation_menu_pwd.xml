@@ -22,7 +22,9 @@
             android:icon="@mipmap/resumes"
             />
 
-
+        <!--<item android:id="@+id/nav_applicationStatus"
+            android:title="@string/application_status"
+            android:icon="@drawable/ic_baseline_checklist_24"/>-->
 
     </group>
     <item android:title="Job Offers">
