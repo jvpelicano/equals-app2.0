@@ -285,6 +285,20 @@
                             android:textAlignment="textStart"
                             android:textColor="@color/textColor"
                             android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/displayTypeOfDisability4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
+                            android:paddingStart="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="20dp"
+                            android:paddingBottom="2dp"
+                            android:text="display4"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/displayTypeOfDisabilityMore"

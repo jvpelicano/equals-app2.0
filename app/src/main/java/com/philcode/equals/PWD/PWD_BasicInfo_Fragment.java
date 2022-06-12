@@ -37,7 +37,7 @@ public class PWD_BasicInfo_Fragment extends Fragment {
     private String mParam2;
     private TextView displayName,displayTypeOfDisability1, displayTypeOfDisability2,displayTypeOfDisability3,displayTypeOfDisabilityMore
             ,displaySkill1,displaySkill2,displaySkill3,displaySkill4,displaySkill5,displaySkill6,displaySkill7,displaySkill8,displaySkill9,displaySkill10
-            ,displayEmail,displayAddress,displayContact,displayEducationalAttainment,displayCategorySkill;
+            ,displayEmail,displayAddress,displayContact,displayEducationalAttainment,displayCategorySkill, displayTypeOfDisability4;
 
     public PWD_BasicInfo_Fragment() {
         // Required empty public constructor
@@ -83,6 +83,7 @@ public class PWD_BasicInfo_Fragment extends Fragment {
         displayTypeOfDisability1 = view.findViewById(R.id.displayTypeOfDisability1);
         displayTypeOfDisability2 = view.findViewById(R.id.displayTypeOfDisability2);
         displayTypeOfDisability3 = view.findViewById(R.id.displayTypeOfDisability3);
+        displayTypeOfDisability4 = view.findViewById(R.id.displayTypeOfDisability4);
         displayTypeOfDisabilityMore = view.findViewById(R.id.displayTypeOfDisabilityMore);
 
         displaySkill1 = view.findViewById(R.id.displaySkill1);
@@ -147,12 +148,17 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                 }
                 if(dataSnapshot.child("typeOfDisability3").exists()) {
                     String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability3").getValue().toString();
+                    displayTypeOfDisability4.setText(typeOfDisabilityMore);
+                }else{
+                    displayTypeOfDisability4.setVisibility(View.GONE);
+                }
+                if(dataSnapshot.child("typeOfDisability4").exists()) {
+                    String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability4").getValue().toString();
                     displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
                 }else{
                     displayTypeOfDisabilityMore.setVisibility(View.GONE);
                 }
 
-                /////////////////////////////////// Secondary skills
                 if(dataSnapshot.child("jobSkills0").exists()){
                     displaySkill1.setText(dataSnapshot.child("jobSkills0").getValue().toString());
                 }else{

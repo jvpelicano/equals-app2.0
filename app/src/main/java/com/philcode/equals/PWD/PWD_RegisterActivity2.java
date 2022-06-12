@@ -124,12 +124,12 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12, job13, job14;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
-    private TextInputLayout textInputLayout_otherDisabilitySpecific;
+    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle;
     private TextInputEditText textInputEditText_otherDisabilitySpecific;
     //skill category
     private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter;
     private ArrayList arrayList_skillCategory;
-    private AutoCompleteTextView autoComplete_skillCategory;
+    private AutoCompleteTextView autoComplete_skillCategory, autoComplete_jobTitle;
     private HashMap hashMap_jobSkills;
 
 
@@ -154,12 +154,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
         textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
         textInputLayout_otherDisabilitySpecific = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
+        textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle);
 
 
         buttonSave = (Button) findViewById(R.id.buttonSave2);
 
         arrayList_skillCategory = new ArrayList();
         autoComplete_skillCategory = findViewById(R.id.autoComplete_skillCategory);
+        autoComplete_jobTitle = findViewById(R.id.autoComplete_jobTitle);
+
         exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_skillCategory);
         autoComplete_skillCategory.setAdapter(exposedDropdownList_skillCategory_adapter);
 

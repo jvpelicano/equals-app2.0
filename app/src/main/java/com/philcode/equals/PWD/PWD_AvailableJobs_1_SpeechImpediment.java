@@ -1262,4 +1262,10 @@ public class PWD_AvailableJobs_1_SpeechImpediment extends AppCompatActivity {
         });
 
     }
+    private void compareSecondarySkills(ArrayList jobPost_arrayList_secondarySkills){
+
+    }
+    private void getPWD_secondarySkills(){
+
+    }
 }

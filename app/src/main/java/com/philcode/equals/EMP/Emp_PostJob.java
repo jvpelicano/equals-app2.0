@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class Emp_PostJob extends AppCompatActivity {
     //firebase connection
@@ -86,15 +85,15 @@ public class Emp_PostJob extends AppCompatActivity {
         private ArrayAdapter<String> exposedDropdownList_jobtitles_adapter;
         private ArrayAdapter<String> exposedDropdownList_typeOfEmployment_adapter;
         //exposed dropdown list text input layout
-        private TextInputLayout textInputLayout_skillCategory, textInputLayout_jobTitle, textInputLayout_typeOfEmployment;
+        private TextInputLayout textInputLayout_degree, textInputLayout_jobTitle, textInputLayout_typeOfEmployment;
         //image view
         private ImageView imageView;
         //text input layout
         private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_yearsOfExperience;
         //exposed dropdown list autocomplete text view
-        private AutoCompleteTextView autoComplete_skillCategory, autoComplete_jobTitle, autoComplete_typeOfEmployment;
+        private AutoCompleteTextView autoComplete_degree, autoComplete_jobTitle, autoComplete_typeOfEmployment;
         //text views
-        private TextView txt_jobTitle;
+        private TextView txt_degree;
         private TextView txt_jobTitleError, txt_minYearsOfExpError , txt_skillCategoryError, txt_typeOfDisabilityOtherError;
         //edit texts
         private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
@@ -104,14 +103,14 @@ public class Emp_PostJob extends AppCompatActivity {
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
-        private RadioButton radioButton_withWorkExp, radioButton_educAttainment, radioButton_workSetUp;
+        private RadioButton radioButton_withWorkExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
         //radio group
         private RadioGroup radioGroup_educ, radioGroup_workSetUp;
         //progress dialog
         private ProgressDialog progressDialog;
     //arrays
         //exposed dropdown list arrays
-        private ArrayList <String> arrayList_skillCategory;
+        private ArrayList <String> arrayList_degree;
         private ArrayList <String> arrayList_jobTitles;
         private ArrayList <String> arrayList_typeOfEmployment;
         //check boxes list
@@ -154,7 +153,7 @@ public class Emp_PostJob extends AppCompatActivity {
             format  = new SimpleDateFormat("MMMM dd, yyyy");
             //arrays
                 //exposed dropdown list arrays
-                arrayList_skillCategory = new ArrayList<>();
+                arrayList_degree = new ArrayList<>();
                 arrayList_jobTitles = new ArrayList<>();
                 arrayList_typeOfEmployment = new ArrayList<>();
                 //hashMaps
@@ -167,11 +166,11 @@ public class Emp_PostJob extends AppCompatActivity {
 
             //layout
                 //adapters
-                exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_skillCategory);
+                exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_degree);
                 exposedDropdownList_jobtitles_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_jobTitles);
                 exposedDropdownList_typeOfEmployment_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arrayList_typeOfEmployment);
                 //autocomplete text view
-                autoComplete_skillCategory = findViewById(R.id.autoComplete_skillCategory);
+                autoComplete_degree = findViewById(R.id.autoComplete_degree);
                 autoComplete_jobTitle = findViewById(R.id.autoComplete_jobTitle);
                 autoComplete_typeOfEmployment = findViewById(R.id.autoComplete_typeOfEmployment);
                 //button
@@ -192,6 +191,12 @@ public class Emp_PostJob extends AppCompatActivity {
                 //radio button
                 radioButton_withWorkExp = findViewById(R.id.radio_11);
                 radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
+                radio_1 = findViewById(R.id.radio_1);
+                radio_2 = findViewById(R.id.radio_2);
+                radio_3 = findViewById(R.id.radio_3);
+                radio_4 = findViewById(R.id.radio_4);
+                radio_5 = findViewById(R.id.radio_5);
+                radio_6 = findViewById(R.id.radio_6);
                 //radio group
                 radioGroup_educ = findViewById(R.id.radioGroup_educ);
                 radioGroup_workSetUp = findViewById(R.id.radioGroup_workSetUp);
@@ -200,67 +205,60 @@ public class Emp_PostJob extends AppCompatActivity {
                 selected_workSetUp_ID = radioGroup_workSetUp.getCheckedRadioButtonId();
                 //text input layouts
                 textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle); //autocomplete
-                textInputLayout_skillCategory = findViewById(R.id.textInputLayout_skillCategory);//autocomplete
+                textInputLayout_degree = findViewById(R.id.textInputLayout_degree);//autocomplete
                 textInputLayout_typeOfEmployment = findViewById(R.id.textInputLayout_typeOfEmployment);//autocomplete
                 textInputLayout_otherDisabilitySpecific  = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
                 textInputLayout_yearsOfExperience = findViewById(R.id.textInputLayout_yearsOfExperience);
                 //text views
-                txt_jobTitle = findViewById(R.id.txt_jobTitle);
+                txt_degree = findViewById(R.id.txt_degree);
                 txt_jobTitleError = findViewById(R.id.txt_jobTitleError);
                 txt_minYearsOfExpError = findViewById(R.id.txt_minYearsOfExp);
                 txt_skillCategoryError = findViewById(R.id.txt_skillCategoryError);
                 txt_typeOfDisabilityOtherError = findViewById(R.id.txt_typeOfDisabilityOtherError);
 
         //set exposed dropdown list
-        setExposedDropdownListSkillCategory();
         setExposedDropdownListTypeofEmployment();
+        setExposedDropdownListJobTitle();
 
         //set adapters
             //skill category
-            autoComplete_skillCategory.setAdapter(exposedDropdownList_skillCategory_adapter);
+            autoComplete_degree.setAdapter(exposedDropdownList_skillCategory_adapter);
             //job titles
             autoComplete_jobTitle.setAdapter(exposedDropdownList_jobtitles_adapter);
             autoComplete_jobTitle.setThreshold(1);
             //type of employment
             autoComplete_typeOfEmployment.setAdapter(exposedDropdownList_typeOfEmployment_adapter);
         //listeners
+        autoComplete_jobTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() { //checks if the value entered on Job Title is in the system.
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    jobTitle_exists = checkExposedDropdownListValue(arrayList_jobTitles, autoComplete_jobTitle.getText().toString());
+                    if(!jobTitle_exists){
+                        txt_jobTitleError.setVisibility(View.VISIBLE);
+                    }else{
+                        txt_jobTitleError.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+        autoComplete_jobTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                arrayList_degree.clear();
+                setExposedDropdownListSkillCategory();
+            }
+        });
 
-            autoComplete_skillCategory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        autoComplete_degree.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if(!hasFocus){
-                        skillCategory_exists = checkExposedDropdownListValue(arrayList_skillCategory, autoComplete_skillCategory.getText().toString());
+                        skillCategory_exists = checkExposedDropdownListValue(arrayList_degree, autoComplete_degree.getText().toString());
                         if(!skillCategory_exists){
                             txt_skillCategoryError.setVisibility(View.VISIBLE);
                         }else{
                             txt_skillCategoryError.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            });
-            autoComplete_skillCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    txt_jobTitle.setVisibility(View.VISIBLE);
-                    textInputLayout_jobTitle.setVisibility(View.VISIBLE);
-                    arrayList_jobTitles.clear();
-                    setExposedDropdownListJobTitle();
-                    autoComplete_jobTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        }
-                    });
-                }
-            });
-            autoComplete_jobTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() { //checks if the value entered on Job Title is in the system.
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(!hasFocus){
-                        jobTitle_exists = checkExposedDropdownListValue(arrayList_jobTitles, autoComplete_jobTitle.getText().toString());
-                        if(!jobTitle_exists){
-                            txt_jobTitleError.setVisibility(View.VISIBLE);
-                        }else{
-                            txt_jobTitleError.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -272,36 +270,91 @@ public class Emp_PostJob extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
                         radioGroup_educ.setVisibility(View.VISIBLE);
+
                     }else{
                         radioGroup_educ.setVisibility(View.GONE);
                     }
                 }
             });
-
-            radioButton_withWorkExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            radio_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked){
-                        textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
-
-                        textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                            @Override
-                            public void onFocusChange(View v, boolean hasFocus) {
-                                if(!hasFocus){
-                                    if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
-                                        txt_minYearsOfExpError.setVisibility(View.VISIBLE);
-                                    }else{
-                                        txt_minYearsOfExpError.setVisibility(View.GONE);
-                                    }
-                                }
-                            }
-                        });
-                    }else{
-                        textInputLayout_yearsOfExperience.setVisibility(View.GONE);
-                        txt_minYearsOfExpError.setVisibility(View.GONE);
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
                     }
                 }
             });
+            radio_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                    }
+                }
+            });
+            radio_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                    }
+                }
+            });
+            radio_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+            radio_5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+            radio_6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+        radioButton_withWorkExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+
+                    textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(!hasFocus){
+                                if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                                    txt_minYearsOfExpError.setVisibility(View.VISIBLE);
+                                }else{
+                                    txt_minYearsOfExpError.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                    txt_minYearsOfExpError.setVisibility(View.GONE);
+                }
+            }
+        });
 
             //check if type of disability Others is ticked
             checkBox_typeOfDisability_Other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -315,7 +368,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
-            btn_chooseHeaderImage.setOnClickListener(new View.OnClickListener() {
+        btn_chooseHeaderImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
@@ -326,7 +379,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
-            btn_saveJobPost.setOnClickListener(new View.OnClickListener() {
+        btn_saveJobPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     selectedSecondarySkills();
@@ -344,10 +397,10 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                 if(!textInputEditText_otherDisabilitySpecific.getText().toString().isEmpty()){
 
-                                    if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
+                                    if(autoComplete_degree.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                     || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
                                             || textInputEditText_postDescription.getText().toString().isEmpty()
-                                            || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
+                                            || autoComplete_degree.getText().toString().equals("Click to select value")){ // error
                                             //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
                                         Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
@@ -371,10 +424,10 @@ public class Emp_PostJob extends AppCompatActivity {
                                 }
                             }else{
 
-                                if(autoComplete_skillCategory.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
+                                if(autoComplete_degree.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
                                         || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
                                         || textInputEditText_postDescription.getText().toString().isEmpty()
-                                        || autoComplete_skillCategory.getText().toString().equals("Click to select value")){ // error
+                                        || autoComplete_degree.getText().toString().equals("Click to select value")){ // error
                                         //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
                                     Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
@@ -445,7 +498,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     final int selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
 
-                                    hashMap_generalData.put("skill", autoComplete_skillCategory.getText().toString());
+                                    hashMap_generalData.put("skill", autoComplete_degree.getText().toString());
                                     hashMap_generalData.put("jobTitle", autoComplete_jobTitle.getText().toString());
                                     hashMap_generalData.put("postDescription", textInputEditText_postDescription.getText().toString());
                                     hashMap_generalData.put("uid", uID);
@@ -522,11 +575,27 @@ public class Emp_PostJob extends AppCompatActivity {
         }
         //set data
         private void setExposedDropdownListSkillCategory(){
-            categories_root.addValueEventListener(new ValueEventListener() {
+            String chosenJobTitle = autoComplete_jobTitle.getText().toString();
+            //Toast.makeText(Emp_PostJob.this, chosenSkillCategory, Toast.LENGTH_LONG).show();
+            categories_root.orderByChild("jobtitle").equalTo(chosenJobTitle).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot snap_skillCategory : snapshot.getChildren()){
-                        arrayList_skillCategory.add(snap_skillCategory.child("skill").getValue().toString());
+                    for(DataSnapshot snap_category_key : snapshot.getChildren()){
+                        String parent = snap_category_key.getKey();
+
+                        categories_root.child(parent).child("specialization").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot snap_jobTitles : snapshot.getChildren()){
+                                    arrayList_degree.add(snap_jobTitles.getValue().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
 
@@ -537,7 +606,7 @@ public class Emp_PostJob extends AppCompatActivity {
             });
         }
         private void setExposedDropdownListJobTitle(){
-            String chosenSkillCategory = autoComplete_skillCategory.getText().toString();
+            /*String chosenSkillCategory = autoComplete_skillCategory.getText().toString();
             //Toast.makeText(Emp_PostJob.this, chosenSkillCategory, Toast.LENGTH_LONG).show();
             categories_root.orderByChild("skill").equalTo(chosenSkillCategory).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -558,6 +627,19 @@ public class Emp_PostJob extends AppCompatActivity {
 
                             }
                         });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });*/
+            categories_root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap_skillCategory : snapshot.getChildren()){
+                        arrayList_jobTitles.add(snap_skillCategory.child("jobtitle").getValue().toString());
                     }
                 }
 
