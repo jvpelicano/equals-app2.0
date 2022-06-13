@@ -188,6 +188,12 @@ public class Emp_PostJob extends AppCompatActivity {
                 imageView = findViewById(R.id.displayPostPic);
                 //progress dialog
                 progressDialog = new ProgressDialog(Emp_PostJob.this);
+                //radio group
+                radioGroup_educ = findViewById(R.id.radioGroup_educ);
+                radioGroup_workSetUp = findViewById(R.id.radioGroup_workSetUp);
+                //int
+                selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
+                selected_workSetUp_ID = radioGroup_workSetUp.getCheckedRadioButtonId();
                 //radio button
                 radioButton_withWorkExp = findViewById(R.id.radio_11);
                 radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
@@ -197,12 +203,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 radio_4 = findViewById(R.id.radio_4);
                 radio_5 = findViewById(R.id.radio_5);
                 radio_6 = findViewById(R.id.radio_6);
-                //radio group
-                radioGroup_educ = findViewById(R.id.radioGroup_educ);
-                radioGroup_workSetUp = findViewById(R.id.radioGroup_workSetUp);
-                //int
-                selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
-                selected_workSetUp_ID = radioGroup_workSetUp.getCheckedRadioButtonId();
+                radioButton_educAttainment = findViewById(selected_educAttainment_ID);
                 //text input layouts
                 textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle); //autocomplete
                 textInputLayout_degree = findViewById(R.id.textInputLayout_degree);//autocomplete
@@ -270,9 +271,11 @@ public class Emp_PostJob extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
                         radioGroup_educ.setVisibility(View.VISIBLE);
-
                     }else{
                         radioGroup_educ.setVisibility(View.GONE);
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
                     }
                 }
             });
@@ -282,6 +285,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.GONE);
                         textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
                     }
                 }
             });
@@ -291,6 +295,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.GONE);
                         textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
                     }
                 }
             });
@@ -300,6 +305,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.GONE);
                         textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
                     }
                 }
             });
@@ -386,28 +392,64 @@ public class Emp_PostJob extends AppCompatActivity {
                     selectedTypeOfDisabilities();
                     getDataFromCurrentUser();
 
+
                     if(FilePathUri != null){ // upload data
 
                         if(checkBox_type_of_disabilities_checkIfEmpty.isEmpty() && !checkBox_typeOfDisability_Other.isChecked()){
 
-                            Toast.makeText(Emp_PostJob.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
 
                         }else{
+
                             if(checkBox_typeOfDisability_Other.isChecked()){
 
                                 if(!textInputEditText_otherDisabilitySpecific.getText().toString().isEmpty()){
 
-                                    if(autoComplete_degree.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
-                                    || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
-                                            || textInputEditText_postDescription.getText().toString().isEmpty()
-                                            || autoComplete_degree.getText().toString().equals("Click to select value")){ // error
-                                            //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
-                                        Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                        if(autoComplete_jobTitle.getText().toString().isEmpty()
+                                                || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
+                                                || textInputEditText_postDescription.getText().toString().isEmpty()
+                                                || autoComplete_degree.getText().toString().equals("Click to select value")
 
+                                        || checkBox_educAttainmentRequirement.isChecked() && (radioButton_educAttainment.getText().toString().equals("Bachelor Level")
+                                                || radioButton_educAttainment.getText().toString().equals("Master's Level") || radioButton_educAttainment.getText().toString().equals("Doctorate Level"))
+                                                && autoComplete_degree.getText().toString().isEmpty()){ // error
+
+                                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+
+                                            if(radioButton_withWorkExp.isChecked()){
+                                                if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                                }else{
+                                                    uploadData();
+                                                }
+
+                                            }else{
+                                                uploadData();
+                                            }
+
+                                        }
+
+                                }else{
+                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+
+                                    if(autoComplete_jobTitle.getText().toString().isEmpty()
+                                            || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
+                                            || textInputEditText_postDescription.getText().toString().isEmpty()
+                                            || autoComplete_degree.getText().toString().equals("Click to select value")
+                                    || checkBox_educAttainmentRequirement.isChecked() && (radioButton_educAttainment.getText().toString().equals("Bachelor Level")
+                                            || radioButton_educAttainment.getText().toString().equals("Master's Level") || radioButton_educAttainment.getText().toString().equals("Doctorate Level"))
+                                            && autoComplete_degree.getText().toString().isEmpty()){ // error
+
+                                        Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                                     }else{
 
                                         if(radioButton_withWorkExp.isChecked()){
-                                            if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+
+                                            if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){//error
                                                 Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                                             }else{
                                                 uploadData();
@@ -416,35 +458,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                         }else{
                                             uploadData();
                                         }
-
                                     }
-
-                                }else{
-                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-
-                                if(autoComplete_degree.getText().toString().isEmpty() || autoComplete_jobTitle.getText().toString().isEmpty()
-                                        || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
-                                        || textInputEditText_postDescription.getText().toString().isEmpty()
-                                        || autoComplete_degree.getText().toString().equals("Click to select value")){ // error
-                                        //|| textInputEditText_maxNumberOfApplicants.getText().toString().isEmpty()
-                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
-
-                                }else{
-                                    if(radioButton_withWorkExp.isChecked()){
-
-                                        if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){//error
-                                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            uploadData();
-                                        }
-
-                                    }else{
-                                        uploadData();
-                                    }
-                                }
-
 
                             }
                         }
@@ -497,18 +511,22 @@ public class Emp_PostJob extends AppCompatActivity {
                                     pushKey = job_offers_root.push().getKey();
 
                                     final int selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
+                                    radioButton_educAttainment = findViewById(selected_educAttainment_ID);
 
-                                    hashMap_generalData.put("skill", autoComplete_degree.getText().toString());
                                     hashMap_generalData.put("jobTitle", autoComplete_jobTitle.getText().toString());
                                     hashMap_generalData.put("postDescription", textInputEditText_postDescription.getText().toString());
                                     hashMap_generalData.put("uid", uID);
                                     hashMap_generalData.put("postDate", postDate);
                                     hashMap_generalData.put("typeOfEmployment", autoComplete_typeOfEmployment.getText().toString());
                                     hashMap_generalData.put("workSetUp", radioButton_workSetUp_text);
-                                    //hashMap_generalData.put("maxNumberApplicants", textInputEditText_maxNumberOfApplicants.getText().toString());
                                     hashMap_generalData.put("imageURL", imageURL);
                                     hashMap_generalData.put("typeOfDisabilityMore", textInputEditText_otherDisabilitySpecific.getText().toString());
 
+                                    if(!autoComplete_degree.getText().toString().isEmpty()){
+                                        hashMap_generalData.put("skill", autoComplete_degree.getText().toString());
+                                    }else{
+                                        hashMap_generalData.put("skill", "");
+                                    }
                                     if(radioButton_withWorkExp.isChecked()){
                                         hashMap_generalData.put("workExperience", radioButton_withWorkExp.getText().toString());
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());

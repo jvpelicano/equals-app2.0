@@ -747,7 +747,7 @@ public class PWD_AvailableJobs_1_SpeechImpediment extends AppCompatActivity {
                                             && !job_expDate.equals(currentDate_formatted)){
                                         //logic is even if the company posts a job that does not require experience
                                         //people with experience should still be able to see the job post.
-                                        if(job_workExp.equals("With Experience")){
+                                        /*if(job_workExp.equals("With Experience")){
                                             if(pwd_workExp.equals("With Experience")){ // strictly checking if pwd has work experience otherwise the data for the job post will not show.
                                                 if(job_educationalAttainmentRequirement.equals("true")){
                                                     //if educRequirement for a job post is required, the system will check pwd's educAttainment level.
@@ -1236,7 +1236,7 @@ public class PWD_AvailableJobs_1_SpeechImpediment extends AppCompatActivity {
 
                                                 }
                                             }
-                                        }
+                                        }*/
 
                                     }
                                 }
