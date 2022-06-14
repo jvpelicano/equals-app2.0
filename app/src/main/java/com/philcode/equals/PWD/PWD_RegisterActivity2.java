@@ -1,25 +1,18 @@
 package com.philcode.equals.PWD;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -27,19 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,24 +34,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.philcode.equals.EMP.LoginActivity_emp;
-import com.philcode.equals.EMP.a_EmployeeContentMainActivity;
 import com.philcode.equals.R;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
 
 public class PWD_RegisterActivity2 extends AppCompatActivity{
 
@@ -73,7 +48,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase, categories_root;
     private String work_UUID;
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -81,7 +56,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     String Storage_Path = "PWD_Reg_Form/";
 
     //view objects
-    private TextView textViewUserEmail, skillSelected;
+    private TextView textViewUserEmail, skillSelected, txt_degree;
     private Button buttonAddWork, buttonSave;
     private Spinner primary_skillsCategory;
     private RadioGroup rgWorkExperience, rgEducAttainment;
@@ -122,14 +97,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
     private CheckBox checkOrtho, checkHear, checkVis, checkMore, checkSpeech;
     private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12, job13, job14;
+    private RadioButton radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
-    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle;
+    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle, textInputLayout_degree;
     private TextInputEditText textInputEditText_otherDisabilitySpecific;
     //skill category
-    private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter;
-    private ArrayList arrayList_skillCategory;
-    private AutoCompleteTextView autoComplete_skillCategory, autoComplete_jobTitle;
+    private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter, ExposedDropdownList_jobtitle_adapter;
+    private ArrayList arrayList_skillCategory, arrayList_jobtitle;
+    private AutoCompleteTextView autoComplete_degree, autoComplete_jobTitle;
     private HashMap hashMap_jobSkills;
 
 
@@ -140,6 +116,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         setContentView(R.layout.pwd_activity_register2);
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD");
+        categories_root = FirebaseDatabase.getInstance().getReference().child("Category");
 
         firebaseAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -156,15 +133,29 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         textInputLayout_otherDisabilitySpecific = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
         textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle);
 
+        textInputLayout_degree = findViewById(R.id.textInputLayout_degree);
+        txt_degree = findViewById(R.id.textView8);
+
+        radio_1 = findViewById(R.id.radio_1);
+        radio_2 = findViewById(R.id.radio_2);
+        radio_3 = findViewById(R.id.radio_3);
+        radio_4 = findViewById(R.id.radio_4);
+        radio_5 = findViewById(R.id.radio_5);
+        radio_6 = findViewById(R.id.radio_6);
+
 
         buttonSave = (Button) findViewById(R.id.buttonSave2);
 
         arrayList_skillCategory = new ArrayList();
-        autoComplete_skillCategory = findViewById(R.id.autoComplete_skillCategory);
+        arrayList_jobtitle = new ArrayList();
+
+        autoComplete_degree = findViewById(R.id.autoComplete_skillCategory);
         autoComplete_jobTitle = findViewById(R.id.autoComplete_jobTitle);
 
         exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_skillCategory);
-        autoComplete_skillCategory.setAdapter(exposedDropdownList_skillCategory_adapter);
+        ExposedDropdownList_jobtitle_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_jobtitle);
+        autoComplete_degree.setAdapter(exposedDropdownList_skillCategory_adapter);
+        autoComplete_jobTitle.setAdapter(ExposedDropdownList_jobtitle_adapter);
 
         // = findViewById(R.id.skillSpinner);
         skillSelected = findViewById(R.id.selectedSkills);
@@ -210,9 +201,73 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         job12 = findViewById(R.id.typeOfSkills12);
         job13 = findViewById(R.id.typeOfSkills13);
         job14 = findViewById(R.id.typeOfSkills14);
+        setExposedDropdownListJobTitle();
 
-        setExposedDropdownListSkillCategory();
-        //autoComplete_skillCategory.setText(arrayList_skillCategory.get(0).toString());
+        radio_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.GONE);
+                    textInputLayout_degree.setVisibility(View.GONE);
+                    autoComplete_degree.setText("");
+                }
+            }
+        });
+        radio_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.GONE);
+                    textInputLayout_degree.setVisibility(View.GONE);
+                    autoComplete_degree.setText("");
+                }
+            }
+        });
+        radio_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.GONE);
+                    textInputLayout_degree.setVisibility(View.GONE);
+                    autoComplete_degree.setText("");
+                }
+            }
+        });
+        radio_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.VISIBLE);
+                    textInputLayout_degree.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        radio_5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.VISIBLE);
+                    textInputLayout_degree.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        radio_6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    txt_degree.setVisibility(View.VISIBLE);
+                    textInputLayout_degree.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        autoComplete_jobTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                arrayList_skillCategory.clear();
+                setExposedDropdownListSkillCategory();
+            }
+        });
 
         checkMore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -224,6 +279,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 }
             }
         });
+
 
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -430,11 +486,13 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                     }
                 }
 
-                if(!checkedJobSkills.isEmpty() && !autoComplete_skillCategory.getText().toString().isEmpty()
-                        && !autoComplete_skillCategory.getText().toString().equals("Click to select value")){
+                if(!checkedJobSkills.isEmpty() && !autoComplete_degree.getText().toString().isEmpty()
+                        && (((radio_4.isChecked() || radio_5.isChecked() || radio_6.isChecked()) && !autoComplete_degree.getText().toString().isEmpty())
+                ) || (radio_1.isChecked() || radio_2.isChecked() || radio_3.isChecked() && autoComplete_degree.getText().toString().isEmpty())){
+
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
                     mDatabase.child("educationalAttainment").setValue(educAttainment);
-                    mDatabase.child("skill").setValue(autoComplete_skillCategory.getText().toString()); //working
+                    mDatabase.child("skill").setValue(autoComplete_degree.getText().toString()); //working
                     mDatabase.child("workExperience").setValue(workExperience);
 
                     ArrayList disabilities = new ArrayList();
@@ -470,13 +528,43 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
         }
 
+    //set data
     private void setExposedDropdownListSkillCategory(){
-        final DatabaseReference categories_root = FirebaseDatabase.getInstance().getReference().child("Category/");
+        String chosenJobTitle = autoComplete_jobTitle.getText().toString();
+        categories_root.orderByChild("jobtitle").equalTo(chosenJobTitle).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap_category_key : snapshot.getChildren()){
+                    String parent = snap_category_key.getKey();
+
+                    categories_root.child(parent).child("specialization").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot snap_jobTitles : snapshot.getChildren()){
+                                arrayList_skillCategory.add(snap_jobTitles.getValue().toString());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void setExposedDropdownListJobTitle(){
         categories_root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot snap_skillCategory : snapshot.getChildren()){
-                    arrayList_skillCategory.add(snap_skillCategory.child("skill").getValue().toString());
+                    arrayList_jobtitle.add(snap_skillCategory.child("jobtitle").getValue().toString());
                 }
             }
 

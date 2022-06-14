@@ -594,7 +594,6 @@ public class Emp_PostJob extends AppCompatActivity {
         //set data
         private void setExposedDropdownListSkillCategory(){
             String chosenJobTitle = autoComplete_jobTitle.getText().toString();
-            //Toast.makeText(Emp_PostJob.this, chosenSkillCategory, Toast.LENGTH_LONG).show();
             categories_root.orderByChild("jobtitle").equalTo(chosenJobTitle).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -624,35 +623,6 @@ public class Emp_PostJob extends AppCompatActivity {
             });
         }
         private void setExposedDropdownListJobTitle(){
-            /*String chosenSkillCategory = autoComplete_skillCategory.getText().toString();
-            //Toast.makeText(Emp_PostJob.this, chosenSkillCategory, Toast.LENGTH_LONG).show();
-            categories_root.orderByChild("skill").equalTo(chosenSkillCategory).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot snap_category_key : snapshot.getChildren()){
-                        String parent = snap_category_key.getKey();
-
-                        categories_root.child(parent).child("jobtitles").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (DataSnapshot snap_jobTitles : snapshot.getChildren()){
-                                    arrayList_jobTitles.add(snap_jobTitles.getValue().toString());
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });*/
             categories_root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

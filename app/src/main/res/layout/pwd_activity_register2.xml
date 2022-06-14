@@ -78,7 +78,6 @@
                     android:text="Educational Attainment"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.028"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/line2" />
@@ -156,25 +155,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
+                    android:drawableStart="@drawable/ic_sharp_subdirectory_arrow_right_24"
                     android:fontFamily="@font/open_sans_regular"
-                    android:text="Profession"
+                    android:text="Degree"
+                    android:visibility="gone"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.028"
+                    app:layout_constraintHorizontal_bias="0.134"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rg_educ" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_jobTitleError" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout_skillCategory"
+                    android:id="@+id/textInputLayout_degree"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Click to select specialization"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:hint="Click to select degree"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
                     app:layout_constraintTop_toBottomOf="@+id/textView8">
 
                     <AutoCompleteTextView
@@ -189,26 +189,24 @@
                     android:id="@+id/txt_jobTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:drawableStart="@drawable/ic_sharp_subdirectory_arrow_right_24"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/open_sans_regular"
                     android:text="Job Title"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.233"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory" />
+                    app:layout_constraintTop_toBottomOf="@+id/rg_educ" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_jobTitle"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:hint="Job Title"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_jobTitle">
 
@@ -241,12 +239,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/open_sans_regular"
                     android:text="Secondary Skill"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView8"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_jobTitleError" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_typeOfDisabilityOtherError" />
 
 
                 <LinearLayout
@@ -447,10 +446,9 @@
                     android:text="I have"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.028"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/workexperience" />
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_degree" />
 
                 <CheckBox
                     android:id="@+id/checkOrtho"
@@ -556,8 +554,8 @@
                     android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintHorizontal_bias="0.344"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout_skillCategory"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_skillCategory" />
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout_otherDisabilitySpecific"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_otherDisabilitySpecific" />
 
 
                 <com.google.android.material.button.MaterialButton
@@ -571,7 +569,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_otherDisabilitySpecific" />
+                    app:layout_constraintTop_toBottomOf="@+id/workexperience" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
