@@ -521,6 +521,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     hashMap_generalData.put("workSetUp", radioButton_workSetUp_text);
                                     hashMap_generalData.put("imageURL", imageURL);
                                     hashMap_generalData.put("typeOfDisabilityMore", textInputEditText_otherDisabilitySpecific.getText().toString());
+                                    hashMap_generalData.put("postJobId", pushKey);
 
                                     if(!autoComplete_degree.getText().toString().isEmpty()){
                                         hashMap_generalData.put("skill", autoComplete_degree.getText().toString());
