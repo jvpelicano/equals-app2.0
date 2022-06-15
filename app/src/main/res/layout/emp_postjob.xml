@@ -677,6 +677,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_minYearsOfExp" />
 
+            <CheckBox
+                android:id="@+id/checkbox_typeOfEmploymentRequirement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment"
+                android:text="Required"
+                android:buttonTint="@color/colorPrimary"
+                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_typeOfEmployment"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -684,7 +694,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Click to select type of employment"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment">
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_typeOfEmploymentRequirement">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoComplete_typeOfEmployment"
@@ -707,6 +717,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment" />
 
+            <CheckBox
+                android:id="@+id/checkbox_workSetUpRequirement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_workSetUp"
+                android:buttonTint="@color/colorPrimary"
+                android:text="Required"
+                />
+
             <RadioGroup
                 android:id="@+id/radioGroup_workSetUp"
                 android:layout_width="match_parent"
@@ -714,7 +734,7 @@
                 android:checkedButton="@+id/radioButton_onSiteWork"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_workSetUp">
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_workSetUpRequirement">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioButton_onSiteWork"
@@ -731,39 +751,6 @@
                     android:text="Remote Work" />
 
             </RadioGroup>
-
-            <!--<TextView
-                android:id="@+id/txt_maxNumberOfApplicants"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/open_sans_regular"
-                android:text="Maximum Number of Hired Applicants"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_workSetUp"
-                app:layout_constraintStart_toStartOf="parent"
-                />-->
-
-            <!--<com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_maxNumberOfApplicants"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Ex. 4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_maxNumberOfApplicants"
-                >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEditText_maxNumberOfApplicants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/proxima_nova_regular"
-                android:inputType="number"
-                android:textColorHighlight="#B31F86DE"
-                />
-            </com.google.android.material.textfield.TextInputLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_saveJobPost"

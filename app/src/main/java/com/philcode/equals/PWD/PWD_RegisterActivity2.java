@@ -592,8 +592,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         arrayList_typeOfEmployment.add("Fixed Term Employment");
         arrayList_typeOfEmployment.add("Probationary Employment");
     }
-
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             final Intent intent = new Intent(this, PWD_RegisterActivity.class);

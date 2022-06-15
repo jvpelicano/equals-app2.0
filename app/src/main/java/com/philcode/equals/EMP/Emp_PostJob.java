@@ -99,7 +99,7 @@ public class Emp_PostJob extends AppCompatActivity {
         private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
                 ,textInputEditText_yearsOfExperience;
         //check box
-        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement;
+        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement;
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
@@ -179,6 +179,8 @@ public class Emp_PostJob extends AppCompatActivity {
                 //check box
                 checkBox_typeOfDisability_Other = findViewById(R.id.typeOfDisabilityOther);
                 checkBox_educAttainmentRequirement = findViewById(R.id.checkBox_educAttainmentRequirement);
+                checkbox_typeOfEmploymentRequirement = findViewById(R.id.checkbox_typeOfEmploymentRequirement);
+                checkbox_workSetUpRequirement = findViewById(R.id.checkbox_workSetUpRequirement);
                 //edit texts
                 textInputEditText_postDescription = findViewById(R.id.textInputEditText_postDescription);
                 textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
@@ -552,6 +554,17 @@ public class Emp_PostJob extends AppCompatActivity {
                                         hashMap_generalData.put("workSetUp", "Remote Work");
                                     }
 
+                                    if(checkbox_workSetUpRequirement.isChecked()){
+                                        hashMap_generalData.put("workSetUpRequired", "true");
+                                    }else{
+                                        hashMap_generalData.put("workSetUpRequired", "false");
+                                    }
+
+                                    if(checkbox_typeOfEmploymentRequirement.isChecked()){
+                                        hashMap_generalData.put("typeOfEmploymentRequired", "true");
+                                    }else{
+                                        hashMap_generalData.put("typeOfEmploymentRequired", "false");
+                                    }
                                     //reference automatic deletion after 12 months
                                     cal.add(Calendar.MONTH, 12);
                                     format.format(cal.getTime());
