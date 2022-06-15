@@ -1,7 +1,6 @@
 package com.philcode.equals.EMP;
 
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,12 +20,8 @@ import android.text.style.ClickableSpan;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +41,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.philcode.equals.PrivacyPolicyPDFViewer;
@@ -63,8 +61,12 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     private FirebaseAuth firebaseAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, companyRoot;
     private Spinner spinnerCity;
+    private String fullname;
+    private String branch;
+    private String companyTelNum;
+    public FirebaseDatabase firebaseDatabase;
 
     // Folder path for Firebase Storage.
     String Storage_Path = "Employer_Reg_Form/";
@@ -72,8 +74,8 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     private MaterialButton buttonLogout, buttonSave, btnUpload, buttonUploadEmpID;
 
     private TextInputEditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
-            editFirstName, editLastName, editCompanyAddress, confirmPassword, emp_editCompanyContact;
-    private TextInputLayout editEmailError, editPasswordError, confirmPasswordError;
+            editFirstName, editLastName, editCompanyAddress, confirmPassword, emp_editCompanyContact, emp_editCompanyBranch;
+    private TextInputLayout editEmailError, editPasswordError, confirmPasswordError, listOfCompanies;
     private ImageView profilePicEMP, empValidID;
     private TextView emailAddressInUse;
     String password, stringConfirmPassword, emailCheck;
@@ -82,12 +84,20 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     //private Uri filePath2;
     private CheckBox checkPrivacy;
 
+
+
+    //boolean
+    private boolean editTextsValid = true;
+    private boolean autoCompleteValid = true;
+    private boolean skillCategory_exists= true;
+    private boolean isCompanyExists = true;
     boolean internetConnection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emp_register);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Employers");
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -95,6 +105,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
         emp_editCompanyContact = findViewById(R.id.emp_editCompanyContact);
+        emp_editCompanyBranch = findViewById(R.id.editCompanyBranch);
 
         buttonUploadEmpID = (MaterialButton) findViewById(R.id.btn_emp_ID_upload);
         buttonSave = (MaterialButton) findViewById(R.id.btnEditProfile);
@@ -334,7 +345,6 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
     }
 
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -407,13 +417,14 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                 final String password = editPassword.getText().toString().trim();
                 final String firstname = editFirstName.getText().toString().trim();
                 final String lastname = editLastName.getText().toString().trim();
-                final String fullname = editCompanyName.getText().toString().trim();
+                fullname = editCompanyName.getText().toString().trim();
                 final String typeStatus = "EMPPending";
+                branch = emp_editCompanyBranch.getText().toString().trim();
                 final String companybg = editCompanyBackground.getText().toString().trim();
                 final String contact = editContact.getText().toString().trim();
                 final String companyAddress = editCompanyAddress.getText().toString().trim();
                 final String companyCity = spinnerCity.getSelectedItem().toString().trim();
-                final String companyTelNum = emp_editCompanyContact.getText().toString().trim();
+                companyTelNum = emp_editCompanyContact.getText().toString().trim();
                 if (emailCheck == "hehez") {
                     Toast.makeText(getApplicationContext(), emailCheck, Toast.LENGTH_LONG);
                     editEmailError.setError("Email address is already in use");
@@ -505,14 +516,10 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
-                                                                    contact, empValidID, companyAddress, companyCity, companyTelNum);
-                                                            FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
-                                                                    startActivity(intent);
-                                                                }
-                                                            });
+                                                                    contact, empValidID, companyAddress, companyCity, companyTelNum, branch);
+
+                                                            checkCompanyIfExists(fullname, branch, EmpInfo);
+
                                                         } else {
                                                             Toast.makeText(RegisterActivity_emp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                                         }
@@ -563,5 +570,43 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         //if logout is pressed
+    }
+
+    public void checkCompanyIfExists(String company, String comBranch, EmployeeInformation employeeInfo ){
+
+        DatabaseReference companyRoot = FirebaseDatabase.getInstance().getReference().child("Companies");
+
+        Query coQuery = companyRoot.orderByChild("companyName").equalTo(company);
+        coQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    //get data
+                    String companyName= "" + ds.child("companyName").getValue();
+                    String coBranch = "" + ds.child("branch").getValue();
+
+                    if (companyName.equalsIgnoreCase(company)  && coBranch.equalsIgnoreCase(comBranch)){
+                        Toast.makeText(getApplicationContext(), "DUPLICATE ACCOUNT FOR Company :"+ companyName + " -" + coBranch +", Contact Equals Admin" , Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(employeeInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+                                final Intent intent = new Intent(getApplicationContext(), RegisterActivity_emp.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

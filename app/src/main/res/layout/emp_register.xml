@@ -307,7 +307,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     app:boxStrokeColor="@color/btnColor"
-                    app:hintTextColor="@color/btnColor">
+                    app:hintTextColor="@color/btnColor"
+                    app:layout_constraintTop_toBottomOf="@+id/pwd_enterCompanyName_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editCompanyName"
@@ -319,7 +320,33 @@
                         android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                        android:textSize="16sp">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterCompanyBranch_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editCompanyBranch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="Branch"
+                        android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp">
+                    </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
