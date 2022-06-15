@@ -97,15 +97,15 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
     private CheckBox checkOrtho, checkHear, checkVis, checkMore, checkSpeech;
     private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12, job13, job14;
-    private RadioButton radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
+    private RadioButton radio_1, radio_2, radio_3, radio_4, radio_5, radio_6, radioButton_workSetUp;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
-    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle, textInputLayout_degree;
+    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle, textInputLayout_degree, textInputLayout_typeOfEmployment;
     private TextInputEditText textInputEditText_otherDisabilitySpecific;
     //skill category
-    private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter, ExposedDropdownList_jobtitle_adapter;
-    private ArrayList arrayList_skillCategory, arrayList_jobtitle;
-    private AutoCompleteTextView autoComplete_degree, autoComplete_jobTitle;
+    private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter, exposedDropdownList_jobtitle_adapter, exposedDropdownList_typeOfEmployment_adapter;
+    private ArrayList <String> arrayList_skillCategory, arrayList_jobtitle, arrayList_typeOfEmployment;;
+    private AutoCompleteTextView autoComplete_degree, autoComplete_jobTitle, autoComplete_typeOfEmployment;
     private HashMap hashMap_jobSkills;
 
 
@@ -143,19 +143,25 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         radio_5 = findViewById(R.id.radio_5);
         radio_6 = findViewById(R.id.radio_6);
 
+        radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
 
         buttonSave = (Button) findViewById(R.id.buttonSave2);
 
-        arrayList_skillCategory = new ArrayList();
-        arrayList_jobtitle = new ArrayList();
+        arrayList_skillCategory = new ArrayList<>();
+        arrayList_jobtitle = new ArrayList<>();
+        arrayList_typeOfEmployment = new ArrayList<>();
 
         autoComplete_degree = findViewById(R.id.autoComplete_skillCategory);
         autoComplete_jobTitle = findViewById(R.id.autoComplete_jobTitle);
+        autoComplete_typeOfEmployment = findViewById(R.id.autoComplete_typeOfEmployment);
 
         exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_skillCategory);
-        ExposedDropdownList_jobtitle_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_jobtitle);
+        exposedDropdownList_jobtitle_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_jobtitle);
+        exposedDropdownList_typeOfEmployment_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arrayList_typeOfEmployment);
+
         autoComplete_degree.setAdapter(exposedDropdownList_skillCategory_adapter);
-        autoComplete_jobTitle.setAdapter(ExposedDropdownList_jobtitle_adapter);
+        autoComplete_jobTitle.setAdapter(exposedDropdownList_jobtitle_adapter);
+        autoComplete_typeOfEmployment.setAdapter(exposedDropdownList_typeOfEmployment_adapter);
 
         // = findViewById(R.id.skillSpinner);
         skillSelected = findViewById(R.id.selectedSkills);
@@ -176,9 +182,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 }
             }
         });
-        /*if (skillSelected == null) {
-            skillSelected.setVisibility(View.GONE);
-        }*/
 
         checkOrtho = findViewById(R.id.checkOrtho);
         checkVis = findViewById(R.id.checkVis);
@@ -201,6 +204,8 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         job12 = findViewById(R.id.typeOfSkills12);
         job13 = findViewById(R.id.typeOfSkills13);
         job14 = findViewById(R.id.typeOfSkills14);
+
+        setExposedDropdownListTypeofEmployment();
         setExposedDropdownListJobTitle();
 
         radio_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -480,7 +485,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         }else {
 
                 ArrayList<String> checkedJobSkills = new ArrayList<String>();
-                for (int i = 0; i < jobskills.size(); i++) {
+                for (int i = 1; i < jobskills.size(); i++) {
                     if ((jobskills.get(i) != "")) {
                         checkedJobSkills.add(jobskills.get(i).toString());
                     }
@@ -494,6 +499,8 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                     mDatabase.child("educationalAttainment").setValue(educAttainment);
                     mDatabase.child("skill").setValue(autoComplete_degree.getText().toString()); //working
                     mDatabase.child("workExperience").setValue(workExperience);
+                    mDatabase.child("typeOfEmployment").setValue(autoComplete_typeOfEmployment.getText().toString());
+
 
                     ArrayList disabilities = new ArrayList();
                     disabilities.add(checkOrtho);
@@ -506,7 +513,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                     for(int i = 0; i < checkedJobSkills.size(); i++){
                         mDatabase.child("jobSkills" + i).setValue(checkedJobSkills.get(i));
                     }
-
                     for (int i = 0; i < disabilities.size(); i++) {
                         if ((disabilities.get(i) != "")) {
                             mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
@@ -517,7 +523,11 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                     } else {
                         mDatabase.child("workExperience").setValue(workExperience);
                     }
-
+                    if(radioButton_workSetUp.isChecked()){
+                        mDatabase.child("workSetUp").setValue(radioButton_workSetUp.getText().toString());
+                    }else{
+                        mDatabase.child("workSetUp").setValue("Remote Work");
+                    }
                     startActivity(intent);
                 }else{
                     Toast.makeText(PWD_RegisterActivity2.this, "Please select job skills.", Toast.LENGTH_SHORT).show();
@@ -573,6 +583,14 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
             }
         });
+    }
+    private void setExposedDropdownListTypeofEmployment() {
+        arrayList_typeOfEmployment.add("Regular Employment");
+        arrayList_typeOfEmployment.add("Project Employment");
+        arrayList_typeOfEmployment.add("Seasonal Employment");
+        arrayList_typeOfEmployment.add("Casual Employment");
+        arrayList_typeOfEmployment.add("Fixed Term Employment");
+        arrayList_typeOfEmployment.add("Probationary Employment");
     }
 
 
