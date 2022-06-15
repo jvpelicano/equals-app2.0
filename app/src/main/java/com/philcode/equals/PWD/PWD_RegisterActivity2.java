@@ -56,7 +56,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     String Storage_Path = "PWD_Reg_Form/";
 
     //view objects
-    private TextView textViewUserEmail, skillSelected, txt_degree;
+    private TextView textViewUserEmail, txt_degree;
     private Button buttonAddWork, buttonSave;
     private Spinner primary_skillsCategory;
     private RadioGroup rgWorkExperience, rgEducAttainment;
@@ -164,7 +164,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         autoComplete_typeOfEmployment.setAdapter(exposedDropdownList_typeOfEmployment_adapter);
 
         // = findViewById(R.id.skillSpinner);
-        skillSelected = findViewById(R.id.selectedSkills);
         rgEducAttainment = findViewById(R.id.rg_educ);
         rgWorkExperience = findViewById(R.id.workexperience);
         rgWorkExperience = findViewById(R.id.workexperience);
