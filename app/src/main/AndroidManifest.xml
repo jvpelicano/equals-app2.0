@@ -18,10 +18,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".PWD_ViewJobOffersList"
+            android:name=".PWD.PWD_AvailableJobsList_Activity"
             android:exported="false" />
         <activity
-            android:name=".PWD_ViewJobApplicationList"
+            android:name=".PWD_ViewJobOffersList"
             android:exported="false" />
         <activity
             android:name=".EMP.EMP_EditLoginCredentials_Activity"
@@ -46,21 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PWD.PWD_AvailableJobs_1_SpeechImpediment"
-            android:label="Available Jobs" />
-        <activity
-            android:name=".PWD.PWD_AvailableJobs_2_OrthopedicDisability"
-            android:label="Orthopedic Disability Jobs" />
-        <activity
-            android:name=".PWD.PWD_AvailableJobs_4_HearingDisability"
-            android:label="@string/hearing_disability" />
-        <activity
-            android:name=".PWD.PWD_AvailableJobs_3_VisualDisability"
-            android:label="@string/visual_disability" />
-        <activity
-            android:name=".PWD.PWD_AvailableJobs_5_MoreDisability"
-            android:label="Other Disability" />
         <activity android:name=".PWD.PWD_RegisterActivity" />
         <activity android:name=".PWD.PWD_LoginActivity" />
         <activity android:name=".PWD.a_PWDContentMainActivity" />

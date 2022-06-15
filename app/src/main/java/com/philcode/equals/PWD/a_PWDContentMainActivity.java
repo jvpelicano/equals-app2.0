@@ -186,20 +186,35 @@ public class a_PWDContentMainActivity extends AppCompatActivity {
                             Intent j0 = new Intent(a_PWDContentMainActivity.this, PWD_ViewJobApplicationList.class);
                             startActivity(j0);
                         }*/else if (id == R.id.nav_job_orthopedic) {
-                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_2_OrthopedicDisability.class);
+                           /* Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_2_OrthopedicDisability.class);
+                            startActivity(j1);*/
+                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobsList_Activity.class);
+                            j1.putExtra("PWD_DISABILITY", "Orthopedic Disability");
                             startActivity(j1);
                         } else if (id == R.id.nav_job_visual) {
-                            Intent j2 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_3_VisualDisability.class);
-                            startActivity(j2);
+                            /*Intent j2 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_3_VisualDisability.class);
+                            startActivity(j2);*/
+                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobsList_Activity.class);
+                            j1.putExtra("PWD_DISABILITY", "Partial Visual Disability");
+                            startActivity(j1);
                         } else if (id == R.id.nav_job_hearing) {
-                            Intent j3 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_4_HearingDisability.class);
-                            startActivity(j3);
+                            /*Intent j3 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_4_HearingDisability.class);
+                            startActivity(j3);*/
+                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobsList_Activity.class);
+                            j1.putExtra("PWD_DISABILITY", "Hearing Disability");
+                            startActivity(j1);
+                        } else if(id == R.id.nav_job_speech){
+                            /*Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_1_SpeechImpediment.class);
+                            startActivity(j4);*/
+                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobsList_Activity.class);
+                            j1.putExtra("PWD_DISABILITY", "Speech Impediment");
+                            startActivity(j1);
                         } else if (id == R.id.nav_job_more) {
-                            Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_5_MoreDisability.class);
-                            startActivity(j4);
-                        }else if(id == R.id.nav_job_speech){
-                            Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_1_SpeechImpediment.class);
-                            startActivity(j4);
+                            /*Intent j4 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobs_5_MoreDisability.class);
+                            startActivity(j4);*/
+                            Intent j1 = new Intent(a_PWDContentMainActivity.this, PWD_AvailableJobsList_Activity.class);
+                            j1.putExtra("PWD_DISABILITY", "Other Disability");
+                            startActivity(j1);
                         }
                         else if (id == R.id.nav_logout_pwd) {
 

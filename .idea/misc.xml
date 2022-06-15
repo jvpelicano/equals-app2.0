@@ -68,6 +68,9 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_emp_pwdbasicinfo.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_emp_pwdworkexp.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_available_jobs_view_description.xml" value="0.3385416666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_availablejoboffers_1.xml" value="0.321875" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_availablejoboffers_2.xml" value="0.321875" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_availablejoboffers_3.xml" value="0.3269927536231884" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_avilable_jobs_job_qualification.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_basicinfo.xml" value="0.3385416666666667" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/fragment_pwd_educational_background.xml" value="0.3223958333333333" />
@@ -94,6 +97,7 @@
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_editprofile_view.xml" value="0.33" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_jobapplicationlist_cardview.xml" value="0.31476449275362317" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_navigation_header.xml" value="0.3385416666666667" />
+        <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_pwdavailablejobslist_view.xml" value="0.3269927536231884" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_update_profile.xml" value="0.2078125" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/pwd_viewresume_activity.xml" value="0.271875" />
         <entry key="..\:/Desktop/Equals/equals-app2.0/app/src/main/res/layout/resume_list_item.xml" value="0.290625" />
