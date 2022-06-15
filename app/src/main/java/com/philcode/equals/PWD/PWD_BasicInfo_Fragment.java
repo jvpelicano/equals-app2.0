@@ -132,7 +132,6 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                 String jobTitle = dataSnapshot.child("jobTitle").getValue().toString();
                 String skill = dataSnapshot.child("skill").getValue().toString();
                 String educationalAttainment = dataSnapshot.child("educationalAttainment").getValue().toString();
-                String workExperience = dataSnapshot.child("workExperience").getValue().toString();
                 String contact = dataSnapshot.child("contact").getValue().toString();
                 String typeOfEmployment = dataSnapshot.child("typeOfEmployment").getValue().toString();
                 String workSetUp = dataSnapshot.child("workSetUp").getValue().toString();
@@ -254,11 +253,6 @@ public class PWD_BasicInfo_Fragment extends Fragment {
 
                 }
                 /////////////////////////////////// Secondary skills
-
-
-
-
-
                 //PWD Work Experience Fragment. Include Database Reference in the new Fragment to make this work.
                 displayEducationalAttainment.setText(educationalAttainment);
 
