@@ -15,6 +15,7 @@ public class EmployeeInformation {
     public String companycity;
 
     public String companyTelNum;
+    public String branch;
 
     public EmployeeInformation(){
 
@@ -86,8 +87,16 @@ public class EmployeeInformation {
         this.companyTelNum = companyTelNum;
     }
 
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
     public EmployeeInformation(String email, String typeStatus, String firstname, String lastname, String fullname, String companybg,
-                               String contact, String empValidID, String companyaddress, String companycity, String companyTelNum) {
+                               String contact, String empValidID, String companyaddress, String companycity, String companyTelNum, String branch) {
 
         this.email=email;
         this.firstname = firstname;
@@ -100,6 +109,7 @@ public class EmployeeInformation {
         this.companyaddress = companyaddress;
         this.companycity = companycity;
         this.companyTelNum = companyTelNum;
+        this.branch = branch;
     }
 
 }
