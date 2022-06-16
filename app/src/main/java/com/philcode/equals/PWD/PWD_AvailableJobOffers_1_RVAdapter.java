@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,8 +41,16 @@ public class PWD_AvailableJobOffers_1_RVAdapter extends RecyclerView.Adapter<PWD
     }
 
     public class PWD_AvailableJobsOffer_1_ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView displayPostPic;
+        private TextView displayPostTitle, displayCompanyName, displayPostDate;
+        private Button btnViewPost;
         public PWD_AvailableJobsOffer_1_ViewHolder(@NonNull View itemView) {
             super(itemView);
+            displayPostPic = itemView.findViewById(R.id.displayPostPic);
+            displayPostTitle = itemView.findViewById(R.id.displayPostTitle);
+            displayCompanyName = itemView.findViewById(R.id.displayCompanyName);
+            displayPostDate = itemView.findViewById(R.id.displayPostDate);
+            btnViewPost =itemView.findViewById(R.id.btnViewPost);
 
             //initialize variables here...
         }
