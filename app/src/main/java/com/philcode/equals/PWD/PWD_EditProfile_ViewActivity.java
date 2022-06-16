@@ -167,8 +167,6 @@ public class PWD_EditProfile_ViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         fab1_personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
