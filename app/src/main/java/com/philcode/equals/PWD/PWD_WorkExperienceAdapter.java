@@ -124,24 +124,5 @@ public class PWD_WorkExperienceAdapter extends RecyclerView.Adapter<com.philcode
 
     }
 
-    /*private Completable deleteItem(String uID){
-        return Completable.create(emitter -> {
-           rootRef.child(uID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-               @Override
-               public void onComplete(@NonNull Task<Void> task) {
-                   if (task.isSuccessful()) {
-                       emitter.onComplete();
-                   } else {
-                       if (task.getException() != null) {
-                           emitter.onError(task.getException());
-                       } else {
-                           emitter.onError(new Throwable("No error found."));
-                       }
-                   }
-               }
-           });
-        });
-    }*/
-
 
 }
