@@ -66,4 +66,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+    public void getUserInfo(){}
+    public void getJobPostInfo(){}
+    public void matchJobOffer(){}
 }

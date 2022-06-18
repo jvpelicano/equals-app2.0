@@ -144,7 +144,7 @@ public class PWD_AvailableJobsList_Activity extends AppCompatActivity {
 
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_home_pwd) {
-                            Intent i = new Intent(PWD_AvailableJobsList_Activity.this, PWD_AvailableJobsList_Activity.class);
+                            Intent i = new Intent(PWD_AvailableJobsList_Activity.this, a_PWDContentMainActivity.class);
                             startActivity(i);
                         } else if (id == R.id.nav_profile_pwd) {
                             Intent i2 = new Intent(PWD_AvailableJobsList_Activity.this, PWD_EditProfile_ViewActivity.class);
