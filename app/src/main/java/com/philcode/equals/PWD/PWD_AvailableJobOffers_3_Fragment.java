@@ -2,12 +2,18 @@ package com.philcode.equals.PWD;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.philcode.equals.R;
 
 /**
@@ -16,7 +22,10 @@ import com.philcode.equals.R;
  * create an instance of this fragment.
  */
 public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
-    View view;
+    private View view;
+    private DatabaseReference pwd_root, job_root;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +73,24 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-    public void getUserInfo(){}
-    public void getJobPostInfo(){}
-    public void matchJobOffer(){}
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        job_root = FirebaseDatabase.getInstance().getReference().child("Job_Offers");
+        pwd_root = FirebaseDatabase.getInstance().getReference().child("PWD");
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        final String uID = firebaseAuth.getCurrentUser().getUid();
+        pwd_root.child(uID);
+    }
+    public void getUserInfo(){
+
+    }
+    public void getJobPostInfo(){
+
+    }
+    public void matchJobOffer(){
+
+    }
 }

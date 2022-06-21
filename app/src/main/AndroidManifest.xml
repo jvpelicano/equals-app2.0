@@ -21,10 +21,6 @@
             android:name=".PWD.PWD_AvailableJobsList_Activity"
             />
         <activity
-            android:name=".PWD_ViewJobOffersList"
-            android:exported="false"
-            />
-        <activity
             android:name=".EMP.EMP_EditLoginCredentials_Activity"
             android:exported="false" />
         <activity android:name=".PWD.PWD_EditProfile_ViewActivity" />
