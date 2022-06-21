@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.philcode.equals.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -31,7 +32,10 @@ public class PWD_AvailableJobOffers_2_RVAdapter extends RecyclerView.Adapter<PWD
 
     @Override
     public void onBindViewHolder(@NonNull PWD_AvailableJobOffers_2_RVAdapter.PWD_AvailableJobOffers_2_ViewHolder holder, int position) {
-
+        Picasso.get().load(jobOffers_2_model.get(position).getImageURL()).into(holder.displayPostPic);
+        holder.displayPostTitle.setText(jobOffers_2_model.get(position).getJobTitle());
+        holder.displayCompanyName.setText(jobOffers_2_model.get(position).getCompanyName());
+        holder.displayPostDate.setText(jobOffers_2_model.get(position).getPostDate());
     }
 
     @Override

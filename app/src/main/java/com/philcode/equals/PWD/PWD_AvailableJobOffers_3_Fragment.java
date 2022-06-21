@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,16 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.philcode.equals.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +35,11 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
     private DatabaseReference pwd_root, job_root;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+
+    //recycler
+    private List<PWD_AvailableJobOffers_3_Model> jobs_list;
+    private PWD_AvailableJobOffers_3_RVAdapter jobs3_adapter;
+    private RecyclerView jobs3_recycler;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,6 +84,11 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pwd_availablejoboffers_3, container, false);
+
+        jobs3_recycler = view.findViewById(R.id.recycler_joboffers_3);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        jobs3_recycler.setLayoutManager(manager);
+        jobs3_recycler.setHasFixedSize(true);
         // Inflate the layout for this fragment
         return view;
     }
@@ -83,6 +102,8 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
 
         final String uID = firebaseAuth.getCurrentUser().getUid();
         pwd_root.child(uID);
+
+        matchJobOffer();
     }
     public void getUserInfo(){
 
@@ -91,6 +112,25 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
 
     }
     public void matchJobOffer(){
+        job_root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                jobs_list = new ArrayList<>();
+                jobs_list.clear();
+                for(DataSnapshot job_snapshot : snapshot.getChildren()){
+                    PWD_AvailableJobOffers_3_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_3_Model.class);
+                    jobs_list.add(model);
+                }
+                Collections.reverse(jobs_list);
+                jobs3_adapter = new PWD_AvailableJobOffers_3_RVAdapter(getContext(), jobs_list);
+                jobs3_recycler.setAdapter(jobs3_adapter);
+                jobs3_adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

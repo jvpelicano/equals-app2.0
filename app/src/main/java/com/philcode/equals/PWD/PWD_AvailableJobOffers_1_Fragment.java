@@ -35,6 +35,8 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
     private DatabaseReference pwd_root, job_root;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+
+    //recycler
     private List<PWD_AvailableJobOffers_1_Model> jobs_list;
     private PWD_AvailableJobOffers_1_RVAdapter jobs1_adapter;
     private RecyclerView jobs1_recycler;
@@ -105,8 +107,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
         matchJobOffer();
     }
 
-    public void getUserInfo(){}
-    public void getJobPostInfo(){}
     public void matchJobOffer(){
         job_root.addValueEventListener(new ValueEventListener() {
             @Override

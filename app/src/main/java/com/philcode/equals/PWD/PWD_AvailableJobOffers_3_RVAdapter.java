@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.philcode.equals.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,7 +34,10 @@ public class PWD_AvailableJobOffers_3_RVAdapter extends RecyclerView.Adapter<PWD
 
     @Override
     public void onBindViewHolder(@NonNull PWD_AvailableJobOffers_3_ViewHolder holder, int position) {
-
+        Picasso.get().load(jobOffers_3_model.get(position).getImageURL()).into(holder.displayPostPic);
+        holder.displayPostTitle.setText(jobOffers_3_model.get(position).getJobTitle());
+        holder.displayCompanyName.setText(jobOffers_3_model.get(position).getCompanyName());
+        holder.displayPostDate.setText(jobOffers_3_model.get(position).getPostDate());
     }
 
     @Override
@@ -41,10 +45,10 @@ public class PWD_AvailableJobOffers_3_RVAdapter extends RecyclerView.Adapter<PWD
         return jobOffers_3_model.size();
     }
 
-    private ImageView displayPostPic;
-    private TextView displayPostTitle, displayCompanyName, displayPostDate;
-    private Button btnViewPost;
     public class PWD_AvailableJobOffers_3_ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView displayPostPic;
+        private TextView displayPostTitle, displayCompanyName, displayPostDate;
+        private Button btnViewPost;
         public PWD_AvailableJobOffers_3_ViewHolder(@NonNull View itemView) {
             super(itemView);
             displayPostPic = itemView.findViewById(R.id.displayPostPic);
