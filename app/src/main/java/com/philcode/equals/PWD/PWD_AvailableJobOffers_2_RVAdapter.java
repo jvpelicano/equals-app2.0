@@ -1,6 +1,7 @@
 package com.philcode.equals.PWD;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +33,19 @@ public class PWD_AvailableJobOffers_2_RVAdapter extends RecyclerView.Adapter<PWD
 
     @Override
     public void onBindViewHolder(@NonNull PWD_AvailableJobOffers_2_RVAdapter.PWD_AvailableJobOffers_2_ViewHolder holder, int position) {
-        Picasso.get().load(jobOffers_2_model.get(position).getImageURL()).into(holder.displayPostPic);
-        holder.displayPostTitle.setText(jobOffers_2_model.get(position).getJobTitle());
-        holder.displayCompanyName.setText(jobOffers_2_model.get(position).getCompanyName());
-        holder.displayPostDate.setText(jobOffers_2_model.get(position).getPostDate());
+        int pos = position;
+        Picasso.get().load(jobOffers_2_model.get(pos).getImageURL()).into(holder.displayPostPic);
+        holder.displayPostTitle.setText(jobOffers_2_model.get(pos).getJobTitle());
+        holder.displayCompanyName.setText(jobOffers_2_model.get(pos).getCompanyName());
+        holder.displayPostDate.setText(jobOffers_2_model.get(pos).getPostDate());
+        holder.btnViewPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent view_JobPost = new Intent(context, PWD_AvailableJobs_View.class);
+                view_JobPost.putExtra("POST_ID", jobOffers_2_model.get(pos).getPostJobId());
+                context.startActivity(view_JobPost);
+            }
+        });
     }
 
     @Override
