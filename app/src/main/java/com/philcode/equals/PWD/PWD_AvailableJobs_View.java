@@ -46,7 +46,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
             m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp;
     Button m_sendResume;
     ImageView m_displayPostPic, m_displayCompanyLogo;
-    private String companyLogoURL, postJobID;
+    private String companyLogoURL, postJobID, postMatchStatus;
     private ProgressDialog progressDialog;
     private static final int PICK_FILE = 1 ;
 
@@ -78,6 +78,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayWorkSetUp = findViewById(R.id.displayWorkSetUp);
 
         postJobID = getIntent().getStringExtra("POST_ID");
+        postMatchStatus = getIntent().getStringExtra("POST_MATCH_STATUS");
         fDb = FirebaseDatabase.getInstance();
 
         jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
@@ -266,6 +267,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         pwdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Intent intent = new Intent();
+                String post_match_status = intent.getStringExtra("POST_MATCH_STATUS");
                 String fname = snapshot.child("firstName").getValue().toString();
                 String lname = snapshot.child("lastName").getValue().toString();
                 String email = snapshot.child("email").getValue().toString();

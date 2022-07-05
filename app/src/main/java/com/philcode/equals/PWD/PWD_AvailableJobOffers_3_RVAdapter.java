@@ -45,6 +45,7 @@ public class PWD_AvailableJobOffers_3_RVAdapter extends RecyclerView.Adapter<PWD
             public void onClick(View v) {
                 Intent view_JobPost = new Intent(context, PWD_AvailableJobs_View.class);
                 view_JobPost.putExtra("POST_ID", jobOffers_3_model.get(pos).getPostJobId());
+                view_JobPost.putExtra("POST_MATCH_STATUS", "UNMATCHED");
                 context.startActivity(view_JobPost);
             }
         });
