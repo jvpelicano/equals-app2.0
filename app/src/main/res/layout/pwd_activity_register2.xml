@@ -253,7 +253,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:weightSum="2"
+                    android:weightSum="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -269,7 +269,6 @@
                             android:id="@+id/typeOfSkills1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:buttonTint="@color/colorPrimary"
                             android:fontFamily="@font/proxima_nova_regular"
                             android:text="Attention to Detail" />
@@ -306,88 +305,9 @@
                             android:fontFamily="@font/proxima_nova_regular"
                             android:text="Positive Attitude/Outlook" />
 
-                        <CheckBox
-                            android:id="@+id/typeOfSkills6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Teamwork Skills" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Learning/Adaptability Skills" />
-
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Organizational Skills" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="PowerPoint and Excel" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Knowledgeable in Zoom/Google Meet/Etc." />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Computer Skills" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Customer Service" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Strong Work Ethic" />
-
-                        <CheckBox
-                            android:id="@+id/typeOfSkills14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:fontFamily="@font/proxima_nova_regular"
-                            android:text="Transferable Skills" />
                     </LinearLayout>
-                </LinearLayout>
 
 
                 <TextView

@@ -662,9 +662,7 @@ public class Emp_PostJob extends AppCompatActivity {
         //These methods are for checking if checkBox is checked.
         private void selectedSecondarySkills(){
             checkboxIDs_type_of_disabilities = new Integer[]{R.id.typeOfSkills1, R.id.typeOfSkills2,
-                    R.id.typeOfSkills3, R.id.typeOfSkills4, R.id.typeOfSkills5, R.id.typeOfSkills6, R.id.typeOfSkills7
-                    ,R.id.typeOfSkills8, R.id.typeOfSkills9, R.id.typeOfSkills10, R.id.typeOfSkills11, R.id.typeOfSkills12,
-                    R.id.typeOfSkills13, R.id.typeOfSkills14};
+                    R.id.typeOfSkills3, R.id.typeOfSkills4, R.id.typeOfSkills5};
 
             checkBoxes_secondary_skills = new CheckBox[checkboxIDs_type_of_disabilities.length];
 

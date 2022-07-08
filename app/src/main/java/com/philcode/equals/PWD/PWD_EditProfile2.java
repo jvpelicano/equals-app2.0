@@ -105,22 +105,13 @@ public class PWD_EditProfile2 extends AppCompatActivity{
     String job_3 = "";
     String job_4 = "";
     String job_5 = "";
-    String job_6 = "";
-    String job_7 = "";
-    String job_8 = "";
-    String job_9 = "";
-    String job_10 = "";
-    String job_11 = "";
-    String job_12 = "";
-    String job_13 = "";
-    String job_14 = "";
 
     private String educAttainment = "";
     private String workExperience = "";
 
 
     private CheckBox checkOrtho, checkHear, checkVis, checkMore, checkSpeech;
-    private CheckBox job1, job2, job3, job4, job5, job6, job7, job8, job9, job10, job11, job12, job13, job14;
+    private CheckBox job1, job2, job3, job4, job5;
     private RadioButton radio_1, radio_2, radio_3, radio_4, radio_5, radio_6, radioButton_workSetUp;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
@@ -218,15 +209,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         job3 = findViewById(R.id.typeOfSkills3);
         job4 = findViewById(R.id.typeOfSkills4);
         job5 = findViewById(R.id.typeOfSkills5);
-        job6 = findViewById(R.id.typeOfSkills6);
-        job7 = findViewById(R.id.typeOfSkills7);
-        job8 = findViewById(R.id.typeOfSkills8);
-        job9 = findViewById(R.id.typeOfSkills9);
-        job10 = findViewById(R.id.typeOfSkills10);
-        job11 = findViewById(R.id.typeOfSkills11);
-        job12 = findViewById(R.id.typeOfSkills12);
-        job13 = findViewById(R.id.typeOfSkills13);
-        job14 = findViewById(R.id.typeOfSkills14);
 
         setExposedDropdownListTypeofEmployment();
         setExposedDropdownListJobTitle();
@@ -399,51 +381,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         } else {
             job_5 = "";
         }
-        if (job6.isChecked()) {
-            job_6 = job6.getText().toString();
-        } else {
-            job_6 = "";
-        }
-        if (job7.isChecked()) {
-            job_7 = job7.getText().toString();
-        } else {
-            job_7 = "";
-        }
-        if (job8.isChecked()) {
-            job_8 = job8.getText().toString();
-        } else {
-            job_8 = "";
-        }
-        if (job9.isChecked()) {
-            job_9 = job9.getText().toString();
-        } else {
-            job_9 = "";
-        }
-        if (job10.isChecked()) {
-            job_10 = job10.getText().toString();
-        } else {
-            job_10 = "";
-        }
-        if(job11.isChecked()){
-            job_11 = job11.getText().toString();
-        }else{
-            job_11 = "";
-        }
-        if(job12.isChecked()){
-            job_12 = job12.getText().toString();
-        }else{
-            job_11 = "";
-        }
-        if(job13.isChecked()){
-            job_13 = job13.getText().toString();
-        }else{
-            job_13 = "";
-        }
-        if(job14.isChecked()){
-            job_14 = job14.getText().toString();
-        }else{
-            job_14 = "";
-        }
+
     }
     private void uploadImage() {
         final Intent intent = new Intent(this, PWD_RegisterActivity3.class);
@@ -454,15 +392,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         final String job3 = job_3;
         final String job4 = job_4;
         final String job5 = job_5;
-        final String job6 = job_6;
-        final String job7 = job_7;
-        final String job8 = job_8;
-        final String job9 = job_9;
-        final String job10 = job_10;
-        final String job11 = job_11;
-        final String job12 = job_12;
-        final String job13 = job_13;
-        final String job14 = job_14;
 
         //final String categorySkill = primary_skillsCategory.getSelectedItem().toString();
         final String checkOrtho = check_Ortho;
@@ -497,15 +426,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         jobskills.add(job3);
         jobskills.add(job4);
         jobskills.add(job5);
-        jobskills.add(job6);
-        jobskills.add(job7);
-        jobskills.add(job8);
-        jobskills.add(job9);
-        jobskills.add(job10);
-        jobskills.add(job11);
-        jobskills.add(job12);
-        jobskills.add(job13);
-        jobskills.add(job14);
+
 
         if(!ortho.isChecked() && !visual.isChecked() && !hear.isChecked() && !more.isChecked()){
             textview7.setError("Please check your disability");
@@ -577,10 +498,6 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         mDatabase.child(uid).child("jobSkills3").removeValue();
         mDatabase.child(uid).child("jobSkills4").removeValue();
         mDatabase.child(uid).child("jobSkills5").removeValue();
-        mDatabase.child(uid).child("jobSkills6").removeValue();
-        mDatabase.child(uid).child("jobSkills7").removeValue();
-        mDatabase.child(uid).child("jobSkills8").removeValue();
-        mDatabase.child(uid).child("jobSkills9").removeValue();
 
         mDatabase.child(uid).child("typeOfDisability0").removeValue();
         mDatabase.child(uid).child("typeOfDisability1").removeValue();
