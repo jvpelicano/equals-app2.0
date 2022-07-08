@@ -317,6 +317,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.VISIBLE);
                         textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
                     }
                 }
             });
@@ -326,6 +327,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.VISIBLE);
                         textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
                     }
                 }
             });
@@ -335,6 +337,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     if(isChecked){
                         txt_degree.setVisibility(View.VISIBLE);
                         textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
                     }
                 }
             });
