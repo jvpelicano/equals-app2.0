@@ -436,7 +436,7 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         }else {
 
             ArrayList<String> checkedJobSkills = new ArrayList<String>();
-            for (int i = 1; i < jobskills.size(); i++) {
+            for (int i = 0; i < jobskills.size(); i++) {
                 if ((jobskills.get(i) != "")) {
                     checkedJobSkills.add(jobskills.get(i).toString());
                 }
@@ -497,12 +497,12 @@ public class PWD_EditProfile2 extends AppCompatActivity{
         mDatabase.child(uid).child("jobSkills2").removeValue();
         mDatabase.child(uid).child("jobSkills3").removeValue();
         mDatabase.child(uid).child("jobSkills4").removeValue();
-        mDatabase.child(uid).child("jobSkills5").removeValue();
 
         mDatabase.child(uid).child("typeOfDisability0").removeValue();
         mDatabase.child(uid).child("typeOfDisability1").removeValue();
         mDatabase.child(uid).child("typeOfDisability2").removeValue();
         mDatabase.child(uid).child("typeOfDisability3").removeValue();
+        mDatabase.child(uid).child("typeOfDisability4").removeValue();
 
         mDatabase.child(uid).child("skill").removeValue();
         mDatabase.child(uid).child("workExperience").removeValue();

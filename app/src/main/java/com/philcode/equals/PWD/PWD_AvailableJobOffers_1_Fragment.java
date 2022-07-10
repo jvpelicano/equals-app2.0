@@ -50,6 +50,10 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
     private PWD_AvailableJobOffers_1_RVAdapter jobs1_adapter;
     private RecyclerView jobs1_recycler;
 
+    //secondary skills
+    private ArrayList<String> pwd_secondary_skills;
+    private ArrayList<String> job_secondary_skills;
+
     private String uid;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -114,6 +118,8 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
         uid = firebaseAuth.getCurrentUser().getUid();
         pwdInfo = pwd_root.child(uid);
 
+        pwd_secondary_skills = new ArrayList<>();
+        job_secondary_skills = new ArrayList<>();
 
         pwdQualification();
     }
@@ -128,9 +134,15 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                 final String workExperience = snapshot.child("workExperience").getValue().toString();
                 final String typeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
 
+                for(DataSnapshot pwd_snapshot : snapshot.getChildren()){
+                    for(int countSecondarySkills = 0; countSecondarySkills <= 5; countSecondarySkills++){
+                        if(pwd_snapshot.hasChild("jobSkills" + countSecondarySkills)){
+                            pwd_secondary_skills.add(pwd_snapshot.child("jobSkills" + countSecondarySkills).getValue().toString());
+                        }
+                    }
+                }
 
-//                Toast.makeText(getContext(), "pwdTItle :" + jobTitle, Toast.LENGTH_LONG).show();
-                matchJobOffer(jobTitle, pwdCategory, edAttainment);
+                matchJobOffer(jobTitle, pwdCategory, edAttainment, pwd_secondary_skills);
             }
 
 
@@ -144,7 +156,8 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
 
     //String jobTitle, String category, String edAttainment, String permission, String disability, String workExp, String [] skill
 
-    public void matchJobOffer(String pwd_jobTitle, String category, String pwd_edAttainment){
+    public void matchJobOffer(String pwd_jobTitle, String category, String pwd_edAttainment,
+                              ArrayList<String> m_pwd_secondary_skills){
         job_root.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -172,18 +185,36 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                     Date expDate = convertDate(job_expDate);
                     Date currDate = convertDate(curr_Date);
 
+                    for(int countSecondarySkills = 0; countSecondarySkills <= 5; countSecondarySkills++){
+                        if(job_snapshot.hasChild("jobSkill" + countSecondarySkills)){
+                            job_secondary_skills.add(job_snapshot.child("jobSkill" + countSecondarySkills).getValue().toString());
+                        }
+                    }
+
+                    //get matching secondary skills from both sides
+                    int job_secondary_skills_length = job_secondary_skills.size();
+                    ArrayList<String> matched_secondary_skills = new ArrayList<>();
+
+                    for(int count = 0; count <= 5; count++){
+                        do{
+                            if(job_secondary_skills.contains(m_pwd_secondary_skills.get(count))){
+                                matched_secondary_skills.add(job_secondary_skills.get(count));
+                            }
+                        }while (count < job_secondary_skills_length);
+                    }
+
                     //for Not Expired Job Post and Approved Job Post
                     if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
                         //for matched jobTitle
                         if (job_title.equals(pwd_jobTitle)){
                             //for matched Category
                             if (job_skillCategory.equals(category)){
-
                                 if (job_educationalAttainmentRequirement.equalsIgnoreCase("true") &&
                                         job_educationalAttainment.equals(pwd_edAttainment)){
-
-                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                    jobs_list.add(model);
+                                    if(matched_secondary_skills.size() == job_secondary_skills_length){
+                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                        jobs_list.add(model);
+                                    }
                                 }
                             }
                         }
@@ -204,7 +235,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
             }
         });
     }
-
 
     public Date convertDate(String expDate) {
         DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);

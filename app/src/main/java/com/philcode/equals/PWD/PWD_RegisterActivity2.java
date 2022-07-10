@@ -234,6 +234,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 if(isChecked){
                     txt_degree.setVisibility(View.VISIBLE);
                     textInputLayout_degree.setVisibility(View.VISIBLE);
+                    setExposedDropdownListSkillCategory();
                 }
             }
         });
@@ -243,6 +244,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 if(isChecked){
                     txt_degree.setVisibility(View.VISIBLE);
                     textInputLayout_degree.setVisibility(View.VISIBLE);
+                    setExposedDropdownListSkillCategory();
                 }
             }
         });
@@ -252,6 +254,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 if(isChecked){
                     txt_degree.setVisibility(View.VISIBLE);
                     textInputLayout_degree.setVisibility(View.VISIBLE);
+                    setExposedDropdownListSkillCategory();
                 }
             }
         });
@@ -412,7 +415,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         }else {
 
                 ArrayList<String> checkedJobSkills = new ArrayList<String>();
-                for (int i = 1; i < jobskills.size(); i++) {
+                for (int i = 0; i < jobskills.size(); i++) {
                     if ((jobskills.get(i) != "")) {
                         checkedJobSkills.add(jobskills.get(i).toString());
                     }
