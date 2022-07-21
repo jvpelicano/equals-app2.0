@@ -128,6 +128,8 @@ public class EMP_ViewResume extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(EMP_ViewResume.this, EMP_ViewResumePDF_Activity.class);
                                 intent.putExtra("PDF_Uri", list.get(position).getResumeFile());
+                                intent.putExtra("applicant_ID", list.get(position).getUserID());
+                                intent.putExtra("POST_ID", postJobID);
                                 startActivity(intent);
                                 String resumeKey = list.get(position).getUserID();
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume").child(resumeKey);

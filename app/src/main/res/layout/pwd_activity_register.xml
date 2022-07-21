@@ -179,7 +179,7 @@
                     android:drawableStart="@drawable/ic_baseline_local_phone_24"
                     android:fontFamily="@font/proxima_nova_regular"
                     android:hint=" +639..."
-                    android:inputType="textWebEditText"
+                    android:inputType="phone"
                     android:textColor="#232c33"
                     android:textCursorDrawable="@drawable/cursor"
                     android:textSize="16sp">

@@ -1,27 +1,23 @@
 package com.philcode.equals.EMP;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +41,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.protobuf.StringValue;
-import com.philcode.equals.PWD.PWD_RegisterActivity2;
 import com.philcode.equals.R;
 
 import java.io.IOException;
@@ -53,566 +48,767 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.HashMap;
 
 public class Emp_PostJob extends AppCompatActivity {
-    //Removed selection of primary skills
-    TextInputEditText postTitle, postDescription, yearsOfExperience;
-    Button empBtnPost;
-    CheckBox typeOfDisability1, typeOfDisability2, typeOfDisability3, typeOfDisabilityMore;
-    Spinner setExpDate;
-    Button empBtnChoose;
-    private RadioGroup rgWorkExperience, rgEducAttainment;
-    private RadioButton rbEduc, rbWorkExperience, rbWithExperience, rbWithoutExperience;
+    //firebase connection
+    private DatabaseReference job_offers_root, categories_root, emp_user_root;
+    private StorageReference ref, job_offers_storage_root;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseStorage firebaseStorage;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    //string
+    private String uID;
+    private String pushKey;
+    private String calculated_postExpDate;
+    private String postDate;
+    private String radioButton_educAttainment_text, radioButton_workSetUp_text;
+    //int
+    private int selected_educAttainment_ID, selected_workExpRg_ID, selected_workSetUp_ID;
+    //boolean
+    private boolean editTextsValid = true;
+    private boolean autoCompleteValid = true;
+    private boolean skillCategory_exists= true;
+    private boolean jobTitle_exists = true;
 
-    String typeOfDisability_1 = "";
-    String typeOfDisability_2 = "";
-    String typeOfDisability_3 = "";
-    String typeOfDisability_More = "";
-    private Spinner primary_skillsCategory;
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
-    String categorySkill;
-    String x;
-    String Address;
-    String city;
-    String week1="1 week";
-    String week2="2 weeks";
-    String week3="3 weeks";
-    String month1="1 month";
-    String month2="2 months";
-    String month3="3 months";
-    String month4="4 months";
-    String month5="5 months";
-    String month6="6 months";
-    String month7="7 months";
-    String month8="8 months";
-    String month9="9 months";
-    String month10="10 months";
-    String month11="11 months";
-    String year1="1 year";
-    String unli="Unlimited";
-    public String expDate1;
-    int years =0;
-    private TextView skillSelected;
-
-
-    private String educAttainment = "";
-    private String workExperience = "";
-
-    String zz;
-
-
-    Calendar cal = Calendar.getInstance();
-    Date currentDate = Calendar.getInstance().getTime();
-    SimpleDateFormat df = new SimpleDateFormat("MMMM-dd-yyyy");
-    //String formattedDate = df.format(c);
-    SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
-
-
-    String permission;
-    CheckBox jobSkill1, jobSkill2, jobSkill3, jobSkill4, jobSkill5, jobSkill6, jobSkill7,
-            jobSkill8, jobSkill9, jobSkill10, checkEducRequirement;
-
-    // Folder path for Firebase Storage.
-    String Storage_Path = "Job_Offers/";
-    // Root Database Name for Firebase Database.
-    String Database_Path = "Job_Offers";
-    // Creating ImageView.
-    private ImageView ImageView;
-    // Creating URI.
+    //calendar
+    private Calendar cal;
+    private SimpleDateFormat format;
+    //request codes
+    private int Image_Request_Code = 7;
+    //uri
     private Uri FilePathUri;
+    //layout
+        //adapters
+        private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter;
+        private ArrayAdapter<String> exposedDropdownList_jobtitles_adapter;
+        private ArrayAdapter<String> exposedDropdownList_typeOfEmployment_adapter;
+        //exposed dropdown list text input layout
+        private TextInputLayout textInputLayout_degree, textInputLayout_jobTitle, textInputLayout_typeOfEmployment;
+        //image view
+        private ImageView imageView;
+        //text input layout
+        private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_yearsOfExperience;
+        //exposed dropdown list autocomplete text view
+        private AutoCompleteTextView autoComplete_degree, autoComplete_jobTitle, autoComplete_typeOfEmployment;
+        //text views
+        private TextView txt_degree;
+        private TextView txt_jobTitleError, txt_minYearsOfExpError , txt_skillCategoryError, txt_typeOfDisabilityOtherError;
+        //edit texts
+        private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
+                ,textInputEditText_yearsOfExperience;
+        //check box
+        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement;
+        //buttons
+        private Button btn_saveJobPost, btn_chooseHeaderImage;
+        //radio button
+        private RadioButton radioButton_withWorkExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
+        //radio group
+        private RadioGroup radioGroup_educ, radioGroup_workSetUp;
+        //progress dialog
+        private ProgressDialog progressDialog;
+    //arrays
+        //exposed dropdown list arrays
+        private ArrayList <String> arrayList_degree;
+        private ArrayList <String> arrayList_jobTitles;
+        private ArrayList <String> arrayList_typeOfEmployment;
+        //check boxes list
+        private CheckBox[] checkBoxes_type_of_disabilities;
+        private CheckBox[] checkBoxes_secondary_skills;
+        //ID array list
+        private Integer[] checkboxIDs_type_of_disabilities; //initialized on methods
+        private Integer[] checkboxIDs_secondary_skills;
+        //String array
+        private ArrayList <String> checkBox_secondary_skills_checkIfEmpty;
+        private ArrayList <String> checkBox_type_of_disabilities_checkIfEmpty;
+    //hashMaps
+        private HashMap<String, String> hashMap_disability, hashMap_secondary_skills, hashMap_generalData;
 
-    // Image request code for onActivityResult() .
-    int Image_Request_Code = 7;
 
-    // Creating StorageReference and DatabaseReference object.
-    StorageReference storageReference;
-    DatabaseReference databaseReference;
-
-    private final int PICK_IMAGE_REQUEST = 7;
-
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        rgWorkExperience = findViewById(R.id.workexperience);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emp_postjob);
-        FirebaseUser cbf = FirebaseAuth.getInstance().getCurrentUser();
-        final String cu = cbf.getUid();
-        // Assign FirebaseStorage instance to storageReference.
-        storageReference = FirebaseStorage.getInstance().getReference();
+        //initialize firebase connection
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+            //references
+            categories_root = firebaseDatabase.getReference("Category"); //reference for spinners
+            job_offers_root = firebaseDatabase.getReference("Job_Offers/"); //where data will be stored
+            emp_user_root = firebaseDatabase.getReference("Employers"); // get some data
+            job_offers_storage_root = firebaseStorage.getReference(); //where image will be stored
+            //user ID
+            uID = firebaseUser.getUid();
 
-        final DatabaseReference locRef = FirebaseDatabase.getInstance().getReference().child("Employers").child(cu);
-        locRef.addValueEventListener(new ValueEventListener() {
+        //initialize
+            //date
+            Date currentDate = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
+            postDate = df.format(currentDate);
+            cal = Calendar.getInstance();
+            format  = new SimpleDateFormat("MMMM dd, yyyy");
+            //arrays
+                //exposed dropdown list arrays
+                arrayList_degree = new ArrayList<>();
+                arrayList_jobTitles = new ArrayList<>();
+                arrayList_typeOfEmployment = new ArrayList<>();
+                //hashMaps
+                hashMap_disability = new HashMap<>();
+                hashMap_secondary_skills = new HashMap<>();
+                hashMap_generalData = new HashMap<>();
+                //string arrays
+                checkBox_secondary_skills_checkIfEmpty = new ArrayList<>();
+                checkBox_type_of_disabilities_checkIfEmpty = new ArrayList<>();
+
+            //layout
+                //adapters
+                exposedDropdownList_skillCategory_adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_degree);
+                exposedDropdownList_jobtitles_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayList_jobTitles);
+                exposedDropdownList_typeOfEmployment_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arrayList_typeOfEmployment);
+                //autocomplete text view
+                autoComplete_degree = findViewById(R.id.autoComplete_degree);
+                autoComplete_jobTitle = findViewById(R.id.autoComplete_jobTitle);
+                autoComplete_typeOfEmployment = findViewById(R.id.autoComplete_typeOfEmployment);
+                //button
+                btn_saveJobPost = findViewById(R.id.btn_saveJobPost);
+                btn_chooseHeaderImage = findViewById(R.id.btn_chooseHeaderImage);
+                //check box
+                checkBox_typeOfDisability_Other = findViewById(R.id.typeOfDisabilityOther);
+                checkBox_educAttainmentRequirement = findViewById(R.id.checkBox_educAttainmentRequirement);
+                checkbox_typeOfEmploymentRequirement = findViewById(R.id.checkbox_typeOfEmploymentRequirement);
+                checkbox_workSetUpRequirement = findViewById(R.id.checkbox_workSetUpRequirement);
+                //edit texts
+                textInputEditText_postDescription = findViewById(R.id.textInputEditText_postDescription);
+                textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
+                //textInputEditText_maxNumberOfApplicants = findViewById(R.id.textInputEditText_maxNumberOfApplicants);
+                textInputEditText_yearsOfExperience = findViewById(R.id.textInputEditText_yearsOfExperience);
+                //image view
+                imageView = findViewById(R.id.displayPostPic);
+                //progress dialog
+                progressDialog = new ProgressDialog(Emp_PostJob.this);
+                //radio group
+                radioGroup_educ = findViewById(R.id.radioGroup_educ);
+                radioGroup_workSetUp = findViewById(R.id.radioGroup_workSetUp);
+                //int
+                selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
+                selected_workSetUp_ID = radioGroup_workSetUp.getCheckedRadioButtonId();
+                //radio button
+                radioButton_withWorkExp = findViewById(R.id.radio_11);
+                radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
+                radio_1 = findViewById(R.id.radio_1);
+                radio_2 = findViewById(R.id.radio_2);
+                radio_3 = findViewById(R.id.radio_3);
+                radio_4 = findViewById(R.id.radio_4);
+                radio_5 = findViewById(R.id.radio_5);
+                radio_6 = findViewById(R.id.radio_6);
+                radioButton_educAttainment = findViewById(selected_educAttainment_ID);
+                //text input layouts
+                textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle); //autocomplete
+                textInputLayout_degree = findViewById(R.id.textInputLayout_degree);//autocomplete
+                textInputLayout_typeOfEmployment = findViewById(R.id.textInputLayout_typeOfEmployment);//autocomplete
+                textInputLayout_otherDisabilitySpecific  = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
+                textInputLayout_yearsOfExperience = findViewById(R.id.textInputLayout_yearsOfExperience);
+                //text views
+                txt_degree = findViewById(R.id.txt_degree);
+                txt_jobTitleError = findViewById(R.id.txt_jobTitleError);
+                txt_minYearsOfExpError = findViewById(R.id.txt_minYearsOfExp);
+                txt_skillCategoryError = findViewById(R.id.txt_skillCategoryError);
+                txt_typeOfDisabilityOtherError = findViewById(R.id.txt_typeOfDisabilityOtherError);
+
+        //set exposed dropdown list
+        setExposedDropdownListTypeofEmployment();
+        setExposedDropdownListJobTitle();
+
+        //set adapters
+            //skill category
+            autoComplete_degree.setAdapter(exposedDropdownList_skillCategory_adapter);
+            //job titles
+            autoComplete_jobTitle.setAdapter(exposedDropdownList_jobtitles_adapter);
+            autoComplete_jobTitle.setThreshold(1);
+            //type of employment
+            autoComplete_typeOfEmployment.setAdapter(exposedDropdownList_typeOfEmployment_adapter);
+        //listeners
+        autoComplete_jobTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() { //checks if the value entered on Job Title is in the system.
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Address = dataSnapshot.child("companyaddress").getValue(String.class);
-                city = dataSnapshot.child("companycity").getValue(String.class);
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    jobTitle_exists = checkExposedDropdownListValue(arrayList_jobTitles, autoComplete_jobTitle.getText().toString());
+                    if(!jobTitle_exists){
+                        txt_jobTitleError.setVisibility(View.VISIBLE);
+                    }else{
+                        txt_jobTitleError.setVisibility(View.GONE);
+                    }
+                }
             }
-
+        });
+        autoComplete_jobTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                arrayList_degree.clear();
+                setExposedDropdownListSkillCategory();
             }
         });
 
-        // Assign FirebaseDatabase instance with root database name.
-        databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
-        skillSelected = findViewById(R.id.selectedSkills);
-        empBtnChoose = findViewById(R.id.empBtnChoose);
-        empBtnPost = findViewById(R.id.empBtnPost);
-        ImageView = findViewById(R.id.displayPostPic);
-        rgEducAttainment = findViewById(R.id.rg_educ);
-        rgWorkExperience = findViewById(R.id.workexperience);
-        checkEducRequirement=(CheckBox) findViewById(R.id.educAttainmentRequirement);
-        //checkEducRequirement.setVisibility(View.GONE);
-        progressDialog = new ProgressDialog(Emp_PostJob.this);
-        empBtnChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Creating intent.
-                Intent intent = new Intent();
-
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
-            }
-        });
-        final int selectExperience = rgWorkExperience.getCheckedRadioButtonId();
-
-        yearsOfExperience = findViewById(R.id.yearsofExperience);
-        rbWithExperience = findViewById(R.id.radio_11);
-        rbWithoutExperience = findViewById(R.id.radio_10);
-        rgWorkExperience = findViewById(R.id.workexperience);
-        rbWorkExperience = findViewById(selectExperience);
-        workExperience = rbWorkExperience.getText().toString();
-        rgWorkExperience.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (rbWithExperience.isChecked()) {
-                    yearsOfExperience.setVisibility(View.VISIBLE);
-
-                }
-                if (rbWithoutExperience.isChecked()) {
-                    yearsOfExperience.setVisibility(View.GONE);
-                }
-            }
-        });
-        primary_skillsCategory = findViewById(R.id.skillSpinner);
-        //DELETED WHOLE BLOCK -----------------------------------------------------------------------
-
-
-        postTitle = findViewById(R.id.postTitle);
-        postDescription = findViewById(R.id.postDescription);
-        // postLocation = findViewById(R.id.postLocation);
-        typeOfDisability1 = (CheckBox) findViewById(R.id.typeOfDisability1);
-        typeOfDisability2 = (CheckBox) findViewById(R.id.typeOfDisability2);
-        typeOfDisability3 = (CheckBox) findViewById(R.id.typeOfDisability3);
-        typeOfDisabilityMore = (CheckBox) findViewById(R.id.typeOfDisabilityOther);
-        jobSkill1 = findViewById(R.id.typeOfSkills1);
-        jobSkill2 = findViewById(R.id.typeOfSkills2);
-        jobSkill3 = findViewById(R.id.typeOfSkills3);
-        jobSkill4 = findViewById(R.id.typeOfSkills4);
-        jobSkill5 = findViewById(R.id.typeOfSkills5);
-        jobSkill6 = findViewById(R.id.typeOfSkills6);
-        jobSkill7 = findViewById(R.id.typeOfSkills7);
-        jobSkill8 = findViewById(R.id.typeOfSkills8);
-        jobSkill9 = findViewById(R.id.typeOfSkills9);
-        jobSkill10 = findViewById(R.id.typeOfSkills10);
-        setExpDate = findViewById(R.id.spinnerExpDate);
-
-        String[] spinnerExpDate = new String[]{"1 week","2 weeks", "3 weeks","1 month", "2 months",
-                "3 months","4 months","5 months","6 months","7 months","8 months","9 months","10 months",
-                "11 months","1 year", "Unlimited"};
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerExpDate);
-        setExpDate.setAdapter(adapter2);
-        final DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("Category/");
-        categoryRef.addValueEventListener(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                final List<String> category = new ArrayList<String>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
-                    category.add(data.get("skill").toString());
-                }
-                ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(Emp_PostJob.this, android.R.layout.simple_spinner_item, category) {
-                    @Override
-                    public View getDropDownView(int position, View convertView,
-                                                ViewGroup parent) {
-                        View view = super.getDropDownView(position, convertView, parent);
-                        TextView tv = (TextView) view;
-                        if (position == 0) {
-                            // Hide the second item from Spinner
-                            tv.setVisibility(View.GONE);
-                        } else {
-                            tv.setVisibility(View.VISIBLE);
+        autoComplete_degree.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(!hasFocus){
+                        skillCategory_exists = checkExposedDropdownListValue(arrayList_degree, autoComplete_degree.getText().toString());
+                        if(!skillCategory_exists){
+                            txt_skillCategoryError.setVisibility(View.VISIBLE);
+                        }else{
+                            txt_skillCategoryError.setVisibility(View.GONE);
                         }
-                        return view;
                     }
-                };
-                categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                primary_skillsCategory.setAdapter(categoryAdapter);
-            }
+                }
+            });
 
+            //check if educational attainment is ticked
+            checkBox_educAttainmentRequirement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        radioGroup_educ.setVisibility(View.VISIBLE);
+                    }else{
+                        radioGroup_educ.setVisibility(View.GONE);
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
+                    }
+                }
+            });
+            radio_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
+                    }
+                }
+            });
+            radio_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
+                    }
+                }
+            });
+            radio_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.GONE);
+                        textInputLayout_degree.setVisibility(View.GONE);
+                        autoComplete_degree.setText("");
+                    }
+                }
+            });
+            radio_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
+                    }
+                }
+            });
+            radio_5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
+                    }
+                }
+            });
+            radio_6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        txt_degree.setVisibility(View.VISIBLE);
+                        textInputLayout_degree.setVisibility(View.VISIBLE);
+                        setExposedDropdownListSkillCategory();
+                    }
+                }
+            });
+
+        radioButton_withWorkExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
 
-            }
-        });
-        permission = "pending";
-        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-
-        final String uid = currentFirebaseUser.getUid();
-        final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("Employers/"+uid);
-        empBtnPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rootRef.addValueEventListener(new ValueEventListener() {
-                    public void onDataChange(DataSnapshot snapshot) {
-                        String companyName = snapshot.child("fullname").getValue().toString();
-                        String companyLogo = snapshot.child("empProfilePic").getValue().toString();
-                        login();
-                        uploadImage(companyLogo, companyName, uid);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Image_Request_Code && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            FilePathUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
-                ImageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    // Creating Method to get the selected image file Extension from File Path URI.
-    public String GetFileExtension(Uri uri) {
-
-        ContentResolver contentResolver = getContentResolver();
-
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-
-        // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
-    private void login() {
-        if (typeOfDisability1.isChecked() && typeOfDisability2.isChecked() && typeOfDisability3.isChecked() && typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-            typeOfDisability_More = typeOfDisability3.getText().toString();
-        } else if (typeOfDisability1.isChecked() && typeOfDisability2.isChecked() && typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 = "";
-        } else if (typeOfDisability1.isChecked() && typeOfDisability3.isChecked() && typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = "";
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-        } else if (typeOfDisability2.isChecked() && typeOfDisability3.isChecked()&& typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_1 = "";
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_More =typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-        } else if (typeOfDisability2.isChecked() && typeOfDisability3.isChecked()&& typeOfDisability1.isChecked()) {
-            typeOfDisability_More = "";
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-        } else if (typeOfDisability1.isChecked() && typeOfDisability2.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_More = "";
-            typeOfDisability_3 = "";
-        } else if (typeOfDisability1.isChecked() && typeOfDisability3.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = "";
-            typeOfDisability_More = "";
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-        } else if (typeOfDisability1.isChecked()&& typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = "";
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 = "";
-
-
-        } else if (typeOfDisabilityMore.isChecked() && typeOfDisability2.isChecked()) {
-            typeOfDisability_1 = "";
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 = "";
-        } else if (typeOfDisabilityMore.isChecked() && typeOfDisability3.isChecked()) {
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_3 =typeOfDisability3.getText().toString();
-            typeOfDisability_1 = "";
-            typeOfDisability_2 = "";
-
-
-        } else if (typeOfDisability3.isChecked() && typeOfDisability2.isChecked()) {
-            typeOfDisability_1 = "";
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_More = "";
-            typeOfDisability_3 =typeOfDisability3.getText().toString();
-
-
-        } else if (typeOfDisability1.isChecked()) {
-            typeOfDisability_1 = typeOfDisability1.getText().toString();
-            typeOfDisability_2 = "";
-            typeOfDisability_3 = "";
-        } else if (typeOfDisability2.isChecked()) {
-            typeOfDisability_2 = typeOfDisability2.getText().toString();
-            typeOfDisability_1 = "";
-            typeOfDisability_3 = "";
-        } else if (typeOfDisabilityMore.isChecked()) {
-            typeOfDisability_More = typeOfDisabilityMore.getText().toString();
-            typeOfDisability_2 = "";
-            typeOfDisability_1 = "";
-            typeOfDisability_3 = "";
-        } else if (typeOfDisability3.isChecked()) {
-            typeOfDisability_3 = typeOfDisability3.getText().toString();
-            typeOfDisability_1 = "";
-            typeOfDisability_2 = "";
-
-        }
-    }
-
-    private void uploadImage(final String companyLogo, final String companyName, final String uid) {
-        if (checkEducRequirement.isChecked()){
-            zz="true";
-        }else{
-            zz="false";
-        }
-        final Intent intent = new Intent(this, a_EmployeeContentMainActivity.class);
-        if (FilePathUri != null) {
-
-            //final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Posting...");
-            progressDialog.show();
-
-            final StorageReference ref = storageReference.child(Storage_Path+ System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
-
-            ref.putFile(FilePathUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    String profileImageUrl=task.getResult().toString();
-                                    String tempPostTitle = postTitle.getText().toString().trim();
-                                    String tempPostDescription = postDescription.getText().toString();
-                                    String tempPostLocation = Address;
-                                    String ImageUploadId = databaseReference.push().getKey();
-                                    rgEducAttainment = findViewById(R.id.rg_educ);
-                                    final int selectedId = rgEducAttainment.getCheckedRadioButtonId();
-                                    rbEduc = findViewById(selectedId);
-                                    educAttainment = rbEduc.getText().toString();
-
-                                    rgWorkExperience = findViewById(R.id.workexperience);
-                                    final int selectExperience = rgWorkExperience.getCheckedRadioButtonId();
-                                    rbWorkExperience = findViewById(selectExperience);
-                                    workExperience = rbWorkExperience.getText().toString();
-
-                                    final Spinner dropdown1 = findViewById(R.id.spinnerExpDate);
-
-                                    String expDate = dropdown1.getSelectedItem().toString();
-
-                                    String tempPermission = permission;
-
-                                    progressDialog.dismiss();
-
-                                    Date currentDate = Calendar.getInstance().getTime();
-                                    SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy");
-                                    String postDate = df.format(currentDate);
-                                    categorySkill = primary_skillsCategory.getSelectedItem().toString();
-
-                                    //Deleted Primary skills and Job Skills from Model Emp_PostJob_Information
-                                    Emp_PostJob_Information postJobInfo = new Emp_PostJob_Information(profileImageUrl, tempPostTitle,
-                                            tempPostDescription,tempPostLocation,tempPermission, companyName, uid, postDate, city, educAttainment, workExperience, categorySkill, zz);
-
-                                    databaseReference.child(ImageUploadId).setValue(postJobInfo);
-                                    databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
-                                    databaseReference.child(ImageUploadId).child("postJobId").setValue(ImageUploadId);
-                                    databaseReference.child(ImageUploadId).child("empProfilePic").setValue(companyLogo);
-
-                                    if(workExperience.equals("With Experience")){
-                                        years = Integer.parseInt(yearsOfExperience.getText().toString());
-                                        databaseReference.child(ImageUploadId).child("yearsOfExperience").setValue(years);
-                                    }
-
-                                    if(expDate.equals(week1)) { // working
-                                        cal.add(Calendar.WEEK_OF_YEAR, 1);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(week2)) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, 2);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(week3)) {
-                                        cal.add(Calendar.WEEK_OF_YEAR, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(month1)) {
-                                        cal.add(Calendar.MONTH, 1);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(month2)) {
-                                        cal.add(Calendar.MONTH, 2);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month3)) {
-                                        cal.add(Calendar.MONTH, 3);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month4)) {
-                                        cal.add(Calendar.MONTH, 4);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month5)) {
-                                        cal.add(Calendar.MONTH, 5);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month6)) {
-                                        cal.add(Calendar.MONTH, 6);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month7)) {
-                                        cal.add(Calendar.MONTH, 7);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month8)) {
-                                        cal.add(Calendar.MONTH, 8);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month9)) {
-                                        cal.add(Calendar.MONTH, 9);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month10)) {
-                                        cal.add(Calendar.MONTH, 10);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    } else if(expDate.equals(month11)) {
-                                        cal.add(Calendar.MONTH, 11);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(year1)) {
-                                        cal.add(Calendar.MONTH, 12);
-                                        format.format(cal.getTime());
-                                        expDate1 = format.format(cal.getTime());
-
-                                    }else if(expDate.equals(unli)) {
-                                        expDate1 = "unlimited";
-                                    }
-
-                                    databaseReference.child(ImageUploadId).child("expDate").setValue(expDate1);
-
-                                    //TYPE OF DISABILITY
-                                    if(typeOfDisability1.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("typeOfDisability1").setValue(typeOfDisability1.getText().toString());
-                                    }
-                                    if(typeOfDisability2.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("typeOfDisability2").setValue(typeOfDisability2.getText().toString());
-                                    }
-                                    if(typeOfDisability3.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("typeOfDisability3").setValue(typeOfDisability3.getText().toString());
-                                    }
-                                    if(typeOfDisabilityMore.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("typeOfDisabilityMore").setValue(typeOfDisabilityMore.getText().toString());
-                                    }
-                                    //JOB SKILL
-                                    if (jobSkill1.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill1").setValue(jobSkill1.getText().toString());
-                                    }
-                                    if (jobSkill2.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill2").setValue(jobSkill2.getText().toString());
-                                    }
-                                    if (jobSkill3.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill3").setValue(jobSkill3.getText().toString());
-                                    }
-                                    if (jobSkill4.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill4").setValue(jobSkill4.getText().toString());
-                                    }
-                                    if (jobSkill5.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill5").setValue(jobSkill5.getText().toString());
-                                    }
-                                    if (jobSkill6.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill6").setValue(jobSkill6.getText().toString());
-                                    }
-                                    if (jobSkill7.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill7").setValue(jobSkill7.getText().toString());
-                                    }
-                                    if (jobSkill8.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill8").setValue(jobSkill8.getText().toString());
-                                    }
-                                    if (jobSkill9.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill9").setValue(jobSkill9.getText().toString());
-                                    }
-                                    if (jobSkill10.isChecked()){
-                                        databaseReference.child(ImageUploadId).child("jobSkill0").setValue(jobSkill10.getText().toString());
-                                    }
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(!hasFocus){
+                                if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                                    txt_minYearsOfExpError.setVisibility(View.VISIBLE);
+                                }else{
+                                    txt_minYearsOfExpError.setVisibility(View.GONE);
                                 }
-                            });
-                            startActivity(intent);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Emp_PostJob.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                            progressDialog.setCancelable(false);
+                            }
                         }
                     });
+                }else{
+                    textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                    txt_minYearsOfExpError.setVisibility(View.GONE);
+                }
+            }
+        });
+
+            //check if type of disability Others is ticked
+            checkBox_typeOfDisability_Other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        textInputLayout_otherDisabilitySpecific.setVisibility(View.VISIBLE);
+                    }else{
+                        textInputLayout_otherDisabilitySpecific.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+        btn_chooseHeaderImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    // Setting intent type as image to select image from phone storage.
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
+                }
+            });
+
+        btn_saveJobPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedSecondarySkills();
+                    selectedTypeOfDisabilities();
+                    getDataFromCurrentUser();
+
+
+                    if(FilePathUri != null){ // upload data
+
+                        if(checkBox_type_of_disabilities_checkIfEmpty.isEmpty() && !checkBox_typeOfDisability_Other.isChecked()){
+
+                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+
+                        }else{
+
+                            if(checkBox_typeOfDisability_Other.isChecked()){
+
+                                if(!textInputEditText_otherDisabilitySpecific.getText().toString().isEmpty()){
+
+                                        if(autoComplete_jobTitle.getText().toString().isEmpty()
+                                                || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
+                                                || textInputEditText_postDescription.getText().toString().isEmpty()
+                                                || autoComplete_degree.getText().toString().equals("Click to select value")
+
+                                        || checkBox_educAttainmentRequirement.isChecked() && (radioButton_educAttainment.getText().toString().equals("Bachelor Level")
+                                                || radioButton_educAttainment.getText().toString().equals("Master's Level") || radioButton_educAttainment.getText().toString().equals("Doctorate Level"))
+                                                && autoComplete_degree.getText().toString().isEmpty()){ // error
+
+                                            Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+
+                                            if(radioButton_withWorkExp.isChecked()){
+                                                if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                                }else{
+                                                    uploadData();
+                                                }
+
+                                            }else{
+                                                uploadData();
+                                            }
+
+                                        }
+
+                                }else{
+                                    Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+
+                                    if(autoComplete_jobTitle.getText().toString().isEmpty()
+                                            || autoComplete_typeOfEmployment.getText().toString().isEmpty() || checkBox_secondary_skills_checkIfEmpty.isEmpty()
+                                            || textInputEditText_postDescription.getText().toString().isEmpty()
+                                            || autoComplete_degree.getText().toString().equals("Click to select value")
+                                    || checkBox_educAttainmentRequirement.isChecked() && (radioButton_educAttainment.getText().toString().equals("Bachelor Level")
+                                            || radioButton_educAttainment.getText().toString().equals("Master's Level") || radioButton_educAttainment.getText().toString().equals("Doctorate Level"))
+                                            && autoComplete_degree.getText().toString().isEmpty()){ // error
+
+                                        Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                    }else{
+
+                                        if(radioButton_withWorkExp.isChecked()){
+
+                                            if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){//error
+                                                Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                uploadData();
+                                            }
+
+                                        }else{
+                                            uploadData();
+                                        }
+                                    }
+
+                            }
+                        }
+
+                    }else{
+                        Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    }
+
+    //methods---------------------------------------------------------------------------------------
+        //get data from current user
+        private void getDataFromCurrentUser(){
+            //profile pic url-
+            //company name-
+            //location-
+            //city-
+            emp_user_root.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    hashMap_generalData.put("postLocation", snapshot.child("companyaddress").getValue().toString());
+                    hashMap_generalData.put("city", snapshot.child("companycity").getValue().toString());
+                    hashMap_generalData.put("empProfilePic", snapshot.child("empProfilePic").getValue().toString());
+                    hashMap_generalData.put("companyName", snapshot.child("fullname").getValue().toString());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
-    }
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-    }
+        //upload
+        private void uploadData(){
+            progressDialog.setTitle("Posting...");
+            progressDialog.show();
+            ref = job_offers_storage_root.child("Job_Offers/" + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+            ref.putFile(FilePathUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    ref.getDownloadUrl()
+                            .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    progressDialog.dismiss();
+
+                                    final String imageURL = task.getResult().toString();
+                                    pushKey = job_offers_root.push().getKey();
+
+                                    final int selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
+                                    radioButton_educAttainment = findViewById(selected_educAttainment_ID);
+
+                                    hashMap_generalData.put("jobTitle", autoComplete_jobTitle.getText().toString());
+                                    hashMap_generalData.put("postDescription", textInputEditText_postDescription.getText().toString());
+                                    hashMap_generalData.put("uid", uID);
+                                    hashMap_generalData.put("postDate", postDate);
+                                    hashMap_generalData.put("typeOfEmployment", autoComplete_typeOfEmployment.getText().toString());
+                                    hashMap_generalData.put("workSetUp", radioButton_workSetUp_text);
+                                    hashMap_generalData.put("imageURL", imageURL);
+                                    hashMap_generalData.put("typeOfDisabilityMore", textInputEditText_otherDisabilitySpecific.getText().toString());
+                                    hashMap_generalData.put("postJobId", pushKey);
+
+                                    if(!autoComplete_degree.getText().toString().isEmpty()){
+                                        hashMap_generalData.put("skill", autoComplete_degree.getText().toString());
+                                    }else{
+                                        hashMap_generalData.put("skill", "");
+                                    }
+                                    if(radioButton_withWorkExp.isChecked()){
+                                        hashMap_generalData.put("workExperience", radioButton_withWorkExp.getText().toString());
+                                        hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
+                                    }else{
+                                        hashMap_generalData.put("yearsOfExperience", "0");
+                                        hashMap_generalData.put("workExperience", "Without Experience");
+                                    }
+
+                                    if(checkBox_educAttainmentRequirement.isChecked()){
+                                        hashMap_generalData.put("educationalAttainmentRequirement", "true");
+
+                                        radioButton_educAttainment = findViewById(selected_educAttainment_ID);
+                                        hashMap_generalData.put("educationalAttainment", radioButton_educAttainment.getText().toString());
+                                    }else{
+                                        hashMap_generalData.put("educationalAttainmentRequirement", "false");
+                                        hashMap_generalData.put("educationalAttainment", "Elementary Level");
+                                    }
+
+                                    if(radioButton_workSetUp.isChecked()){
+                                        hashMap_generalData.put("workSetUp", radioButton_workSetUp.getText().toString());
+                                    }else{
+                                        hashMap_generalData.put("workSetUp", "Remote Work");
+                                    }
+
+                                    if(checkbox_workSetUpRequirement.isChecked()){
+                                        hashMap_generalData.put("workSetUpRequired", "true");
+                                    }else{
+                                        hashMap_generalData.put("workSetUpRequired", "false");
+                                    }
+
+                                    if(checkbox_typeOfEmploymentRequirement.isChecked()){
+                                        hashMap_generalData.put("typeOfEmploymentRequired", "true");
+                                    }else{
+                                        hashMap_generalData.put("typeOfEmploymentRequired", "false");
+                                    }
+                                    //reference automatic deletion after 12 months
+                                    cal.add(Calendar.MONTH, 12);
+                                    format.format(cal.getTime());
+                                    calculated_postExpDate = format.format(cal.getTime());
+
+                                    hashMap_generalData.put("expDate", calculated_postExpDate);
+
+                                    //new key "timestamp"
+                                    hashMap_generalData.put("permission", "pending");
+
+                                    job_offers_root.child(pushKey).setValue(hashMap_generalData);
+                                    Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Emp_PostJob.this, a_EmployeeContentMainActivity.class));
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(Emp_PostJob.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred() / snapshot
+                            .getTotalByteCount());
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    progressDialog.setCancelable(false);
+                }
+            });
+        }
+        //set data
+        private void setExposedDropdownListSkillCategory(){
+            String chosenJobTitle = autoComplete_jobTitle.getText().toString();
+            categories_root.orderByChild("jobtitle").equalTo(chosenJobTitle).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap_category_key : snapshot.getChildren()){
+                        String parent = snap_category_key.getKey();
+
+                        categories_root.child(parent).child("specialization").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot snap_jobTitles : snapshot.getChildren()){
+                                    arrayList_degree.add(snap_jobTitles.getValue().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        private void setExposedDropdownListJobTitle(){
+            categories_root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap_skillCategory : snapshot.getChildren()){
+                        arrayList_jobTitles.add(snap_skillCategory.child("jobtitle").getValue().toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        private void setExposedDropdownListTypeofEmployment() {
+            arrayList_typeOfEmployment.add("Regular Employment");
+            arrayList_typeOfEmployment.add("Project Employment");
+            arrayList_typeOfEmployment.add("Seasonal Employment");
+            arrayList_typeOfEmployment.add("Casual Employment");
+            arrayList_typeOfEmployment.add("Fixed Term Employment");
+            arrayList_typeOfEmployment.add("Probationary Employment");
+        }
+        //These methods are for checking if checkBox is checked.
+        private void selectedSecondarySkills(){
+            checkboxIDs_type_of_disabilities = new Integer[]{R.id.typeOfSkills1, R.id.typeOfSkills2,
+                    R.id.typeOfSkills3, R.id.typeOfSkills4, R.id.typeOfSkills5};
+
+            checkBoxes_secondary_skills = new CheckBox[checkboxIDs_type_of_disabilities.length];
+
+            for(int i = 0; i < checkboxIDs_type_of_disabilities.length; i++){
+
+                checkBoxes_secondary_skills[i] = (CheckBox) findViewById(checkboxIDs_type_of_disabilities[i]);
+
+                if(checkBoxes_secondary_skills[i].isChecked()){
+                    int i2 = i+1;
+                    hashMap_generalData.put("jobSkill" + i2, checkBoxes_secondary_skills[i].getText().toString().trim());
+                    checkBox_secondary_skills_checkIfEmpty.add(checkBoxes_secondary_skills[i].getText().toString().trim());
+                }
+            }
+        }
+        private void selectedTypeOfDisabilities() {
+           checkboxIDs_type_of_disabilities = new Integer[]{R.id.typeOfDisability1, R.id.typeOfDisability2, R.id.typeOfDisability3, R.id.typeOfDisability4};
+
+           checkBoxes_type_of_disabilities = new CheckBox[checkboxIDs_type_of_disabilities.length];
+
+            for (int count_typeOfDisabilities = 0; count_typeOfDisabilities < checkboxIDs_type_of_disabilities.length; count_typeOfDisabilities++) {
+
+                checkBoxes_type_of_disabilities[count_typeOfDisabilities] = (CheckBox) findViewById(checkboxIDs_type_of_disabilities[count_typeOfDisabilities]);
+
+                if (checkBoxes_type_of_disabilities[count_typeOfDisabilities].isChecked()) {
+                    int j2 = count_typeOfDisabilities + 1;
+                    hashMap_generalData.put("typeOfDisability" + j2, checkBoxes_type_of_disabilities[count_typeOfDisabilities].getText().toString().trim());
+                    checkBox_type_of_disabilities_checkIfEmpty.add(checkBoxes_type_of_disabilities[count_typeOfDisabilities].getText().toString().trim());
+                }
+            }
+        }
+        //validate fields
+        private Boolean checkExposedDropdownListValue(ArrayList arrayListToCheck, String exposedDropdownListValue){
+            if (arrayListToCheck.contains(exposedDropdownListValue)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        //choose image
+        public String GetFileExtension(Uri uri) {
+            ContentResolver contentResolver = getContentResolver();
+
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+            // Returning the file Extension.
+            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        }
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == Image_Request_Code && resultCode == RESULT_OK
+                    && data != null && data.getData() != null) {
+                FilePathUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+                    imageView.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //post duration?
+                /*private void calculateExpDate(String selected_postExpDate) {
+                    if(selected_postExpDate.equals("1 week")) { // working
+                        cal.add(Calendar.WEEK_OF_YEAR, 1);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("2 weeks")) {
+                        cal.add(Calendar.WEEK_OF_YEAR, 2);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("3 weeks")) {
+                        cal.add(Calendar.WEEK_OF_YEAR, 3);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("1 month")) {
+                        cal.add(Calendar.MONTH, 1);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("2 months")) {
+                        cal.add(Calendar.MONTH, 2);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("3 months")) {
+                        cal.add(Calendar.MONTH, 3);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("4 months")) {
+                        cal.add(Calendar.MONTH, 4);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("5 months")) {
+                        cal.add(Calendar.MONTH, 5);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("6 months")) {
+                        cal.add(Calendar.MONTH, 6);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("7 months")) {
+                        cal.add(Calendar.MONTH, 7);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("8 months")) {
+                        cal.add(Calendar.MONTH, 8);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("9 months")) {
+                        cal.add(Calendar.MONTH, 9);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("10 months")) {
+                        cal.add(Calendar.MONTH, 10);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    } else if(selected_postExpDate.equals("11 months")) {
+                        cal.add(Calendar.MONTH, 11);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("1 year")) {
+                        cal.add(Calendar.MONTH, 12);
+                        format.format(cal.getTime());
+                        calculated_postExpDate = format.format(cal.getTime());
+
+                    }else if(selected_postExpDate.equals("Unlimited")) {
+                        calculated_postExpDate = "unlimited";
+                    }
+                }*/
 
 }

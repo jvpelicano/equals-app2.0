@@ -107,8 +107,10 @@ public class LoginActivity_emp extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        //if the task is successfull
+                        //if the task is successfully
                         if(task.isSuccessful()){
+                            /*finish();
+                            startActivity(new Intent(getApplicationContext(), LoadingActivityEMP.class));*/
                             if(firebaseAuth.getCurrentUser().isEmailVerified()){
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), LoadingActivityEMP.class));

@@ -7,7 +7,6 @@
     android:layout_height="wrap_content"
     android:clickable="false"
     android:background="@color/background"
-    tools:context=".PWD.PWD_AvailableJobs_1_All"
     android:elevation="10dp"
 
     >
@@ -58,11 +57,11 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="2dp"
             android:layout_toEndOf="@+id/displayPostPic"
-            android:fontFamily="@font/open_sans_regular"
-            android:textColor="@color/textColor"
-            android:textSize="14sp"
             android:ellipsize="end"
-            android:maxLines="2" />
+            android:fontFamily="@font/open_sans_regular"
+            android:maxLines="2"
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/lblSpec"
             android:layout_width="234dp"
@@ -105,11 +104,11 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="2dp"
             android:layout_toEndOf="@+id/displayPostPic"
-            android:fontFamily="@font/open_sans_regular"
-            android:textColor="@color/textColor"
-            android:textSize="14sp"
             android:ellipsize="end"
-            android:maxLines="2" />
+            android:fontFamily="@font/open_sans_regular"
+            android:maxLines="2"
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/displayPostDate"
@@ -121,8 +120,8 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_toEndOf="@+id/displayPostPic"
-            android:fontFamily="@font/open_sans_regular"
             android:ellipsize="end"
+            android:fontFamily="@font/open_sans_regular"
             android:maxLines="2"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
@@ -140,12 +139,12 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/btn_effect"
-            android:text="@string/view"
             android:fontFamily="@font/proxima_nova_regular"
+            android:text="@string/view"
+            android:textAllCaps="false"
             android:textColor="#FFFFFFFF"
             android:visibility="visible"
-            tools:visibility="visible"
-            android:textAllCaps="false"/>
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/displayPostDescription"

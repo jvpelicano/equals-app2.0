@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,10 @@ public class PWD_BasicInfo_Fragment extends Fragment {
     private String mParam2;
     private TextView displayName,displayTypeOfDisability1, displayTypeOfDisability2,displayTypeOfDisability3,displayTypeOfDisabilityMore
             ,displaySkill1,displaySkill2,displaySkill3,displaySkill4,displaySkill5,displaySkill6,displaySkill7,displaySkill8,displaySkill9,displaySkill10
-            ,displayEmail,displayAddress,displayContact,displayEducationalAttainment,displayCategorySkill;
+            ,displayEmail,displayAddress,displayContact,displayEducationalAttainment,displayCategorySkill, displayTypeOfDisability4, displayTypeOfEmployment
+            ,displayWorkSetUp, displayJobTitle;
+    private TextView txt_degree;
+    private CardView degree_card;
 
     public PWD_BasicInfo_Fragment() {
         // Required empty public constructor
@@ -79,10 +83,14 @@ public class PWD_BasicInfo_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        txt_degree = view.findViewById(R.id.txtLbl2);
+        degree_card = view.findViewById(R.id.degree_card);
         
         displayTypeOfDisability1 = view.findViewById(R.id.displayTypeOfDisability1);
         displayTypeOfDisability2 = view.findViewById(R.id.displayTypeOfDisability2);
         displayTypeOfDisability3 = view.findViewById(R.id.displayTypeOfDisability3);
+        displayTypeOfDisability4 = view.findViewById(R.id.displayTypeOfDisability4);
         displayTypeOfDisabilityMore = view.findViewById(R.id.displayTypeOfDisabilityMore);
 
         displaySkill1 = view.findViewById(R.id.displaySkill1);
@@ -100,7 +108,9 @@ public class PWD_BasicInfo_Fragment extends Fragment {
         displayEmail = view.findViewById(R.id.displayEmail);
         displayAddress = view.findViewById(R.id.displayAddress);
         displayContact = view.findViewById(R.id.displayContact);
-
+        displayTypeOfEmployment = view.findViewById(R.id.displayTypeOfEmployment);
+        displayWorkSetUp = view.findViewById(R.id.displayWorkSetUp);
+        displayJobTitle = view.findViewById(R.id.displayJobTitle);
 
         displayEducationalAttainment = view.findViewById(R.id.displayEducationalAttainment);
         displayCategorySkill = view.findViewById(R.id.displayCategorySkill);
@@ -119,14 +129,35 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                 String email = dataSnapshot.child("email").getValue().toString();
                 String address = dataSnapshot.child("address").getValue().toString();
                 String city = dataSnapshot.child("city").getValue().toString();
+                String jobTitle = dataSnapshot.child("jobTitle").getValue().toString();
                 String skill = dataSnapshot.child("skill").getValue().toString();
+                String educationalAttainment = dataSnapshot.child("educationalAttainment").getValue().toString();
+                String contact = dataSnapshot.child("contact").getValue().toString();
+                String typeOfEmployment = dataSnapshot.child("typeOfEmployment").getValue().toString();
+                String workSetUp = dataSnapshot.child("workSetUp").getValue().toString();
                 
                 displayName.setText(firstname.concat(" ").concat(lastname));
                 displayEmail.setText(email);
                 displayAddress.setText(address+" "+city);
-                displayCategorySkill.setText(skill);
+                displayJobTitle.setText(jobTitle);
+                displayTypeOfEmployment.setText(typeOfEmployment);
+                displayWorkSetUp.setText(workSetUp);
 
-                //for(int counter_typeOfDisability = 0; counter_typeOfDisability <= 3; counter_typeOfDisability++ )
+                if(educationalAttainment.equals("Bachelor Level") || educationalAttainment.equals("Master's Level") || educationalAttainment.equals("Doctorate Level")){
+                    txt_degree.setVisibility(View.VISIBLE);
+                    displayCategorySkill.setVisibility(View.VISIBLE);
+                    degree_card.setVisibility(View.VISIBLE);
+                    displayCategorySkill.setText(skill);
+                }else if(educationalAttainment.equals("Elementary Level") || educationalAttainment.equals("High School Level") || educationalAttainment.equals("Associate Level")){
+                    txt_degree.setVisibility(View.GONE);
+                    degree_card.setVisibility(View.GONE);
+                    displayCategorySkill.setVisibility(View.GONE);
+                }else{
+                    txt_degree.setVisibility(View.GONE);
+                    degree_card.setVisibility(View.GONE);
+                    displayCategorySkill.setVisibility(View.GONE);
+                }
+
                 if(dataSnapshot.child("typeOfDisability0").exists()) {
                     String typeOfDisability1 = dataSnapshot.child("typeOfDisability0").getValue().toString();
                     displayTypeOfDisability1.setText(typeOfDisability1);
@@ -147,12 +178,17 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                 }
                 if(dataSnapshot.child("typeOfDisability3").exists()) {
                     String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability3").getValue().toString();
+                    displayTypeOfDisability4.setText(typeOfDisabilityMore);
+                }else{
+                    displayTypeOfDisability4.setVisibility(View.GONE);
+                }
+                if(dataSnapshot.child("typeOfDisability4").exists()) {
+                    String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability4").getValue().toString();
                     displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
                 }else{
                     displayTypeOfDisabilityMore.setVisibility(View.GONE);
                 }
 
-                /////////////////////////////////// Secondary skills
                 if(dataSnapshot.child("jobSkills0").exists()){
                     displaySkill1.setText(dataSnapshot.child("jobSkills0").getValue().toString());
                 }else{
@@ -217,13 +253,6 @@ public class PWD_BasicInfo_Fragment extends Fragment {
 
                 }
                 /////////////////////////////////// Secondary skills
-
-
-                String educationalAttainment = dataSnapshot.child("educationalAttainment").getValue().toString();
-                String workExperience = dataSnapshot.child("workExperience").getValue().toString();
-                String contact = dataSnapshot.child("contact").getValue().toString();
-
-
                 //PWD Work Experience Fragment. Include Database Reference in the new Fragment to make this work.
                 displayEducationalAttainment.setText(educationalAttainment);
 

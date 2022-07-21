@@ -88,7 +88,7 @@ public class EMP_ViewPotential_All extends AppCompatActivity {
                                 startActivity(i);
                                 break;
                             case R.id.nav_profile_emp:
-                                Intent i2 = new Intent(EMP_ViewPotential_All.this, EMP_Profile.class);
+                                Intent i2 = new Intent(EMP_ViewPotential_All.this, EMP_EditProfile_Activity.class);
                                 startActivity(i2);
                                 break;
                             case R.id.nav_post_job_emp:
