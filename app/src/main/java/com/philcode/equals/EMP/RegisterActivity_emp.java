@@ -501,7 +501,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             String userId = user.getUid();
-                            final StorageReference ref = storageReference.child("Employee_IDs").child(userId);
+                            final StorageReference ref = storageReference.child("Employee_IDs/").child(userId);
                             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -518,7 +518,17 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                             EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
                                                                     contact, empValidID, companyAddress, companyCity, companyTelNum, branch);
 
-                                                            checkCompanyIfExists(fullname, branch, EmpInfo);
+                                                            if(isCompanyExists == true){ //FIX BUG checkIfCompanyExist not responding
+                                                                FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+                                                                        final Intent intent = new Intent(RegisterActivity_emp.this, LoginActivity_emp.class);
+                                                                        startActivity(intent);
+
+                                                                    }
+                                                                });
+                                                            }
 
                                                         } else {
                                                             Toast.makeText(RegisterActivity_emp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -572,10 +582,9 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         //if logout is pressed
     }
 
-    public void checkCompanyIfExists(String company, String comBranch, EmployeeInformation employeeInfo ){
+    public boolean checkCompanyIfExists(String company, String comBranch){
 
         DatabaseReference companyRoot = FirebaseDatabase.getInstance().getReference().child("Companies");
-
         Query coQuery = companyRoot.orderByChild("companyName").equalTo(company);
         coQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -587,16 +596,10 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
                     if (companyName.equalsIgnoreCase(company)  && coBranch.equalsIgnoreCase(comBranch)){
                         Toast.makeText(getApplicationContext(), "DUPLICATE ACCOUNT FOR Company :"+ companyName + " -" + coBranch +", Contact Equals Admin" , Toast.LENGTH_LONG).show();
+                        isCompanyExists = true;
                     }
                     else{
-                        FirebaseDatabase.getInstance().getReference("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(employeeInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
-                                final Intent intent = new Intent(getApplicationContext(), RegisterActivity_emp.class);
-                                startActivity(intent);
-                            }
-                        });
+                        isCompanyExists = false;
                     }
 
                 }
@@ -607,6 +610,6 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
             }
         });
-
+        return isCompanyExists;
     }
 }
