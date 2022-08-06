@@ -90,7 +90,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
     private boolean editTextsValid = true;
     private boolean autoCompleteValid = true;
     private boolean skillCategory_exists= true;
-    private boolean isCompanyExists = true;
+    private boolean isCompanyExists;
     boolean internetConnection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -518,17 +518,19 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                                                             EmployeeInformation EmpInfo = new EmployeeInformation(email, typeStatus, firstname, lastname, fullname, companybg,
                                                                     contact, empValidID, companyAddress, companyCity, companyTelNum, branch);
 
-                                                            if(isCompanyExists == true){ //FIX BUG checkIfCompanyExist not responding
-                                                                FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
-                                                                        final Intent intent = new Intent(RegisterActivity_emp.this, LoginActivity_emp.class);
-                                                                        startActivity(intent);
+                                                            Toast.makeText(RegisterActivity_emp.this, "eto"+ checkCompanyIfExists(fullname, branch), Toast.LENGTH_LONG).show();
 
-                                                                    }
-                                                                });
-                                                            }
+//                                                            if(!checkCompanyIfExists(fullname, branch)){ //FIX BUG checkIfCompanyExist not responding
+//                                                                FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                                    @Override
+//                                                                    public void onComplete(@NonNull Task<Void> task) {
+//                                                                        Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+//                                                                        final Intent intent = new Intent(RegisterActivity_emp.this, LoginActivity_emp.class);
+//                                                                        startActivity(intent);
+//
+//                                                                    }
+//                                                                });
+//                                                            }
 
                                                         } else {
                                                             Toast.makeText(RegisterActivity_emp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
