@@ -1,17 +1,12 @@
 package com.philcode.equals.PWD;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.icu.util.ValueIterator;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,15 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
-import com.firebase.client.Firebase;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,10 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.protobuf.StringValue;
 import com.philcode.equals.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -55,10 +43,10 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
             m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
             m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
-            m_displayPostTitle;
+            m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp;
     Button m_sendResume;
     ImageView m_displayPostPic, m_displayCompanyLogo;
-    private String companyLogoURL;
+    private String companyLogoURL, postJobID, postMatchStatus;
     private ProgressDialog progressDialog;
     private static final int PICK_FILE = 1 ;
 
@@ -86,23 +74,29 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_sendResume = findViewById(R.id.btnApply);
         m_displayPostPic = findViewById(R.id.displayPostPic);
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
+        m_displayTypeOfEmployment = findViewById(R.id.displayTypeOfEmployment);
+        m_displayWorkSetUp = findViewById(R.id.displayWorkSetUp);
 
-        final String postJobID = getIntent().getStringExtra("POST_ID");
+        postJobID = getIntent().getStringExtra("POST_ID");
+        postMatchStatus = getIntent().getStringExtra("POST_MATCH_STATUS");
         fDb = FirebaseDatabase.getInstance();
 
         jobOffersRef = fDb.getReference().child("Job_Offers").child(postJobID);
         jobOffersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String postTitle = snapshot.child("postTitle").getValue().toString();
+                final String postTitle = snapshot.child("jobTitle").getValue().toString();
                 final String companyName = snapshot.child("companyName").getValue().toString();
                 final String postDescription = snapshot.child("postDescription").getValue().toString();
-                final String postLoc = snapshot.child("postLocation").getValue().toString();
+                final String postLoc = snapshot.child("postLocation").getValue().toString() + "," + snapshot.child("city").getValue().toString();
                 final String skillCategory = snapshot.child("skill").getValue().toString();
                 final String educationalAttainment = snapshot.child("educationalAttainment").getValue().toString();
                 final String workExperience = snapshot.child("yearsOfExperience").getValue().toString();
                 final String expDate = snapshot.child("expDate").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
+                final String typeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
+
+                final  String workSetUp = snapshot.child("workSetUp").getValue().toString();
                 if(snapshot.hasChild("empProfilePic")){
                     companyLogoURL = snapshot.child("empProfilePic").getValue().toString();
                 }else{
@@ -128,7 +122,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience,
-                        expDate, imageURL, companyLogoURL);
+                        expDate, imageURL, companyLogoURL, typeOfEmployment, workSetUp);
             }
 
             @Override
@@ -189,7 +183,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
                             String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate,
-                            String imageURL, String companyLogoURL){
+                            String imageURL, String companyLogoURL, String typeOfEmployment, String workSetUp){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
@@ -197,6 +191,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience + " years");
+        m_displayTypeOfEmployment.setText(typeOfEmployment);
+        m_displayWorkSetUp.setText(workSetUp);
         m_displayExpDate.setText(expDate);
 
         StringBuilder jobSkillList_builder = new StringBuilder();
@@ -237,6 +233,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     m_sendResume.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             AlertDialog.Builder alert =  new AlertDialog.Builder(PWD_AvailableJobs_View.this);
                             alert.setMessage("Resume file format should be in PDF.").setCancelable(true)
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -265,17 +262,20 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
     }
     private void sendResume() {
+        int countJobList;
         pwdRef = fDb.getReference().child("PWD").child(userId);
         pwdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Intent intent = new Intent();
+                String post_match_status = intent.getStringExtra("POST_MATCH_STATUS");
                 String fname = snapshot.child("firstName").getValue().toString();
                 String lname = snapshot.child("lastName").getValue().toString();
                 String email = snapshot.child("email").getValue().toString();
                 String contact = snapshot.child("contact").getValue().toString();
                 String resume = snapshot.child("resumeFile").getValue().toString();
                 String userID = user.getUid();
-                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
+
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("resumeFile", resume);
                 hashMap.put("firstName", fname);
@@ -284,14 +284,36 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 hashMap.put("contact", contact);
                 hashMap.put("userID", userID);
                 jobOffersRef.child("Resume").child(userID).setValue(hashMap);
+
+                if(snapshot.hasChild("jobs_keyList")){
+                    pwdRef.child("jobs_keyList").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if((snapshot.getChildrenCount() > 0)){
+                                snapshot.getChildrenCount();
+                                long count = snapshot.getChildrenCount();
+                                int calculate = (int) (count + 1);
+                                pwdRef.child("jobs_keyList").child("job_application_" + calculate).setValue(postJobID);
+                            }
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }else{
+                    pwdRef.child("jobs_keyList").child("job_application " + 1).setValue(postJobID);
+                }
+
                 Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
+
                 finish();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(PWD_AvailableJobs_View.this, "Error: " + error, Toast.LENGTH_SHORT).show();
             }
         });
 

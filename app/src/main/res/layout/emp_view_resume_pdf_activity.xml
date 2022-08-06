@@ -11,6 +11,75 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/textview_manageApplication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="186dp"
+        android:fontFamily="@font/proxima_nova_regular"
+        android:padding="8dp"
+        android:text="Manage Application Status"
+        android:textColor="#177ad0"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="176dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:backgroundTint="#ffffff"
+        app:borderWidth="2dp"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_applicants"
+        app:tint="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textview_downloadPDF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="116dp"
+        android:fontFamily="@font/proxima_nova_regular"
+        android:padding="8dp"
+        android:text="Download Resume PDF"
+        android:textColor="#177ad0"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="106dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:backgroundTint="#ffffff"
+        app:borderWidth="2dp"
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_baseline_cloud_download_24"
+        app:tint="@color/colorPrimary" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -19,7 +88,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_baseline_cloud_download_24"
+        android:src="@drawable/ic_options"
         app:backgroundTint="#177ad0"
         app:tint="@color/white"
         android:clickable="true"

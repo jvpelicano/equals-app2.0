@@ -1,9 +1,11 @@
 package com.philcode.equals.EMP;
 
+import android.app.Notification;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -31,9 +33,12 @@ import java.util.Collections;
  */
 public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
 
-    TextView m_fullName, m_email, m_address, m_educationalAttainment, m_contact, m_skill, m_displayJobSkillList, m_displayTypeOfDisability;
-    FirebaseDatabase fdb;
-    DatabaseReference pwd_reference;
+    private TextView m_fullName, m_email, m_address, m_educationalAttainment, m_contact, m_skill, m_displayJobSkillList, m_displayTypeOfDisability,
+            m_displayTypeOfEmployment, m_displayWorkSetUp, m_displayJobTitle;
+    private TextView m_degree;
+    private FirebaseDatabase fdb;
+    private DatabaseReference pwd_reference;
+    private CardView m_degree_card;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,6 +47,7 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     public EMP_PotentialApplicant_BasicInfo_Fragment() {
         // Required empty public constructor
@@ -89,9 +95,18 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
        m_address = view.findViewById(R.id.displayAddress);
        m_educationalAttainment = view.findViewById(R.id.displayEducationalAttainment);
        m_contact = view.findViewById(R.id.displayContact);
-       m_skill = view.findViewById(R.id.displayCategorySkill);
        m_displayJobSkillList = view.findViewById(R.id.displaySkill1);
        m_displayTypeOfDisability = view.findViewById(R.id.displayTypeOfDisability1);
+
+       m_degree = view.findViewById(R.id.txtLbl2);
+       m_skill = view.findViewById(R.id.displayCategorySkill);
+       m_degree_card = view.findViewById(R.id.degree_card);
+
+       //new data
+       m_displayJobTitle = view.findViewById(R.id.displayJobTitle);
+       m_displayTypeOfEmployment = view.findViewById(R.id.displayTypeOfEmployment);
+       m_displayWorkSetUp = view.findViewById(R.id.displayWorkSetUp);
+
        getApplicantInfo();
 
 
@@ -110,6 +125,13 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
                 String workExperience = snapshot.child("workExperience").getValue().toString();
                 String contact = snapshot.child("contact").getValue().toString();
                 String skill = snapshot.child("skill").getValue().toString();
+                String city = snapshot.child("city").getValue().toString();
+
+                //new data
+                String jobTitle = snapshot.child("jobTitle").getValue().toString();
+                String typeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
+                String workSetUp = snapshot.child("workSetUp").getValue().toString();
+
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
                 for(int counter = 0; counter <= 10; counter++){
@@ -124,7 +146,8 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
 
                 }
 
-                setApplicantInfo(jobSkillList, typeOfDisabilityList, firstName, lastName, email, address, educationalAttainment, workExperience, contact, skill);
+                setApplicantInfo(jobSkillList, typeOfDisabilityList, firstName, lastName, email, address, educationalAttainment, workExperience, contact, skill,
+                        jobTitle, typeOfEmployment, workSetUp, city);
             }
 
             @Override
@@ -136,11 +159,11 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
     }
 
     public void setApplicantInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String firstName, String lastName,  String email, String address, String educationalAttainment,
-                                 String workExperience, String contact, String skill){
+                                 String workExperience, String contact, String skill, String jobTitle, String typeOfEmployment, String workSetUp, String city){
 
         m_fullName.setText(firstName.concat(" ").concat(lastName));
         m_email.setText(email);
-        m_address.setText(address);
+        m_address.setText(address + ", " + city + " City");
         m_educationalAttainment.setText(educationalAttainment);
         m_contact.setText(contact);
         m_skill.setText(skill);
@@ -156,7 +179,25 @@ public class EMP_PotentialApplicant_BasicInfo_Fragment extends Fragment {
         }
         m_displayTypeOfDisability.setText(typeOfDisability_builder.toString());
 
-        //in workExperienceFragment
+        //add new data
+        if(educationalAttainment.equals("Bachelor Level") || educationalAttainment.equals("Master's Level") || educationalAttainment.equals("Doctorate Level")){
+            m_degree.setVisibility(View.VISIBLE);
+            m_skill.setVisibility(View.VISIBLE);
+            m_degree_card.setVisibility(View.VISIBLE);
+            m_skill.setText(skill);
+        }else if(educationalAttainment.equals("Elementary Level") || educationalAttainment.equals("High School Level") || educationalAttainment.equals("Associate Level")){
+            m_degree.setVisibility(View.GONE);
+            m_degree_card.setVisibility(View.GONE);
+            m_skill.setVisibility(View.GONE);
+        }else{
+            m_degree.setVisibility(View.GONE);
+            m_degree_card.setVisibility(View.GONE);
+            m_skill.setVisibility(View.GONE);
+        }
+
+        m_displayJobTitle.setText(jobTitle);
+        m_displayTypeOfEmployment.setText(typeOfEmployment);
+        m_displayWorkSetUp.setText(workSetUp);
 
 
     }

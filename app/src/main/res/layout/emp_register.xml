@@ -244,7 +244,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/proxima_nova_regular"
-                        android:hint="Juan"
                         android:inputType="textWebEditText"
                         android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
@@ -308,7 +307,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     app:boxStrokeColor="@color/btnColor"
-                    app:hintTextColor="@color/btnColor">
+                    app:hintTextColor="@color/btnColor"
+                    app:layout_constraintTop_toBottomOf="@+id/pwd_enterCompanyName_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editCompanyName"
@@ -320,7 +320,33 @@
                         android:textColorHighlight="#B31F86DE"
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+                        android:textSize="16sp">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pwd_enterCompanyBranch_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editCompanyBranch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="Branch"
+                        android:inputType="textWebEditText"
+                        android:textColorHighlight="#B31F86DE"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp">
+                    </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -357,6 +383,44 @@
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/text_CompanyContactNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="Company Telephone Number"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emp_enterCompanyContactNumber_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:boxStrokeColor="@color/btnColor"
+                    app:hintTextColor="@color/btnColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emp_editCompanyContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_local_phone_24"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:hint="(02) 873"
+                        android:textColorHighlight="#B31F86DE"
+                        android:inputType="phone"
+                        android:textColor="#232c33"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="16sp"
+                        android:drawablePadding="10dp">
 
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -433,7 +497,6 @@
                         android:textColor="#232c33"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="16sp">
-
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -467,6 +530,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textCity" />
 
+               <TextView
+                   android:id="@+id/txt_sendAttachmentsForVerification"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:text="@string/sendEmailToVerify"
+                   android:background="#E8B478"
+                   android:layout_margin="10dp"
+                   android:textColor="#FFFF"
+                   android:fontFamily="@font/proxima_nova_regular"
+                   android:padding="5dp"
+                   />
+
                 <CheckBox
                     android:id="@+id/privacypolicy"
                     android:layout_width="match_parent"
@@ -480,7 +555,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerCity" />
-
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditProfile"
