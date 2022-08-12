@@ -520,17 +520,17 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
                                                             Toast.makeText(RegisterActivity_emp.this, "eto"+ checkCompanyIfExists(fullname, branch), Toast.LENGTH_LONG).show();
 
-//                                                            if(!checkCompanyIfExists(fullname, branch)){ //FIX BUG checkIfCompanyExist not responding
-//                                                                FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                                    @Override
-//                                                                    public void onComplete(@NonNull Task<Void> task) {
-//                                                                        Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
-//                                                                        final Intent intent = new Intent(RegisterActivity_emp.this, LoginActivity_emp.class);
-//                                                                        startActivity(intent);
-//
-//                                                                    }
-//                                                                });
-//                                                            }
+                                                            if(!checkCompanyIfExists(fullname, branch)){ //FIX BUG checkIfCompanyExist not responding
+                                                                FirebaseDatabase.getInstance().getReference().child("Employers").child(firebaseAuth.getCurrentUser().getUid()).setValue(EmpInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        Toast.makeText(getApplicationContext(), "Information saved", Toast.LENGTH_LONG).show();
+                                                                        final Intent intent = new Intent(RegisterActivity_emp.this, LoginActivity_emp.class);
+                                                                        startActivity(intent);
+
+                                                                    }
+                                                                });
+                                                            }
 
                                                         } else {
                                                             Toast.makeText(RegisterActivity_emp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

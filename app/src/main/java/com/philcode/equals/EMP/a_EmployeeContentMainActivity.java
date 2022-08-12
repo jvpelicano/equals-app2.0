@@ -71,7 +71,7 @@ public class a_EmployeeContentMainActivity extends AppCompatActivity  {
         final String email = currentFirebaseUser.getEmail().toString();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emp_activity_home);
-//https://www.flaticon.com/free-icon/picture_25666
+
         rootRef.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
 
