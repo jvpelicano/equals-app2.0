@@ -1,5 +1,6 @@
 package com.philcode.equals.PWD;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +100,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -141,29 +144,9 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                 final String pwdWorkExperience = snapshot.child("workExperience").getValue().toString();
                 final String pwdTypeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
                 final String pwd_location = snapshot.child("city").getValue().toString();
-                String pwdDisAbility1="";
-                String pwdDisAbility2="";
-                String pwdDisAbility3="";
-                String pwdDisAbility4="";
+                final String pwdDisability = getActivity().getIntent().getStringExtra("PWD_DISABILITY");
 
-                if (snapshot.hasChild("typeOfDisability1")){
-                    pwdDisAbility1 = snapshot.child("typeOfDisability1").getValue().toString();
-                }
-
-
-
-                if (snapshot.hasChild("typeOfDisability2")){
-                    pwdDisAbility2 = snapshot.child("typeOfDisability2").getValue().toString();
-                }
-
-                if (snapshot.hasChild("typeOfDisability3")){
-                    pwdDisAbility3 = snapshot.child("typeOfDisability3").getValue().toString();
-                }
-
-
-                if (snapshot.hasChild("typeOfDisability4")){
-                    pwdDisAbility4 = snapshot.child("typeOfDisability4").getValue().toString();
-                }
+                Log.d("TAG",pwdDisability);
 
                 for(int countSecondarySkills = 0; countSecondarySkills < 5; countSecondarySkills++){
                     if(snapshot.hasChild("jobSkills" + countSecondarySkills)){
@@ -173,7 +156,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
 
 
                 matchJobOffer(jobTitle, pwdCategory, edAttainment, pwd_secondary_skills, pwdWorkExperience, pwdWorkSetUp,
-                        pwdTypeOfEmployment, pwdDisAbility1, pwdDisAbility2, pwdDisAbility3, pwdDisAbility4);
+                        pwdTypeOfEmployment, pwdDisability);
             }
 
 
@@ -186,8 +169,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
     }
 
     public void matchJobOffer(String pwd_jobTitle, String category, String pwd_edAttainment,ArrayList<String> m_pwd_secondary_skills,
-                              String pwd_workExp, String pwd_workSetUp, String pwd_typeOfEmp, String pwd_disability1, String pwd_disability2,
-                              String pwd_disability3, String pwd_disability4){
+                              String pwd_workExp, String pwd_workSetUp, String pwd_typeOfEmp, String pwdDisability){
         job_root.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -207,29 +189,13 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                     final String job_workSetUp = job_snapshot.child("workSetUp").getValue().toString();
                     final String job_workSetUpRequired = job_snapshot.child("workSetUpRequired").getValue().toString();
                     final String job_typeOfEmploymentRequired = job_snapshot.child("typeOfEmploymentRequired").getValue().toString();
-                    //final String job_location = job_snapshot.child("city").getValue().toString();
 
-                    String jobDisAbility1="";
-                    String jobDisAbility2="";
-                    String jobDisAbility3="";
-                    String jobDisAbility4="";
-
-                    if (snapshot.hasChild("typeOfDisability1")){
-                        jobDisAbility1 = snapshot.child("typeOfDisability1").getValue().toString() ;
-                    }
-
-                    if (snapshot.hasChild("typeOfDisability2")){
-                        jobDisAbility2 = snapshot.child("typeOfDisability2").getValue().toString() ;
-                    }
-                    if (snapshot.hasChild("typeOfDisability3")){
-                        jobDisAbility3 = snapshot.child("typeOfDisability3").getValue().toString() ;
-                    }
-                    if (snapshot.hasChild("typeOfDisability4")){
-                        jobDisAbility4 = snapshot.child("typeOfDisability4").getValue().toString() ;
-                    }
-
-
-
+                    //get all typeOfDisability available in the list of job offers
+                    String job_typeOfDisability1 = (job_snapshot.hasChild("typeOfDisability1") ? job_snapshot.child("typeOfDisability1").getValue().toString() : "");
+                    String job_typeOfDisability2 = (job_snapshot.hasChild("typeOfDisability2") ? job_snapshot.child("typeOfDisability2").getValue().toString() : "");
+                    String job_typeOfDisability3 = (job_snapshot.hasChild("typeOfDisability3") ? job_snapshot.child("typeOfDisability3").getValue().toString() : "");
+                    String job_typeOfDisability4 = (job_snapshot.hasChild("typeOfDisability4") ? job_snapshot.child("typeOfDisability4").getValue().toString() : "");
+                    String job_typeOfDisabilityMore = (job_snapshot.hasChild("typeOfDisabilityMore") ? job_snapshot.child("typeOfDisabilityMore").getValue().toString() : "");
 
                     if (job_snapshot.hasChild("educationalAttainment"))
                         job_educationalAttainment = job_snapshot.child("educationalAttainment").getValue().toString();
@@ -238,8 +204,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                     if (job_snapshot.hasChild("typeOfEmployment"))
                         job_typeOfEmployment = job_snapshot.child("typeOfEmployment").getValue().toString();
                     else job_typeOfEmployment = null;
-
-
 
                     for(int countSecondarySkills = 0; countSecondarySkills < 5; countSecondarySkills++){
                         if(snapshot.hasChild("jobSkills" + countSecondarySkills)){
@@ -254,8 +218,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                             job_secondary_skills.add(job_snapshot.child("jobSkill" + countSecondarySkills+1).getValue().toString());
                         }
                     }
-//                    Toast.makeText(getContext(), "eto job "+job_secondary_skills , Toast.LENGTH_LONG).show();
-
 
                     //get matching secondary skills from both sides
                     int job_secondary_skills_length = job_secondary_skills.size();
@@ -269,108 +231,104 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                     Date expDate = convertDate(job_expDate);
                     Date currDate = convertDate(getCurrentDate());
 
-                    //for Not Expired Job Post and Approved Job Post
-                    if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
-                        //for matched jobTitle
-                        if (job_title.equals(pwd_jobTitle)){
-                            //for matched Category
-                            if (job_skillCategory.equals(category)){
-                                if (job_educationalAttainmentRequirement.equalsIgnoreCase("true") &&
-                                        job_educationalAttainment.equals(pwd_edAttainment)){
-                                    //compare secondary skills
-                                    if(matched_secondary_skills.equals(job_secondary_skills)){
-                                        if (job_workExp.equals(pwd_workExp)){
-                                            if (job_workSetUpRequired.equalsIgnoreCase("true") && job_workSetUp.equals(pwd_workSetUp)) {
+                    //see if the passed pwd_typeOfdisability matched any kind of the job_typeOfDisability
+                    if(job_typeOfDisability1.equals(pwdDisability) || job_typeOfDisability2.equals(pwdDisability)
+                            || job_typeOfDisability3.equals(pwdDisability) || job_typeOfDisability4.equals(pwdDisability)
+                            || job_typeOfDisabilityMore.equals(pwdDisability) ){
+                        //for Not Expired Job Post and Approved Job Post
+                        if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
+                            //for matched jobTitle
+                            if (job_title.equals(pwd_jobTitle)){
+                                //for matched Category
+                                if (job_skillCategory.equals(category)){
+                                    if (job_educationalAttainmentRequirement.equalsIgnoreCase("true") &&
+                                            job_educationalAttainment.equals(pwd_edAttainment)){
+                                        //compare secondary skills
+                                        if(matched_secondary_skills.equals(job_secondary_skills)){
+                                            if (job_workExp.equals(pwd_workExp)){
+                                                if (job_workSetUpRequired.equalsIgnoreCase("true") && job_workSetUp.equals(pwd_workSetUp)) {
 
-                                                if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
+                                                    if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
 
-                                                    if (jobDisAbility1.equals(pwd_disability1) && jobDisAbility1!= null|| jobDisAbility2.equals(pwd_disability2) && jobDisAbility2!= null || jobDisAbility3.equals(pwd_disability3)  && jobDisAbility3!= null
-                                                            || jobDisAbility4.equals(pwd_disability4)  && jobDisAbility4!= null){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
+                                                    }
+                                                    else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
                                                     }
                                                 }
-                                                else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+                                                else if (job_workSetUpRequired.equalsIgnoreCase("false")){
 
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
+                                                    if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
+
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
+                                                    }
+                                                    else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
                                                     }
                                                 }
+
                                             }
-                                            else if (job_workSetUpRequired.equalsIgnoreCase("false")){
-
-                                                if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
-
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
-                                                    }
-                                                }
-                                                else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
-
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
-                                                    }
-                                                }
-                                            }
-
                                         }
                                     }
-                                }
-                                else if (job_educationalAttainmentRequirement.equalsIgnoreCase("false")){
+                                    else if (job_educationalAttainmentRequirement.equalsIgnoreCase("false")){
 
-                                    if(matched_secondary_skills.equals(job_secondary_skills)){
-                                        if (job_workExp.equals(pwd_workExp)){
-                                            if (job_workSetUpRequired.equalsIgnoreCase("true") && job_workSetUp.equals(pwd_workSetUp)) {
+                                        if(matched_secondary_skills.equals(job_secondary_skills)){
+                                            if (job_workExp.equals(pwd_workExp)){
+                                                if (job_workSetUpRequired.equalsIgnoreCase("true") && job_workSetUp.equals(pwd_workSetUp)) {
 
-                                                if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
+                                                    if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
 
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
+                                                    }
+                                                    else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
                                                     }
                                                 }
-                                                else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+                                                else if (job_workSetUpRequired.equalsIgnoreCase("false")){
 
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
+                                                    if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
+
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
+                                                    }
+                                                    else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
+
+                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+                                                            jobs_list.add(model);
+
                                                     }
                                                 }
+
                                             }
-                                            else if (job_workSetUpRequired.equalsIgnoreCase("false")){
-
-                                                if (job_typeOfEmploymentRequired.equalsIgnoreCase("true") && job_typeOfEmployment.equals(pwd_typeOfEmp) ){
-
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
-                                                    }
-                                                }
-                                                else if (job_typeOfEmploymentRequired.equalsIgnoreCase("false")){
-
-                                                    if (jobDisAbility1.equals(pwd_disability1) || jobDisAbility2.equals(pwd_disability2) || jobDisAbility3.equals(pwd_disability3)
-                                                            || jobDisAbility4.equals(pwd_disability4)){
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
-                                                    }
-                                                }
-                                            }
-
                                         }
                                     }
                                 }
                             }
                         }
+
                     }
+
                 }
                 Collections.reverse(jobs_list);
                 jobs1_adapter = new PWD_AvailableJobOffers_1_RVAdapter(getContext(), jobs_list);

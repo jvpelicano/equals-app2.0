@@ -258,7 +258,7 @@ public class PWD_AvailableJobsList_Activity extends AppCompatActivity {
 
         tabLayout_availableJobs.addTab(tabLayout_availableJobs.newTab().setText("Fully matched"));
         tabLayout_availableJobs.addTab(tabLayout_availableJobs.newTab().setText("Semi matched"));
-        tabLayout_availableJobs.addTab(tabLayout_availableJobs.newTab().setText("Secondary Skills matched"));
+        tabLayout_availableJobs.addTab(tabLayout_availableJobs.newTab().setText("Unmatched"));
 
         tabLayout_availableJobs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
