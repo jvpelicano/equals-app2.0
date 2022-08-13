@@ -141,7 +141,7 @@ public class a_EmployeeContentMainActivity extends AppCompatActivity  {
                     }
                 });
 
-                dp1 = snapshot.child("empProfilePic").getValue().toString();
+                dp1 = snapshot.child("empValidID").getValue().toString();
                 companyName = snapshot.child("fullname").getValue().toString();
                 View hView = eNavigation.inflateHeaderView(R.layout.emp_navigation_header);
                 imgProfile = hView.findViewById(R.id.profile_pic_emp);

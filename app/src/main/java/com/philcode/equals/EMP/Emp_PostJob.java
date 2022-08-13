@@ -488,7 +488,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     hashMap_generalData.put("postLocation", snapshot.child("companyaddress").getValue().toString());
                     hashMap_generalData.put("city", snapshot.child("companycity").getValue().toString());
-                    hashMap_generalData.put("empProfilePic", snapshot.child("empProfilePic").getValue().toString());
+                    hashMap_generalData.put("empValidID", snapshot.child("empValidID").getValue().toString());
                     hashMap_generalData.put("companyName", snapshot.child("fullname").getValue().toString());
                 }
                 @Override

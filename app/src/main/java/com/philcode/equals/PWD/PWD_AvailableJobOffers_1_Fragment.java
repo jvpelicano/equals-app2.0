@@ -284,7 +284,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                                         //for matched educ attainment
                                         if(job_skillCategory.equalsIgnoreCase(pwd_category)){
                                             //for matched secondary skills
-                                            if(matched_secondary_skills.equals(job_secondary_skills)){
+                                            if(matched_secondary_skills.size() == job_secondary_skills.size()){
                                                 //for matched without work exp
                                                 if(job_workExp.equals("Without Experience")){
                                                     //for matched type of employment requirement
@@ -363,7 +363,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                                         //for matched degree
                                         if(job_skillCategory.equalsIgnoreCase(pwd_category)){
                                             //for matched secondary skills
-                                            if(matched_secondary_skills.equals(job_secondary_skills)){
+                                            if(matched_secondary_skills.size() == job_secondary_skills.size()){
                                                 //for matched without work exp
                                                 if(job_workExp.equals("Without Experience")){
                                                     //for matched type of employment requirement

@@ -175,7 +175,7 @@ public class EMP_ViewResume extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Resumes > Resume ; Deleted for loop
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Job_Offers/" + postJobID).child("Resume");
-                    ref.addValueEventListener(new ValueEventListener() {
+                    ref.orderByChild("match_status").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             list.clear();
@@ -183,7 +183,6 @@ public class EMP_ViewResume extends AppCompatActivity {
                                 EMP_ViewResume_Information p = dataSnapshot2.getValue(EMP_ViewResume_Information.class);
                                 list.add(p);
                             }
-                            Collections.reverse(list);
                             adapter = new EMP_ViewResume_Adapter(EMP_ViewResume.this, list, postJobID);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();

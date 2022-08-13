@@ -283,32 +283,10 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 hashMap.put("email", email);
                 hashMap.put("contact", contact);
                 hashMap.put("userID", userID);
+                hashMap.put("match_status", postMatchStatus);
                 jobOffersRef.child("Resume").child(userID).setValue(hashMap);
-
-                if(snapshot.hasChild("jobs_keyList")){
-                    pwdRef.child("jobs_keyList").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if((snapshot.getChildrenCount() > 0)){
-                                snapshot.getChildrenCount();
-                                long count = snapshot.getChildrenCount();
-                                int calculate = (int) (count + 1);
-                                pwdRef.child("jobs_keyList").child("job_application_" + calculate).setValue(postJobID);
-                            }
-
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }else{
-                    pwdRef.child("jobs_keyList").child("job_application " + 1).setValue(postJobID);
-                }
-
+                startActivity(new Intent(PWD_AvailableJobs_View.this, a_PWDContentMainActivity.class));
                 Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
-
-                finish();
             }
 
             @Override
@@ -329,7 +307,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 String contact = snapshot.child("contact").getValue().toString();
                 String resume = snapshot.child("resumeFile").getValue().toString();
                 String userID = user.getUid();
-                //PWD_UserInformation currentProfile = dataSnapshot.child("typeStatus").getValue(PWD_UserInformation.class);
+
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put("oldResumeFile", oldResumeFile);
                 hashMap.put("resumeFile", resume);
@@ -339,9 +317,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 hashMap.put("contact", contact);
                 hashMap.put("userID", userID);
                 jobOffersRef.child("Resume").child(userID).setValue(hashMap);
+                startActivity(new Intent(PWD_AvailableJobs_View.this, a_PWDContentMainActivity.class));
                 Toast.makeText(getApplicationContext(), "Resume submitted successfully.", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getApplicationContext(), a_PWDContentMainActivity.class));
-                finish();
             }
 
             @Override

@@ -223,7 +223,7 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                     Log.d("job_secondary_skills", job_secondary_skills.get(1));
                     ArrayList<String> matched_secondary_skills = new ArrayList<>();
                     //get matching secondary skills from both sides
-                    int job_secondary_skills_length = job_secondary_skills.size();
+                    int job_secondary_skills_size = job_secondary_skills.size();
 
                     if(m_pwd_secondary_skills.size() > 0){
                         if(job_secondary_skills.contains(m_pwd_secondary_skills.get(0))){
@@ -256,6 +256,8 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                         }
                     }
 
+                    int match_secondary_skills_size = matched_secondary_skills.size();
+
                     Date expDate = convertDate(job_expDate);
                     Date currDate = convertDate(getCurrentDate());
 
@@ -274,7 +276,7 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                                         //for matched educ attainment
                                         if(job_skillCategory.equalsIgnoreCase(pwd_category)){
                                             //for matched secondary skills
-                                            if(!matched_secondary_skills.equals(job_secondary_skills)){
+                                            if(match_secondary_skills_size != job_secondary_skills_size){
                                                 //for matched without work exp
                                                 if(job_workExp.equals("Without Experience")){
                                                     //for matched type of employment requirement
@@ -353,7 +355,7 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                                     //for matched degree
                                     if(job_skillCategory.equalsIgnoreCase(pwd_category)){
                                         //for matched secondary skills
-                                        if(!matched_secondary_skills.equals(job_secondary_skills)){
+                                        if(match_secondary_skills_size != job_secondary_skills_size){
                                             //for matched without work exp
                                             if(job_workExp.equals("Without Experience")){
                                                 //for matched type of employment requirement
