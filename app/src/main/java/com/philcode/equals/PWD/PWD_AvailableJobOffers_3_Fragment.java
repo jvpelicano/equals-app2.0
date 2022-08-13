@@ -270,172 +270,177 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                     Date currDate = convertDate(getCurrentDate());
 
                     //see if the passed pwd_typeOfdisability matched any kind of the job_typeOfDisability
-                    if(job_typeOfDisability1 != pwdDisability || job_typeOfDisability2 != pwdDisability
-                            || job_typeOfDisability3 != pwdDisability|| job_typeOfDisability4 != pwdDisability
-                            || job_typeOfDisabilityMore != pwdDisability ){
+                    if(job_typeOfDisability1.equals(pwdDisability) || job_typeOfDisability2.equals(pwdDisability)
+                            || job_typeOfDisability3.equals(pwdDisability) || job_typeOfDisability4.equals(pwdDisability)
+                            || job_typeOfDisabilityMore.equals(pwdDisability) ){
                         //for Not Expired Job Post and Approved Job Post
                         if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
                             //for matched educ attainment requirement
-                            if(job_educationalAttainmentRequirement.equalsIgnoreCase("false")){
+
+                            if(matched_secondary_skills.equals(job_secondary_skills)){
                                 //for matched educ attainment
-                                if(job_educationalAttainment.equalsIgnoreCase(pwd_edAttainment)){
+                                if(!job_educationalAttainment.equalsIgnoreCase(pwd_edAttainment)){
                                     //for matched educ attainment
-                                    if(job_title.equalsIgnoreCase(pwd_jobTitle)){
+                                    if(!job_title.equalsIgnoreCase(pwd_jobTitle)){
                                         //for matched educ attainment
-                                        if(job_skillCategory.equalsIgnoreCase(pwd_category)){
+                                        if(!job_skillCategory.equalsIgnoreCase(pwd_category)){
                                             //for matched secondary skills
-                                            if(matched_secondary_skills.equals(job_secondary_skills)){
+                                            if(!job_educationalAttainmentRequirement.equalsIgnoreCase("true")){
                                                 //for matched without work exp
-                                                if(job_workExp.equals("Without Experience")){
+                                                if(!job_workExp.equals("Without Experience")){
                                                     //for matched type of employment requirement
-                                                    if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
+                                                    if(!job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
                                                         //for matched type of employment
-                                                        if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
+                                                        if(!job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
                                                             //for matched work setup req
-                                                            if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                                if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+                                                            if(!job_workSetUpRequired.equalsIgnoreCase("true")){
+                                                                if(!job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
                                                                     PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
                                                                     jobs_list.add(model);
                                                                 }
-                                                            }else{
-                                                                //display here
-                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                jobs_list.add(model);
-                                                            }//work set up
-                                                        }//type of emp
-                                                    }else{
-                                                        //for matched work setup req
-                                                        if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                            if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                jobs_list.add(model);
                                                             }
-                                                        }else{
-                                                            //display here
-                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                            jobs_list.add(model);
-                                                        }//work set up
-                                                    }//type of employment req
-                                                }else{
-                                                    //for matched with work exp
-                                                    if(job_workExp.equals("With Experience")){
-                                                        //for matched with work exp pwd
-                                                        if(pwd_workExp.equalsIgnoreCase("With Experience")){
-                                                            //for matched with work exp pwd
-                                                            if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
-                                                                //for matched type of employment
-                                                                if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
-                                                                    //for matched work setup req
-                                                                    if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                                        if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                            jobs_list.add(model);
-                                                                        }
-                                                                    }else{
-                                                                        //display here
-                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                        jobs_list.add(model);
-                                                                    }//work set up
-                                                                }//type of emp
-                                                            }else{
-                                                                //for matched work setup req
-                                                                if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                                    if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                        jobs_list.add(model);
-                                                                    }
-                                                                }else{
-                                                                    //display here
-                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                    jobs_list.add(model);
-                                                                }//work set up
-                                                            }//type of employment req
-                                                        }// if pwd with work exp
-                                                    }// with work experience
-                                                }// without work experience
+//                                                            else{
+//                                                                //display here
+//                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                jobs_list.add(model);
+//                                                            }//work set up
+                                                        }//type of emp
+                                                    }
+//                                                    else{
+//                                                        //for matched work setup req
+//                                                        if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                            if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                jobs_list.add(model);
+//                                                            }
+//                                                        }else{
+//                                                            //display here
+//                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                            jobs_list.add(model);
+//                                                        }//work set up
+//                                                    }//type of employment req
+                                                }
+//                                                else{
+//                                                    //for matched with work exp
+//                                                    if(job_workExp.equals("With Experience")){
+//                                                        //for matched with work exp pwd
+//                                                        if(pwd_workExp.equalsIgnoreCase("With Experience")){
+//                                                            //for matched with work exp pwd
+//                                                            if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
+//                                                                //for matched type of employment
+//                                                                if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
+//                                                                    //for matched work setup req
+//                                                                    if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                                        if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                            jobs_list.add(model);
+//                                                                        }
+//                                                                    }else{
+//                                                                        //display here
+//                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                        jobs_list.add(model);
+//                                                                    }//work set up
+//                                                                }//type of emp
+//                                                            }else{
+//                                                                //for matched work setup req
+//                                                                if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                                    if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                        jobs_list.add(model);
+//                                                                    }
+//                                                                }else{
+//                                                                    //display here
+//                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                    jobs_list.add(model);
+//                                                                }//work set up
+//                                                            }//type of employment req
+//                                                        }// if pwd with work exp
+//                                                    }// with work experience
+//                                                }// without work experience
                                             }//secondary skills
                                         }// degree
                                     }//job title
                                 }//educ attainment
-                            }else{
-                                //for matched job title
-                                if(job_title.equalsIgnoreCase(pwd_jobTitle)){
-                                    //for matched degree
-                                    if(job_skillCategory.equalsIgnoreCase(pwd_category)){
-                                        //for matched secondary skills
-                                        if(matched_secondary_skills.equals(job_secondary_skills)){
-                                            //for matched without work exp
-                                            if(job_workExp.equals("Without Experience")){
-                                                //for matched type of employment requirement
-                                                if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
-                                                    //for matched type of employment
-                                                    if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
-                                                        //for matched work setup req
-                                                        if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                            if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                jobs_list.add(model);
-                                                            }
-                                                        }else{
-                                                            //display here
-                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                            jobs_list.add(model);
-                                                        }//work set up
-                                                    }//type of emp
-                                                }else{
-                                                    //for matched work setup req
-                                                    if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                        if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                            jobs_list.add(model);
-                                                        }
-                                                    }else{
-                                                        //display here
-                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                        jobs_list.add(model);
-                                                    }//work set up
-                                                }//type of employment req
-                                            }else{
-                                                //for matched with work exp
-                                                if(job_workExp.equals("With Experience")){
-                                                    //for matched with work exp pwd
-                                                    if(pwd_workExp.equalsIgnoreCase("With Experience")){
-                                                        //for matched with work exp pwd
-                                                        if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
-                                                            //for matched type of employment
-                                                            if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
-                                                                //for matched work setup req
-                                                                if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                                    if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                        jobs_list.add(model);
-                                                                    }
-                                                                }else{
-                                                                    //display here
-                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                    jobs_list.add(model);
-                                                                }//work set up
-                                                            }//type of emp
-                                                        }else{
-                                                            //for matched work setup req
-                                                            if(job_workSetUpRequired.equalsIgnoreCase("true")){
-                                                                if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                    jobs_list.add(model);
-                                                                }
-                                                            }else{
-                                                                //display here
-                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-                                                                jobs_list.add(model);
-                                                            }//work set up
-                                                        }//type of employment req
-                                                    }// if pwd with work exp
-                                                }// with work experience
-                                            }// without work experience
-                                        }//secondary skills
-                                    }// degree
-                                }//job title
-                            }//educ attainment req
+                            }
+//                            else{
+//                                //for matched job title
+//                                if(job_title.equalsIgnoreCase(pwd_jobTitle)){
+//                                    //for matched degree
+//                                    if(job_skillCategory.equalsIgnoreCase(pwd_category)){
+//                                        //for matched secondary skills
+//                                        if(matched_secondary_skills.equals(job_secondary_skills)){
+//                                            //for matched without work exp
+//                                            if(job_workExp.equals("Without Experience")){
+//                                                //for matched type of employment requirement
+//                                                if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
+//                                                    //for matched type of employment
+//                                                    if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
+//                                                        //for matched work setup req
+//                                                        if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                            if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                jobs_list.add(model);
+//                                                            }
+//                                                        }else{
+//                                                            //display here
+//                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                            jobs_list.add(model);
+//                                                        }//work set up
+//                                                    }//type of emp
+//                                                }else{
+//                                                    //for matched work setup req
+//                                                    if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                        if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                            PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                            jobs_list.add(model);
+//                                                        }
+//                                                    }else{
+//                                                        //display here
+//                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                        jobs_list.add(model);
+//                                                    }//work set up
+//                                                }//type of employment req
+//                                            }else{
+//                                                //for matched with work exp
+//                                                if(job_workExp.equals("With Experience")){
+//                                                    //for matched with work exp pwd
+//                                                    if(pwd_workExp.equalsIgnoreCase("With Experience")){
+//                                                        //for matched with work exp pwd
+//                                                        if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
+//                                                            //for matched type of employment
+//                                                            if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
+//                                                                //for matched work setup req
+//                                                                if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                                    if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                        jobs_list.add(model);
+//                                                                    }
+//                                                                }else{
+//                                                                    //display here
+//                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                    jobs_list.add(model);
+//                                                                }//work set up
+//                                                            }//type of emp
+//                                                        }else{
+//                                                            //for matched work setup req
+//                                                            if(job_workSetUpRequired.equalsIgnoreCase("true")){
+//                                                                if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
+//                                                                    PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                    jobs_list.add(model);
+//                                                                }
+//                                                            }else{
+//                                                                //display here
+//                                                                PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
+//                                                                jobs_list.add(model);
+//                                                            }//work set up
+//                                                        }//type of employment req
+//                                                    }// if pwd with work exp
+//                                                }// with work experience
+//                                            }// without work experience
+//                                        }//secondary skills
+//                                    }// degree
+//                                }//job title
+//                            }//educ attainment req
                         }//exp date and status
                     }//typeofdisability
 
