@@ -427,6 +427,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
 
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("PWD").child(userId);
                     mDatabase.child("educationalAttainment").setValue(educAttainment);
+                    mDatabase.child("jobTitle").setValue(autoComplete_jobTitle.getText().toString());
                     mDatabase.child("skill").setValue(autoComplete_degree.getText().toString()); //working
                     mDatabase.child("workExperience").setValue(workExperience);
                     mDatabase.child("typeOfEmployment").setValue(autoComplete_typeOfEmployment.getText().toString());
