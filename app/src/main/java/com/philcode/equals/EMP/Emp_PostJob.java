@@ -103,7 +103,7 @@ public class Emp_PostJob extends AppCompatActivity {
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
-        private RadioButton radioButton_withWorkExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
+        private RadioButton radioButton_lessThan1YearExp, radioButton_1YearExp, radioButton_moreThan1YearExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
         //radio group
         private RadioGroup radioGroup_educ, radioGroup_workSetUp;
         //progress dialog
@@ -197,7 +197,9 @@ public class Emp_PostJob extends AppCompatActivity {
                 selected_educAttainment_ID = radioGroup_educ.getCheckedRadioButtonId();
                 selected_workSetUp_ID = radioGroup_workSetUp.getCheckedRadioButtonId();
                 //radio button
-                radioButton_withWorkExp = findViewById(R.id.radio_11);
+                radioButton_lessThan1YearExp = findViewById(R.id.rbLessThan1YrExp);
+                radioButton_1YearExp = findViewById(R.id.rb1YrExp);
+                radioButton_moreThan1YearExp = findViewById(R.id.rbMoreThan1YrExp);
                 radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
                 radio_1 = findViewById(R.id.radio_1);
                 radio_2 = findViewById(R.id.radio_2);
@@ -342,30 +344,59 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
-        radioButton_withWorkExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
 
-                    textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            if(!hasFocus){
-                                if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
-                                    txt_minYearsOfExpError.setVisibility(View.VISIBLE);
-                                }else{
-                                    txt_minYearsOfExpError.setVisibility(View.GONE);
-                                }
-                            }
-                        }
-                    });
-                }else{
-                    textInputLayout_yearsOfExperience.setVisibility(View.GONE);
-                    txt_minYearsOfExpError.setVisibility(View.GONE);
+
+            radioButton_lessThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+
+                    }else{
+                        textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                        txt_minYearsOfExpError.setVisibility(View.GONE);
+                    }
                 }
-            }
-        });
+            });
+
+            radioButton_1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+
+                    }else{
+                        textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                        txt_minYearsOfExpError.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            radioButton_moreThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+
+                    }else{
+                        textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                        txt_minYearsOfExpError.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            textInputEditText_yearsOfExperience.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(!hasFocus){
+                        if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
+                            txt_minYearsOfExpError.setVisibility(View.VISIBLE);
+                        }else{
+                            txt_minYearsOfExpError.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            });
 
             //check if type of disability Others is ticked
             checkBox_typeOfDisability_Other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -423,13 +454,13 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                         }else{
 
-                                            if(radioButton_withWorkExp.isChecked()){
+                                            if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
+                                                    || radioButton_moreThan1YearExp.isChecked()){
                                                 if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){
                                                     Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                                                 }else{
                                                     uploadData();
                                                 }
-
                                             }else{
                                                 uploadData();
                                             }
@@ -452,7 +483,8 @@ public class Emp_PostJob extends AppCompatActivity {
                                         Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
                                     }else{
 
-                                        if(radioButton_withWorkExp.isChecked()){
+                                        if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
+                                                || radioButton_moreThan1YearExp.isChecked()){
 
                                             if(textInputEditText_yearsOfExperience.getText().toString().isEmpty()){//error
                                                 Toast.makeText(Emp_PostJob.this, "Please complete the form.", Toast.LENGTH_SHORT).show();
@@ -533,8 +565,9 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }else{
                                         hashMap_generalData.put("skill", "");
                                     }
-                                    if(radioButton_withWorkExp.isChecked()){
-                                        hashMap_generalData.put("workExperience", radioButton_withWorkExp.getText().toString());
+                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
+                                            || radioButton_moreThan1YearExp.isChecked()){
+                                        hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
                                     }else{
                                         hashMap_generalData.put("yearsOfExperience", "0");
