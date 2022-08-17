@@ -526,6 +526,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/skillLayout" />
 
+            <CheckBox
+                android:id="@+id/checkbox_workExperienceRequirement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience"
+                android:text="Required"
+                android:buttonTint="@color/colorPrimary"
+                />
+
             <RadioGroup
                 android:id="@+id/radioGroup_workExp"
                 android:layout_width="match_parent"
@@ -533,21 +543,35 @@
                 android:checkedButton="@+id/radio_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience">
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_workExperienceRequirement">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_10"
+                    android:id="@+id/rbWithoutExp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimary"
                     android:text="Without Experience" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radio_11"
+                    android:id="@+id/rbLessThan1YrExp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimary"
-                    android:text="With Experience" />
+                    android:text="Less than 1 year experience" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rb1YrExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="1 year experience" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/rbMoreThan1YrExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="More than 1 year experience" />
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
