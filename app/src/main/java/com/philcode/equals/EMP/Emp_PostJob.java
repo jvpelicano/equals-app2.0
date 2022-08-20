@@ -344,22 +344,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
-
-
             radioButton_lessThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked){
-                        textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
-
-                    }else{
-                        textInputLayout_yearsOfExperience.setVisibility(View.GONE);
-                        txt_minYearsOfExpError.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-            radioButton_1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
@@ -565,15 +550,20 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }else{
                                         hashMap_generalData.put("skill", "");
                                     }
-                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
-                                            || radioButton_moreThan1YearExp.isChecked()){
+
+                                    //for work experience
+                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
                                         hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
+                                    }else if(radioButton_1YearExp.isChecked()){
+                                        hashMap_generalData.put("workExperience", "With Experience");
+                                        hashMap_generalData.put("yearsOfExperience", "1");
                                     }else{
                                         hashMap_generalData.put("yearsOfExperience", "0");
                                         hashMap_generalData.put("workExperience", "Without Experience");
                                     }
 
+                                    //for educational attainment
                                     if(checkBox_educAttainmentRequirement.isChecked()){
                                         hashMap_generalData.put("educationalAttainmentRequirement", "true");
 
