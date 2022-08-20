@@ -65,7 +65,7 @@ public class Emp_PostJob extends AppCompatActivity {
     private String postDate;
     private String radioButton_educAttainment_text, radioButton_workSetUp_text;
     //int
-    private int selected_educAttainment_ID, selected_workExpRg_ID, selected_workSetUp_ID;
+    private int selected_educAttainment_ID, selected_workExpRg_ID, selected_workSetUp_ID, jobRequiredScore, jobOptionalScore;
     //boolean
     private boolean editTextsValid = true;
     private boolean autoCompleteValid = true;
@@ -99,7 +99,7 @@ public class Emp_PostJob extends AppCompatActivity {
         private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
                 ,textInputEditText_yearsOfExperience;
         //check box
-        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement;
+        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement, checkbox_workExpRequired;
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
@@ -136,6 +136,7 @@ public class Emp_PostJob extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+        jobRequiredScore = 2;
             //references
             categories_root = firebaseDatabase.getReference("Category"); //reference for spinners
             job_offers_root = firebaseDatabase.getReference("Job_Offers/"); //where data will be stored
@@ -180,6 +181,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 checkBox_typeOfDisability_Other = findViewById(R.id.typeOfDisabilityOther);
                 checkBox_educAttainmentRequirement = findViewById(R.id.checkBox_educAttainmentRequirement);
                 checkbox_typeOfEmploymentRequirement = findViewById(R.id.checkbox_typeOfEmploymentRequirement);
+                checkbox_workExpRequired = findViewById(R.id.checkbox_workExperienceRequirement);
                 checkbox_workSetUpRequirement = findViewById(R.id.checkbox_workSetUpRequirement);
                 //edit texts
                 textInputEditText_postDescription = findViewById(R.id.textInputEditText_postDescription);
@@ -429,6 +431,7 @@ public class Emp_PostJob extends AppCompatActivity {
                     getDataFromCurrentUser();
 
 
+
                     if(FilePathUri != null){ // upload data
 
                         if(checkBox_type_of_disabilities_checkIfEmpty.isEmpty() && !checkBox_typeOfDisability_Other.isChecked()){
@@ -565,23 +568,38 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }else{
                                         hashMap_generalData.put("skill", "");
                                     }
-                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
-                                            || radioButton_moreThan1YearExp.isChecked()){
-                                        hashMap_generalData.put("workExperience", "With Experience");
-                                        hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
-                                    }else{
-                                        hashMap_generalData.put("yearsOfExperience", "0");
-                                        hashMap_generalData.put("workExperience", "Without Experience");
-                                    }
 
+                                    //Job Title is Required - 1st Criteria
+                                    //Degree or Skill Category is Required  - 2nd Criteria
+                                    //Educational attainment is Required or Optional - 3rd Criteria
+                                    //Disability  is Required or Optional- 4th Criteria
+                                    //Work Experience is Required or Optional- 5th Criteria
+                                    //Type of Employment is Required or Optional - 6th Criteria
+                                    //Work Set-Up is Required or Optional- 7th Criteria
+                                    // Secondary Skills Optional -8th Criteria
                                     if(checkBox_educAttainmentRequirement.isChecked()){
                                         hashMap_generalData.put("educationalAttainmentRequirement", "true");
 
                                         radioButton_educAttainment = findViewById(selected_educAttainment_ID);
                                         hashMap_generalData.put("educationalAttainment", radioButton_educAttainment.getText().toString());
+                                        jobRequiredScore++;
                                     }else{
                                         hashMap_generalData.put("educationalAttainmentRequirement", "false");
                                         hashMap_generalData.put("educationalAttainment", "Elementary Level");
+                                        jobOptionalScore++;
+                                    }
+                                    if (checkbox_workExpRequired.isChecked()){
+                                        if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
+                                                || radioButton_moreThan1YearExp.isChecked()){
+                                            hashMap_generalData.put("workExperience", "With Experience");
+                                            hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
+                                            jobRequiredScore++;
+                                        }
+                                    }
+                                    else{
+                                        hashMap_generalData.put("yearsOfExperience", "0");
+                                        hashMap_generalData.put("workExperience", "Without Experience");
+                                        jobOptionalScore++;
                                     }
 
                                     if(radioButton_workSetUp.isChecked()){
@@ -592,14 +610,18 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     if(checkbox_workSetUpRequirement.isChecked()){
                                         hashMap_generalData.put("workSetUpRequired", "true");
+                                        jobRequiredScore++;
                                     }else{
                                         hashMap_generalData.put("workSetUpRequired", "false");
+                                        jobOptionalScore++;
                                     }
 
                                     if(checkbox_typeOfEmploymentRequirement.isChecked()){
                                         hashMap_generalData.put("typeOfEmploymentRequired", "true");
+                                        jobRequiredScore++;
                                     }else{
                                         hashMap_generalData.put("typeOfEmploymentRequired", "false");
+                                        jobOptionalScore++;
                                     }
                                     //reference automatic deletion after 12 months
                                     cal.add(Calendar.MONTH, 12);
@@ -610,6 +632,8 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     //new key "timestamp"
                                     hashMap_generalData.put("permission", "pending");
+                                    hashMap_generalData.put("jobRequiredScore", String.valueOf(jobRequiredScore));
+                                    hashMap_generalData.put("jobOptionalScore", String.valueOf(jobOptionalScore));
 
                                     job_offers_root.child(pushKey).setValue(hashMap_generalData);
                                     Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
@@ -693,7 +717,6 @@ public class Emp_PostJob extends AppCompatActivity {
             arrayList_typeOfEmployment.add("Seasonal Employment");
             arrayList_typeOfEmployment.add("Casual Employment");
             arrayList_typeOfEmployment.add("Fixed Term Employment");
-            arrayList_typeOfEmployment.add("Probationary Employment");
         }
         //These methods are for checking if checkBox is checked.
         private void selectedSecondarySkills(){
@@ -761,6 +784,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             }
         }
+
 
         //post duration?
                 /*private void calculateExpDate(String selected_postExpDate) {

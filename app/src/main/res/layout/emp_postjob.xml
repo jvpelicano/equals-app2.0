@@ -233,9 +233,9 @@
                 android:id="@+id/txt_degree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_sharp_subdirectory_arrow_right_24"
                 android:fontFamily="@font/open_sans_regular"
-                android:layout_marginTop="8dp"
                 android:text="Degree"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -432,6 +432,14 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/txt_educationalAttainment"
                 android:layout_width="wrap_content"
@@ -448,11 +456,13 @@
                 android:id="@+id/checkBox_educAttainmentRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
                 android:buttonTint="@color/colorPrimary"
-                android:fontFamily="@font/proxima_nova_regular"
+                android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_educationalAttainment" />
+                app:layout_constraintStart_toEndOf="@+id/txt_educationalAttainment"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_educ"
@@ -530,11 +540,10 @@
                 android:id="@+id/checkbox_workExperienceRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience"
-                android:text="Required"
                 android:buttonTint="@color/colorPrimary"
-                />
+                android:text="Required"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_workExp"
@@ -624,11 +633,10 @@
                 android:id="@+id/checkbox_typeOfEmploymentRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment"
-                android:text="Required"
                 android:buttonTint="@color/colorPrimary"
-                />
+                android:text="Required"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_typeOfEmployment"
@@ -664,11 +672,9 @@
                 android:id="@+id/checkbox_workSetUpRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_workSetUp"
                 android:buttonTint="@color/colorPrimary"
                 android:text="Required"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_workSetUp"
@@ -695,6 +701,7 @@
 
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_saveJobPost"
             android:layout_width="match_parent"
