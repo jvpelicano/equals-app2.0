@@ -138,6 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginTop="10dp"
                 android:buttonTint="@color/colorPrimary"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:text="Orthopedic Disability"
@@ -540,10 +541,15 @@
                 android:id="@+id/checkbox_workExperienceRequirement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:buttonTint="@color/colorPrimary"
+                android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_workExperience" />
+                app:layout_constraintStart_toEndOf="@+id/txt_workExperience"
+                app:layout_constraintTop_toBottomOf="@+id/skillLayout"
+                app:layout_constraintBottom_toTopOf="@+id/radioGroup_workExp"
+                />
 
             <RadioGroup
                 android:id="@+id/radioGroup_workExp"
@@ -634,9 +640,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_typeOfEmployment" />
+                app:layout_constraintStart_toEndOf="@+id/txt_typeOfEmployment"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup_workExp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_typeOfEmployment"
@@ -673,7 +682,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
+                app:layout_constraintStart_toEndOf="@+id/txt_workSetUp"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_typeOfEmployment" />
 
             <RadioGroup
