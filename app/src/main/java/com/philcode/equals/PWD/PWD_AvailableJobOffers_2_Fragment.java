@@ -220,7 +220,7 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                         job_secondary_skills.add(jobSkill5);
                     }
 
-                    Log.d("job_secondary_skills", job_secondary_skills.get(1));
+
                     ArrayList<String> matched_secondary_skills = new ArrayList<>();
                     //get matching secondary skills from both sides
                     int job_secondary_skills_size = job_secondary_skills.size();

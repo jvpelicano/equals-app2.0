@@ -588,18 +588,25 @@ public class Emp_PostJob extends AppCompatActivity {
                                         hashMap_generalData.put("educationalAttainment", "Elementary Level");
                                         jobOptionalScore++;
                                     }
-                                    if (checkbox_workExpRequired.isChecked()){
-                                        if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
-                                                || radioButton_moreThan1YearExp.isChecked()){
-                                            hashMap_generalData.put("workExperience", "With Experience");
-                                            hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
-                                            jobRequiredScore++;
-                                        }
+
+                                    if(checkbox_workExpRequired.isChecked()){
+                                        hashMap_generalData.put("workExpRequired", "true");
+                                        jobRequiredScore++;
+                                    }
+                                    else{
+                                        hashMap_generalData.put("workExpRequired", "false");
+                                        jobOptionalScore++;
+                                    }
+                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
+                                            || radioButton_moreThan1YearExp.isChecked()){
+                                        hashMap_generalData.put("workExperience", "With Experience");
+                                        hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
+
                                     }
                                     else{
                                         hashMap_generalData.put("yearsOfExperience", "0");
                                         hashMap_generalData.put("workExperience", "Without Experience");
-                                        jobOptionalScore++;
+
                                     }
 
                                     if(radioButton_workSetUp.isChecked()){
@@ -631,7 +638,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     hashMap_generalData.put("expDate", calculated_postExpDate);
 
                                     //new key "timestamp"
-                                    hashMap_generalData.put("permission", "pending");
+                                    hashMap_generalData.put("permission", "Approved");
                                     hashMap_generalData.put("jobRequiredScore", String.valueOf(jobRequiredScore));
                                     hashMap_generalData.put("jobOptionalScore", String.valueOf(jobOptionalScore));
 

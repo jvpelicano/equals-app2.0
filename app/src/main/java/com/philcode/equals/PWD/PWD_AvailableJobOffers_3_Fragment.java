@@ -1,5 +1,6 @@
 package com.philcode.equals.PWD;
 
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -228,7 +229,7 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                         job_secondary_skills.add(jobSkill5);
                     }
 
-                    Log.d("job_secondary_skills", job_secondary_skills.get(1));
+
                     ArrayList<String> matched_secondary_skills = new ArrayList<>();
                     //get matching secondary skills from both sides
                     int job_secondary_skills_length = job_secondary_skills.size();
@@ -275,9 +276,10 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                             || job_typeOfDisabilityMore.equals(pwdDisability) ){
                         //for Not Expired Job Post and Approved Job Post
                         if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
-                            //for matched educ attainment requirement
 
-                            if(matched_secondary_skills.equals(job_secondary_skills)){
+                            //for matched educ attainment requirement
+                            if(!job_educationalAttainmentRequirement.equalsIgnoreCase("true")){
+
                                 //for matched educ attainment
                                 if(!job_educationalAttainment.equalsIgnoreCase(pwd_edAttainment)){
                                     //for matched educ attainment
@@ -285,7 +287,7 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                                         //for matched educ attainment
                                         if(!job_skillCategory.equalsIgnoreCase(pwd_category)){
                                             //for matched secondary skills
-                                            if(!job_educationalAttainmentRequirement.equalsIgnoreCase("true")){
+                                            if(matched_secondary_skills.equals(job_secondary_skills)){
                                                 //for matched without work exp
                                                 if(!job_workExp.equals("Without Experience")){
                                                     //for matched type of employment requirement
