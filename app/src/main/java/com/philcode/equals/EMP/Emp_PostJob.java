@@ -99,7 +99,10 @@ public class Emp_PostJob extends AppCompatActivity {
         private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_postDescription, textInputEditText_maxNumberOfApplicants
                 ,textInputEditText_yearsOfExperience;
         //check box
-        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement, checkbox_workExpRequired;
+        private CheckBox checkBox_typeOfDisability_Other, checkBox_educAttainmentRequirement, checkbox_typeOfEmploymentRequirement, checkbox_workSetUpRequirement
+                , checkbox_workExpRequired;
+        private CheckBox checkBox_typeOfDisability1, checkBox_typeOfDisability2, checkBox_typeOfDisability3, checkBox_typeOfDisability4;
+        private CheckBox checkBox_secondarySkill1, checkBox_secondarySkill2, checkBox_secondarySkill3, checkBox_secondarySkill4, checkBox_secondarySkill5;
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
@@ -183,10 +186,20 @@ public class Emp_PostJob extends AppCompatActivity {
                 checkbox_typeOfEmploymentRequirement = findViewById(R.id.checkbox_typeOfEmploymentRequirement);
                 checkbox_workExpRequired = findViewById(R.id.checkbox_workExperienceRequirement);
                 checkbox_workSetUpRequirement = findViewById(R.id.checkbox_workSetUpRequirement);
+                    //check box typeOfDisability
+                    checkBox_typeOfDisability1 =  findViewById(R.id. typeOfDisability1);
+                    checkBox_typeOfDisability2 =  findViewById(R.id. typeOfDisability2);
+                    checkBox_typeOfDisability3 =  findViewById(R.id. typeOfDisability3);
+                    checkBox_typeOfDisability4 =  findViewById(R.id. typeOfDisability4);
+                    //check box secondarySkill
+                    checkBox_secondarySkill1 = findViewById(R.id. typeOfSkills1);
+                    checkBox_secondarySkill2 = findViewById(R.id. typeOfSkills2);
+                    checkBox_secondarySkill3 = findViewById(R.id. typeOfSkills3);
+                    checkBox_secondarySkill4 = findViewById(R.id. typeOfSkills4);
+                    checkBox_secondarySkill5 = findViewById(R.id. typeOfSkills5);
                 //edit texts
                 textInputEditText_postDescription = findViewById(R.id.textInputEditText_postDescription);
                 textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
-                //textInputEditText_maxNumberOfApplicants = findViewById(R.id.textInputEditText_maxNumberOfApplicants);
                 textInputEditText_yearsOfExperience = findViewById(R.id.textInputEditText_yearsOfExperience);
                 //image view
                 imageView = findViewById(R.id.displayPostPic);
@@ -397,6 +410,52 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
+            //check box typeOfDisability Listeners
+            checkBox_typeOfDisability1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked && !checkBox_typeOfDisability3.isChecked() && !checkBox_typeOfDisability4.isChecked()) {
+                        checkBox_secondarySkill2.setText("Communication Skills");
+                    } else if (isChecked && checkBox_typeOfDisability3.isChecked() && checkBox_typeOfDisability4.isChecked()) {
+                        checkBox_secondarySkill2.setText("Written/Non-Verbal Communication Skills");
+                    }
+                }
+
+            });
+
+            checkBox_typeOfDisability2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked && !checkBox_typeOfDisability3.isChecked() && !checkBox_typeOfDisability4.isChecked()) {
+                        checkBox_secondarySkill2.setText("Communication Skills");
+                    }else if (isChecked && checkBox_typeOfDisability3.isChecked() && checkBox_typeOfDisability4.isChecked()) {
+                        checkBox_secondarySkill2.setText("Written/Non-Verbal Communication Skills");
+                    }
+
+                }
+            });
+            checkBox_typeOfDisability3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked || checkBox_typeOfDisability4.isChecked()){
+                        checkBox_secondarySkill2.setText("Written/Non-Verbal Communication Skills");
+                    }else{
+                        checkBox_secondarySkill2.setText("Communication Skills");
+                    }
+                }
+            });
+            checkBox_typeOfDisability4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked || checkBox_typeOfDisability3.isChecked()){
+                        checkBox_secondarySkill2.setText("Written/Non-Verbal Communication Skills");
+                    }else{
+                        checkBox_secondarySkill2.setText("Communication Skills");
+                    }
+                }
+            });
+
+        //Button Listeners
         btn_chooseHeaderImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -587,6 +646,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                         hashMap_generalData.put("educationalAttainment", "Elementary Level");
                                         jobOptionalScore++;
                                     }
+
                                     if (checkbox_workExpRequired.isChecked()){
                                         if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
                                                 || radioButton_moreThan1YearExp.isChecked()){
