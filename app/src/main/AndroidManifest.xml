@@ -75,7 +75,6 @@
             android:label="Potential Applicants" />
         <activity android:name=".EMP.EMP_ViewPotential_View" />
         <activity android:name=".EMP.EMP_ChangeProfile_Activity" />
-        <activity android:name=".EMP.EMP_ChangeLogo" />
     </application>
 
 </manifest>
