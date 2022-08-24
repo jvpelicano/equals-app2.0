@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,7 +40,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
     m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
     m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
-    m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp;
+    m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp, m_textDegreeLabel;
 
     ImageView m_displayPostPic, m_displayCompanyLogo;
     FirebaseDatabase fDb;
@@ -48,6 +49,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     private String companyLogoURL, postTitle,companyName, postDescription,postLoc,skillCategory,
             educationalAttainment, workExperience,postExpDate,permission,imageURL, typeOfEmployment, workSetUp;
     DatabaseReference refForJobs;
+    private CardView m_displayCategorySkill_card;
     private static final String TAG = "PWD_AvailableJobs_View";
 
 
@@ -74,6 +76,8 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
         m_displayTypeOfEmployment = findViewById(R.id.displayTypeOfEmployment);
         m_displayWorkSetUp= findViewById(R.id.displayWorkSetUp);
+        m_textDegreeLabel = findViewById(R.id.txtLbl2);
+        m_displayCategorySkill_card = findViewById(R.id.displayCategorySkill_card);
 
         //animation
         fab_main = findViewById(R.id.fab);
@@ -310,7 +314,16 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
-        m_displayCategorySkill.setText(skillCategory);
+        if(skillCategory.equals("")){
+            Log.d("RESULT", "true");
+            m_textDegreeLabel.setVisibility(View.GONE);
+            m_displayCategorySkill.setVisibility(View.GONE);
+            m_displayCategorySkill_card.setVisibility(View.GONE);
+        }else{
+            Log.d("RESULT", "false");
+            m_displayCategorySkill.setText(skillCategory);
+        }
+
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience + " years");
         m_displayExpDate.setText(postExpDate);
