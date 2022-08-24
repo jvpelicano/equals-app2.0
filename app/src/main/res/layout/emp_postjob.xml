@@ -645,7 +645,7 @@
                 android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
                 app:layout_constraintStart_toEndOf="@+id/txt_typeOfEmployment"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_workExp" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_minYearsOfExp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_typeOfEmployment"
