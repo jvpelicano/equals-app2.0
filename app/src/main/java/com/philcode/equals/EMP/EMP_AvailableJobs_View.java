@@ -40,14 +40,14 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
     m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
     m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
-    m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp, m_textDegreeLabel;
+    m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp, m_textDegreeLabel, m_yearsOfExpLabel;
 
     ImageView m_displayPostPic, m_displayCompanyLogo;
     FirebaseDatabase fDb;
     DatabaseReference jobOffersRef, pwdRef;
     Boolean isOpen = false;
     private String companyLogoURL, postTitle,companyName, postDescription,postLoc,skillCategory,
-            educationalAttainment, workExperience,postExpDate,permission,imageURL, typeOfEmployment, workSetUp;
+            educationalAttainment, workExperience,postExpDate,permission,imageURL, typeOfEmployment, workSetUp, lessThan1yr;
     DatabaseReference refForJobs;
     private CardView m_displayCategorySkill_card;
     private static final String TAG = "PWD_AvailableJobs_View";
@@ -78,6 +78,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         m_displayWorkSetUp= findViewById(R.id.displayWorkSetUp);
         m_textDegreeLabel = findViewById(R.id.txtLbl2);
         m_displayCategorySkill_card = findViewById(R.id.displayCategorySkill_card);
+        m_yearsOfExpLabel = findViewById(R.id.txtLbz);
 
         //animation
         fab_main = findViewById(R.id.fab);
@@ -99,6 +100,15 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         jobOffersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("lessThan1Year")){
+                    if(snapshot.child("lessThan1Year").getValue().toString().equals("true")){
+                        lessThan1yr = "true";
+                        m_yearsOfExpLabel.setText("Months of Experience");
+                    }else{
+                        lessThan1yr = "false";
+                        m_yearsOfExpLabel.setText("Years of Experience");
+                    }
+                }
                 if(snapshot.hasChild("jobTitle")){
                     postTitle = snapshot.child("jobTitle").getValue().toString();
                 }
@@ -164,7 +174,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                     typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue().toString());
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission
-                        , imageURL, companyLogoURL, typeOfEmployment, workSetUp);
+                        , imageURL, companyLogoURL, typeOfEmployment, workSetUp, lessThan1yr);
             }
 
             @Override
@@ -309,11 +319,12 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
     }
 
     private void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName, String postDescription, String postLoc, String skillCategory, String educationalAttainment,
-                             String workExperience, String postExpDate, String permission, String imageURL, String companyLogoUrl, String typeOfEmployment, String workSetUp) {
+                             String workExperience, String postExpDate, String permission, String imageURL, String companyLogoUrl, String typeOfEmployment, String workSetUp, String lessThan1yr) {
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
+
         if(skillCategory.equals("")){
             Log.d("RESULT", "true");
             m_textDegreeLabel.setVisibility(View.GONE);
@@ -325,7 +336,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
         }
 
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience + " years");
+        m_displayTotalWorkExperience.setText(workExperience);
         m_displayExpDate.setText(postExpDate);
         m_displayPermission.setText(permission);
         m_displayTypeOfEmployment.setText(typeOfEmployment);
