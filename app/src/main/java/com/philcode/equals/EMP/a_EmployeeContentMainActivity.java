@@ -89,10 +89,6 @@ public class a_EmployeeContentMainActivity extends AppCompatActivity  {
                                 Intent i = new Intent(a_EmployeeContentMainActivity.this, a_EmployeeContentMainActivity.class);
                                 startActivity(i);
                                 break;
-                            case R.id.nav_logo:
-                                Intent logo = new Intent(a_EmployeeContentMainActivity.this, EMP_ChangeLogo.class);
-                                startActivity(logo);
-                                break;
                             case R.id.nav_profile_emp:
                                 Intent i2 = new Intent(a_EmployeeContentMainActivity.this, EMP_EditProfile_Activity.class);
                                 startActivity(i2);

@@ -100,8 +100,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    -->
-
                     <TextView
                         android:id="@+id/displayCompanyName"
                         android:layout_width="match_parent"
@@ -173,6 +171,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view1"
                         />
+
                     <TextView
                         android:id="@+id/displayPostDescription"
                         android:layout_width="match_parent"
@@ -209,6 +208,52 @@
                         app:layout_constraintTop_toBottomOf="@+id/displayPostDescription" />
 
                     <TextView
+                        android:id="@+id/txtLb2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/postBackground"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Type Of Disability"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayTypeOfDisability1_card"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="45dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLb2"
+                        >
+                        <TextView
+                            android:id="@+id/displayTypeOfDisability1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/postBackground"
+                            android:fontFamily="@font/open_sans_regular"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="2dp"
+                            android:text="disability1"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
                         android:id="@+id/txtLbl2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -218,13 +263,13 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
-                        android:text="Skill Category"
+                        android:text="Degree"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLb9" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1_card" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/displayCategorySkill_card"
@@ -256,6 +301,52 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        android:id="@+id/txtLbl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/postBackground"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Educational Attainment"
+                        android:fontFamily="@font/proxima_nova_regular"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill_card" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/displayEducationalAttainment_card"
+                        android:layout_width="250dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtLbl"
+                        >
+                        <TextView
+                            android:id="@+id/displayEducationalAttainment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/postBackground"
+                            android:paddingLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="2dp"
+                            android:text="Educational Degree"
+                            android:fontFamily="@font/open_sans_regular"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
                         android:id="@+id/txtLbl1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -265,13 +356,13 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
-                        android:text="Secondary Skill(s) or Preferrably"
+                        android:text="Secondary Skill(s) or Preferably"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayCategorySkill_card" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayEducationalAttainment_card" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/displaySkill1_card"
@@ -304,50 +395,6 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/txtLb2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:fontFamily="@font/proxima_nova_regular"
-                        android:layout_marginTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:text="Type Of Disability"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1_card" />
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/displayTypeOfDisability1_card"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="45dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:elevation="5dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLb2"
-                        >
-                        <TextView
-                            android:id="@+id/displayTypeOfDisability1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:fontFamily="@font/open_sans_regular"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="2dp"
-                            android:text="disability1"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp"
-                            />
-                    </androidx.cardview.widget.CardView>
-                    <TextView
                         android:id="@+id/txt_typeOfEmployment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -364,7 +411,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayTypeOfDisability1_card" />
+                        app:layout_constraintTop_toBottomOf="@+id/displaySkill1_card" />
                     <androidx.cardview.widget.CardView
                         android:id="@+id/displayTypeOfEmployment_card"
                         android:layout_width="250dp"
@@ -437,51 +484,6 @@
                             android:textSize="14sp"
                             />
                     </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:id="@+id/txtLbl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/postBackground"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="2dp"
-                        android:layout_marginTop="15dp"
-                        android:text="Educational Attainment"
-                        android:fontFamily="@font/proxima_nova_regular"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayWorkSetUp_card" />
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/displayEducationalAttainment_card"
-                        android:layout_width="250dp"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="10dp"
-                        app:cardCornerRadius="10dp"
-                        android:elevation="5dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLbl"
-                        >
-                        <TextView
-                            android:id="@+id/displayEducationalAttainment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:paddingRight="10dp"
-                            android:paddingBottom="2dp"
-                            android:text="Educational Degree"
-                            android:fontFamily="@font/open_sans_regular"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp"
-                            />
-                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/txtLbz"
@@ -499,7 +501,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/displayEducationalAttainment_card" />
+                        app:layout_constraintTop_toBottomOf="@+id/displayWorkSetUp_card" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/displayTotalWorkExperience_card"

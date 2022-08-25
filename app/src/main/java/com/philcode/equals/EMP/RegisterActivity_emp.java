@@ -17,6 +17,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -75,10 +76,11 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
 
     private TextInputEditText editCompanyName, editCompanyBackground, editContact, editEmail, editPassword,
             editFirstName, editLastName, editCompanyAddress, confirmPassword, emp_editCompanyContact, emp_editCompanyBranch;
-    private TextInputLayout editEmailError, editPasswordError, confirmPasswordError, listOfCompanies;
+    private TextInputLayout editEmailError, editPasswordError, confirmPasswordError, editBranchError;
     private ImageView profilePicEMP, empValidID;
     private TextView emailAddressInUse;
-    String password, stringConfirmPassword, emailCheck;
+    private String password, stringConfirmPassword, emailCheck;
+    private boolean companyCheck;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
     //private Uri filePath2;
@@ -104,6 +106,7 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
         editEmailError = findViewById(R.id.textInputLayout3);
         editPasswordError = findViewById(R.id.textInputLayout4);
         confirmPasswordError = findViewById(R.id.textInputLayout5);
+        editBranchError = findViewById(R.id.pwd_enterCompanyBranch_layout);
         emp_editCompanyContact = findViewById(R.id.emp_editCompanyContact);
         emp_editCompanyBranch = findViewById(R.id.editCompanyBranch);
 
@@ -272,6 +275,17 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                         editCompanyBackground.setError(null);
                     }
                 }
+            }
+        });
+
+        emp_editCompanyBranch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+               if(!hasFocus){
+                   String empBranch = emp_editCompanyBranch.getText().toString();
+                   String empCompanyName = editCompanyName.getText().toString();
+                   isCompanyExists(empCompanyName, empBranch);
+               }
             }
         });
 
@@ -491,6 +505,8 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
                     return;
                 } else if(TextUtils.isEmpty(companyTelNum)){
                     Toast.makeText(RegisterActivity_emp.this, "Please enter your company's telephone number", Toast.LENGTH_LONG).show();
+                }else if(companyCheck){
+                    Toast.makeText(RegisterActivity_emp.this, "Account already exists for this company branch.", Toast.LENGTH_LONG).show();
                 }else{
                     //re-structured to create user first, get user ID use uID to name the image. ----------------------------------------------------------------------------------
                     final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -562,6 +578,37 @@ public class RegisterActivity_emp extends AppCompatActivity implements View.OnCl
             alertDialog.setTitle("Network Connection");
             alertDialog.show();
         }
+    }
+    private void isCompanyExists(String registerCompanyName, String registerBranch){
+        companyRoot = FirebaseDatabase.getInstance().getReference().child("Companies");
+        companyRoot.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    String branch = snapshot1.child("branch").getValue(String.class);
+                    String companyName = snapshot1.child("companyName").getValue(String.class);
+
+                    /*Log.d("BRANCHES", branch);
+                    Log.d("COMPANIES", companyName);*/
+                    Log.d("EMP_COMPANY_NAME", registerCompanyName);
+                    Log.d("EMP_BRANCH", registerBranch);
+                    boolean isCompanyExists = (branch.equals(registerBranch) && companyName.equals(registerCompanyName) ? true : false);
+                    if(isCompanyExists){
+                        emp_editCompanyBranch.setError("Account already exists");
+                        companyCheck = true;
+                       Log.d("RESULT", "true");
+                    }else{
+                        companyCheck = false;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);

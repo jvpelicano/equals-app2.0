@@ -240,7 +240,7 @@
                 android:text="Degree"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.134"
                 app:layout_constraintStart_toStartOf="parent"
@@ -252,7 +252,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:hint="Click to select profession"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.422"
                 app:layout_constraintStart_toStartOf="parent"
@@ -645,7 +645,7 @@
                 android:fontFamily="@font/open_sans_regular_italic"
                 android:text="Required"
                 app:layout_constraintStart_toEndOf="@+id/txt_typeOfEmployment"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup_workExp" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_minYearsOfExp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_typeOfEmployment"
