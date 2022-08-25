@@ -46,9 +46,11 @@ import com.philcode.equals.R;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class Emp_PostJob extends AppCompatActivity {
     //firebase connection
@@ -84,6 +86,7 @@ public class Emp_PostJob extends AppCompatActivity {
         private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter;
         private ArrayAdapter<String> exposedDropdownList_jobtitles_adapter;
         private ArrayAdapter<String> exposedDropdownList_typeOfEmployment_adapter;
+        ArrayList<String> qualificationList = new ArrayList<String>();
         //exposed dropdown list text input layout
         private TextInputLayout textInputLayout_degree, textInputLayout_jobTitle, textInputLayout_typeOfEmployment;
         //image view
@@ -127,6 +130,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +140,7 @@ public class Emp_PostJob extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        jobRequiredScore = 2;
+        jobRequiredScore = 0;
             //references
             categories_root = firebaseDatabase.getReference("Category"); //reference for spinners
             job_offers_root = firebaseDatabase.getReference("Job_Offers/"); //where data will be stored
@@ -582,6 +586,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                         radioButton_educAttainment = findViewById(selected_educAttainment_ID);
                                         hashMap_generalData.put("educationalAttainment", radioButton_educAttainment.getText().toString());
                                         jobRequiredScore++;
+                                        qualificationList.add("educationalAttainmentRequirement");
                                     }else{
                                         hashMap_generalData.put("educationalAttainmentRequirement", "false");
                                         hashMap_generalData.put("educationalAttainment", "Elementary Level");
@@ -591,6 +596,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                     if(checkbox_workExpRequired.isChecked()){
                                         hashMap_generalData.put("workExpRequired", "true");
                                         jobRequiredScore++;
+                                        qualificationList.add("workExpRequired");
                                     }
                                     else{
                                         hashMap_generalData.put("workExpRequired", "false");
@@ -616,6 +622,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     if(checkbox_workSetUpRequirement.isChecked()){
                                         hashMap_generalData.put("workSetUpRequired", "true");
+                                        qualificationList.add("workSetUpRequired");
                                         jobRequiredScore++;
                                     }else{
                                         hashMap_generalData.put("workSetUpRequired", "false");
@@ -624,6 +631,7 @@ public class Emp_PostJob extends AppCompatActivity {
 
                                     if(checkbox_typeOfEmploymentRequirement.isChecked()){
                                         hashMap_generalData.put("typeOfEmploymentRequired", "true");
+                                        qualificationList.add("typeOfEmploymentRequired");
                                         jobRequiredScore++;
                                     }else{
                                         hashMap_generalData.put("typeOfEmploymentRequired", "false");
@@ -640,9 +648,12 @@ public class Emp_PostJob extends AppCompatActivity {
                                     hashMap_generalData.put("permission", "Approved");
                                     hashMap_generalData.put("jobRequiredScore", String.valueOf(jobRequiredScore));
                                     hashMap_generalData.put("jobOptionalScore", String.valueOf(jobOptionalScore));
+//                                    hashMap_generalData.put("QualifiedCriteria", Arrays.toString(qualificationList.toArray()));
+
 
                                     job_offers_root.child(pushKey).setValue(hashMap_generalData);
-                                    Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(Emp_PostJob.this, "Uploaded Successfully!" + qualificationList.size(), Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(Emp_PostJob.this, a_EmployeeContentMainActivity.class));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
