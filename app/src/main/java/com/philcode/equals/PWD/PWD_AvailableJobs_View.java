@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,7 +44,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
     TextView m_displayCompanyName, m_displayPostDescription, m_displayPostLocation,
             m_displayCategorySkill, m_displayJobSkillsList, m_displayEducationalAttainment,
             m_displayTotalWorkExperience, m_displayTypeOfDisabilitiesList, m_displayTypeOfDisabilityOthers, m_displayExpDate, m_displayPermission,
-            m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp;
+            m_displayPostTitle, m_displayTypeOfEmployment, m_displayWorkSetUp, m_degreeLabel;
+    CardView m_degreeCardView;
     Button m_sendResume;
     ImageView m_displayPostPic, m_displayCompanyLogo;
     private String companyLogoURL, postJobID, postMatchStatus;
@@ -76,6 +78,8 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCompanyLogo = findViewById(R.id.displayCompanyLogo);
         m_displayTypeOfEmployment = findViewById(R.id.displayTypeOfEmployment);
         m_displayWorkSetUp = findViewById(R.id.displayWorkSetUp);
+        m_degreeCardView = findViewById(R.id.displayCategorySkill_card);
+        m_degreeLabel = findViewById(R.id.txtLbl2);
 
         postJobID = getIntent().getStringExtra("POST_ID");
         postMatchStatus = getIntent().getStringExtra("POST_MATCH_STATUS");
@@ -188,12 +192,18 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
-        m_displayCategorySkill.setText(skillCategory);
         m_displayEducationalAttainment.setText(educationalAttainment);
         m_displayTotalWorkExperience.setText(workExperience + " years");
         m_displayTypeOfEmployment.setText(typeOfEmployment);
         m_displayWorkSetUp.setText(workSetUp);
         m_displayExpDate.setText(expDate);
+
+        if(!skillCategory.equals("")){
+            m_displayCategorySkill.setText(skillCategory);
+        }else{
+            m_degreeLabel.setVisibility(View.GONE);
+            m_degreeCardView.setVisibility(View.GONE);
+        }
 
         StringBuilder jobSkillList_builder = new StringBuilder();
         for(String jobSkillList1 : jobSkillList){
