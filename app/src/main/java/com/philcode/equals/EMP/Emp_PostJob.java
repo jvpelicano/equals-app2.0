@@ -46,11 +46,9 @@ import com.philcode.equals.R;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class Emp_PostJob extends AppCompatActivity {
     //firebase connection
@@ -110,7 +108,7 @@ public class Emp_PostJob extends AppCompatActivity {
         //buttons
         private Button btn_saveJobPost, btn_chooseHeaderImage;
         //radio button
-        private RadioButton radioButton_lessThan1YearExp, radioButton_1YearExp, radioButton_moreThan1YearExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
+        private RadioButton radioButton_lessThan1YearExp, radioButton_1YearExp, radioButton_moreThan1YearExp, radioButton_withoutExp, radioButton_educAttainment, radioButton_workSetUp, radio_1, radio_2, radio_3, radio_4, radio_5, radio_6;
         //radio group
         private RadioGroup radioGroup_educ, radioGroup_workSetUp;
         //progress dialog
@@ -220,6 +218,7 @@ public class Emp_PostJob extends AppCompatActivity {
                 radioButton_lessThan1YearExp = findViewById(R.id.rbLessThan1YrExp);
                 radioButton_1YearExp = findViewById(R.id.rb1YrExp);
                 radioButton_moreThan1YearExp = findViewById(R.id.rbMoreThan1YrExp);
+                radioButton_withoutExp = findViewById(R.id.rbWithoutExp);
                 radioButton_workSetUp = findViewById(R.id.radioButton_onSiteWork);
                 radio_1 = findViewById(R.id.radio_1);
                 radio_2 = findViewById(R.id.radio_2);
@@ -361,6 +360,15 @@ public class Emp_PostJob extends AppCompatActivity {
                         txt_degree.setVisibility(View.VISIBLE);
                         textInputLayout_degree.setVisibility(View.VISIBLE);
                         setExposedDropdownListSkillCategory();
+                    }
+                }
+            });
+
+            radioButton_withoutExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b){
+                        lessThan1Year = "false";
                     }
                 }
             });
@@ -668,13 +676,13 @@ public class Emp_PostJob extends AppCompatActivity {
                                         hashMap_generalData.put("workExpRequired", "false");
                                         jobOptionalScore++;
                                     }
-                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_1YearExp.isChecked()
-                                            || radioButton_moreThan1YearExp.isChecked()){
+                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
                                         hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
-
-                                    }
-                                    else{
+                                    }else if(radioButton_1YearExp.isChecked()){
+                                        hashMap_generalData.put("workExperience", "With Experience");
+                                        hashMap_generalData.put("yearsOfExperience", "1");
+                                    }else if(radioButton_withoutExp.isChecked()){
                                         hashMap_generalData.put("yearsOfExperience", "0");
                                         hashMap_generalData.put("workExperience", "Without Experience");
 
