@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -627,16 +628,16 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }
 
                                     //for work experience
-                                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
+                                    /*if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
                                         hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
                                     }else if(radioButton_1YearExp.isChecked()){
                                         hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", "1");
-                                    }else{
+                                    }else if(radioButton_withoutExp.isChecked()){
                                         hashMap_generalData.put("yearsOfExperience", "0");
                                         hashMap_generalData.put("workExperience", "Without Experience");
-                                    }
+                                    }*/
 
                                     if(lessThan1Year.equals("true")){
                                         hashMap_generalData.put("lessThan1Year", "true");
@@ -676,6 +677,7 @@ public class Emp_PostJob extends AppCompatActivity {
                                         hashMap_generalData.put("workExpRequired", "false");
                                         jobOptionalScore++;
                                     }
+
                                     if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
                                         hashMap_generalData.put("workExperience", "With Experience");
                                         hashMap_generalData.put("yearsOfExperience", textInputEditText_yearsOfExperience.getText().toString());
@@ -685,7 +687,8 @@ public class Emp_PostJob extends AppCompatActivity {
                                     }else if(radioButton_withoutExp.isChecked()){
                                         hashMap_generalData.put("yearsOfExperience", "0");
                                         hashMap_generalData.put("workExperience", "Without Experience");
-
+                                    }else{
+                                        Log.d("RB_WORKEXP", "null");
                                     }
 
                                     if(radioButton_workSetUp.isChecked()){
