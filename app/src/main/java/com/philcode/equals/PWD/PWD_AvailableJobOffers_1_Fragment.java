@@ -337,40 +337,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                     }
 
 
-//                    if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
-//                        if(job_title.equalsIgnoreCase(pwd_jobTitle)){
-//                            pwdRequiredPoints++;
-//                            if(job_skillCategory.equalsIgnoreCase(pwd_category)){
-//                                pwdRequiredPoints++;
-//                                if(job_educationalAttainmentRequirement.equalsIgnoreCase("true")){
-//                                    if(job_educationalAttainment.equalsIgnoreCase(pwd_edAttainment)){
-//                                        pwdRequiredPoints++;
-//                                        if(job_typeOfEmploymentRequired.equalsIgnoreCase("true")){
-//                                            if(job_typeOfEmployment.equalsIgnoreCase(pwd_typeOfEmp)){
-//                                                pwdRequiredPoints++;
-//                                                if(job_workSetUpRequired.equalsIgnoreCase("true")){
-//                                                    if(job_workSetUp.equalsIgnoreCase(pwd_workSetUp)){
-//                                                        pwdRequiredPoints++;
-//
-//                                                        if (pwdRequiredPoints == job_requiredScore){
-//
-//                                                        }
-//                                                        PWD_AvailableJobOffers_1_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_1_Model.class);
-//                                                        jobs_list.add(model);
-//
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//
-//                        }
-//
-//
-//                        Toast.makeText(getContext(), "pwd+job"+ pwdRequiredPoints +" "+job_requiredScore, Toast.LENGTH_SHORT).show();
-//                    }
 
 //                    if(job_typeOfDisability1.equals(pwdDisability) || job_typeOfDisability2.equals(pwdDisability)
 //                            || job_typeOfDisability3.equals(pwdDisability) || job_typeOfDisability4.equals(pwdDisability)
@@ -545,29 +511,6 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
 //
 //                    }
 
-//                    if(job_typeOfDisability1.equals(pwdDisability) || job_typeOfDisability2.equals(pwdDisability)
-//                            || job_typeOfDisability3.equals(pwdDisability) || job_typeOfDisability4.equals(pwdDisability)
-//                            || job_typeOfDisabilityMore.equals(pwdDisability) ){
-//                        if((currDate.before(expDate) || currDate.equals(expDate)) && permission.equals("Approved")){
-//                            if(job_title.equalsIgnoreCase(pwd_jobTitle)){
-//                                if(job_skillCategory.equalsIgnoreCase(pwd_category)){
-//                                    if(job_educationalAttainmentRequirement.equalsIgnoreCase("true")){
-//                                        if(job_educationalAttainment.equalsIgnoreCase(pwd_edAttainment)){
-//
-//                                        }
-//
-//                                    }
-//
-//                                    if(job_workExpRequired.equalsIgnoreCase("true")){
-//                                        if(job_workExp.equalsIgnoreCase(pwd_workExp)){
-//                                        }
-//                                    }
-//
-//                                }
-//
-//                            }
-//                        }
-//                    }
 
 
 
