@@ -267,6 +267,49 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
             }
         });
 
+        //check box typeOfDisability Listeners
+        checkOrtho.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked && !checkHear.isChecked() && !checkSpeech.isChecked()) {
+                    job2.setText("Communication Skills");
+                } else if (isChecked && checkHear.isChecked() && checkSpeech.isChecked()) {
+                    job2.setText("Written/Non-Verbal Communication Skills");
+                }
+            }
+
+        });
+        checkVis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked && !checkHear.isChecked() && !checkSpeech.isChecked()) {
+                    job2.setText("Communication Skills");
+                }else if (isChecked && checkHear.isChecked() && checkSpeech.isChecked()) {
+                    job2.setText("Written/Non-Verbal Communication Skills");
+                }
+
+            }
+        });
+        checkHear.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked || checkSpeech.isChecked()){
+                    job2.setText("Written/Non-Verbal Communication Skills");
+                }else{
+                    job2.setText("Communication Skills");
+                }
+            }
+        });
+        checkSpeech.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked || checkHear.isChecked()){
+                    job2.setText("Written/Non-Verbal Communication Skills");
+                }else{
+                    job2.setText("Communication Skills");
+                }
+            }
+        });
         checkMore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
