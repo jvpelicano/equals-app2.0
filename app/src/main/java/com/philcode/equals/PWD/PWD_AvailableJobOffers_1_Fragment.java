@@ -330,7 +330,7 @@ public class PWD_AvailableJobOffers_1_Fragment extends Fragment {
                                 }
 
 
-                                Toast.makeText(getContext(), "pwd+job"+ jobRequired.get(2) +" "+jobQualification.get(2), Toast.LENGTH_SHORT).show();
+
 
                             }
 

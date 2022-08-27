@@ -273,6 +273,8 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                         }
                     }
 
+                    int match_secondary_skills_size = matched_secondary_skills.size();
+
                     ArrayList<String> jobRequired = new ArrayList<>();
                     jobRequired.add(job_educationalAttainmentRequirement);
                     jobRequired.add(job_workSetUpRequired);
@@ -333,21 +335,25 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
 
                             }
 
-                            if ((jobCri == 0) && (jobOptionCri == job_optionalScore)){
-                                if(job_title != pwd_jobTitle) {
-                                    if (job_skillCategory != pwd_category) {
-                                        if(matched_secondary_skills.size() == job_secondary_skills.size()){
+                            if (jobCri != job_requiredScore){
+                                if (jobCri == 0){
+                                    if (jobOptionCri == 0){
+                                        if(job_title != pwd_jobTitle) {
+                                            if (job_skillCategory != pwd_category) {
+                                                if(match_secondary_skills_size != job_secondary_skills_length){
+                                                    PWD_AvailableJobOffers_3_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_3_Model.class);
+                                                    jobs_list.add(model);
+                                                }
 
-                                            PWD_AvailableJobOffers_3_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_3_Model.class);
-                                            jobs_list.add(model);
+                                            }
+
                                         }
-
-
-
-                                        Toast.makeText(getContext(), "pwd+job" + jobRequired.get(2) + " " + jobQualification.get(2), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
+
+//                            if (job_skillCategory != pwd_category) {}
+
                         }
 
                     }
