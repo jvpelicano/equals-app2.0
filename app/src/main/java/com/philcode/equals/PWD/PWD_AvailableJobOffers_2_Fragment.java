@@ -306,7 +306,8 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                                     }
 
                                     pwdPoint++;
-                                }else{
+                                }else {
+
                                     jobReq++;
                                 }
 
@@ -326,17 +327,19 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
 
                             }
 
-                            if ((jobCri > 0 || jobCri < job_requiredScore) && (jobOptionCri == job_optionalScore)){
-//                                if(job_title.equalsIgnoreCase(pwd_jobTitle)){
+                            if (jobCri != job_requiredScore){
+                                if ((jobCri != 0 || jobCri < job_requiredScore) && (jobOptionCri == job_optionalScore)){
 //                                    if(job_skillCategory.equalsIgnoreCase(pwd_category)){
                                         PWD_AvailableJobOffers_2_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_2_Model.class);
                                         jobs_list.add(model);
 //                                    }
-//
+                                }
+//                                if(job_title.equalsIgnoreCase(pwd_jobTitle)){
+
+
 //                                }
 
 
-                                Toast.makeText(getContext(), "pwd+job"+ jobRequired.get(2) +" "+jobQualification.get(2), Toast.LENGTH_SHORT).show();
 
                             }
                         }
