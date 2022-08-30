@@ -158,33 +158,33 @@ public class PWD_BasicInfo_Fragment extends Fragment {
                     displayCategorySkill.setVisibility(View.GONE);
                 }
 
-                if(dataSnapshot.child("typeOfDisability0").exists()) {
+                if(dataSnapshot.child("typeOfDisability0").exists()) { //ortho
                     String typeOfDisability1 = dataSnapshot.child("typeOfDisability0").getValue().toString();
                     displayTypeOfDisability1.setText(typeOfDisability1);
                 }else{
                     displayTypeOfDisability1.setVisibility(View.GONE);
                 }
-                if(dataSnapshot.child("typeOfDisability1").exists()) {
+                if(dataSnapshot.child("typeOfDisability1").exists()) { //vision
                     String typeOfDisability2 = dataSnapshot.child("typeOfDisability1").getValue().toString();
                     displayTypeOfDisability2.setText(typeOfDisability2);
                 }else{
                     displayTypeOfDisability2.setVisibility(View.GONE);
                 }
-                if(dataSnapshot.child("typeOfDisability2").exists()) {
+                if(dataSnapshot.child("typeOfDisability2").exists()) { //hear
                     String typeOfDisability3 = dataSnapshot.child("typeOfDisability2").getValue().toString();
                     displayTypeOfDisability3.setText(typeOfDisability3);
                 }else{
                     displayTypeOfDisability3.setVisibility(View.GONE);
                 }
-                if(dataSnapshot.child("typeOfDisability3").exists()) {
+                if(dataSnapshot.child("typeOfDisability3").exists()) { //speech
                     String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability3").getValue().toString();
                     displayTypeOfDisability4.setText(typeOfDisabilityMore);
                 }else{
                     displayTypeOfDisability4.setVisibility(View.GONE);
                 }
                 if(dataSnapshot.child("typeOfDisability4").exists()) {
-                    String typeOfDisabilityMore = dataSnapshot.child("typeOfDisability4").getValue().toString();
-                    displayTypeOfDisabilityMore.setText(typeOfDisabilityMore);
+                    String typeOfDisability4 = dataSnapshot.child("typeOfDisability4").getValue().toString();
+                    displayTypeOfDisabilityMore.setText(typeOfDisability4);
                 }else{
                     displayTypeOfDisabilityMore.setVisibility(View.GONE);
                 }
@@ -228,30 +228,6 @@ public class PWD_BasicInfo_Fragment extends Fragment {
 
                 }
 
-                if(dataSnapshot.child("jobSkills6").exists()){
-                    displaySkill7.setText(dataSnapshot.child("jobSkills6").getValue().toString());
-                }else{
-                    displaySkill7.setVisibility(View.GONE);
-
-                }
-
-                if(dataSnapshot.child("jobSkills7").exists()){
-                    displaySkill8.setText(dataSnapshot.child("jobSkills7").getValue().toString());
-                }else{
-                    displaySkill8.setVisibility(View.GONE);
-                }
-
-                if(dataSnapshot.child("jobSkills8").exists()){
-                    displaySkill9.setText(dataSnapshot.child("jobSkills8").getValue().toString());
-                }else{
-                    displaySkill9.setVisibility(View.GONE);
-                }
-                if(dataSnapshot.child("jobSkills9").exists()){
-                    displaySkill10.setText(dataSnapshot.child("jobSkills9").getValue().toString());
-                }else{
-                    displaySkill10.setVisibility(View.GONE);
-
-                }
                 /////////////////////////////////// Secondary skills
                 //PWD Work Experience Fragment. Include Database Reference in the new Fragment to make this work.
                 displayEducationalAttainment.setText(educationalAttainment);

@@ -388,6 +388,16 @@ public class Emp_PostJob extends AppCompatActivity {
                 }
             });
 
+            radioButton_1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        textInputEditText_yearsOfExperience.setText("1");
+                    }
+                    lessThan1Year = "false";
+                }
+            });
+
             radioButton_moreThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

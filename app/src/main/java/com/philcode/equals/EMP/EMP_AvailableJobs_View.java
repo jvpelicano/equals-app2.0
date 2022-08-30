@@ -156,7 +156,7 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 ArrayList<String> jobSkillList = new ArrayList<>();
                 ArrayList<String> typeOfDisabilityList = new ArrayList<>();
                 for(int counter = 1; counter <= 10; counter++){
-                    if(snapshot.hasChild("jobSkill" + counter)){
+                    if(snapshot.hasChild("jobSkill" + counter) && snapshot.hasChild("jobSkill" + counter)){
                         if(snapshot.hasChild("jobSkill" + counter) && !snapshot.child("jobSkill" + counter).getValue().toString().equals("")){
                             jobSkillList.add(snapshot.child("jobSkill" + counter).getValue(String.class));
                         }
@@ -164,13 +164,13 @@ public class EMP_AvailableJobs_View extends AppCompatActivity {
                 }
 
                 for(int counter_a = 1; counter_a <= 4; counter_a++){
-                    if(snapshot.hasChild("typeOfDisability" + counter_a)){
+                    if(snapshot.hasChild("typeOfDisability" + counter_a) && snapshot.hasChild("typeOfDisability" + counter_a)){
                         if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
                             typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
                         }
                     }
                 }
-                if(!snapshot.child("typeOfDisabilityMore").getValue().toString().equals("")){
+                if(snapshot.hasChild("typeOfDisabilityMore") && !snapshot.child("typeOfDisabilityMore").getValue().toString().equals("")){
                     typeOfDisabilityList.add(snapshot.child("typeOfDisabilityMore").getValue().toString());
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience, postExpDate, permission

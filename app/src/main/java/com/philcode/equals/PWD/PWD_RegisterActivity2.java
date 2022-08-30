@@ -436,6 +436,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         CheckBox ortho = findViewById(R.id.checkOrtho);
         CheckBox visual = findViewById(R.id.checkVis);
         CheckBox hear = findViewById(R.id.checkHear);
+        CheckBox speech = findViewById(R.id.checkSpeech);
         CheckBox more = findViewById(R.id.checkMore);
 
         //primary_skillsCategory = findViewById(R.id.skillSpinner);
@@ -450,7 +451,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         jobskills.add(job4);
         jobskills.add(job5);
 
-        if(!ortho.isChecked() && !visual.isChecked() && !hear.isChecked() && !more.isChecked()){
+        if(!ortho.isChecked() && !visual.isChecked() && !hear.isChecked() && !more.isChecked() && !speech.isChecked()){
             textview7.setError("Please check your disability");
             textview7.requestFocus();
             Toast.makeText(PWD_RegisterActivity2.this, "Please check your disability", Toast.LENGTH_SHORT).show();

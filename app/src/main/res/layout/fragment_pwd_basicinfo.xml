@@ -549,85 +549,8 @@
                             android:paddingStart="10dp"
                             android:paddingTop="2dp"
                             android:paddingEnd="20dp"
-
                             android:paddingBottom="2dp"
                             android:text="Skill 5"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-
-
-                        <TextView
-                            android:id="@+id/displaySkill6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="20dp"
-
-                            android:paddingBottom="2dp"
-                            android:text="Skill 6"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-
-
-                        <TextView
-                            android:id="@+id/displaySkill7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="20dp"
-
-                            android:paddingBottom="2dp"
-                            android:text="Skill 7"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/displaySkill8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="20dp"
-
-                            android:paddingBottom="2dp"
-                            android:text="Skill 8"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/displaySkill9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="20dp"
-                            android:paddingBottom="2dp"
-                            android:text="Skill 9"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/textColor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/displaySkill10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/postBackground"
-                            android:paddingStart="10dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="20dp"
-
-                            android:paddingBottom="2dp"
-                            android:text="Skill 10"
                             android:textAlignment="textStart"
                             android:textColor="@color/textColor"
                             android:textSize="14sp" />
