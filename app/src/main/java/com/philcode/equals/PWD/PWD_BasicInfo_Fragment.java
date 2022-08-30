@@ -98,11 +98,6 @@ public class PWD_BasicInfo_Fragment extends Fragment {
         displaySkill3 = view.findViewById(R.id.displaySkill3);
         displaySkill4 = view.findViewById(R.id.displaySkill4);
         displaySkill5 = view.findViewById(R.id.displaySkill5);
-        displaySkill6 = view.findViewById(R.id.displaySkill6);
-        displaySkill7 = view.findViewById(R.id.displaySkill7);
-        displaySkill8 = view.findViewById(R.id.displaySkill8);
-        displaySkill9 = view.findViewById(R.id.displaySkill9);
-        displaySkill10 = view.findViewById(R.id.displaySkill10);
 
         displayName = view.findViewById(R.id.displayName);
         displayEmail = view.findViewById(R.id.displayEmail);
