@@ -321,16 +321,18 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
 
                             }
 
-                            while (optionPnt != job_optionalScore){
-                                if (jobRequired.get(jobReq).equalsIgnoreCase("false")){
+                            int jobReq1=0;
 
-                                    if (jobQualification.get(jobReq).equalsIgnoreCase(pwdQualification.get(jobReq))){
+                            while (optionPnt != job_optionalScore){
+                                if (jobRequired.get(jobReq1).equalsIgnoreCase("false")){
+
+                                    if (jobQualification.get(jobReq1).equalsIgnoreCase(pwdQualification.get(jobReq1))){
                                         jobOptionCri++;
                                     }
 
                                     optionPnt++;
                                 }else{
-                                    jobReq++;
+                                    jobReq1++;
                                 }
 
                             }
@@ -338,8 +340,8 @@ public class PWD_AvailableJobOffers_3_Fragment extends Fragment {
                             if (jobCri != job_requiredScore){
                                 if (jobCri == 0){
                                     if (jobOptionCri == 0){
-                                        if(job_title != pwd_jobTitle) {
-                                            if (job_skillCategory != pwd_category) {
+                                        if(!job_title.equalsIgnoreCase(pwd_jobTitle)) {
+                                            if (!job_skillCategory.equalsIgnoreCase(pwd_category)) {
                                                 if(match_secondary_skills_size != job_secondary_skills_length){
                                                     PWD_AvailableJobOffers_3_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_3_Model.class);
                                                     jobs_list.add(model);

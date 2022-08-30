@@ -288,6 +288,7 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
                     Date expDate = convertDate(job_expDate);
                     Date currDate = convertDate(getCurrentDate());
 
+
                     if(job_typeOfDisability1.equals(pwdDisability) || job_typeOfDisability2.equals(pwdDisability)
                             || job_typeOfDisability3.equals(pwdDisability) || job_typeOfDisability4.equals(pwdDisability)
                             || job_typeOfDisabilityMore.equals(pwdDisability) ){
@@ -313,36 +314,47 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
 
                             }
 
-                            while (optionPnt != job_optionalScore){
-                                if (jobRequired.get(jobReq).equalsIgnoreCase("false")){
+                            int jobReq1=0;
 
-                                    if (jobQualification.get(jobReq).equalsIgnoreCase(pwdQualification.get(jobReq))){
-                                        jobOptionCri++;
+                            if (job_optionalScore != 0){
+                                while (optionPnt != job_optionalScore){
+                                    if (jobRequired.get(jobReq1).equalsIgnoreCase("false")){
+
+                                        if (jobQualification.get(jobReq1).equalsIgnoreCase(pwdQualification.get(jobReq1))){
+                                            jobOptionCri++;
+                                        }
+
+                                        optionPnt++;
+                                    }else{
+                                        jobReq1++;
                                     }
 
-                                    optionPnt++;
-                                }else{
-                                    jobReq++;
                                 }
 
                             }
 
-                            if (jobCri != job_requiredScore){
-                                if ((jobCri != 0 || jobCri < job_requiredScore) && (jobOptionCri == job_optionalScore)){
-//                                    if(job_skillCategory.equalsIgnoreCase(pwd_category)){
-                                        PWD_AvailableJobOffers_2_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_2_Model.class);
-                                        jobs_list.add(model);
+//                            if (jobCri != job_requiredScore){
+//                                if (jobOptionCri !=0 && jobCri != 0 ){
+//                                    if ((jobCri <= job_requiredScore) && (jobOptionCri <= job_optionalScore)){
+////                                    if(job_skillCategory.equalsIgnoreCase(pwd_category)){
+
+                            if (jobCri > 0 ){
+                                if(!job_title.equalsIgnoreCase(pwd_jobTitle)) {
+                                    PWD_AvailableJobOffers_2_Model model = job_snapshot.getValue(PWD_AvailableJobOffers_2_Model.class);
+                                    jobs_list.add(model);
+                                }
+
+                            }
+
 //                                    }
-                                }
-//                                if(job_title.equalsIgnoreCase(pwd_jobTitle)){
-
-
+//                                    }
+//
 //                                }
-
-
-
-                            }
+//
+//
+//
                         }
+
 
                     }
 
