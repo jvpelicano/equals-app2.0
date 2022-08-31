@@ -216,12 +216,12 @@ public class PWD_BasicInfo_Fragment extends Fragment {
 
                 }
 
-//                if(dataSnapshot.child("jobSkills5").exists()){
-//                    displaySkill6.setText(dataSnapshot.child("jobSkills5").getValue().toString());
-//                }else{
-//                    displaySkill6.setVisibility(View.GONE);
-//
-//                }
+                if(dataSnapshot.child("jobSkills5").exists()){
+                    displaySkill6.setText(dataSnapshot.child("jobSkills5").getValue().toString());
+                }else{
+                    displaySkill6.setVisibility(View.GONE);
+
+                }
 
                 /////////////////////////////////// Secondary skills
                 //PWD Work Experience Fragment. Include Database Reference in the new Fragment to make this work.

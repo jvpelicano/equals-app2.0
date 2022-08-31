@@ -76,7 +76,7 @@ public class PWD_AddWorkExperience extends AppCompatActivity {
                 final List<String> category = new ArrayList<String>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Map<String, Object> data = (Map<String, Object>) snapshot.getValue();
-                    category.add(data.get("skill").toString());
+                    category.add(data.get("jobtitle").toString());
                 }
                 ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(PWD_AddWorkExperience.this, android.R.layout.simple_spinner_item, category) {
                     @Override
