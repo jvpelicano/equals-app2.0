@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +51,7 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     StorageReference storageReference;
     DatabaseReference mDatabase, categories_root;
     private String work_UUID;
+    private String lessThan1Year;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -98,10 +100,11 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
     private CheckBox checkOrtho, checkHear, checkVis, checkMore, checkSpeech;
     private CheckBox job1, job2, job3, job4, job5;
     private RadioButton radio_1, radio_2, radio_3, radio_4, radio_5, radio_6, radioButton_workSetUp;
+    private RadioButton radioButton_lessThan1YearExp, radioButton_1YearExp, radioButton_moreThan1YearExp, radioButton_withoutExp;
     int PICK_IMAGE_REQUEST = 7;
     private Uri filePath;
-    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle, textInputLayout_degree, textInputLayout_typeOfEmployment;
-    private TextInputEditText textInputEditText_otherDisabilitySpecific;
+    private TextInputLayout textInputLayout_otherDisabilitySpecific, textInputLayout_jobTitle, textInputLayout_degree, textInputLayout_typeOfEmployment, textInputLayout_yearsOfExperience;
+    private TextInputEditText textInputEditText_otherDisabilitySpecific, textInputEditText_yearsOfExperience;
     //skill category
     private ArrayAdapter<String> exposedDropdownList_skillCategory_adapter, exposedDropdownList_jobtitle_adapter, exposedDropdownList_typeOfEmployment_adapter;
     private ArrayList <String> arrayList_skillCategory, arrayList_jobtitle, arrayList_typeOfEmployment;;
@@ -132,9 +135,17 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         textInputEditText_otherDisabilitySpecific = findViewById(R.id.textInputEditText_otherDisabilitySpecific);
         textInputLayout_otherDisabilitySpecific = findViewById(R.id.textInputLayout_otherDisabilitySpecific);
         textInputLayout_jobTitle = findViewById(R.id.textInputLayout_jobTitle);
+        textInputLayout_yearsOfExperience = findViewById(R.id.textInputLayout_yearsOfExperience);
 
         textInputLayout_degree = findViewById(R.id.textInputLayout_degree);
         txt_degree = findViewById(R.id.textView8);
+
+        textInputEditText_yearsOfExperience = findViewById(R.id.textInputEditText_yearsOfExperience);
+
+        radioButton_lessThan1YearExp = findViewById(R.id.rbLessThan1YrExp);
+        radioButton_1YearExp = findViewById(R.id.rb1YrExp);
+        radioButton_moreThan1YearExp = findViewById(R.id.rbMoreThan1YrExp);
+        radioButton_withoutExp = findViewById(R.id.rbWithoutExp);
 
         radio_1 = findViewById(R.id.radio_1);
         radio_2 = findViewById(R.id.radio_2);
@@ -167,20 +178,6 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
         rgEducAttainment = findViewById(R.id.rg_educ);
         rgWorkExperience = findViewById(R.id.workexperience);
         rgWorkExperience = findViewById(R.id.workexperience);
-        final int selectExperience = rgWorkExperience.getCheckedRadioButtonId();
-        rbWorkExperience = findViewById(selectExperience);
-        rgWorkExperience.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (rbWithExperience.isChecked()) {
-                    workExperience="With Experience";
-                }
-                if (rbWithoutExperience.isChecked()) {
-                    workExperience="Without Experience";
-                }
-            }
-        });
 
         checkOrtho = findViewById(R.id.checkOrtho);
         checkVis = findViewById(R.id.checkVis);
@@ -258,6 +255,51 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                 }
             }
         });
+
+        radioButton_withoutExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    lessThan1Year = "false";
+                }
+            }
+        });
+
+        radioButton_lessThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+                    lessThan1Year = "true";
+                }else{
+                    textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                    lessThan1Year = "false";
+                }
+            }
+        });
+
+        radioButton_1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    textInputEditText_yearsOfExperience.setText("1");
+                }
+                lessThan1Year = "false";
+            }
+        });
+
+        radioButton_moreThan1YearExp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    textInputLayout_yearsOfExperience.setVisibility(View.VISIBLE);
+                }else{
+                    textInputLayout_yearsOfExperience.setVisibility(View.GONE);
+                }
+                lessThan1Year = "false";
+            }
+        });
+
 
         autoComplete_jobTitle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -493,11 +535,21 @@ public class PWD_RegisterActivity2 extends AppCompatActivity{
                             mDatabase.child("typeOfDisability" + i).setValue(disabilities.get(i));
                         }
                     }
-                    if (workExperience.equals("")) {
+
+                    if(radioButton_lessThan1YearExp.isChecked() || radioButton_moreThan1YearExp.isChecked()){
+                        mDatabase.child("workExperience").setValue("With Experience");
+                        mDatabase.child("yearsOfExperience").setValue(textInputEditText_yearsOfExperience.getText().toString());
+                    }else if(radioButton_1YearExp.isChecked()){
+                        mDatabase.child("workExperience").setValue("With Experience");
+                        mDatabase.child("yearsOfExperience").setValue("1");
+                    }else if(radioButton_withoutExp.isChecked()){
                         mDatabase.child("workExperience").setValue("Without Experience");
-                    } else {
-                        mDatabase.child("workExperience").setValue(workExperience);
+                        mDatabase.child("yearsOfExperience").setValue("0");
+                    }else{
+                        Log.d("RB_WORKEXP", "null");
                     }
+
+
                     if(radioButton_workSetUp.isChecked()){
                         mDatabase.child("workSetUp").setValue(radioButton_workSetUp.getText().toString());
                     }else{
