@@ -99,6 +99,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                 final String expDate = snapshot.child("expDate").getValue().toString();
                 final String imageURL = snapshot.child("imageURL").getValue().toString();
                 final String typeOfEmployment = snapshot.child("typeOfEmployment").getValue().toString();
+                final String lessThan1Year = snapshot.child("lessThan1Year").getValue().toString();
 
                 final  String workSetUp = snapshot.child("workSetUp").getValue().toString();
                 if(snapshot.hasChild("empProfilePic")){
@@ -114,7 +115,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     }
                 }
 
-                for(int counter_a = 1; counter_a <= 3; counter_a++){
+                for(int counter_a = 1; counter_a <= 4; counter_a++){
                     if(snapshot.hasChild("typeOfDisability" + counter_a) && !snapshot.child("typeOfDisability" + counter_a).getValue().toString().equals("")){
                         typeOfDisabilityList.add(snapshot.child("typeOfDisability" + counter_a).getValue(String.class));
                     }
@@ -126,7 +127,7 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
                     String typeOfDisabilityMore = "";
                 }
                 setUserInfo(jobSkillList, typeOfDisabilityList, postTitle, companyName, postDescription, postLoc, skillCategory, educationalAttainment, workExperience,
-                        expDate, imageURL, companyLogoURL, typeOfEmployment, workSetUp);
+                        expDate, imageURL, companyLogoURL, typeOfEmployment, workSetUp, lessThan1Year);
             }
 
             @Override
@@ -187,16 +188,22 @@ public class PWD_AvailableJobs_View extends AppCompatActivity {
 
     public void setUserInfo(ArrayList<String> jobSkillList, ArrayList<String> typeOfDisabilityList, String postTitle, String companyName,
                             String postDescription, String postLoc, String skillCategory, String educationalAttainment, String workExperience, String expDate,
-                            String imageURL, String companyLogoURL, String typeOfEmployment, String workSetUp){
+                            String imageURL, String companyLogoURL, String typeOfEmployment, String workSetUp, String lessThan1Year){
         m_displayPostTitle.setText(postTitle);
         m_displayCompanyName.setText(companyName);
         m_displayPostDescription.setText(postDescription);
         m_displayPostLocation.setText(postLoc);
         m_displayEducationalAttainment.setText(educationalAttainment);
-        m_displayTotalWorkExperience.setText(workExperience + " years");
+        m_displayTotalWorkExperience.setText(workExperience);
         m_displayTypeOfEmployment.setText(typeOfEmployment);
         m_displayWorkSetUp.setText(workSetUp);
         m_displayExpDate.setText(expDate);
+
+        if(lessThan1Year.equals("true")){
+            m_degreeLabel.setText("Months of Experience");
+        }else{
+            m_degreeLabel.setText("Years of Experience");
+        }
 
         if(!skillCategory.equals("")){
             m_displayCategorySkill.setText(skillCategory);
