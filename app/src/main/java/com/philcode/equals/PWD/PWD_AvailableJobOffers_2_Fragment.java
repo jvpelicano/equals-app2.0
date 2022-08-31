@@ -346,13 +346,6 @@ public class PWD_AvailableJobOffers_2_Fragment extends Fragment {
 
                             }
 
-//                                    }
-//                                    }
-//
-//                                }
-//
-//
-//
                         }
 
 
